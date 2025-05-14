@@ -36,6 +36,10 @@ const WhoWeAre = () => {
           <Microscope size={48} className="text-teal-400" />
         </Circle>
       </div>
+      <p className="mt-4 text-xl mx-4 md:mx-84 text-center font-bold">
+        Empowering spatial understanding through cutting-edge GIScience
+        research.
+      </p>
     </div>
   );
 };

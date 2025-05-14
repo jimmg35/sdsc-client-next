@@ -42,8 +42,7 @@ function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 
-        flex items-center
+      className={`fixed top-0 w-full z-50 transition-all duration-300 flex items-center
         ${
           isScrolled
             ? "bg-white text-black h-[80px] shadow-md"
@@ -83,6 +82,8 @@ function Navbar() {
           </button>
         </div>
       </div>
+
+      {/* <div className="container flex items-center justify-between px-4 py-2 bg-teal-400"></div> */}
 
       {/* Mobile Dropdown Menu */}
       {isOpen && (
