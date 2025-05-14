@@ -3,7 +3,7 @@ import { Telescope } from "lucide-react";
 
 const Welcome = () => {
   return (
-    <div className="relative w-full h-screen overflow-hidden p-4">
+    <div className="relative w-full h-screen overflow-hidden p-4 md:p-0">
       {/* bg video */}
       <video
         autoPlay
@@ -21,12 +21,14 @@ const Welcome = () => {
 
       {/* welcome text */}
       <div className="flex flex-col items-center justify-center h-full relative z-10 text-white">
-        <div className="bg-teal-500 p-4 rounded-lg flex flex-col gap-4">
-          <h1 className="text-3xl font-bold">
+        <div className="bg-teal-500/90 p-4 rounded-lg flex flex-col gap-4">
+          <h1 className="text-3xl md:text-5xl font-bold">
             Welcome to Spatial Data Science Center!
           </h1>
           <div className="flex">
-            <p className="text-xl">Your journey into GIScience begins here.</p>
+            <p className="text-xl md:text-3xl">
+              Your journey into GIScience begins here.
+            </p>
 
             <Link
               href={"/about"}
