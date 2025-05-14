@@ -1,4 +1,14 @@
 @import "tailwindcss";
 
-body {
+/* customized bg image */
+@theme {
+  --background-image: url("/img/welcome.jpg");
+}
+
+.bg-welcome {
+  background-image: var(--background-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
 }
