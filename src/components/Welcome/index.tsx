@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Telescope } from "lucide-react";
+import { Telescope, ArrowDown } from "lucide-react";
 
 const Welcome = () => {
   return (
@@ -17,7 +17,12 @@ const Welcome = () => {
       </video>
 
       {/* gray filter for vid */}
-      <div className="absolute top-0 left-0 w-full h-full bg-gray-800 opacity-50 -z-5"></div>
+      <div className="absolute top-0 left-0 w-full h-full bg-gray-800 opacity-50 -z-5 flex items-end justify-center">
+        <div className="relative mb-8 flex items-center gap-4 animate-bounce">
+          <ArrowDown size={48} className="text-white" />
+          <p className="text-white text-3xl">Scroll Down</p>
+        </div>
+      </div>
 
       {/* welcome text */}
       <div className="flex flex-col items-center justify-center h-full relative z-10 text-white">
