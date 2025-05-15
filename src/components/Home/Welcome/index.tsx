@@ -1,23 +1,15 @@
 import Link from "next/link";
 import { Telescope, ArrowDown } from "lucide-react";
+import SlideShow from "./SlideShow";
 
 const Welcome = () => {
   return (
     <div className="relative w-full h-screen overflow-hidden p-4 md:p-0">
-      {/* bg video */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover -z-10 backdrop-blur-sm"
-      >
-        <source src="/vid/welcome.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      {/* Slideshow */}
+      <SlideShow />
 
-      {/* gray filter for vid */}
-      <div className="absolute top-0 left-0 w-full h-full bg-gray-800 opacity-50 -z-5 flex items-end justify-center">
+      {/* Gray filter & scroll down hint */}
+      <div className="absolute top-0 left-0 w-full h-full bg-teal-900 opacity-50 -z-5 flex items-end justify-center">
         <div className="relative mb-8 flex items-center gap-4 animate-bounce">
           <ArrowDown size={48} className="text-white" />
           <p className="text-white text-3xl">Scroll Down</p>
@@ -26,7 +18,7 @@ const Welcome = () => {
 
       {/* welcome text */}
       <div className="flex flex-col items-center justify-center h-full relative z-10 text-white">
-        <div className="bg-teal-500/90 p-4 rounded-lg flex flex-col gap-4">
+        <div className="bg-teal-500/80 p-4 rounded-lg flex flex-col gap-4">
           <h1 className="text-3xl md:text-5xl font-bold">
             Welcome to Spatial Data Science Center!
           </h1>
