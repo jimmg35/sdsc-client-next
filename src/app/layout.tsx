@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Noto_Sans_TC } from "next/font/google";
 import "./globals.css";
 
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/Layout/NavBar";
+import Footer from "@/components/Layout/Footer";
 
 const noto = Noto_Sans_TC({
   weight: "500",
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className={`${noto.className} antialiased`}>
         <NavBar />
         {children}
+        <Footer />
       </body>
     </html>
   );
