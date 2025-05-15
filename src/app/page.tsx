@@ -1,4 +1,3 @@
-import Events from "@/components/Home/Events";
 import News from "@/components/Home/News";
 import Welcome from "@/components/Home/Welcome";
 import WhoWeAre from "@/components/Home/WhoWeAre";
