@@ -4,14 +4,17 @@ import NewsPost from "@/components/Utility/NewsPost";
 
 const demoNewsData = [
   {
+    id: 1,
     title: "New Research Paper Published",
     date: "2023-10-01",
   },
   {
+    id: 2,
     title: "Upcoming Workshop",
     date: "2023-11-15",
   },
   {
+    id: 3,
     title: "Conference Announcement",
     date: "2023-12-20",
   },
