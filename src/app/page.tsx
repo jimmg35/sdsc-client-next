@@ -1,10 +1,15 @@
-import Image from "next/image";
+import Events from "@/components/Home/Events";
+import News from "@/components/Home/News";
+import Welcome from "@/components/Home/Welcome";
+import WhoWeAre from "@/components/Home/WhoWeAre";
 
 export default function Home() {
   return (
-    <div className="">
-
-      中华民国 中華民國
+    <div className="h-fit">
+      <Welcome />
+      <WhoWeAre />
+      <News />
+      {/* <Events /> */}
     </div>
   );
 }

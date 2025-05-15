@@ -1,21 +1,14 @@
 import type { Metadata } from "next";
-import { Noto_Sans_TC, Oranienbaum } from "next/font/google";
+import { Noto_Sans_TC } from "next/font/google";
 import "./globals.css";
 
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-const oranienbaum = Oranienbaum({
-  weight: ["400"],
-  subsets: ["latin"],
-});
+import NavBar from "@/components/Layout/NavBar";
+import Footer from "@/components/Layout/Footer";
 
 const noto = Noto_Sans_TC({
-  weight: '500',
-  subsets: ['latin']
-})
-
+  weight: "500",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "SDSC | Spatial Data Science Center",
@@ -29,10 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${noto.className} antialiased`}
-      >
+      <body className={`${noto.className} antialiased`}>
+        <NavBar />
         {children}
+        <Footer />
       </body>
     </html>
   );
