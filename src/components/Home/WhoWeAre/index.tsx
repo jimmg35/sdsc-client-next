@@ -19,7 +19,7 @@ const Circle = ({
 const WhoWeAre = () => {
   return (
     <div className="relative w-full h-fit overflow-hidden px-4 py-12 flex flex-col items-center">
-      <h1 className="text-4xl md:text-7xl font-bold">Who We Are</h1>
+      <h1 className="text-4xl md:text-6xl font-bold">Who We Are</h1>
       <p className="mt-4 text-xl mx-4 md:mx-84 text-center">
         The SDSC serves as a platform where anyone with spatial analysis needs
         can turn to us for support. We also provide a range of open-source

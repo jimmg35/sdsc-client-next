@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { Telescope, ArrowDown } from "lucide-react";
 import SlideShow from "./SlideShow";
+import Button from "@/components/Utility/Button";
 
 const Welcome = () => {
   return (
@@ -25,13 +25,13 @@ const Welcome = () => {
           <p className="text-lg md:text-3xl text-center">
             Your journey into GIScience begins here.
           </p>
-          <Link
-            href={"/about"}
-            className={`hover:bg-white hover:text-teal-400 transition ml-4 pt-2 pb-2 flex items-center gap-1 border-2 border-white pr-2 rounded-md`}
-          >
-            <Telescope size={24} className="ml-2" />
-            Explore SDSC
-          </Link>
+
+          <Button
+            href="/about"
+            icon={<Telescope size={24} className="ml-2" />}
+            text="Explore SDSC"
+            variant="outlined"
+          />
         </div>
       </div>
     </div>

@@ -8,12 +8,8 @@ export default function Home() {
     <div className="h-fit">
       <Welcome />
       <WhoWeAre />
-      <div className="px-4 py-12">
-        <div className="flex justify-around">
-          <News />
-          <Events />
-        </div>
-      </div>
+      <News />
+      {/* <Events /> */}
     </div>
   );
 }

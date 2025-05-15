@@ -3,10 +3,10 @@
 import { useState, useEffect } from "react";
 
 const images = [
-  "/img/banner-1.jpg",
-  "/img/banner-2.jpg",
-  "/img/banner-3.jpg",
-  "/img/banner-4.jpg",
+  "/img/welcome-banner/banner-1.jpg",
+  "/img/welcome-banner/banner-2.jpg",
+  "/img/welcome-banner/banner-3.jpg",
+  "/img/welcome-banner/banner-4.jpg",
 ];
 
 const SlideShow = () => {
