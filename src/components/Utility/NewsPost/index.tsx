@@ -19,7 +19,14 @@ const NewsPost = ({ data }: { data: NewsData }) => {
       {/* 內容區塊 */}
       <div className="p-4 h-1/2 flex flex-col justify-between">
         <div>
-          <h1 className="text-xl font-semibold mb-2">{data.title}</h1>
+          {/* <h1 className="text-xl font-semibold mb-2">{data.title}</h1> */}
+
+          <Link href={`/news/${data.slug}`}>
+            <h1 className="text-xl font-semibold mb-2 hover:text-teal-500">
+              {data.title}
+            </h1>
+          </Link>
+
           <p className="text-gray-500 text-sm mb-1">
             {data.date.toDateString()}
           </p>

@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@plugin '@tailwindcss/typography';
 /* customized bg image */
 @theme {
   --background-image: url("/img/welcome.jpg");

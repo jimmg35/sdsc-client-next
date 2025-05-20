@@ -23,7 +23,14 @@ const NavDirection = [
   { name: "Contact", href: "/contact", icon: <PhoneCall size={18} /> },
 ];
 
-function Navbar() {
+const scrolledStyle = "bg-white text-black h-[80px] shadow-md";
+const notScrolledStyle = "bg-transparent text-white h-[110px]";
+
+const Navbar = ({
+  isForcedScrolled = false,
+}: {
+  isForcedScrolled?: boolean;
+}) => {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -44,9 +51,11 @@ function Navbar() {
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 flex items-center
         ${
-          isScrolled
-            ? "bg-white text-black h-[80px] shadow-md"
-            : "bg-transparent text-white h-[110px]"
+          isForcedScrolled
+            ? scrolledStyle
+            : isScrolled
+            ? scrolledStyle
+            : notScrolledStyle
         }
       `}
     >
@@ -115,6 +124,6 @@ function Navbar() {
       )}
     </nav>
   );
-}
+};
 
 export default Navbar;

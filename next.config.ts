@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   output: "standalone",
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   reactStrictMode: true,
+  transpilePackages: ["next-mdx-remote"],
 };
 
 export default withMDX({
