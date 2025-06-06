@@ -23,7 +23,7 @@ export default function PostLayout({
   return (
     <html lang="en">
       <body className={`${noto.className} antialiased`}>
-        <NavBar isForcedScrolled={true} />
+        <NavBar isForcedScrolled={false} />
         {children}
         <Footer />
       </body>

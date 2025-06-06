@@ -1,12 +1,9 @@
-import Image from "next/image";
 import { notFound } from "next/navigation";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import { serialize } from "next-mdx-remote/serialize";
 import { getNewsBySlug } from "@/lib/news";
 import { remark } from "remark";
+import { ChevronLeft } from "lucide-react";
 import remarkHTML from "remark-html";
 import Link from "next/link";
-import { SquareArrowLeft, ChevronLeft } from "lucide-react";
 
 interface Props {
   params: {
