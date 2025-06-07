@@ -1,0 +1,93 @@
+{
+  "id": "stewart-fotheringham",
+  "name": "Stewart Fotheringham",
+  "title": "Krafft Professor of Spatial Data Science, Director of the Spatial Data Science Center",
+  "department": "Department of Geography",
+  "email": "stewart.fotheringham@fsu.edu",
+  "thumbnail": "/img/avatar/stewart-fotheringham.jpg",
+  "googleScholar": "https://scholar.google.com/citations?user=AIcXcUIAAAAJ&hl=en",
+  "education": [
+    {
+      "degree": "Ph.D.",
+      "field": "Geography",
+      "institution": "McMaster University, Canada",
+      "year": 1980
+    },
+    {
+      "degree": "M.A.",
+      "field": "Geography",
+      "institution": "McMaster University, Canada",
+      "year": 1978
+    },
+    {
+      "degree": "B.Sc. (Honours)",
+      "field": "Geography",
+      "institution": "Aberdeen University, Scotland",
+      "year": 1976
+    }
+  ],
+  "honor": [
+    {
+      "title": "Elected member of the U.S. National Academy of Sciences",
+      "year": 2013
+    },
+    {
+      "title": "Elected Member of Academia Europaea",
+      "year": 2016
+    },
+    {
+      "title": "Elected Academician of the Academy of Social Sciences, UK",
+      "year": 2013
+    },
+    {
+      "title": "Appointed as Regents’ Professor (the highest award at ASU restricted to 3% of Full Professors) at universities in Arizona",
+      "year": 2019
+    },
+    {
+      "title": "American Association of Geographers Distinguished Scholarship Honors Award",
+      "year": 2019
+    }
+  ],
+  "selectedPublications": [
+    {
+      "id": "mgwr-theory-and-practice",
+      "author": "Fotheringham, A. S., Oshan, T. M., & Li, Z. (2023).",
+      "title": "Multiscale geographically weighted regression: Theory and practice.",
+      "journal": "CRC Press.",
+      "catalog": "194",
+      "doi": "https://doi.org/10.1201/9781003435464"
+    },
+    {
+      "id": "gwographycally-weighted-regression",
+      "author": "Fotheringham, A.S., Brunsdon, C.. & Charlton, M.E. (2002)",
+      "title": "Geographically weighted regression.",
+      "journal": "The Sage handbook of spatial analysis",
+      "catalog": "1, 243-254.",
+      "doi": "http://digital.casalini.it/9781446206508"
+    },
+    {
+      "id": "measuring-the-unmeasurable",
+      "author": "Fotheringham, A. S., & Li, Z. (2023)",
+      "title": "Measuring the unmeasurable: Models of geographical context",
+      "journal": "Annals of the American Association of Geographers",
+      "catalog": "113(10), 2269-2286",
+      "doi": "https://doi.org/10.1080/24694452.2023.2227690"
+    },
+    {
+      "id": "multiscale-geographically-weighted-regression",
+      "author": "Fotheringham, A. S., Yang, W., & Kang, W. (2017)",
+      "title": "Multiscale geographically weighted regression (MGWR).",
+      "journal": "Annals of the American Association of Geographers",
+      "catalog": "107(6), 1247-1265.",
+      "doi": "https://doi.org/10.1080/24694452.2017.1352480"
+    },
+    {
+      "id": "a-new-set-of-spatial-interaction-models",
+      "author": "Fotheringham, A. S. (1983)",
+      "title": "A new set of spatial-interaction models: the theory of competing destinations.",
+      "journal": "Environment and Planning A: Economy and Space",
+      "catalog": "15(1), 15-36.",
+      "doi": "https://doi.org/10.1177/0308518X8301500103"
+    }
+  ]
+}

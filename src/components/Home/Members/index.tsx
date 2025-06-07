@@ -38,16 +38,6 @@ const Members = () => {
             +99
           </Link>
         </div>
-        {/* <div className="flex flex-wrap gap-4 justify-center">
-          {news.map((post) => (
-            <NewsPost key={post.slug} data={post} />
-          ))}
-        </div> */}
-        {/* <Button
-          href="/news"
-          icon={<Rss size={24} className="ml-2" />}
-          text="VIEW MORE"
-        /> */}
       </div>
     </div>
   );
