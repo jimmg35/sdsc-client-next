@@ -24,9 +24,10 @@ const Members = () => {
           title="People"
           subtitle="Meet our members!"
           icon={<Users size={32} className="inline-block mr-2" />}
+          variant="secondary"
         />
 
-        <div className="flex -space-x-4 rtl:space-x-reverse">
+        <div className="flex -space-x-4 rtl:space-x-reverse overflow-x-auto">
           <Avatar src="/img/avatar-demo/profile-picture-0.jpg" />
           <Avatar src="/img/avatar-demo/profile-picture-1.jpg" />
           <Avatar src="/img/avatar-demo/profile-picture-2.jpg" />

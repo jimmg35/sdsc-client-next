@@ -14,6 +14,7 @@ const News = () => {
           title="News"
           subtitle="Stay tuned for updates!"
           icon={<Rss size={32} className="inline-block mr-2" />}
+          variant="secondary"
         />
 
         <div className="flex flex-wrap gap-4 justify-center">
