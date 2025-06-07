@@ -20,7 +20,7 @@ const Heading = ({
       <div
         className={`${
           variant === "default" ? "bg-teal-100" : "bg-white"
-        } py-2 px-4 rounded-md`}
+        } py-2 px-4 rounded-md shadow-md`}
       >
         <p className="text-lg">{subtitle}</p>
       </div>

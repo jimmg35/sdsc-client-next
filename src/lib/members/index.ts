@@ -38,3 +38,49 @@ export interface MemberData {
   courseTaught: string[];
   aoi: string[];
 }
+
+export function getAllMembers(): MemberData[] {
+  const memberNames = fs.readdirSync(membersDirectory);
+
+  const members = memberNames.map((memberName) => {
+    const filePath = path.join(membersDirectory, memberName, "meta.json");
+    const fileContents = fs.readFileSync(filePath, "utf8");
+    const {
+      id,
+      name,
+      title,
+      department,
+      email,
+      thumbnail,
+      googleScholar,
+      education,
+      honor,
+      selectedPublications,
+      courseTaught,
+      aoi,
+    } = JSON.parse(fileContents);
+
+    return {
+      id,
+      name,
+      title,
+      department,
+      email,
+      thumbnail,
+      googleScholar,
+      education: education || [],
+      honor: honor || [],
+      selectedPublications: selectedPublications || [],
+      courseTaught: courseTaught || [],
+      aoi: aoi || [],
+    };
+  });
+
+  return members;
+}
+
+export function getMemberById(id: string): MemberData | null {
+  const members = getAllMembers();
+  const member = members.find((mem) => mem.id === id);
+  return member || null;
+}
