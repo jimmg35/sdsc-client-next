@@ -1,0 +1,125 @@
+{
+  "id": "mason-mathews",
+  "name": "Mason Mathews",
+  "title": "Visiting Professor",
+  "department": "Department of Geography",
+  "email": "mm24di@fsu.edu",
+  "thumbnail": "/img/avatar/mason-mathews.png",
+  "googleScholar": "https://scholar.google.com/citations?user=4WUz1NYAAAAJ&hl=en&oi=sra",
+  "education": [
+    {
+      "degree": "Ph.D.",
+      "field": "Interdisciplinary Ecology (Human Geography)",
+      "institution": "University of Florida",
+      "year": null
+    }
+  ],
+  "honor": [],
+  "selectedPublications": [
+    {
+      "id": "voad-resource-exchange-networks",
+      "author": "Mathews, M.C., Vickery, J., Peek, L.",
+      "title": "Resource exchange patterns between Voluntary Organizations Active in Disaster (VOADs): A multilevel network assessment to improve disaster response capacity.",
+      "journal": "International Journal of Disaster Risk Reduction",
+      "catalog": "",
+      "doi": "10.1016/j.ijdrr.2024.104455"
+    },
+    {
+      "id": "place-voting-behavior-marijuana",
+      "author": "Mathews, M.C., Fotheringham, A.S.",
+      "title": "The Effect of Place on Voting Behavior: The Case of the Arizona Proposition to Legalize Recreational Marijuana.",
+      "journal": "Politics & Policy",
+      "catalog": "52 (1): 196–226",
+      "doi": "10.1111/polp.12580"
+    },
+    {
+      "id": "trapped-populations-mexico",
+      "author": "DeWaard, J., Hunter, L.M., Mathews, M.C., et al.",
+      "title": "Operationalizing and empirically identifying populations trapped in place by climate and environmental stressors in Mexico.",
+      "journal": "Regional Environmental Change",
+      "catalog": "",
+      "doi": "10.1007/s10113-022-01882-7"
+    },
+    {
+      "id": "cultural-competence-disaster-research",
+      "author": "Wu, H., Peek, L., Mathews, M.C., Mattson, N.",
+      "title": "Cultural Competence for Hazards and Disaster Researchers: Framework and Training Module.",
+      "journal": "Natural Hazards Review",
+      "catalog": "",
+      "doi": "10.1061/(ASCE)NH.1527-6996.0000536"
+    },
+    {
+      "id": "social-capital-rural-amazonia",
+      "author": "Mathews, M.C.",
+      "title": "How village leaders in rural Amazonia create bonding, bridging, and linking social capital configurations to achieve development goals, and why they are so difficult to maintain over time.",
+      "journal": "World Development",
+      "catalog": "",
+      "doi": "10.1016/j.worlddev.2021.105541"
+    },
+    {
+      "id": "adn-collaboration-tocantins",
+      "author": "Swanson, A.C., Bohlman, S., Mathews, M., Athayde, S.",
+      "title": "Assessing inter- and trans-disciplinary collaboration among Amazon Dams International Research Network (ADN) participants: preliminary results from the Palmas Workshop.",
+      "journal": "Rivers, lands and cultures: Learning from the Tocantins social-ecological system",
+      "catalog": "pp. 196–214",
+      "doi": ""
+    },
+    {
+      "id": "hydropower-sustainability-amazon",
+      "author": "Athayde, S., Mathews, M., et al.",
+      "title": "Mapping Research on Hydropower and Sustainability in the Brazilian Amazon: Advances, Gaps in Knowledge and Future Directions.",
+      "journal": "Current Opinion in Environmental Sustainability",
+      "catalog": "37:50–69",
+      "doi": "10.1016/j.cosust.2019.06.004"
+    },
+    {
+      "id": "social-vulnerability-covid19",
+      "author": "Wang, C., Li, Z., Mathews, M.C., et al.",
+      "title": "The spatial association of social vulnerability with COVID-19 prevalence in the contiguous United States.",
+      "journal": "International Journal of Environmental Health Research",
+      "catalog": "",
+      "doi": "10.1080/09603123.2020.1847258"
+    },
+    {
+      "id": "natural-hazards-older-adults",
+      "author": "Adams, R.M., Evans, C., Mathews, M.C., Wolkin, A., Peek, L.",
+      "title": "Mortality from Forces of Nature Among Older Adults by Race/Ethnicity and Gender.",
+      "journal": "Journal of Applied Gerontology",
+      "catalog": "",
+      "doi": "10.1177/0733464820954676"
+    },
+    {
+      "id": "methods-disaster-research",
+      "author": "Peek, L., Champeau, H., Austin, J., Mathews, M., Wu, H.",
+      "title": "What Methods Do Social Scientists Use to Study Disasters? An Analysis of the Social Science Extreme Events Research Network.",
+      "journal": "American Behavioral Scientist",
+      "catalog": "64 (8): 1066–1094",
+      "doi": "10.1177/0002764220938105"
+    },
+    {
+      "id": "converge-framework",
+      "author": "Peek, L., Tobin, J., Adams, R., Wu, H., Mathews, M.C.",
+      "title": "A Framework for Convergence Research in the Hazards and Disaster Field: The Natural Hazards Engineering Research Infrastructure CONVERGE Facility.",
+      "journal": "Frontiers in Built Environment",
+      "catalog": "6-110",
+      "doi": "10.3389/fbuil.2020.00110"
+    },
+    {
+      "id": "hazards-map-research-centers",
+      "author": "Hines, E., Mathews, M., Peek, L.",
+      "title": "Global List and Interactive Web Map of University-Based Hazards and Disaster Research Centers.",
+      "journal": "Natural Hazards Review",
+      "catalog": "21(2)",
+      "doi": "10.1061/(ASCE)NH.1527-6996.0000371"
+    },
+    {
+      "id": "informal-credit-amazonia",
+      "author": "Mathews, M.C., Schmink, M.",
+      "title": "“Differentiated Citizenship” and the Persistence of Informal Rural Credit Systems in Amazonia.",
+      "journal": "Geoforum",
+      "catalog": "65: 266–277",
+      "doi": ""
+    }
+  ],
+  "courseTaught": []
+}

@@ -1,0 +1,73 @@
+{
+  "id": "mehak-sachdeva",
+  "name": "Mehak Sachdeva",
+  "title": "Assistant Professor",
+  "department": "Department of Urban & Regional Planning",
+  "email": "mehak.sachdeva@fsu.edu",
+  "thumbnail": "/img/avatar/mehak-sachdeva.jpg",
+  "googleScholar": "https://scholar.google.com/citations?hl=en&user=w5CaZhQAAAAJ&view_op=list_works&sortby=pubdate",
+  "education": [
+    {
+      "degree": "Ph.D.",
+      "field": "Geographic Information Science",
+      "institution": "Arizona State University",
+      "year": 2022
+    },
+    {
+      "degree": "M.S.",
+      "field": "Urban Planning",
+      "institution": "Columbia University",
+      "year": 2016
+    },
+    {
+      "degree": "Bachelor of Architecture",
+      "field": "Architecture",
+      "institution": "The Maharaja Sayajirao University of Baroda, India",
+      "year": 2013
+    }
+  ],
+  "honor": [],
+  "selectedPublications": [
+    {
+      "id": "mgwpr-local-modeling-count-data",
+      "author": "Sachdeva, M., Fotheringham A.S., Li, Z., & Yu, H. (2023)",
+      "title": "On the Local Modeling of Count Data: Multiscale Geographically Weighted Poisson Regression.",
+      "journal": "International Journal of Geographic Information Science",
+      "catalog": "37(10), 2238-2261.",
+      "doi": "https://doi.org/10.1080/13658816.2023.2250838"
+    },
+    {
+      "id": "simpsons-paradox-geographical-perspective",
+      "author": "Sachdeva, M., & Fotheringham, A.S. (2023)",
+      "title": "A Geographical Perspective on Simpson’s Paradox.",
+      "journal": "Journal of Spatial Information Science",
+      "catalog": "",
+      "doi": ""
+    },
+    {
+      "id": "neighborhood-value-mgwr",
+      "author": "Sachdeva, M., Fotheringham, A.S., & Li, Z. (2022)",
+      "title": "Do places have value? Quantifying the intrinsic value of housing neighborhoods using MGWR.",
+      "journal": "Journal of Housing Research",
+      "catalog": "",
+      "doi": ""
+    },
+    {
+      "id": "modifiable-areal-unit-simpsons",
+      "author": "Fotheringham, A.S., & Sachdeva, M. (2022)",
+      "title": "Scale and Local Modeling: New perspectives on the modifiable areal unit problem and Simpson’s Paradox.",
+      "journal": "Journal of Geographical Systems",
+      "catalog": "",
+      "doi": ""
+    },
+    {
+      "id": "thinking-locally-statistics-society",
+      "author": "Fotheringham, A.S., & Sachdeva, M. (2022)",
+      "title": "On the importance of thinking locally for statistics and society.",
+      "journal": "Spatial Statistics",
+      "catalog": "",
+      "doi": ""
+    }
+  ],
+  "courseTaught": []
+}
