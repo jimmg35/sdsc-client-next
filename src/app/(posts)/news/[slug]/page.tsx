@@ -5,14 +5,12 @@ import { ChevronLeft } from "lucide-react";
 import remarkHTML from "remark-html";
 import Link from "next/link";
 
-interface Props {
-  params: {
-    slug: string;
-  };
-}
+type Props = Promise<{
+  slug: string;
+}>;
 
-export default async function PostPage({ params }: Props) {
-  const { slug } = await params;
+export default async function PostPage(props: { params: Props }) {
+  const { slug } = await props.params;
   const post = getNewsBySlug(slug);
 
   if (!post) {
