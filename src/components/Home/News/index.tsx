@@ -2,18 +2,20 @@ import Button from "@/components/Utility/Button";
 import { Rss } from "lucide-react";
 import NewsPost from "@/components/Utility/NewsPost";
 import { getAllNews, NewsData } from "@/lib/news";
+import Heading from "../Heading";
 
 const News = () => {
   const news: NewsData[] = getAllNews().slice(0, 3);
 
   return (
-    <div className=" bg-teal-100 relative w-full h-fit overflow-hidden px-12 py-12 flex flex-col items-center">
+    <div className="bg-teal-100 relative w-full h-fit overflow-hidden px-12 py-12 flex flex-col items-center">
       <div className="flex flex-col items-center gap-4">
-        <h1 className="text-4xl font-bold">
-          <Rss size={32} className="inline-block mr-2" />
-          News
-          <p className="text-lg">Stay tuned for updates!</p>
-        </h1>
+        <Heading
+          title="News"
+          subtitle="Stay tuned for updates!"
+          icon={<Rss size={32} className="inline-block mr-2" />}
+        />
+
         <div className="flex flex-wrap gap-4 justify-center">
           {news.map((post) => (
             <NewsPost key={post.slug} data={post} />
