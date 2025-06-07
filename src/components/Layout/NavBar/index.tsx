@@ -61,7 +61,9 @@ const Navbar = ({
     >
       <div className="container mx-auto flex items-center justify-between px-4 py-2">
         {/* Logo */}
+        {/* <Link href="/"> */}
         <div className="text-teal-400 text-3xl font-bold transition">SDSC</div>
+        {/* </Link> */}
 
         {/* Desktop Navigation */}
         <ul className="hidden md:flex gap-8">
