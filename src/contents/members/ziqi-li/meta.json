@@ -1,0 +1,83 @@
+{
+  "id": "ziqi-li",
+  "name": "Ziqi Li",
+  "title": "Assistant Professor",
+  "department": "Department of Geography",
+  "email": "ziqi.li@fsu.edu",
+  "thumbnail": "/img/avatar/ziqi-li.jpeg",
+  "googleScholar": "https://scholar.google.com/citations?user=g4okEdwAAAAJ&hl=en&oi=ao",
+  "education": [
+    {
+      "degree": "Ph.D.",
+      "field": "Geography",
+      "institution": "Arizona State University",
+      "year": 2020
+    },
+    {
+      "degree": "M.A.",
+      "field": "Geography",
+      "institution": "George Washington University",
+      "year": 2016
+    },
+    {
+      "degree": "B.S.",
+      "field": "Geomatics",
+      "institution": "University of Waterloo",
+      "year": 2014
+    },
+    {
+      "degree": "B. Eng.",
+      "field": "Remote Sensing",
+      "institution": "Wuhan University",
+      "year": 2014
+    }
+  ],
+  "honor": [],
+  "selectedPublications": [
+    {
+      "id": "geoshapley-spatial-effects-ml",
+      "author": "Li, Z. (2024)",
+      "title": "GeoShapley: A game theory approach to measuring spatial effects in machine learning models.",
+      "journal": "Annals of the American Association of Geographers",
+      "catalog": "114(7), 1365-1385.",
+      "doi": "https://doi.org/10.1080/24694452.2024.2350982"
+    },
+    {
+      "id": "explainable-ai-ridesharing",
+      "author": "Li, Z. (2023)",
+      "title": "Leveraging explainable artificial intelligence and big trip data to understand factors influencing willingness to ridesharing.",
+      "journal": "Travel Behaviour and Society",
+      "catalog": "31, 284-294.",
+      "doi": "https://doi.org/10.1016/j.tbs.2022.12.006"
+    },
+    {
+      "id": "mgwr-theory-and-practice",
+      "author": "Fotheringham, A. S., Oshan, T. M., & Li, Z. (2023).",
+      "title": "Multiscale geographically weighted regression: Theory and practice.",
+      "journal": "CRC Press.",
+      "catalog": "194",
+      "doi": "https://doi.org/10.1201/9781003435464"
+    },
+    {
+      "id": "measuring-the-unmeasurable",
+      "author": "Fotheringham, A. S., & Li, Z. (2023)",
+      "title": "Measuring the unmeasurable: Models of geographical context",
+      "journal": "Annals of the American Association of Geographers",
+      "catalog": "113(10), 2269-2286",
+      "doi": "https://doi.org/10.1080/24694452.2023.2227690"
+    },
+    {
+      "id": "shap-xgboost-spatial-effects",
+      "author": "Li, Z. (2022)",
+      "title": "Extracting spatial effects from machine learning model using local interpretation method: An example of SHAP and XGBoost.",
+      "journal": "Computers, Environment and Urban Systems",
+      "catalog": "96, 101845.",
+      "doi": "https://doi.org/10.1016/j.compenvurbsys.2022.101845"
+    }
+  ],
+  "courseTaught": [
+    "Spatial Data Analysis",
+    "Applied Spatial Statistics",
+    "GIS Programming"
+  ]
+}

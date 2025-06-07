@@ -5,7 +5,7 @@ import {
   Info,
   UserRound,
   Microscope,
-  Scroll,
+  ScrollText,
   CalendarDays,
   Rss,
   PhoneCall,
@@ -17,13 +17,24 @@ const NavDirection = [
   { name: "About", href: "/about", icon: <Info size={18} /> },
   { name: "Member", href: "/member", icon: <UserRound size={18} /> },
   { name: "Research", href: "/research", icon: <Microscope size={18} /> },
-  { name: "Publications", href: "/publications", icon: <Scroll size={18} /> },
+  {
+    name: "Publications",
+    href: "/publications",
+    icon: <ScrollText size={18} />,
+  },
   { name: "Events", href: "/events", icon: <CalendarDays size={18} /> },
   { name: "News", href: "/news", icon: <Rss size={18} /> },
   { name: "Contact", href: "/contact", icon: <PhoneCall size={18} /> },
 ];
 
-function Navbar() {
+const scrolledStyle = "bg-white text-black h-[80px] shadow-md";
+const notScrolledStyle = "bg-transparent text-white h-[110px]";
+
+const Navbar = ({
+  isForcedScrolled = false,
+}: {
+  isForcedScrolled?: boolean;
+}) => {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -44,15 +55,19 @@ function Navbar() {
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 flex items-center
         ${
-          isScrolled
-            ? "bg-white text-black h-[80px] shadow-md"
-            : "bg-transparent text-white h-[110px]"
+          isForcedScrolled
+            ? scrolledStyle
+            : isScrolled
+            ? scrolledStyle
+            : notScrolledStyle
         }
       `}
     >
       <div className="container mx-auto flex items-center justify-between px-4 py-2">
         {/* Logo */}
+        {/* <Link href="/"> */}
         <div className="text-teal-400 text-3xl font-bold transition">SDSC</div>
+        {/* </Link> */}
 
         {/* Desktop Navigation */}
         <ul className="hidden md:flex gap-8">
@@ -115,6 +130,6 @@ function Navbar() {
       )}
     </nav>
   );
-}
+};
 
 export default Navbar;
