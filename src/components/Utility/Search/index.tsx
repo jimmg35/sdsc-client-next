@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Search as SearchIcon } from "lucide-react";
-import React, { useRef } from "react";
+import { Search as SearchIcon } from 'lucide-react';
+import React, { useRef } from 'react';
 
 const Search = () => {
   const dialogRef = useRef<HTMLDialogElement>(null);

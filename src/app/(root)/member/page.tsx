@@ -4,7 +4,7 @@ import Publication from '@/components/Home/Publication';
 import Welcome from '@/components/Home/Welcome';
 import WhoWeAre from '@/components/Home/WhoWeAre';
 
-export default function Home() {
+export default function Member() {
   return (
     <div className="h-fit">
       <Welcome />

@@ -1,7 +1,7 @@
 const Banner = ({
   title,
   icon,
-  imageUrl,
+  imageUrl
 }: {
   title: string;
   icon: React.ReactNode;

@@ -1,9 +1,9 @@
-import { Users } from "lucide-react";
+import { MemberData, getMemberById } from '@/lib/members';
+import { Users } from 'lucide-react';
 // import { getAllNews, NewsData } from "@/lib/news";
-import Image from "next/image";
-import Link from "next/link";
-import Heading from "../Heading";
-import { getMemberById, MemberData } from "@/lib/members";
+import Image from 'next/image';
+import Link from 'next/link';
+import Heading from '../Heading';
 
 const Avatar = ({ src }: { src: string }) => {
   const size = 180;
@@ -19,10 +19,10 @@ const Avatar = ({ src }: { src: string }) => {
 };
 
 const Members = () => {
-  const stewart: MemberData | null = getMemberById("stewart-fotheringham");
-  const ziqi: MemberData | null = getMemberById("ziqi-li");
-  const mehak: MemberData | null = getMemberById("mehak-sachdeva");
-  const mason: MemberData | null = getMemberById("mason-mathews");
+  const stewart: MemberData | null = getMemberById('stewart-fotheringham');
+  const ziqi: MemberData | null = getMemberById('ziqi-li');
+  const mehak: MemberData | null = getMemberById('mehak-sachdeva');
+  const mason: MemberData | null = getMemberById('mason-mathews');
 
   return (
     <div className=" bg-teal-100 relative w-full h-fit overflow-hidden px-12 py-12 flex flex-col items-center">

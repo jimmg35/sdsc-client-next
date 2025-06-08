@@ -1,6 +1,6 @@
-import { NewsData } from "@/lib/news";
-import Image from "next/image";
-import Link from "next/link";
+import { NewsData } from '@/lib/news';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const NewsPost = ({ data }: { data: NewsData }) => {
   return (

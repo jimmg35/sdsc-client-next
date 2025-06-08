@@ -1,13 +1,13 @@
-import { ScrollText } from "lucide-react";
-import Heading from "../Heading";
-import PublicationPost from "@/components/Utility/PublicationPost";
-import { getPublicationById } from "@/lib/publications";
-import Button from "@/components/Utility/Button";
+import Button from '@/components/Utility/Button';
+import PublicationPost from '@/components/Utility/PublicationPost';
+import { getPublicationById } from '@/lib/publications';
+import { ScrollText } from 'lucide-react';
+import Heading from '../Heading';
 
 const Publication = () => {
-  const mtm = getPublicationById("measuring-the-unmeasurable");
-  const otn = getPublicationById("on-the-notion-of-bandwidth");
-  const oti = getPublicationById("on-the-importance-of-thinking-locally");
+  const mtm = getPublicationById('measuring-the-unmeasurable');
+  const otn = getPublicationById('on-the-notion-of-bandwidth');
+  const oti = getPublicationById('on-the-importance-of-thinking-locally');
 
   return (
     <div className=" bg-white relative w-full h-fit overflow-hidden px-12 py-12 flex flex-col items-center">

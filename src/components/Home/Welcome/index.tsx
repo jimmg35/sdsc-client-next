@@ -1,6 +1,6 @@
-import { Telescope, ArrowDown } from "lucide-react";
-import SlideShow from "./SlideShow";
-import Button from "@/components/Utility/Button";
+import Button from '@/components/Utility/Button';
+import { ArrowDown, Telescope } from 'lucide-react';
+import SlideShow from './SlideShow';
 
 const Welcome = () => {
   return (
