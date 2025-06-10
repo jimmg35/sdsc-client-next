@@ -1,7 +1,6 @@
+import { markdownToHTML } from '@/lib/md';
 import { getNewsBySlug } from '@/lib/news';
-import remarkHTML from 'remark-html';
 import { ChevronLeft } from 'lucide-react';
-import { remark } from 'remark';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
@@ -16,11 +15,6 @@ export default async function PostPage(props: { params: Props }) {
   if (!post) {
     notFound();
   }
-
-  const markdownToHTML = async (markdownString: string) => {
-    const result = await remark().use(remarkHTML).process(markdownString);
-    return result.toString();
-  };
 
   const mdHtmlContent = await markdownToHTML(post.content);
 
