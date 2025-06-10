@@ -1,8 +1,11 @@
 .modal {
   @apply pointer-events-none invisible fixed inset-0 m-0 grid h-full max-h-none w-full max-w-none items-center justify-items-center bg-transparent p-0 text-[inherit];
   overflow-x: hidden;
-  transition: translate 0.3s ease-out, visibility 0.3s allow-discrete,
-    background-color 0.3s ease-out, opacity 0.1s ease-out;
+  transition:
+    translate 0.3s ease-out,
+    visibility 0.3s allow-discrete,
+    background-color 0.3s ease-out,
+    opacity 0.1s ease-out;
   overflow-y: hidden;
   overscroll-behavior: contain;
   z-index: 999;
@@ -69,8 +72,11 @@
 
 .modal-box {
   @apply bg-white col-start-1 row-start-1 max-h-screen w-11/12 max-w-[32rem] p-6;
-  transition: translate 0.3s ease-out, scale 0.3s ease-out,
-    opacity 0.2s ease-out 0.05s, box-shadow 0.3s ease-out;
+  transition:
+    translate 0.3s ease-out,
+    scale 0.3s ease-out,
+    opacity 0.2s ease-out 0.05s,
+    box-shadow 0.3s ease-out;
   border-top-left-radius: var(--modal-tl, var(--radius-box));
   border-top-right-radius: var(--modal-tr, var(--radius-box));
   border-bottom-left-radius: var(--modal-bl, var(--radius-box));

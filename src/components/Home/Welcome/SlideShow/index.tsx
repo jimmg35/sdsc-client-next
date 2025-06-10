@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from 'react';
 
 const images = [
-  "/img/welcome-banner/banner-1.jpg",
-  "/img/welcome-banner/banner-2.jpg",
-  "/img/welcome-banner/banner-3.jpg",
-  "/img/welcome-banner/banner-4.jpg",
+  '/img/welcome-banner/banner-1.jpg',
+  '/img/welcome-banner/banner-2.jpg',
+  '/img/welcome-banner/banner-3.jpg',
+  '/img/welcome-banner/banner-4.jpg'
 ];
 
 const SlideShow = () => {
@@ -25,11 +25,11 @@ const SlideShow = () => {
         <div
           key={index}
           className={`absolute top-0 left-0 w-full h-full bg-cover bg-center transition-opacity duration-1000 ease-in-out ${
-            index === currentImage ? "opacity-100" : "opacity-0"
+            index === currentImage ? 'opacity-100' : 'opacity-0'
           }`}
           style={{
             backgroundImage: `url(${image})`,
-            animation: index === currentImage ? "zoomIn 5s ease-in-out" : "",
+            animation: index === currentImage ? 'zoomIn 5s ease-in-out' : ''
           }}
         ></div>
       ))}

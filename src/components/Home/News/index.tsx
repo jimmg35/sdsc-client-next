@@ -1,8 +1,8 @@
-import Button from "@/components/Utility/Button";
-import { Rss } from "lucide-react";
-import NewsPost from "@/components/Utility/NewsPost";
-import { getAllNews, NewsData } from "@/lib/news";
-import Heading from "../Heading";
+import Button from '@/components/Utility/Button';
+import NewsPost from '@/components/Utility/NewsPost';
+import { NewsData, getAllNews } from '@/lib/news';
+import { Rss } from 'lucide-react';
+import Heading from '../Heading';
 
 const News = () => {
   const news: NewsData[] = getAllNews().slice(0, 3);

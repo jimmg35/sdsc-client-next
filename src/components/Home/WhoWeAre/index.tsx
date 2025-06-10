@@ -1,8 +1,8 @@
-import { Atom, FolderCode, Microscope } from "lucide-react";
+import { Atom, FolderCode, Microscope } from 'lucide-react';
 
 const Circle = ({
   text,
-  children,
+  children
 }: {
   text: string;
   children: React.ReactNode;

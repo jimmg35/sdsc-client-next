@@ -1,13 +1,13 @@
-import { BookMarked } from "lucide-react";
-import Link from "next/link";
-import { PublicationData } from "@/lib/publications";
+import { PublicationData } from '@/lib/publications';
+import { BookMarked } from 'lucide-react';
+import Link from 'next/link';
 
 const PublicationPost = ({
   author,
   title,
   journal,
   catalog,
-  doi,
+  doi
 }: PublicationData) => {
   return (
     <div className="flex items-center h-fit mb-4 md:w-[800px] bg-teal-100 hover:ring-4 hover:ring-teal-400/10 px-8 py-4 rounded-md border border-[#F4F4F5] hover:border-teal-400">

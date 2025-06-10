@@ -1,7 +1,7 @@
-import fs from "fs";
-import path from "path";
+import fs from 'fs';
+import path from 'path';
 
-const membersDirectory = path.join(process.cwd(), "src", "contents", "members");
+const membersDirectory = path.join(process.cwd(), 'src', 'contents', 'members');
 
 export interface MemberEducation {
   degree: string;
@@ -43,8 +43,8 @@ export function getAllMembers(): MemberData[] {
   const memberNames = fs.readdirSync(membersDirectory);
 
   const members = memberNames.map((memberName) => {
-    const filePath = path.join(membersDirectory, memberName, "meta.json");
-    const fileContents = fs.readFileSync(filePath, "utf8");
+    const filePath = path.join(membersDirectory, memberName, 'meta.json');
+    const fileContents = fs.readFileSync(filePath, 'utf8');
     const {
       id,
       name,
@@ -57,7 +57,7 @@ export function getAllMembers(): MemberData[] {
       honor,
       selectedPublications,
       courseTaught,
-      aoi,
+      aoi
     } = JSON.parse(fileContents);
 
     return {
@@ -72,7 +72,7 @@ export function getAllMembers(): MemberData[] {
       honor: honor || [],
       selectedPublications: selectedPublications || [],
       courseTaught: courseTaught || [],
-      aoi: aoi || [],
+      aoi: aoi || []
     };
   });
 

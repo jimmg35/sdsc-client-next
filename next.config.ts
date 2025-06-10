@@ -1,14 +1,14 @@
-import type { NextConfig } from "next";
-import withMDX from "@next/mdx";
+import type { NextConfig } from 'next';
+import withMDX from '@next/mdx';
 
 const nextConfig: NextConfig = {
   /* config options here */
-  output: "standalone",
-  pageExtensions: ["ts", "tsx", "md", "mdx"],
+  output: 'standalone',
+  pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   reactStrictMode: true,
-  transpilePackages: ["next-mdx-remote"],
+  transpilePackages: ['next-mdx-remote']
 };
 
 export default withMDX({
-  extension: /\.mdx?$/,
+  extension: /\.mdx?$/
 })(nextConfig);

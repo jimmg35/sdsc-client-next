@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       tag-version:
-        description: "version tag"
+        description: 'version tag'
         required: true
-        default: "b"
+        default: 'b'
 jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub

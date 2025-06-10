@@ -4,14 +4,14 @@ const Footer = () => {
       <div className="container mx-auto text-center">
         <p>&copy; 2023 Your Company. All rights reserved.</p>
         <p>
-          Follow us on{" "}
+          Follow us on{' '}
           <a
             href="https://twitter.com/yourcompany"
             className="text-blue-400 hover:underline"
           >
             Twitter
-          </a>{" "}
-          and{" "}
+          </a>{' '}
+          and{' '}
         </p>
       </div>
     </footer>
