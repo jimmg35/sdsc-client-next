@@ -2,26 +2,10 @@ import { MemberData } from '@/lib/members';
 import Link from 'next/link';
 import Avatar from '../Avatar';
 
-const ProfileCard = ({ thumbnail, name, title }: MemberData) => {
+const ProfileCard = ({ id, thumbnail, name, title }: MemberData) => {
   return (
-    // <div className="w-64 h-96 flex flex-col items-center bg-gray-800 rounded-lg shadow-lg p-6">
-    //   <div className="w-30 h-30">
-    //     <Avatar src={thumbnail} size={180} />
-    //   </div>
-    //   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-    //     {name}
-    //   </h3>
-    //   <p className="text-gray-600 dark:text-gray-400 mb-4">{title}</p>
-    //   <a
-    //     className="text-blue-600 dark:text-blue-400 hover:underline"
-    //     target="_blank"
-    //     rel="noopener noreferrer"
-    //   >
-    //     View Profile
-    //   </a>
-    // </div>
     <div className="shadow-xl">
-      <div className="w-64 h-108 bg-gray-800 rounded-t-lg">
+      <div className="w-64 h-96 bg-gray-800 rounded-t-lg">
         <div className="flex flex-col items-center justify-around p-10 gap-4">
           <Avatar src={thumbnail} size={180} />
           <div>
@@ -32,7 +16,7 @@ const ProfileCard = ({ thumbnail, name, title }: MemberData) => {
       </div>
       <div className="flex">
         <Link
-          href="#"
+          href={`/member/${id}`}
           className="w-full h-10 flex items-center justify-center text-white bg-gray-700 rounded-bl-lg"
         >
           Profile

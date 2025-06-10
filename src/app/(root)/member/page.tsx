@@ -1,4 +1,3 @@
-import Avatar from '@/components/Utility/Avatar';
 import Banner from '@/components/Utility/Banner';
 import ProfileCard from '@/components/Utility/ProfileCard';
 import { MemberData, getAllMembers } from '@/lib/members';

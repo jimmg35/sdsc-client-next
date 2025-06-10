@@ -21,4 +21,4 @@ module.exports = {
   ],
   importOrderSeparation: false,
   importOrderSortSpecifiers: true
-}
+};

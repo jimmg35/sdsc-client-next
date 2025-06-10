@@ -1,7 +1,6 @@
 import Avatar from '@/components/Utility/Avatar';
 import { MemberData, getMemberById } from '@/lib/members';
 import { Users } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import Heading from '../Heading';
 

@@ -25,7 +25,11 @@
     @apply focus:border-teal-400 focus:outline-none focus:ring-4 focus:ring-teal-400/10;
   }
   .calcite-hover {
-    @apply border border-[#F4F4F5] hover:border-teal-400 hover:ring-4 hover:ring-teal-400/10;
+    @apply border border-[#F4F4F5] hover:border-teal-400 hover:ring-4 hover:ring-teal-400/40;
   }
   /* 2A2A2B */
+}
+
+.custom-li {
+  @apply border-l-4 border-teal-400 pl-4 hover:bg-gray-100 py-2 transition;
 }
