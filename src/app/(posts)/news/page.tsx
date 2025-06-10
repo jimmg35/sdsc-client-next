@@ -1,8 +1,8 @@
-import Banner from "@/components/Utility/Banner";
-import { getAllNews, NewsData } from "@/lib/news";
-import NewsPost from "@/components/Utility/NewsPost";
-import { Rss } from "lucide-react";
-import Search from "@/components/Utility/Search";
+import Banner from '@/components/Utility/Banner';
+import NewsPost from '@/components/Utility/NewsPost';
+import Search from '@/components/Utility/Search';
+import { NewsData, getAllNews } from '@/lib/news';
+import { Rss } from 'lucide-react';
 
 export default function News() {
   const news: NewsData[] = getAllNews();

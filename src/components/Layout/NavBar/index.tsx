@@ -1,37 +1,38 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
+'use client';
+
 import {
-  Info,
-  UserRound,
-  Microscope,
-  ScrollText,
   CalendarDays,
-  Rss,
-  PhoneCall,
-  Menu,
   CircleX,
-} from "lucide-react";
+  Info,
+  Menu,
+  Microscope,
+  PhoneCall,
+  Rss,
+  ScrollText,
+  UserRound
+} from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 const NavDirection = [
-  { name: "About", href: "/about", icon: <Info size={18} /> },
-  { name: "Member", href: "/member", icon: <UserRound size={18} /> },
-  { name: "Research", href: "/research", icon: <Microscope size={18} /> },
+  { name: 'About', href: '/about', icon: <Info size={18} /> },
+  { name: 'Member', href: '/member', icon: <UserRound size={18} /> },
+  { name: 'Research', href: '/research', icon: <Microscope size={18} /> },
   {
-    name: "Publications",
-    href: "/publications",
-    icon: <ScrollText size={18} />,
+    name: 'Publications',
+    href: '/publications',
+    icon: <ScrollText size={18} />
   },
-  { name: "Events", href: "/events", icon: <CalendarDays size={18} /> },
-  { name: "News", href: "/news", icon: <Rss size={18} /> },
-  { name: "Contact", href: "/contact", icon: <PhoneCall size={18} /> },
+  { name: 'Events', href: '/events', icon: <CalendarDays size={18} /> },
+  { name: 'News', href: '/news', icon: <Rss size={18} /> },
+  { name: 'Contact', href: '/contact', icon: <PhoneCall size={18} /> }
 ];
 
-const scrolledStyle = "bg-white text-black h-[80px] shadow-md";
-const notScrolledStyle = "bg-transparent text-white h-[110px]";
+const scrolledStyle = 'bg-white text-black h-[80px] shadow-md';
+const notScrolledStyle = 'bg-transparent text-white h-[110px]';
 
 const Navbar = ({
-  isForcedScrolled = false,
+  isForcedScrolled = false
 }: {
   isForcedScrolled?: boolean;
 }) => {
@@ -47,8 +48,8 @@ const Navbar = ({
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -58,8 +59,8 @@ const Navbar = ({
           isForcedScrolled
             ? scrolledStyle
             : isScrolled
-            ? scrolledStyle
-            : notScrolledStyle
+              ? scrolledStyle
+              : notScrolledStyle
         }
       `}
     >

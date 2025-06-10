@@ -1,9 +1,9 @@
-import { notFound } from "next/navigation";
-import { getNewsBySlug } from "@/lib/news";
-import { remark } from "remark";
-import { ChevronLeft } from "lucide-react";
-import remarkHTML from "remark-html";
-import Link from "next/link";
+import { getNewsBySlug } from '@/lib/news';
+import remarkHTML from 'remark-html';
+import { ChevronLeft } from 'lucide-react';
+import { remark } from 'remark';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 type Props = Promise<{
   slug: string;
@@ -16,8 +16,6 @@ export default async function PostPage(props: { params: Props }) {
   if (!post) {
     notFound();
   }
-
-  // const mdxSource = await serialize(post.content);
 
   const markdownToHTML = async (markdownString: string) => {
     const result = await remark().use(remarkHTML).process(markdownString);
@@ -45,12 +43,12 @@ export default async function PostPage(props: { params: Props }) {
                 <h1 className="mb-5 text-5xl font-bold">{post.title}</h1>
                 <div className="flex items-center gap-3">
                   <div className="text-sm text-gray-500">
-                    {post.author} ·{" "}
+                    {post.author} ·{' '}
                     <span className="text-gray-700">
-                      {new Date(post.date).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
+                      {new Date(post.date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
                       })}
                     </span>
                   </div>

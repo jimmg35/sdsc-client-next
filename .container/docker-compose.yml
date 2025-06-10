@@ -1,4 +1,4 @@
-version: "3.9"
+version: '3.9'
 
 services:
   postgres:
@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: r2tadmiadc
       POSTGRES_DB: sdsc
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
 
@@ -22,7 +22,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: admin@sdsc.com
       PGADMIN_DEFAULT_PASSWORD: r2tadmiadc
     ports:
-      - "54321:80"
+      - '54321:80'
     depends_on:
       - postgres
 

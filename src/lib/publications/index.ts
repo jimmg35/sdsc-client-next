@@ -1,11 +1,11 @@
-import fs from "fs";
-import path from "path";
+import fs from 'fs';
+import path from 'path';
 
 const publicationDirectory = path.join(
   process.cwd(),
-  "src",
-  "contents",
-  "publications"
+  'src',
+  'contents',
+  'publications'
 );
 
 export interface PublicationData {
@@ -24,9 +24,9 @@ export function getAllPublications(): PublicationData[] {
     const filePath = path.join(
       publicationDirectory,
       publicationName,
-      "meta.json"
+      'meta.json'
     );
-    const fileContents = fs.readFileSync(filePath, "utf8");
+    const fileContents = fs.readFileSync(filePath, 'utf8');
     const { id, author, title, journal, catalog, doi } =
       JSON.parse(fileContents);
 
@@ -36,7 +36,7 @@ export function getAllPublications(): PublicationData[] {
       title,
       journal,
       catalog,
-      doi,
+      doi
     };
   });
 
