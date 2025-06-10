@@ -1,6 +1,11 @@
 import Avatar from '@/components/Utility/Avatar';
 import PublicationPost from '@/components/Utility/PublicationPost';
-import { MemberPublication, getMemberById } from '@/lib/members';
+import { markdownToHTML } from '@/lib/md';
+import {
+  MemberPublication,
+  getMemberBiograpgyById,
+  getMemberById
+} from '@/lib/members';
 import { ChevronLeft, GraduationCap, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -12,6 +17,12 @@ type Props = Promise<{
 export default async function ProfilePage(props: { params: Props }) {
   const { slug } = await props.params;
   const member = getMemberById(slug);
+  const biography = getMemberBiograpgyById(slug);
+
+  let mdHtmlContent: string = '';
+  if (biography) {
+    mdHtmlContent = await markdownToHTML(biography);
+  }
 
   if (!member) {
     notFound();
@@ -57,6 +68,15 @@ export default async function ProfilePage(props: { params: Props }) {
 
             <div className="space-y-8">
               <section className="p-6 w-full border-t border-black  ">
+                <div className="prose max-w-none prose-headings:scroll-mt-24 prose-headings:font-bold prose-a:font-medium prose-a:text-blue-500 prose-a:no-underline hover:prose-a:underline prose-blockquote:border-l-2 prose-blockquote:border-gray-300 prose-blockquote:pl-4 prose-blockquote:font-medium prose-blockquote:italic prose-blockquote:text-gray-900 prose-strong:font-medium prose-strong:text-gray-900 prose-code:rounded prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:font-mono prose-code:text-gray-900 prose-code:before:content-[''] prose-code:after:content-[''] prose-pre:border prose-pre:border-gray-700 prose-pre:bg-gray-900 prose-blockquote:xl:-ml-4">
+                  <h3 className="text-lg font-semibold text-teal-400">
+                    Biography
+                  </h3>
+                  <article
+                    dangerouslySetInnerHTML={{ __html: mdHtmlContent }}
+                  />
+                </div>
+
                 <div className="mb-6">
                   <h3 className="text-lg font-semibold text-teal-400 mb-1">
                     Department
@@ -95,6 +115,22 @@ export default async function ProfilePage(props: { params: Props }) {
                       {member.aoi.map((area, idx) => (
                         <li key={idx} className="custom-li">
                           {area}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Courses Taught */}
+                {member.courseTaught && member.courseTaught.length > 0 && (
+                  <div className="mt-6">
+                    <h3 className="text-lg font-semibold text-teal-400 mb-2">
+                      Courses Taught
+                    </h3>
+                    <ul className="space-y-2">
+                      {member.courseTaught.map((course, idx) => (
+                        <li key={idx} className="custom-li">
+                          {course}
                         </li>
                       ))}
                     </ul>
@@ -140,20 +176,6 @@ export default async function ProfilePage(props: { params: Props }) {
                     </div>
                   )}
               </section>
-
-              {/* Courses Taught */}
-              {member.courseTaught && member.courseTaught.length > 0 && (
-                <div>
-                  <h2 className="font-semibold text-gray-700">
-                    Courses Taught
-                  </h2>
-                  <ul className="list-disc list-inside text-gray-600">
-                    {member.courseTaught.map((course, idx) => (
-                      <li key={idx}>{course}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
             </div>
           </div>
         </div>

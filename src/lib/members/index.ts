@@ -84,3 +84,11 @@ export function getMemberById(id: string): MemberData | null {
   const member = members.find((mem) => mem.id === id);
   return member || null;
 }
+
+export function getMemberBiograpgyById(id: string): string | null {
+  const filePath = path.join(membersDirectory, id, 'biography.mdx');
+  if (fs.existsSync(filePath)) {
+    return fs.readFileSync(filePath, 'utf8');
+  }
+  return null;
+}
