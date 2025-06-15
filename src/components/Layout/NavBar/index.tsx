@@ -14,7 +14,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-const NavDirection = [
+export const NavDirection = [
   { name: 'About', href: '/about', icon: <Info size={18} /> },
   { name: 'Member', href: '/member', icon: <UserRound size={18} /> },
   { name: 'Research', href: '/research', icon: <Microscope size={18} /> },
