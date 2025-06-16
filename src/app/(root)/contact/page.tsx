@@ -1,5 +1,5 @@
 import Banner from '@/components/Utility/Banner';
-import { Clock, Mail, MapPin, PhoneCall, ScrollText } from 'lucide-react';
+import { Clock, Mail, MapPin, PhoneCall } from 'lucide-react';
 
 export default function Contact() {
   return (
