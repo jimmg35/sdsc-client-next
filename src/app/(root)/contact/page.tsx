@@ -1,12 +1,7 @@
 import Banner from '@/components/Utility/Banner';
-import PublicationPost from '@/components/Utility/PublicationPost';
-import Search from '@/components/Utility/Search';
-import { PublicationData, getAllPublications } from '@/lib/publications';
 import { Clock, Mail, MapPin, PhoneCall, ScrollText } from 'lucide-react';
 
 export default function Contact() {
-  // const publications: PublicationData[] = getAllPublications();
-
   return (
     <section className="relative min-h-dvh">
       <Banner
