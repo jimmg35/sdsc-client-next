@@ -1,14 +1,11 @@
 import Banner from '@/components/Utility/Banner';
-import ProfileCard from '@/components/Utility/ProfileCard';
 import PublicationPost from '@/components/Utility/PublicationPost';
 import Search from '@/components/Utility/Search';
 import { PublicationData, getAllPublications } from '@/lib/publications';
-// import { MemberData, getAllMembers } from '@/lib/members';
-import { ScrollText, UserRound } from 'lucide-react';
+import { ScrollText } from 'lucide-react';
 
 export default function Publications() {
   const publications: PublicationData[] = getAllPublications();
-  // const members: MemberData[] = getAllMembers();
 
   return (
     <section className="relative min-h-dvh">
