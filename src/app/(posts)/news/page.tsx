@@ -15,7 +15,7 @@ export default function News() {
         icon={<Rss size={52} className="inline-block mr-2" />}
       />
       <div className="mx-auto max-w-7xl pt-10 px-6">
-        <Search />
+        <Search placeholder="Search for articles!" />
       </div>
       <div className="mx-auto max-w-7xl py-10 px-6 flex flex-wrap items-center justify-center gap-8">
         {/* <Search /> */}

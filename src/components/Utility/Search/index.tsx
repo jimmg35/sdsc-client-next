@@ -3,7 +3,7 @@
 import { Search as SearchIcon } from 'lucide-react';
 import React, { useRef } from 'react';
 
-const Search = () => {
+const Search = ({ placeholder }: { placeholder: string }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   return (
     <>
@@ -20,7 +20,7 @@ const Search = () => {
           onClick={() => {
             dialogRef.current?.showModal();
           }}
-          placeholder="Search for articles!"
+          placeholder={placeholder}
         />
       </div>
 

@@ -1,5 +1,4 @@
 import {
-  CalendarDays,
   Info,
   Microscope,
   PhoneCall,
@@ -66,7 +65,7 @@ const Footer = () => {
               </Link>
             </li>
 
-            <li key="Events">
+            {/* <li key="Events">
               <Link
                 href="/events"
                 className="flex items-center gap-2 hover:underline"
@@ -74,7 +73,7 @@ const Footer = () => {
                 <CalendarDays size={18} />
                 Events
               </Link>
-            </li>
+            </li> */}
 
             <li key="News">
               <Link
