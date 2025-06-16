@@ -1,7 +1,6 @@
 'use client';
 
 import {
-  CalendarDays,
   CircleX,
   Info,
   Menu,
@@ -23,7 +22,7 @@ export const NavDirection = [
     href: '/publications',
     icon: <ScrollText size={18} />
   },
-  { name: 'Events', href: '/events', icon: <CalendarDays size={18} /> },
+  // { name: 'Events', href: '/events', icon: <CalendarDays size={18} /> },
   { name: 'News', href: '/news', icon: <Rss size={18} /> },
   { name: 'Contact', href: '/contact', icon: <PhoneCall size={18} /> }
 ];
