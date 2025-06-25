@@ -1,0 +1,33 @@
+{
+  "id": "jiajun-chang",
+  "name": "Jia-Jun Chang",
+  "title": "Ph.D Student",
+  "department": "Department of Geography",
+  "email": "jc24cf@fsu.edu",
+  "thumbnail": "/img/avatar/jim.jpg",
+  "googleScholar": "",
+  "education": [
+    {
+      "degree": "Ph.D.",
+      "field": "Geography",
+      "institution": "Florida State University",
+      "year": 2024
+    },
+    {
+      "degree": "M.A.",
+      "field": "Geography",
+      "institution": "National Taiwan Normal University",
+      "year": 2024
+    },
+    {
+      "degree": "B.A.",
+      "field": "Geography",
+      "institution": "National Taiwan Normal University",
+      "year": 2022
+    }
+  ],
+  "honor": [],
+  "selectedPublications": [],
+  "courseTaught": [],
+  "aoi": []
+}
