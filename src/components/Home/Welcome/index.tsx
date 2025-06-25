@@ -1,5 +1,6 @@
 import Button from '@/components/Utility/Button';
 import { ArrowDown, Telescope } from 'lucide-react';
+import { Fade } from 'react-awesome-reveal';
 import SlideShow from './SlideShow';
 
 const Welcome = () => {
@@ -19,19 +20,21 @@ const Welcome = () => {
       {/* welcome text */}
       <div className="flex flex-col items-center justify-center h-full relative z-10 text-white">
         <div className="flex flex-col gap-4 items-center justify-center">
-          <h1 className="text-3xl md:text-5xl font-bold text-center">
-            Welcome to Spatial Data Science Center!
-          </h1>
-          <p className="text-lg md:text-3xl text-center">
-            Your journey into GIScience begins here.
-          </p>
+          <Fade direction="up" duration={500} cascade triggerOnce>
+            <h1 className="text-3xl md:text-5xl font-bold text-center">
+              Welcome to Spatial Data Science Center!
+            </h1>
+            <p className="text-lg md:text-3xl text-center">
+              Your journey into GIScience begins here.
+            </p>
 
-          <Button
-            href="/about"
-            icon={<Telescope size={24} className="ml-2" />}
-            text="Explore SDSC"
-            variant="outlined"
-          />
+            <Button
+              href="/about"
+              icon={<Telescope size={24} className="ml-2" />}
+              text="Explore SDSC"
+              variant="outlined"
+            />
+          </Fade>
         </div>
       </div>
     </div>
