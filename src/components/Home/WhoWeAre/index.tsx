@@ -1,5 +1,5 @@
 import { Atom, FolderCode, Microscope } from 'lucide-react';
-import { Fade, Slide } from 'react-awesome-reveal';
+import { Fade } from 'react-awesome-reveal';
 
 const Circle = ({
   text,
