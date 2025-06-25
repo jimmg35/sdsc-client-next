@@ -1,6 +1,7 @@
 import Avatar from '@/components/Utility/Avatar';
 import { MemberData, getMemberById } from '@/lib/members';
 import { Users } from 'lucide-react';
+import { Fade } from 'react-awesome-reveal';
 import Link from 'next/link';
 import Heading from '../Heading';
 
@@ -13,26 +14,32 @@ const Members = () => {
   return (
     <div className=" bg-teal-100 relative w-full h-fit overflow-hidden px-12 py-12 flex flex-col items-center">
       <div className="flex flex-col items-center gap-4">
-        <Heading
-          title="People"
-          subtitle="Meet our members!"
-          icon={<Users size={32} className="inline-block mr-2" />}
-          variant="secondary"
-        />
+        <Fade direction="down" cascade triggerOnce>
+          {' '}
+          <Heading
+            title="People"
+            subtitle="Meet our members!"
+            icon={<Users size={32} className="inline-block mr-2" />}
+            variant="secondary"
+          />
+        </Fade>
 
-        <div className="flex -space-x-4 rtl:space-x-reverse overflow-x-auto">
-          {ziqi && <Avatar src={ziqi.thumbnail} size={180} />}
-          {stewart && <Avatar src={stewart.thumbnail} size={180} />}
-          {mason && <Avatar src={mason.thumbnail} size={180} />}
-          {mehak && <Avatar src={mehak.thumbnail} size={180} />}
-          {/* Add more avatars as needed */}
-          <Link
-            className="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800"
-            href="/member"
-          >
-            +4
-          </Link>
-        </div>
+        <Fade direction="up" cascade triggerOnce>
+          {' '}
+          <div className="flex -space-x-4 rtl:space-x-reverse overflow-x-auto">
+            {ziqi && <Avatar src={ziqi.thumbnail} size={180} />}
+            {stewart && <Avatar src={stewart.thumbnail} size={180} />}
+            {mason && <Avatar src={mason.thumbnail} size={180} />}
+            {mehak && <Avatar src={mehak.thumbnail} size={180} />}
+            {/* Add more avatars as needed */}
+            <Link
+              className="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800"
+              href="/member"
+            >
+              +4
+            </Link>
+          </div>
+        </Fade>
       </div>
     </div>
   );
