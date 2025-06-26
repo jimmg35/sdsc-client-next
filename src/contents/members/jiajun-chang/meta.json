@@ -6,6 +6,7 @@
   "email": "jc24cf@fsu.edu",
   "thumbnail": "/img/avatar/jim.jpg",
   "googleScholar": "",
+  "facultySupervisor": "Stewart Fotheringham",
   "education": [
     {
       "degree": "Ph.D.",
@@ -29,5 +30,6 @@
   "honor": [],
   "selectedPublications": [],
   "courseTaught": [],
-  "aoi": []
+  "aoi": [],
+  "professionalExperience": []
 }

@@ -1,0 +1,35 @@
+{
+  "id": "chenlun-Kao",
+  "name": "Chen-Lun Kao",
+  "title": "Ph.D. student",
+  "department": "Department of Geography",
+  "email": "ckao@fsu.edu",
+  "thumbnail": "/img/avatar/allan.jpg",
+  "googleScholar": "",
+  "facultySupervisor": "Stewart Fotheringham",
+  "education": [
+    {
+      "degree": "PhD",
+      "field": "Geography",
+      "institution": "Florida State University",
+      "year": 2026
+    },
+    {
+      "degree": "PhD",
+      "field": "Geographic Information Science",
+      "institution": "Arizona State University",
+      "year": 2024
+    },
+    {
+      "degree": "MS",
+      "field": "Spatial Economics and Data Analysis",
+      "institution": "University of Southern California",
+      "year": 2022
+    }
+  ],
+  "honor": [],
+  "selectedPublications": [],
+  "courseTaught": [],
+  "aoi": [],
+  "professionalExperience": []
+}
