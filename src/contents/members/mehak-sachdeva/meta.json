@@ -1,7 +1,7 @@
 {
   "id": "mehak-sachdeva",
   "name": "Mehak Sachdeva",
-  "title": "Assistant Professor",
+  "title": "Assistant Professor of Urban Science",
   "department": "Department of Urban & Regional Planning",
   "email": "mehak.sachdeva@fsu.edu",
   "thumbnail": "/img/avatar/mehak-sachdeva.jpg",
@@ -69,5 +69,6 @@
       "doi": ""
     }
   ],
-  "courseTaught": []
+  "courseTaught": [],
+  "professionalExperience": []
 }

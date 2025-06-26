@@ -3,6 +3,13 @@ import path from 'path';
 
 const membersDirectory = path.join(process.cwd(), 'src', 'contents', 'members');
 
+export interface MemberProfExp {
+  title: string;
+  institution: string;
+  start_year: number;
+  end_year: number | null;
+}
+
 export interface MemberEducation {
   degree: string;
   field: string;
@@ -32,11 +39,13 @@ export interface MemberData {
   email: string;
   thumbnail: string;
   googleScholar: string;
+  facultySupervisor?: string;
   education: MemberEducation[];
   honor: MemberHonor[];
   selectedPublications: MemberPublication[];
   courseTaught: string[];
   aoi: string[];
+  professionalExperience: MemberProfExp[];
 }
 
 export function getAllMembers(): MemberData[] {
@@ -53,11 +62,13 @@ export function getAllMembers(): MemberData[] {
       email,
       thumbnail,
       googleScholar,
+      facultySupervisor,
       education,
       honor,
       selectedPublications,
       courseTaught,
-      aoi
+      aoi,
+      professionalExperience
     } = JSON.parse(fileContents);
 
     return {
@@ -68,11 +79,13 @@ export function getAllMembers(): MemberData[] {
       email,
       thumbnail,
       googleScholar,
+      facultySupervisor: facultySupervisor,
       education: education || [],
       honor: honor || [],
       selectedPublications: selectedPublications || [],
       courseTaught: courseTaught || [],
-      aoi: aoi || []
+      aoi: aoi || [],
+      professionalExperience: professionalExperience || []
     };
   });
 

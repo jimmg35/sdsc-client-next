@@ -1,0 +1,30 @@
+{
+  "id": "hanbin-wang",
+  "name": "Hanbin Wang",
+  "title": "Ph.D. student",
+  "department": "Department of Geography",
+  "email": "hw24f@fsu.edu ",
+  "thumbnail": "/img/avatar/hanbin-wang.jpg",
+  "googleScholar": "https://www.linkedin.com/in/hanbin-wang-750440287/",
+  "facultySupervisor": "Ziqi Li",
+  "education": [
+    {
+      "degree": "Master",
+      "field": "Geodesy and Geoinformation",
+      "institution": "Technical University of Munich (TUM)",
+      "year": 2000
+    },
+
+    {
+      "degree": "Bachelor",
+      "field": "Geoinformation Science",
+      "institution": "Southwest Jiaotong University (SWJTU)",
+      "year": 2000
+    }
+  ],
+  "honor": [],
+  "selectedPublications": [],
+  "courseTaught": [],
+  "aoi": [],
+  "professionalExperience": []
+}

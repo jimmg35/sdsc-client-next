@@ -1,7 +1,7 @@
 {
   "id": "ziqi-li",
   "name": "Ziqi Li",
-  "title": "Assistant Professor",
+  "title": "Assistant Professor of Geography",
   "department": "Department of Geography",
   "email": "ziqi.li@fsu.edu",
   "thumbnail": "/img/avatar/ziqi-li.jpeg",
@@ -12,27 +12,22 @@
       "field": "Geography",
       "institution": "Arizona State University",
       "year": 2020
-    },
-    {
-      "degree": "M.A.",
-      "field": "Geography",
-      "institution": "George Washington University",
-      "year": 2016
-    },
-    {
-      "degree": "B.S.",
-      "field": "Geomatics",
-      "institution": "University of Waterloo",
-      "year": 2014
-    },
-    {
-      "degree": "B. Eng.",
-      "field": "Remote Sensing",
-      "institution": "Wuhan University",
-      "year": 2014
     }
   ],
-  "honor": [],
+  "honor": [
+    {
+      "title": "Postdoctoral Enrichment Award, Alan Turing Institute, UK",
+      "year": 2013
+    },
+    {
+      "title": "J. Warren Nystrom Award, American Association of Geographers",
+      "year": 2013
+    },
+    {
+      "title": "John Odland Award, Spatial Analysis and Modelling Group, American Association of Geographers",
+      "year": 2013
+    }
+  ],
   "selectedPublications": [
     {
       "id": "geoshapley-spatial-effects-ml",
@@ -85,5 +80,25 @@
     "Network Science",
     "Research Methods",
     "Human Geography"
+  ],
+  "professionalExperience": [
+    {
+      "title": "Assistant Professor",
+      "institution": "Department of Geography, FSU",
+      "start_year": 2023,
+      "end_year": null
+    },
+    {
+      "title": "Assistant Professor",
+      "institution": "University of Glasgow, UK",
+      "start_year": 2021,
+      "end_year": 2023
+    },
+    {
+      "title": "Visiting Assistant Professor",
+      "institution": "University of Illinois",
+      "start_year": 2020,
+      "end_year": 2021
+    }
   ]
 }

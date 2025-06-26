@@ -11,9 +11,17 @@ export default function Member() {
   const mason: MemberData | null = getMemberById('mason-mathews');
   const mehak: MemberData | null = getMemberById('mehak-sachdeva');
   const ziqi: MemberData | null = getMemberById('ziqi-li');
+  const amber: MemberData | null = getMemberById('amber-dejohn');
+  const mark: MemberData | null = getMemberById('mark-horner');
+  const christopher: MemberData | null = getMemberById('christopher-uejio');
 
   // Graduate students
   const jim: MemberData | null = getMemberById('jiajun-chang');
+  const weining: MemberData | null = getMemberById('weining-kan');
+  const fattah: MemberData | null = getMemberById('md-fattah');
+  const jacob: MemberData | null = getMemberById('jacob-tagnan');
+  const hanbin: MemberData | null = getMemberById('hanbin-wang');
+  const allan: MemberData | null = getMemberById('chenlun-kao');
 
   return (
     <section className="relative min-h-dvh">
@@ -41,9 +49,12 @@ export default function Member() {
           Core Members
         </h2>
         <div className="flex flex-wrap items-center justify-center gap-8 mb-10">
+          {amber && <ProfileCard key={amber.id} {...amber} />}
+          {ziqi && <ProfileCard key={ziqi.id} {...ziqi} />}
+          {mark && <ProfileCard key={mark.id} {...mark} />}
           {mason && <ProfileCard key={mason.id} {...mason} />}
           {mehak && <ProfileCard key={mehak.id} {...mehak} />}
-          {ziqi && <ProfileCard key={ziqi.id} {...ziqi} />}
+          {christopher && <ProfileCard key={christopher.id} {...christopher} />}
         </div>
 
         {/* Graduate Students */}
@@ -51,7 +62,12 @@ export default function Member() {
           Graduate Students
         </h2>
         <div className="flex flex-wrap items-center justify-center gap-8 mb-10">
+          {fattah && <ProfileCard key={fattah.id} {...fattah} />}
+          {weining && <ProfileCard key={weining.id} {...weining} />}
+          {allan && <ProfileCard key={allan.id} {...allan} />}
           {jim && <ProfileCard key={jim.id} {...jim} />}
+          {jacob && <ProfileCard key={jacob.id} {...jacob} />}
+          {hanbin && <ProfileCard key={hanbin.id} {...hanbin} />}
         </div>
       </div>
     </section>

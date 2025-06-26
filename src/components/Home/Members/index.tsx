@@ -14,15 +14,15 @@ const Members = () => {
   return (
     <div className=" bg-teal-100 relative w-full h-fit overflow-hidden px-12 py-12 flex flex-col items-center">
       <div className="flex flex-col items-center gap-4">
-        <Fade direction="down" cascade triggerOnce>
-          {' '}
-          <Heading
-            title="People"
-            subtitle="Meet our members!"
-            icon={<Users size={32} className="inline-block mr-2" />}
-            variant="secondary"
-          />
-        </Fade>
+        {/* <Fade direction="down" cascade triggerOnce> */}
+        {/* {' '} */}
+        <Heading
+          title="People"
+          subtitle="Meet our members!"
+          icon={<Users size={32} className="inline-block mr-2" />}
+          variant="secondary"
+        />
+        {/* </Fade> */}
 
         <Fade direction="up" cascade triggerOnce>
           {' '}

@@ -1,0 +1,36 @@
+{
+  "id": "christopher-uejio",
+  "name": "Christopher Uejio",
+  "title": "Professor of Geography and Public Health",
+  "department": "Department of Geography",
+  "email": "cuejio@fsu.edu",
+  "thumbnail": "/img/avatar/christopher-uejio.jpeg",
+  "googleScholar": "",
+  "education": [
+    {
+      "degree": "",
+      "field": "",
+      "institution": "",
+      "year": 2000
+    }
+  ],
+  "honor": [
+    {
+      "title": "",
+      "year": 2000
+    }
+  ],
+  "selectedPublications": [
+    {
+      "id": "",
+      "author": "",
+      "title": "",
+      "journal": "",
+      "catalog": "",
+      "doi": ""
+    }
+  ],
+  "courseTaught": [],
+  "aoi": [],
+  "professionalExperience": []
+}
