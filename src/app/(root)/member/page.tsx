@@ -22,7 +22,7 @@ export default function Member() {
   const jacob: MemberData | null = getMemberById('jacob-tagnan');
   const hanbin: MemberData | null = getMemberById('hanbin-wang');
   const allan: MemberData | null = getMemberById('chenlun-kao');
-  console.log(allan);
+
   return (
     <section className="relative min-h-dvh">
       <Banner
