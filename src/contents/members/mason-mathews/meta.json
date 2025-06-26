@@ -65,14 +65,6 @@
       "doi": ""
     },
     {
-      "id": "hydropower-sustainability-amazon",
-      "author": "Athayde, S., Mathews, M., et al.",
-      "title": "Mapping Research on Hydropower and Sustainability in the Brazilian Amazon: Advances, Gaps in Knowledge and Future Directions.",
-      "journal": "Current Opinion in Environmental Sustainability",
-      "catalog": "37:50–69",
-      "doi": "10.1016/j.cosust.2019.06.004"
-    },
-    {
       "id": "social-vulnerability-covid19",
       "author": "Wang, C., Li, Z., Mathews, M.C., et al.",
       "title": "The spatial association of social vulnerability with COVID-19 prevalence in the contiguous United States.",
@@ -87,14 +79,6 @@
       "journal": "Journal of Applied Gerontology",
       "catalog": "",
       "doi": "10.1177/0733464820954676"
-    },
-    {
-      "id": "methods-disaster-research",
-      "author": "Peek, L., Champeau, H., Austin, J., Mathews, M., Wu, H.",
-      "title": "What Methods Do Social Scientists Use to Study Disasters? An Analysis of the Social Science Extreme Events Research Network.",
-      "journal": "American Behavioral Scientist",
-      "catalog": "64 (8): 1066–1094",
-      "doi": "10.1177/0002764220938105"
     },
     {
       "id": "converge-framework",
@@ -113,6 +97,14 @@
       "doi": "10.1061/(ASCE)NH.1527-6996.0000371"
     },
     {
+      "id": "hydropower-sustainability-amazon",
+      "author": "Athayde, S., Mathews, M., et al.",
+      "title": "Mapping Research on Hydropower and Sustainability in the Brazilian Amazon: Advances, Gaps in Knowledge and Future Directions.",
+      "journal": "Current Opinion in Environmental Sustainability",
+      "catalog": "37:50–69",
+      "doi": "10.1016/j.cosust.2019.06.004"
+    },
+    {
       "id": "informal-credit-amazonia",
       "author": "Mathews, M.C., Schmink, M.",
       "title": "“Differentiated Citizenship” and the Persistence of Informal Rural Credit Systems in Amazonia.",
@@ -121,5 +113,6 @@
       "doi": ""
     }
   ],
-  "courseTaught": []
+  "courseTaught": [],
+  "professionalExperience": []
 }
