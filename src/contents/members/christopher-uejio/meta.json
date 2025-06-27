@@ -6,30 +6,9 @@
   "email": "cuejio@fsu.edu",
   "thumbnail": "/img/avatar/christopher-uejio.jpeg",
   "googleScholar": "",
-  "education": [
-    {
-      "degree": "",
-      "field": "",
-      "institution": "",
-      "year": 2000
-    }
-  ],
-  "honor": [
-    {
-      "title": "",
-      "year": 2000
-    }
-  ],
-  "selectedPublications": [
-    {
-      "id": "",
-      "author": "",
-      "title": "",
-      "journal": "",
-      "catalog": "",
-      "doi": ""
-    }
-  ],
+  "education": [],
+  "honor": [],
+  "selectedPublications": [],
   "courseTaught": [],
   "aoi": [],
   "professionalExperience": []

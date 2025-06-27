@@ -1,7 +1,7 @@
 {
   "id": "md-fattah",
   "name": "Md A. Fattah",
-  "title": "",
+  "title": "Ph.D. student",
   "department": "",
   "email": "mfattah@fsu.edu",
   "thumbnail": "/img/avatar/md-fattah.jpg",
@@ -9,16 +9,7 @@
   "facultySupervisor": "Mark W. Horner",
   "education": [],
   "honor": [],
-  "selectedPublications": [
-    {
-      "id": "",
-      "author": "",
-      "title": "",
-      "journal": "",
-      "catalog": "",
-      "doi": ""
-    }
-  ],
+  "selectedPublications": [],
   "courseTaught": [],
   "aoi": [],
   "professionalExperience": []
