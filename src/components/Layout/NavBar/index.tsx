@@ -11,6 +11,7 @@ import {
   UserRound
 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export const NavDirection = [
@@ -67,7 +68,13 @@ const Navbar = ({
         {/* Logo */}
         <Link href="/">
           <div className="text-teal-400 text-3xl font-bold transition">
-            SDSC
+            {/* SDSC */}
+            <Image
+              src={`/img/sdsc-logo.png`}
+              width={145}
+              height={46}
+              alt="SDSC"
+            />
           </div>
         </Link>
 
