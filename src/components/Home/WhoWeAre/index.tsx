@@ -1,5 +1,6 @@
 import { Atom, FolderCode, Microscope } from 'lucide-react';
 import { Fade } from 'react-awesome-reveal';
+import Image from 'next/image';
 
 const Circle = ({
   text,
@@ -27,8 +28,8 @@ const WhoWeAre = () => {
           can turn to us for support. We also provide a range of open-source
           spatial software for use.
         </p>
-        <div className="flex gap-8 py-8 justify-center flex-wrap">
-          <Circle text="Spatial Data Science">
+        <div className="flex gap-8 pb-8 justify-center flex-wrap">
+          {/* <Circle text="Spatial Data Science">
             <Atom size={48} className="text-teal-400" />
           </Circle>
           <Circle text="MGWR Software">
@@ -36,7 +37,13 @@ const WhoWeAre = () => {
           </Circle>
           <Circle text="Interdisciplinary Research">
             <Microscope size={48} className="text-teal-400" />
-          </Circle>
+          </Circle> */}
+          <Image
+            src={`/img/compass-banner.svg`}
+            width={816}
+            height={552}
+            alt="none"
+          />
         </div>
         <p className="mt-4 text-xl mx-4 md:mx-84 text-center font-bold">
           Empowering spatial understanding through cutting-edge GIScience
