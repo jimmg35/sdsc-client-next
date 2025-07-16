@@ -1,22 +1,21 @@
-import { Atom, FolderCode, Microscope } from 'lucide-react';
 import { Fade } from 'react-awesome-reveal';
 import Image from 'next/image';
 
-const Circle = ({
-  text,
-  children
-}: {
-  text: string;
-  children: React.ReactNode;
-}) => {
-  return (
-    <div className="relative flex flex-col items-center justify-center w-64 h-64 rounded-full border-2 border-teal-400 transition-all duration-300">
-      <div className="absolute inset-0 rounded-full border-4 border-teal-400 opacity-0 hover:opacity-100 transition-all duration-300"></div>
-      {children}
-      <p className="text-teal-600 text-lg">{text}</p>
-    </div>
-  );
-};
+// const Circle = ({
+//   text,
+//   children
+// }: {
+//   text: string;
+//   children: React.ReactNode;
+// }) => {
+//   return (
+//     <div className="relative flex flex-col items-center justify-center w-64 h-64 rounded-full border-2 border-teal-400 transition-all duration-300">
+//       <div className="absolute inset-0 rounded-full border-4 border-teal-400 opacity-0 hover:opacity-100 transition-all duration-300"></div>
+//       {children}
+//       <p className="text-teal-600 text-lg">{text}</p>
+//     </div>
+//   );
+// };
 
 const WhoWeAre = () => {
   return (
