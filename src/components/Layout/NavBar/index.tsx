@@ -29,7 +29,8 @@ export const NavDirection = [
 ];
 
 const scrolledStyle = 'bg-white text-black h-[80px] shadow-md';
-const notScrolledStyle = 'bg-transparent text-white h-[110px]';
+// const notScrolledStyle = 'bg-transparent text-white h-[110px]';
+const notScrolledStyle = 'bg-white text-black h-[110px]';
 
 const Navbar = ({
   isForcedScrolled = false
