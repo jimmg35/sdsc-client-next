@@ -1,15 +1,15 @@
-import Banner from '@/components/Utility/Banner';
-import { Globe, Info, LineChart, MapPin } from 'lucide-react';
+// import Banner from '@/components/Utility/Banner';
+import { Globe, LineChart, MapPin } from 'lucide-react';
 
 export default function About() {
   return (
     <section className="relative min-h-dvh">
-      <Banner
+      {/* <Banner
         title="About"
         imageUrl="/img/banners/about-banner.jpg"
         icon={<Info size={52} className="inline-block mr-2" />}
-      />
-      <div className="mx-auto max-w-7xl py-16 px-6 space-y-16">
+      /> */}
+      <div className="mx-auto max-w-7xl  pt-30 space-y-16">
         {/* Introduction */}
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-800 mb-4">Who We Are</h2>

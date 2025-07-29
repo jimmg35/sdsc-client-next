@@ -1,6 +1,6 @@
 import Members from '@/components/Home/Members';
 import News from '@/components/Home/News';
-import Publication from '@/components/Home/Publication';
+// import Publication from '@/components/Home/Publication';
 import Welcome from '@/components/Home/Welcome';
 import WhoWeAre from '@/components/Home/WhoWeAre';
 
@@ -10,7 +10,7 @@ export default function Home() {
       <Welcome />
       <WhoWeAre />
       <Members />
-      <Publication />
+      {/* <Publication /> */}
       <News />
     </div>
   );

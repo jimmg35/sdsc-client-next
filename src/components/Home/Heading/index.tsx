@@ -1,29 +1,29 @@
 import React from 'react';
 
 const Heading = ({
-  icon,
-  title,
-  subtitle,
-  variant = 'default'
+  // icon,
+  title
+  // subtitle,
+  // variant = 'default'
 }: {
-  icon: React.ReactNode;
+  // icon: React.ReactNode;
   title: string;
-  subtitle: string;
+  // subtitle: string;
   variant?: 'default' | 'secondary';
 }) => {
   return (
     <h1 className="text-4xl font-bold flex  gap-2 flex-col items-center justify-center">
       <div>
-        {icon}
+        {/* {icon} */}
         {title}
       </div>
-      <div
+      {/* <div
         className={`${
           variant === 'default' ? 'bg-teal-100' : 'bg-white'
         } py-2 px-4 rounded-md shadow-md`}
       >
         <p className="text-lg">{subtitle}</p>
-      </div>
+      </div> */}
     </h1>
   );
 };

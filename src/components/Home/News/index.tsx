@@ -9,13 +9,13 @@ const News = () => {
   const news: NewsData[] = getAllNews().slice(0, 3);
 
   return (
-    <div className="bg-teal-100 relative w-full h-fit overflow-hidden px-12 py-12 flex flex-col items-center">
+    <div className="bg-white relative w-full h-fit overflow-hidden px-12 py-12 flex flex-col items-center">
       <div className="flex flex-col items-center gap-4">
         <Fade direction="down" cascade triggerOnce>
           <Heading
             title="News"
-            subtitle="Stay tuned for updates!"
-            icon={<Rss size={32} className="inline-block mr-2" />}
+            // subtitle="Stay tuned for updates!"
+            // icon={<Rss size={32} className="inline-block mr-2" />}
             variant="secondary"
           />
         </Fade>

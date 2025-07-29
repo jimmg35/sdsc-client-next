@@ -1,7 +1,8 @@
-import Banner from '@/components/Utility/Banner';
+// import Banner from '@/components/Utility/Banner';
 import ProfileCard from '@/components/Utility/ProfileCard';
 import { MemberData, getMemberById } from '@/lib/members';
-import { UserRound } from 'lucide-react';
+
+// import { UserRound } from 'lucide-react';
 
 export default function Member() {
   // Director
@@ -25,13 +26,13 @@ export default function Member() {
 
   return (
     <section className="relative min-h-dvh">
-      <Banner
+      {/* <Banner
         title="Member"
         imageUrl="/img/banners/member-banner.jpg"
         icon={<UserRound size={52} className="inline-block mr-2" />}
-      />
+      /> */}
 
-      <div className="mx-auto max-w-7xl py-10 px-6">
+      <div className="mx-auto max-w-7xl pb-10 pt-30 px-6">
         {/* Center Director */}
         {stewart && (
           <>
