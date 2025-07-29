@@ -1,8 +1,9 @@
-import Banner from '@/components/Utility/Banner';
+// import Banner from '@/components/Utility/Banner';
 import PublicationPost from '@/components/Utility/PublicationPost';
-import Search from '@/components/Utility/Search';
+// import Search from '@/components/Utility/Search';
 import { PublicationData, getAllPublications } from '@/lib/publications';
-import { ScrollText } from 'lucide-react';
+
+// import { ScrollText } from 'lucide-react';
 
 export default function Publications() {
   const publications: PublicationData[] = getAllPublications();

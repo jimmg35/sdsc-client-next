@@ -1,7 +1,8 @@
-import Banner from '@/components/Utility/Banner';
+// import Banner from '@/components/Utility/Banner';
 import ProfileCard from '@/components/Utility/ProfileCard';
 import { MemberData, getMemberById } from '@/lib/members';
-import { UserRound } from 'lucide-react';
+
+// import { UserRound } from 'lucide-react';
 
 export default function Member() {
   // Director
