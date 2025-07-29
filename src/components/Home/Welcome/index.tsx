@@ -1,5 +1,4 @@
-import Button from '@/components/Utility/Button';
-import { ArrowDown, Telescope } from 'lucide-react';
+import { ArrowDown } from 'lucide-react';
 import { Fade } from 'react-awesome-reveal';
 import SlideShow from './SlideShow';
 
@@ -28,12 +27,12 @@ const Welcome = () => {
               Your journey into GIScience begins here.
             </p>
 
-            <Button
+            {/* <Button
               href="/about"
               icon={<Telescope size={24} className="ml-2" />}
               text="Explore SDSC"
               variant="outlined"
-            />
+            /> */}
           </Fade>
         </div>
       </div>
