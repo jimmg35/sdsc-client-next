@@ -1,6 +1,6 @@
 import Avatar from '@/components/Utility/Avatar';
 import { MemberData, getMemberById } from '@/lib/members';
-import { Users } from 'lucide-react';
+// import { Users } from 'lucide-react';
 import { Fade } from 'react-awesome-reveal';
 import Link from 'next/link';
 import Heading from '../Heading';
@@ -18,8 +18,8 @@ const Members = () => {
         {/* {' '} */}
         <Heading
           title="People"
-          subtitle="Meet our members!"
-          icon={<Users size={32} className="inline-block mr-2" />}
+          // subtitle="Meet our members!"
+          // icon={<Users size={32} className="inline-block mr-2" />}
           variant="secondary"
         />
         {/* </Fade> */}
