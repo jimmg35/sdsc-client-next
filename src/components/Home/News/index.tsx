@@ -14,8 +14,8 @@ const News = () => {
         <Fade direction="down" cascade triggerOnce>
           <Heading
             title="News"
-            subtitle="Stay tuned for updates!"
-            icon={<Rss size={32} className="inline-block mr-2" />}
+            // subtitle="Stay tuned for updates!"
+            // icon={<Rss size={32} className="inline-block mr-2" />}
             variant="secondary"
           />
         </Fade>

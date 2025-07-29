@@ -18,8 +18,8 @@ const Members = () => {
         {/* {' '} */}
         <Heading
           title="People"
-          subtitle="Meet our members!"
-          icon={<Users size={32} className="inline-block mr-2" />}
+          // subtitle="Meet our members!"
+          // icon={<Users size={32} className="inline-block mr-2" />}
           variant="secondary"
         />
         {/* </Fade> */}

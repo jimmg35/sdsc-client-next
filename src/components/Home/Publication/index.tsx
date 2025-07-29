@@ -16,8 +16,8 @@ const Publication = () => {
         <Fade direction="down" cascade triggerOnce>
           <Heading
             title="Publication"
-            subtitle="Access our latest journal!"
-            icon={<ScrollText size={32} className="inline-block mr-2" />}
+            // subtitle="Access our latest journal!"
+            // icon={<ScrollText size={32} className="inline-block mr-2" />}
           />
         </Fade>
 
