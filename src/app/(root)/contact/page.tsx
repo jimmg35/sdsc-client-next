@@ -1,14 +1,14 @@
-import Banner from '@/components/Utility/Banner';
+// import Banner from '@/components/Utility/Banner';
 import { Clock, Mail, MapPin, PhoneCall } from 'lucide-react';
 
 export default function Contact() {
   return (
     <section className="relative min-h-dvh">
-      <Banner
+      {/* <Banner
         title="Contact"
         imageUrl="/img/banners/publications-banner.jpg"
         icon={<PhoneCall size={52} className="inline-block mr-2" />}
-      />
+      /> */}
       <div className="mx-auto h-[calc(100dvh-300px)] max-w-7xl py-10 px-6 flex flex-wrap items-center justify-center gap-8">
         <h2 className="text-2xl font-semibold mb-6 text-gray-800">
           Contact Information

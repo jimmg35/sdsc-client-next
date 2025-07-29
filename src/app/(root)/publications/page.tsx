@@ -9,13 +9,13 @@ export default function Publications() {
 
   return (
     <section className="relative min-h-dvh">
-      <Banner
+      {/* <Banner
         title="Publications"
         imageUrl="/img/banners/publications-banner.jpg"
         icon={<ScrollText size={52} className="inline-block mr-2" />}
-      />
-      <div className="mx-auto max-w-7xl pt-10 px-6">
-        <Search placeholder="Search for publications!" />
+      /> */}
+      <div className="mx-auto max-w-7xl pb-10 pt-30 px-6">
+        {/* <Search placeholder="Search for publications!" /> */}
       </div>
       <div className="mx-auto max-w-7xl py-10 px-6 flex flex-wrap items-center justify-center gap-8">
         {publications.map((publication) => (

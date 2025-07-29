@@ -1,15 +1,15 @@
-import Banner from '@/components/Utility/Banner';
-import { Globe, LineChart, MapPin, Microscope } from 'lucide-react';
+// import Banner from '@/components/Utility/Banner';
+import { Globe, LineChart, MapPin } from 'lucide-react';
 
 export default function Research() {
   return (
     <section className="relative min-h-dvh">
-      <Banner
+      {/* <Banner
         title="Research"
         imageUrl="/img/banners/research-banner.jpg"
         icon={<Microscope size={52} className="inline-block mr-2" />}
-      />
-      <div className="mx-auto max-w-7xl py-16 px-6">
+      /> */}
+      <div className="mx-auto max-w-7xl pb-16 pt-30 px-6">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
           Our Research Focus
         </h2>
