@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react';
 
 const images = [
-  '/img/welcome-banner/banner-1.jpg',
-  '/img/welcome-banner/banner-2.jpg',
-  '/img/welcome-banner/banner-3.jpg',
-  '/img/welcome-banner/banner-4.jpg'
+  '/img/welcome-banner/mgwr-bg.png'
+  // '/img/welcome-banner/banner-2.jpg',
+  // '/img/welcome-banner/banner-3.jpg',
+  // '/img/welcome-banner/banner-4.jpg'
 ];
 
 const SlideShow = () => {
