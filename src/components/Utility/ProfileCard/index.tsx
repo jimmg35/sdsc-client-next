@@ -23,7 +23,7 @@ const ProfileCard = ({ id, thumbnail, name, title }: MemberData) => {
         </Link>
         <Link
           href="#"
-          className="w-full h-10 flex items-center justify-center text-black bg-teal-400 rounded-br-lg"
+          className="w-full h-10 flex items-center justify-center text-white bg-teal-400 rounded-br-lg"
         >
           C.V.
         </Link>

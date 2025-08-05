@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  AppWindowMac,
   CircleX,
   Info,
   Menu,
@@ -15,17 +16,48 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export const NavDirection = [
-  { name: 'About', href: '/about', icon: <Info size={18} /> },
-  { name: 'Member', href: '/member', icon: <UserRound size={18} /> },
-  { name: 'Research', href: '/research', icon: <Microscope size={18} /> },
+  {
+    name: 'About',
+    href: '/about',
+    icon: <Info size={18} />,
+    isHightlighted: false
+  },
+  {
+    name: 'Member',
+    href: '/member',
+    icon: <UserRound size={18} />,
+    isHightlighted: false
+  },
+  {
+    name: 'Research',
+    href: '/research',
+    icon: <Microscope size={18} />,
+    isHightlighted: false
+  },
   {
     name: 'Publications',
     href: '/publications',
-    icon: <ScrollText size={18} />
+    icon: <ScrollText size={18} />,
+    isHightlighted: false
   },
-  // { name: 'Events', href: '/events', icon: <CalendarDays size={18} /> },
-  { name: 'News', href: '/news', icon: <Rss size={18} /> },
-  { name: 'Contact', href: '/contact', icon: <PhoneCall size={18} /> }
+  {
+    name: 'News',
+    href: '/news',
+    icon: <Rss size={18} />,
+    isHightlighted: false
+  },
+  {
+    name: 'Contact',
+    href: '/contact',
+    icon: <PhoneCall size={18} />,
+    isHightlighted: false
+  },
+  {
+    name: 'MGWR',
+    href: '/mgwr',
+    icon: <AppWindowMac size={18} />,
+    isHightlighted: true
+  }
 ];
 
 const scrolledStyle = 'bg-white text-black h-[80px] shadow-md';
@@ -85,7 +117,8 @@ const Navbar = ({
             <li key={item.name}>
               <Link
                 href={item.href}
-                className={`hover:text-teal-400 hover:border-teal-400 flex items-center justify-center gap-1 text-base transition border-b-2 border-transparent `}
+                className={`hover:text-teal-400 hover:border-teal-400 px-4 py-2 flex items-center justify-center gap-1 text-base transition border-b-2 border-transparent 
+                  ${item.isHightlighted && 'bg-teal-400 rounded-md text-white hover:bg-teal-500 hover:text-white'}`}
               >
                 {item.icon}
                 {item.name}
