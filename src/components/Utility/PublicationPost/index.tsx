@@ -1,6 +1,4 @@
 import { PublicationData } from '@/lib/publications';
-import { BookMarked } from 'lucide-react';
-import Link from 'next/link';
 
 const PublicationPost = ({
   author,
