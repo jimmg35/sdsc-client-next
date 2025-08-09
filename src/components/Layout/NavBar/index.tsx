@@ -35,6 +35,12 @@ export const NavDirection = [
     isHightlighted: false
   },
   {
+    name: 'MGWR',
+    href: '/mgwr',
+    icon: <AppWindowMac size={18} />,
+    isHightlighted: false
+  },
+  {
     name: 'Publications',
     href: '/publications',
     icon: <ScrollText size={18} />,
@@ -51,12 +57,6 @@ export const NavDirection = [
     href: '/contact',
     icon: <PhoneCall size={18} />,
     isHightlighted: false
-  },
-  {
-    name: 'MGWR',
-    href: '/mgwr',
-    icon: <AppWindowMac size={18} />,
-    isHightlighted: true
   }
 ];
 
