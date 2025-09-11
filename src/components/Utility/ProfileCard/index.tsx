@@ -2,7 +2,8 @@ import { MemberData } from '@/lib/members';
 import Link from 'next/link';
 import Avatar from '../Avatar';
 
-const ProfileCard = ({ id, thumbnail, name, title }: MemberData) => {
+const ProfileCard = ({ id, thumbnail, name, title, cvPath }: MemberData) => {
+  console.log(cvPath);
   return (
     <div className="shadow-xl">
       <div className="w-64 h-96 bg-gray-800 rounded-t-lg">
@@ -22,8 +23,10 @@ const ProfileCard = ({ id, thumbnail, name, title }: MemberData) => {
           Profile
         </Link>
         <Link
-          href="#"
-          className="w-full h-10 flex items-center justify-center text-white bg-teal-400 rounded-br-lg"
+          href={cvPath ? cvPath : '#'}
+          className={`w-full h-10 flex items-center justify-center text-white bg-teal-400 rounded-br-lg ${!cvPath ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''}`}
+          aria-disabled={!cvPath}
+          tabIndex={!cvPath ? -1 : 0}
         >
           C.V.
         </Link>
