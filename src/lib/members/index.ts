@@ -38,6 +38,7 @@ export interface MemberData {
   department: string;
   email: string;
   thumbnail: string;
+  cvPath?: string;
   googleScholar: string;
   facultySupervisor?: string;
   education: MemberEducation[];
@@ -61,6 +62,7 @@ export function getAllMembers(): MemberData[] {
       department,
       email,
       thumbnail,
+      cvPath,
       googleScholar,
       facultySupervisor,
       education,
@@ -78,6 +80,7 @@ export function getAllMembers(): MemberData[] {
       department,
       email,
       thumbnail,
+      cvPath: cvPath || undefined,
       googleScholar,
       facultySupervisor: facultySupervisor,
       education: education || [],
