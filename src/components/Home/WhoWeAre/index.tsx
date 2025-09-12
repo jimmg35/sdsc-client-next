@@ -38,9 +38,9 @@ const WhoWeAre = () => {
             <Microscope size={48} className="text-teal-400" />
           </Circle> */}
           <Image
-            src={`/img/compass-banner.svg`}
-            width={816}
-            height={552}
+            src={`/img/compass-banner.jpg`}
+            width={800}
+            height={411}
             alt="none"
           />
         </div>
