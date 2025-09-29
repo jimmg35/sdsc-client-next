@@ -1,20 +1,29 @@
-import { ArrowUpRight, Mail, MapPin, PhoneCall, Github, Linkedin, Twitter } from "lucide-react";
-import Link from "next/link";
+import {
+  ArrowUpRight,
+  Github,
+  Linkedin,
+  Mail,
+  MapPin,
+  PhoneCall,
+  Twitter
+} from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const quickLinks = [
-  { label: "About", href: "/about" },
-  { label: "Members", href: "/member" },
-  { label: "Research", href: "/research" },
-  { label: "MGWR", href: "/mgwr" },
-  { label: "Publications", href: "/publications" },
-  { label: "News", href: "/news" },
-  { label: "Contact", href: "/contact" }
+  { label: 'About', href: '/about' },
+  { label: 'Members', href: '/member' },
+  { label: 'Research', href: '/research' },
+  { label: 'MGWR', href: '/mgwr' },
+  { label: 'Publications', href: '/publications' },
+  { label: 'News', href: '/news' },
+  { label: 'Contact', href: '/contact' }
 ];
 
 const socialLinks = [
-  { label: "Twitter", href: "#", icon: Twitter },
-  { label: "LinkedIn", href: "#", icon: Linkedin },
-  { label: "GitHub", href: "#", icon: Github }
+  { label: 'Twitter', href: '#', icon: Twitter },
+  { label: 'LinkedIn', href: '#', icon: Linkedin },
+  { label: 'GitHub', href: '#', icon: Github }
 ];
 
 const Footer = () => {
@@ -25,7 +34,7 @@ const Footer = () => {
       <div className="relative mx-auto max-w-6xl px-6 py-16">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-5">
-            <div className="inline-flex items-center gap-3">
+            {/* <div className="inline-flex items-center gap-3">
               <span className="flex h-10 w-10 items-center justify-center rounded-full border border-rose-200/80 bg-rose-50">
                 <span className="h-6 w-6 rounded-full bg-rose-400/70" />
               </span>
@@ -33,9 +42,18 @@ const Footer = () => {
                 <p className="text-sm font-semibold uppercase tracking-[0.32em] text-rose-700">SDSC</p>
                 <p className="text-[0.65rem] uppercase tracking-[0.34em] text-rose-400/80">Spatial Data Science Center</p>
               </div>
-            </div>
+            </div> */}
+            <Image
+              width={145}
+              height={46}
+              src="/img/sdsc-logo.png"
+              alt="SDSC logo"
+              className="rounded-full object-cover"
+            />
             <p className="max-w-xs text-sm leading-6 text-ink-700/80">
-              SDSC pairs spatial analytics, design, and community partnerships to translate geospatial intelligence into impact across Florida State University and beyond.
+              SDSC pairs spatial analytics, design, and community partnerships
+              to translate geospatial intelligence into impact across Florida
+              State University and beyond.
             </p>
             <Link
               href="/contact"
@@ -47,7 +65,9 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.34em] text-rose-500/80">Navigate</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-[0.34em] text-rose-500/80">
+              Navigate
+            </h3>
             <ul className="mt-5 space-y-3 text-sm">
               {quickLinks.map((item) => (
                 <li key={item.label}>
@@ -64,7 +84,9 @@ const Footer = () => {
           </div>
 
           <div className="space-y-4 text-sm">
-            <h3 className="text-xs font-semibold uppercase tracking-[0.34em] text-rose-500/80">Visit</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-[0.34em] text-rose-500/80">
+              Visit
+            </h3>
             <p className="flex items-start gap-3 text-ink-700/80">
               <MapPin size={18} className="text-rose-500" />
               <span>
@@ -86,9 +108,12 @@ const Footer = () => {
           </div>
 
           <div className="space-y-5">
-            <h3 className="text-xs font-semibold uppercase tracking-[0.34em] text-rose-500/80">Stay connected</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-[0.34em] text-rose-500/80">
+              Stay connected
+            </h3>
             <p className="text-sm text-ink-700/80">
-              Join our newsletter for research updates, event invites, and MGWR release notes.
+              Join our newsletter for research updates, event invites, and MGWR
+              release notes.
             </p>
             <form className="flex flex-col gap-3 sm:flex-row">
               <input
@@ -127,7 +152,10 @@ const Footer = () => {
       <div className="relative border-t border-silk-200/80 bg-white/80">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-4 text-[0.7rem] uppercase tracking-[0.3em] text-ink-500 md:flex-row">
           <span>SDSC - Florida State University</span>
-          <span>&copy; {new Date().getFullYear()} Spatial Data Science Center. All rights reserved.</span>
+          <span>
+            &copy; {new Date().getFullYear()} Spatial Data Science Center. All
+            rights reserved.
+          </span>
         </div>
       </div>
     </footer>
@@ -135,4 +163,3 @@ const Footer = () => {
 };
 
 export default Footer;
-

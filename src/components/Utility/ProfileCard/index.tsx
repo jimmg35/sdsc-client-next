@@ -3,12 +3,20 @@ import { ArrowUpRight, UserRound } from 'lucide-react';
 import Link from 'next/link';
 import Avatar from '../Avatar';
 
-const ProfileCard = ({ id, thumbnail, name, title, cvPath }: MemberData) => {
-  console.log(cvPath);
+const ProfileCard = ({
+  id,
+  thumbnail,
+  name,
+  title,
+  cvPath,
+  centerRole
+}: MemberData) => {
   return (
     <article className="group glass-card flex w-[19.5rem] flex-col justify-between overflow-hidden text-gold-100 transition duration-300 ease-out hover:-translate-y-3">
       <div className="relative flex flex-col items-center gap-6 px-6 pb-8 pt-10 text-center">
-        <span className="chip-gold">SDSC Member</span>
+        <span className="chip-gold">
+          {centerRole ? centerRole : 'SDSC Member'}
+        </span>
         <div className="halo transition-transform duration-300 ease-out group-hover:scale-[1.04]">
           <Avatar
             src={thumbnail}

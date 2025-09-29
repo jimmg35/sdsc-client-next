@@ -34,7 +34,9 @@ export default function Member() {
             Meet the minds advancing spatial science
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/75 md:text-base">
-            Our collective blends data science, geospatial analytics, and immersive design to build forward-looking solutions for the communities we serve.
+            Our collective blends data science, geospatial analytics, and
+            immersive design to build forward-looking solutions for the
+            communities we serve.
           </p>
         </header>
 
@@ -45,10 +47,11 @@ export default function Member() {
                 Center Director
               </p>
               <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
-                Stewarding vision & partnerships
+                Center Director
               </h2>
               <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/80">
-                Strategic leadership guiding SDSC&apos;s interdisciplinary collaborations and future roadmap.
+                Strategic leadership guiding SDSC&apos;s interdisciplinary
+                collaborations and future roadmap.
               </p>
             </div>
             <div className="flex justify-center">
@@ -66,7 +69,9 @@ export default function Member() {
               Core faculty & research leaders
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/80">
-              Specialists across geospatial intelligence, immersive tech, and applied analytics crafting the next generation of spatial solutions.
+              Specialists across geospatial intelligence, immersive tech, and
+              applied analytics crafting the next generation of spatial
+              solutions.
             </p>
           </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -85,7 +90,8 @@ export default function Member() {
               Emerging innovators & collaborators
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/80">
-              Graduate researchers pushing the boundaries of immersive visualization, spatial statistics, and human-centered design.
+              Graduate researchers pushing the boundaries of immersive
+              visualization, spatial statistics, and human-centered design.
             </p>
           </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">

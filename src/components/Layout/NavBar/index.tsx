@@ -119,12 +119,12 @@ const Navbar = () => {
           <div className="flex items-center gap-3">
             {navItems.map((item) => renderLink(item, 'desktop'))}
           </div>
-          <Link
+          {/* <Link
             href="/contact"
             className="inline-flex items-center gap-2 rounded-full border border-silk-300 bg-silk-200/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-silk-800 transition hover:bg-silk-200"
           >
             Connect
-          </Link>
+          </Link> */}
         </div>
 
         <button

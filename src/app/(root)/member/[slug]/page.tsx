@@ -33,7 +33,7 @@ export default async function ProfilePage(props: { params: Props }) {
       <div className="mx-auto max-w-5xl px-6 pb-28 pt-36 text-gold-100 md:pt-40">
         <div className="mb-8">
           <Link
-            className="inline-flex items-center gap-2 rounded-full border border-gold-400/40 bg-[#160b29]/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-gold-200 transition hover:border-gold-400 hover:text-gold-50"
+            className="inline-flex items-center gap-2 rounded-full border border-gold-400/40 bg-[#160b29]/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-gold-200 transition hover:border-gold-400 hover:text-gold-50"
             href="/member"
           >
             <ArrowLeft size={16} />
@@ -45,13 +45,19 @@ export default async function ProfilePage(props: { params: Props }) {
           <div className="relative flex flex-col gap-12 md:flex-row">
             <div className="flex flex-col items-center text-center md:max-w-xs md:flex-none md:text-left">
               <div className="halo">
-                <Avatar src={member.thumbnail} size={200} alt={`${member.name} portrait`} />
+                <Avatar
+                  src={member.thumbnail}
+                  size={200}
+                  alt={`${member.name} portrait`}
+                />
               </div>
               <h1 className="mt-6 text-3xl font-semibold text-gold-50 text-glow md:text-4xl">
                 {member.name}
               </h1>
               {member.title && (
-                <p className="mt-2 text-sm text-gold-200/80 md:text-base">{member.title}</p>
+                <p className="mt-2 text-sm text-gold-200/80 md:text-base">
+                  {member.title}
+                </p>
               )}
               <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
                 {member.email && (
@@ -91,7 +97,9 @@ export default async function ProfilePage(props: { params: Props }) {
 
               <div className="grid gap-8 md:grid-cols-2">
                 <section className="glass-card px-6 py-6">
-                  <header className="panel-title text-gold-300">Department</header>
+                  <header className="panel-title text-gold-300">
+                    Department
+                  </header>
                   <p className="mt-3 text-sm text-gold-200/80 md:text-base">
                     {member.department}
                   </p>
@@ -99,7 +107,9 @@ export default async function ProfilePage(props: { params: Props }) {
 
                 {member.education && member.education.length > 0 && (
                   <section className="glass-card px-6 py-6">
-                    <header className="panel-title text-gold-300">Education</header>
+                    <header className="panel-title text-gold-300">
+                      Education
+                    </header>
                     <ul className="mt-4 space-y-3">
                       {member.education.map((edu, idx) => (
                         <li key={idx} className="custom-li">
@@ -119,7 +129,9 @@ export default async function ProfilePage(props: { params: Props }) {
 
               {member.aoi && member.aoi.length > 0 && (
                 <section className="glass-card px-6 py-6">
-                  <header className="panel-title text-gold-300">Areas of Interest</header>
+                  <header className="panel-title text-gold-300">
+                    Areas of Interest
+                  </header>
                   <ul className="mt-4 flex flex-wrap gap-3">
                     {member.aoi.map((area, idx) => (
                       <li
@@ -135,7 +147,9 @@ export default async function ProfilePage(props: { params: Props }) {
 
               {member.courseTaught && member.courseTaught.length > 0 && (
                 <section className="glass-card px-6 py-6">
-                  <header className="panel-title text-gold-300">Courses Taught</header>
+                  <header className="panel-title text-gold-300">
+                    Courses Taught
+                  </header>
                   <ul className="mt-4 space-y-3">
                     {member.courseTaught.map((course, idx) => (
                       <li key={idx} className="custom-li">
@@ -148,7 +162,9 @@ export default async function ProfilePage(props: { params: Props }) {
 
               {member.honor && member.honor.length > 0 && (
                 <section className="glass-card px-6 py-6">
-                  <header className="panel-title text-gold-300">Honors & Awards</header>
+                  <header className="panel-title text-gold-300">
+                    Honors & Awards
+                  </header>
                   <ul className="mt-4 space-y-3">
                     {member.honor.map((honor, idx) => (
                       <li key={idx} className="custom-li">
@@ -162,20 +178,21 @@ export default async function ProfilePage(props: { params: Props }) {
                 </section>
               )}
 
-              {member.selectedPublications && member.selectedPublications.length > 0 && (
-                <section className="glass-card px-6 py-6">
-                  <header className="panel-title text-gold-300">
-                    Selected Publications
-                  </header>
-                  <ul className="mt-6 flex flex-col gap-4">
-                    {member.selectedPublications.map(
-                      (pub: MemberPublication, idx: number) => (
-                        <PublicationPost {...pub} key={idx} />
-                      )
-                    )}
-                  </ul>
-                </section>
-              )}
+              {member.selectedPublications &&
+                member.selectedPublications.length > 0 && (
+                  <section className="glass-card px-6 py-6">
+                    <header className="panel-title text-gold-300">
+                      Selected Publications
+                    </header>
+                    <ul className="mt-6 flex flex-col gap-4">
+                      {member.selectedPublications.map(
+                        (pub: MemberPublication, idx: number) => (
+                          <PublicationPost {...pub} key={idx} />
+                        )
+                      )}
+                    </ul>
+                  </section>
+                )}
             </div>
           </div>
         </article>

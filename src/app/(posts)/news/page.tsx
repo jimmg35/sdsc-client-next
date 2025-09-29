@@ -1,6 +1,6 @@
 import NewsCard from '@/components/Utility/NewsCard';
 import { NewsData, getAllNews } from '@/lib/news';
-import { ArrowUpRight, Rss } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -18,10 +18,7 @@ export default function News() {
     <section className="page-shell">
       <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 text-gold-100 md:pt-40">
         <header className="text-center">
-          <span className="chip-gold inline-flex items-center gap-2">
-            <Rss size={18} className="text-gold-200" />
-            Newsroom
-          </span>
+          <span className="chip-gold">Newsroom</span>
           <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
             Stories from the Spatial Data Science Center
           </h1>
@@ -89,3 +86,4 @@ export default function News() {
     </section>
   );
 }
+

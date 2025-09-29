@@ -46,7 +46,7 @@ export default function Contact() {
               key={label}
               className="glass-card flex items-start gap-4 px-6 py-6 text-gold-100"
             >
-              <div className="flex h-12 w-12 flex-none items-center justify-center rounded-full border border-garnet-500/40 bg-[#160b29] text-gold-200">
+              <div className="flex h-12 w-12 flex-none items-center justify-center rounded-full border border-garnet-500/40 bg-[#160b29]/20 text-gold-200">
                 <Icon size={22} />
               </div>
               <div>
