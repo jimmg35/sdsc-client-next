@@ -1,31 +1,16 @@
 import React from 'react';
 
-const Heading = ({
-  // icon,
-  title
-  // subtitle,
-  // variant = 'default'
-}: {
-  // icon: React.ReactNode;
+type HeadingProps = {
   title: string;
-  // subtitle: string;
   variant?: 'default' | 'secondary';
-}) => {
-  return (
-    <h1 className="text-4xl font-bold flex  gap-2 flex-col items-center justify-center">
-      <div>
-        {/* {icon} */}
-        {title}
-      </div>
-      {/* <div
-        className={`${
-          variant === 'default' ? 'bg-teal-100' : 'bg-white'
-        } py-2 px-4 rounded-md shadow-md`}
-      >
-        <p className="text-lg">{subtitle}</p>
-      </div> */}
-    </h1>
-  );
+};
+
+const Heading = ({ title, variant = 'default' }: HeadingProps) => {
+  const baseClass = 'text-3xl font-semibold tracking-tight md:text-4xl';
+  const variantClass =
+    variant === 'secondary' ? 'text-gold-300' : 'text-gold-50 text-glow';
+
+  return <h2 className={`${baseClass} ${variantClass}`}>{title}</h2>;
 };
 
 export default Heading;

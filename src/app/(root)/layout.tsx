@@ -6,7 +6,7 @@ import '../globals.css';
 
 const inter = IBM_Plex_Sans({
   subsets: ['latin'],
-  weight: ['100', '200', '300', '400', '500', '600', '700'] // You can also add '100', '200', etc. if needed
+  weight: ['100', '200', '300', '400', '500', '600', '700']
 });
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
         <NavBar />
-        {children}
+        <main className="pt-[81px]">{children}</main>
         <Footer />
       </body>
     </html>
