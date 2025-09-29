@@ -30,16 +30,14 @@ const highlights = [
 export default function MGWR() {
   return (
     <section className="page-shell">
-      <div className="mx-auto max-w-6xl px-6 pb-24 pt-32 md:pt-40">
-        <header className="text-center text-ink-900">
+      <div className="mx-auto max-w-6xl px-6 pb-24 pt-32 text-gold-100 md:pt-40">
+        <header className="text-center">
           <span className="chip-gold">MGWR Tools</span>
-          <h1 className="mt-6 text-4xl font-semibold text-garnet-800 text-glow md:text-5xl">
+          <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
             Spatial regression made accessible
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-sm text-ink-600 md:text-base">
-            Download the latest graphical user interface for Multi-Scale
-            Geographically Weighted Regression and accelerate exploratory
-            spatial analysis across platforms.
+          <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/75 md:text-base">
+            Download the latest graphical user interface for Multi-Scale Geographically Weighted Regression and accelerate exploratory spatial analysis across platforms.
           </p>
         </header>
 
@@ -50,8 +48,8 @@ export default function MGWR() {
         </div>
 
         <div className="mt-14 grid gap-6 md:grid-cols-[2fr_1fr]">
-          <section className="glass-card px-8 py-8">
-            <header className="panel-title text-garnet-500">
+          <section className="glass-card px-8 py-8 text-gold-100">
+            <header className="panel-title text-gold-300">
               <Compass size={18} />
               Why analysts choose MGWR
             </header>
@@ -64,45 +62,39 @@ export default function MGWR() {
             </ul>
           </section>
 
-          <section className="glass-card flex flex-col gap-6 px-8 py-8">
+          <section className="glass-card flex flex-col gap-6 px-8 py-8 text-gold-100">
             <div className="flex items-start gap-3">
-              <Layers className="text-garnet-600" size={20} />
+              <Layers className="text-gold-300" size={20} />
               <div>
-                <p className="text-sm font-semibold text-garnet-700">
+                <p className="text-sm font-semibold text-gold-100">
                   Inputs &amp; Outputs
                 </p>
-                <p className="mt-1 text-sm text-ink-600">
-                  Works seamlessly with shapefiles and GeoPackage datasets.
-                  Export model diagnostics and surfaces for integration in GIS
-                  workflows.
+                <p className="mt-1 text-sm text-gold-200/80">
+                  Works seamlessly with shapefiles and GeoPackage datasets. Export model diagnostics and surfaces for integration in GIS workflows.
                 </p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <LineChart className="text-garnet-600" size={20} />
+              <LineChart className="text-gold-300" size={20} />
               <div>
-                <p className="text-sm font-semibold text-garnet-700">
+                <p className="text-sm font-semibold text-gold-100">
                   Model transparency
                 </p>
-                <p className="mt-1 text-sm text-ink-600">
-                  Visualize bandwidth optimizations, coefficient sensitivity,
-                  and local R2 improvements in an interactive dashboard.
+                <p className="mt-1 text-sm text-gold-200/80">
+                  Visualize bandwidth optimizations, coefficient sensitivity, and local R2 improvements in an interactive dashboard.
                 </p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <BookOpen className="text-garnet-600" size={20} />
+              <BookOpen className="text-gold-300" size={20} />
               <div>
-                <p className="text-sm font-semibold text-garnet-700">
-                  Documentation
-                </p>
-                <p className="mt-1 text-sm text-ink-600">
-                  Explore step-by-step tutorials, formula references, and sample
-                  workflows to shorten the learning curve.
+                <p className="text-sm font-semibold text-gold-100">Documentation</p>
+                <p className="mt-1 text-sm text-gold-200/80">
+                  Explore step-by-step tutorials, formula references, and sample workflows to shorten the learning curve.
                 </p>
                 <Link
                   href="#"
-                  className="mt-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-garnet-600 hover:text-garnet-700"
+                  className="mt-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.26em] text-gold-300 transition hover:text-gold-50"
                 >
                   View Guides
                 </Link>

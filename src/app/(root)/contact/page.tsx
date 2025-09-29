@@ -27,13 +27,13 @@ const contactDetails = [
 export default function Contact() {
   return (
     <section className="page-shell">
-      <div className="mx-auto max-w-5xl px-6 pb-28 pt-36 md:pt-40">
-        <header className="text-center text-ink-900">
+      <div className="mx-auto max-w-5xl px-6 pb-28 pt-36 text-gold-100 md:pt-40">
+        <header className="text-center">
           <span className="chip-gold">Connect With Us</span>
-          <h1 className="mt-6 text-4xl font-semibold text-garnet-800 text-glow md:text-5xl">
+          <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
             Let&apos;s build spatial solutions together
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-sm text-ink-600 md:text-base">
+          <p className="mx-auto mt-5 max-w-2xl text-sm text-gold-200/80 md:text-base">
             Whether you are a researcher, student, or community partner, SDSC
             collaborates on projects that transform spatial data into tangible
             outcomes. Reach out - we&apos;re ready to help.
@@ -44,25 +44,27 @@ export default function Contact() {
           {contactDetails.map(({ label, value, icon: Icon }) => (
             <article
               key={label}
-              className="glass-card flex items-start gap-4 px-6 py-6 text-ink-900"
+              className="glass-card flex items-start gap-4 px-6 py-6 text-gold-100"
             >
-              <div className="flex h-12 w-12 flex-none items-center justify-center rounded-full border border-garnet-200/70 bg-gold-100/80 text-garnet-600">
+              <div className="flex h-12 w-12 flex-none items-center justify-center rounded-full border border-garnet-500/40 bg-[#160b29] text-gold-200">
                 <Icon size={22} />
               </div>
               <div>
-                <h2 className="text-sm font-semibold uppercase tracking-[0.22em] text-garnet-600">
+                <h2 className="text-sm font-semibold uppercase tracking-[0.26em] text-gold-300">
                   {label}
                 </h2>
-                <p className="mt-2 text-sm leading-6 text-ink-600">{value}</p>
+                <p className="mt-2 text-sm leading-6 text-gold-200/80">
+                  {value}
+                </p>
               </div>
             </article>
           ))}
         </section>
 
-        <section className="mt-16 grid gap-6 md:grid-cols-[1.2fr_1fr]">
-          <article className="surface-fade px-8 py-10 text-ink-900">
-            <h2 className="panel-title text-garnet-500">Engage with SDSC</h2>
-            <ul className="mt-6 space-y-4 text-sm text-ink-600">
+        <section className="mt-16 grid gap-6 md:grid-cols-[1.2fr_1fr] text-gold-100">
+          <article className="surface-fade px-8 py-10">
+            <h2 className="panel-title text-gold-300">Engage with SDSC</h2>
+            <ul className="mt-6 space-y-4 text-sm text-gold-200/80">
               <li className="custom-li">
                 Schedule a consultation for research collaborations or sponsored
                 projects.
@@ -77,16 +79,16 @@ export default function Contact() {
             </ul>
           </article>
 
-          <article className="glass-card flex flex-col gap-4 px-6 py-8 text-ink-900">
-            <div className="flex items-center gap-3 text-garnet-600">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-garnet-200/70 bg-white/80">
+          <article className="glass-card flex flex-col gap-4 px-6 py-8 text-gold-100">
+            <div className="flex items-center gap-3 text-gold-200">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-garnet-500/40 bg-[#160b29]/10">
                 <Users size={22} />
               </div>
-              <h3 className="text-lg font-semibold text-garnet-800">
+              <h3 className="text-lg font-semibold text-gold-50">
                 Student Opportunities
               </h3>
             </div>
-            <p className="text-sm leading-6 text-ink-600">
+            <p className="text-sm leading-6 text-gold-200/80">
               SDSC offers assistantships, studio projects, and mentoring for
               students passionate about spatial data science. Email us to learn
               about current openings and how to get involved.

@@ -27,31 +27,28 @@ export default function Member() {
 
   return (
     <section className="page-shell">
-      <div className="mx-auto max-w-6xl px-6 pb-24 pt-36 md:pt-40">
+      <div className="mx-auto max-w-6xl px-6 pb-24 pt-36 text-gold-100 md:pt-40">
         <header className="mb-16 text-center">
           <span className="chip-gold">People Of SDSC</span>
-          <h1 className="mt-6 text-4xl font-semibold text-garnet-800 text-glow md:text-5xl">
+          <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
             Meet the minds advancing spatial science
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-sm text-ink-600 md:text-base">
-            Our collective blends data science, geospatial analytics, and
-            immersive design to build forward-looking solutions for the
-            communities we serve.
+          <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/75 md:text-base">
+            Our collective blends data science, geospatial analytics, and immersive design to build forward-looking solutions for the communities we serve.
           </p>
         </header>
 
         {stewart && (
           <section className="surface-fade mb-16 px-6 py-10 md:px-12">
-            <div className="mb-10 text-center">
-              <p className="panel-title justify-center text-garnet-500">
+            <div className="mb-10 text-center text-gold-100">
+              <p className="panel-title justify-center text-gold-300">
                 Center Director
               </p>
-              <h2 className="mt-4 text-3xl font-semibold text-garnet-700 text-glow">
+              <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
                 Stewarding vision & partnerships
               </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-sm text-ink-600">
-                Strategic leadership guiding SDSC&apos;s interdisciplinary
-                collaborations and future roadmap.
+              <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/80">
+                Strategic leadership guiding SDSC&apos;s interdisciplinary collaborations and future roadmap.
               </p>
             </div>
             <div className="flex justify-center">
@@ -61,17 +58,15 @@ export default function Member() {
         )}
 
         <section className="surface-fade mb-16 px-6 py-10 md:px-12">
-          <div className="mb-10 text-center">
-            <p className="panel-title justify-center text-garnet-500">
+          <div className="mb-10 text-center text-gold-100">
+            <p className="panel-title justify-center text-gold-300">
               Core Members
             </p>
-            <h2 className="mt-4 text-3xl font-semibold text-garnet-700 text-glow">
+            <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
               Core faculty & research leaders
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-sm text-ink-600">
-              Specialists across geospatial intelligence, immersive tech, and
-              applied analytics crafting the next generation of spatial
-              solutions.
+            <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/80">
+              Specialists across geospatial intelligence, immersive tech, and applied analytics crafting the next generation of spatial solutions.
             </p>
           </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -82,16 +77,15 @@ export default function Member() {
         </section>
 
         <section className="surface-fade mb-10 px-6 py-10 md:px-12">
-          <div className="mb-10 text-center">
-            <p className="panel-title justify-center text-garnet-500">
+          <div className="mb-10 text-center text-gold-100">
+            <p className="panel-title justify-center text-gold-300">
               Graduate Students
             </p>
-            <h2 className="mt-4 text-3xl font-semibold text-garnet-700 text-glow">
+            <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
               Emerging innovators & collaborators
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-sm text-ink-600">
-              Graduate researchers pushing the boundaries of immersive
-              visualization, spatial statistics, and human-centered design.
+            <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/80">
+              Graduate researchers pushing the boundaries of immersive visualization, spatial statistics, and human-centered design.
             </p>
           </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">

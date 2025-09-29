@@ -6,16 +6,14 @@ export default function Publications() {
 
   return (
     <section className="page-shell">
-      <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 md:pt-40">
-        <header className="text-center text-ink-900">
+      <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 text-gold-100 md:pt-40">
+        <header className="text-center">
           <span className="chip-gold">Publications</span>
-          <h1 className="mt-6 text-4xl font-semibold text-garnet-800 text-glow md:text-5xl">
+          <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
             Research and scholarship from SDSC
           </h1>
-          <p className="mx-auto mt-5 max-w-3xl text-sm text-ink-600 md:text-base">
-            Discover journal articles, conference papers, and collaborative
-            reports authored by our faculty and students across the spatial data
-            science spectrum.
+          <p className="mx-auto mt-5 max-w-3xl text-sm text-gold-200/80 md:text-base">
+            Discover journal articles, conference papers, and collaborative reports authored by our faculty and students across the spatial data science spectrum.
           </p>
         </header>
 

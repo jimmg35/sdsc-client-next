@@ -16,16 +16,16 @@ export default function News() {
 
   return (
     <section className="page-shell">
-      <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 md:pt-40">
-        <header className="text-center text-ink-900">
+      <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 text-gold-100 md:pt-40">
+        <header className="text-center">
           <span className="chip-gold inline-flex items-center gap-2">
-            <Rss size={18} className="text-garnet-600" />
+            <Rss size={18} className="text-gold-200" />
             Newsroom
           </span>
-          <h1 className="mt-6 text-4xl font-semibold text-garnet-800 text-glow md:text-5xl">
+          <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
             Stories from the Spatial Data Science Center
           </h1>
-          <p className="mx-auto mt-5 max-w-3xl text-sm text-ink-600 md:text-base">
+          <p className="mx-auto mt-5 max-w-3xl text-sm text-gold-200/80 md:text-base">
             Explore breakthroughs, collaborations, and thought leadership from
             SDSC. Every article spotlights the people and projects reshaping
             spatial science.
@@ -33,7 +33,7 @@ export default function News() {
         </header>
 
         {featured ? (
-          <article className="mt-16 grid gap-6 overflow-hidden rounded-[32px] border border-garnet-200/60 bg-white/80 shadow-[0_32px_60px_-40px_rgba(120,47,64,0.28)] md:grid-cols-[1.1fr_1fr]">
+          <article className="mt-16 grid gap-6 overflow-hidden rounded-[32px] border border-garnet-600/35 bg-white shadow-[0_32px_60px_-40px_rgba(9,4,24,0.85)] md:grid-cols-[1.1fr_1fr]">
             <div className="relative h-64 w-full overflow-hidden md:h-auto">
               <Image
                 src={featured.thumbnail}
@@ -42,30 +42,30 @@ export default function News() {
                 sizes="(max-width: 768px) 100vw, 540px"
                 className="object-cover transition-transform duration-700 hover:scale-[1.08]"
               />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/70 via-ink-900/20 to-transparent" />
-              <span className="absolute bottom-4 left-4 rounded-full border border-white/60 bg-ink-900/50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-gold-100 backdrop-blur">
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#04010d]/85 via-transparent to-transparent" />
+              <span className="absolute bottom-4 left-4 rounded-full border border-gold-400/40 bg-[#160b29]/85 px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-gold-100 backdrop-blur">
                 Featured
               </span>
             </div>
-            <div className="flex flex-col justify-between gap-6 px-6 py-8 text-ink-900 md:px-10">
+            <div className="flex flex-col justify-between gap-6 px-6 py-8 text-gold-100 md:px-10">
               <div className="space-y-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-garnet-500">
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-300/80">
                   {formatter.format(
                     featured.date instanceof Date
                       ? featured.date
                       : new Date(featured.date)
                   )}
                 </p>
-                <h2 className="text-3xl font-semibold text-garnet-800 text-glow">
+                <h2 className="text-3xl font-semibold text-gold-50 text-glow">
                   {featured.title}
                 </h2>
-                <p className="text-sm leading-7 text-ink-600 md:text-base">
+                <p className="text-sm leading-7 text-gold-200/80 md:text-base">
                   {featured.description}
                 </p>
               </div>
               <Link
                 href={`/news/${featured.slug}`}
-                className="inline-flex items-center gap-2 self-start rounded-full border border-garnet-200/70 bg-gold-100/80 px-5 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-garnet-600 transition hover:border-garnet-300 hover:bg-gold-100 hover:text-garnet-700"
+                className="inline-flex items-center gap-2 self-start rounded-full border border-gold-400/40 bg-gold-500/80 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#140a23] transition hover:bg-gold-400"
               >
                 Read the story
                 <ArrowUpRight size={18} />
@@ -73,7 +73,7 @@ export default function News() {
             </div>
           </article>
         ) : (
-          <p className="mt-16 text-center text-sm text-ink-600">
+          <p className="mt-16 text-center text-sm text-gold-200/80">
             Stay tuned--stories from SDSC are on the way.
           </p>
         )}

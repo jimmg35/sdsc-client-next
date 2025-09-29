@@ -18,10 +18,10 @@ const Avatar = ({
     'aspect-square',
     'object-cover',
     'border-2',
-    'border-garnet-200/80',
+    'border-garnet-500/60',
     'ring-4',
-    'ring-gold-100/80',
-    'shadow-[0_26px_44px_-28px_rgba(120,47,64,0.32)]',
+    'ring-gold-400/30',
+    'shadow-[0_32px_60px_-34px_rgba(124,74,158,0.55)]',
     'transition-transform',
     'duration-300'
   ];
