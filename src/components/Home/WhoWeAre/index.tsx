@@ -11,13 +11,22 @@ const WhoWeAre = () => {
             Who We Are
           </h1>
           <p className="mt-4 max-w-3xl text-base text-gold-200/80 md:text-xl">
-            The Spatial Data Science Center is a studio for high-impact geospatial research, immersive design, and open-source tooling that empowers partners to understand place at every scale.
+            The Spatial Data Science Center is a studio for high-impact
+            geospatial research, immersive design, and open-source tooling that
+            empowers partners to understand place at every scale.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-8">
-            <Image src="/img/compass-banner.jpg" width={800} height={411} alt="Compass visualization" className="rounded-3xl border border-garnet-500/30 shadow-[0_34px_68px_-42px_rgba(9,4,24,0.8)]" />
+            <Image
+              src="/img/compass-banner.jpg"
+              width={800}
+              height={411}
+              alt="Compass visualization"
+              className="rounded-3xl border border-garnet-500/30 shadow-[0_34px_68px_-42px_rgba(9,4,24,0.8)]"
+            />
           </div>
           <p className="mt-8 max-w-2xl text-base font-semibold uppercase tracking-[0.26em] text-gold-200/80">
-            Empowering spatial understanding through avant-garde GIScience research.
+            Empowering spatial understanding through avant-garde GIScience
+            research.
           </p>
         </div>
       </Fade>

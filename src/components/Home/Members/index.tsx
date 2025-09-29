@@ -23,7 +23,9 @@ const Members = () => {
         <span className="chip-gold">People</span>
         <Heading title="The SDSC Collective" />
         <p className="max-w-2xl text-sm text-gold-200/75 md:text-base">
-          A multidisciplinary team of faculty and graduate innovators shaping immersive spatial experiences, equitable analytics, and data storytelling.
+          A multidisciplinary team of faculty and graduate innovators shaping
+          immersive spatial experiences, equitable analytics, and data
+          storytelling.
         </p>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-8">
@@ -44,7 +46,9 @@ const Members = () => {
               <p className="mt-4 text-xs font-semibold uppercase tracking-[0.26em] text-gold-200 transition-colors group-hover:text-gold-50">
                 {member.name}
               </p>
-              <p className="mt-1 text-[0.7rem] text-gold-300/70">{member.title}</p>
+              <p className="mt-1 text-[0.7rem] text-gold-300/70">
+                {member.title}
+              </p>
             </Link>
           ))}
           <Link

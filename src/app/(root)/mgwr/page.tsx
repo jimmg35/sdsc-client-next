@@ -37,7 +37,9 @@ export default function MGWR() {
             Spatial regression made accessible
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/75 md:text-base">
-            Download the latest graphical user interface for Multi-Scale Geographically Weighted Regression and accelerate exploratory spatial analysis across platforms.
+            Download the latest graphical user interface for Multi-Scale
+            Geographically Weighted Regression and accelerate exploratory
+            spatial analysis across platforms.
           </p>
         </header>
 
@@ -70,7 +72,9 @@ export default function MGWR() {
                   Inputs &amp; Outputs
                 </p>
                 <p className="mt-1 text-sm text-gold-200/80">
-                  Works seamlessly with shapefiles and GeoPackage datasets. Export model diagnostics and surfaces for integration in GIS workflows.
+                  Works seamlessly with shapefiles and GeoPackage datasets.
+                  Export model diagnostics and surfaces for integration in GIS
+                  workflows.
                 </p>
               </div>
             </div>
@@ -81,16 +85,20 @@ export default function MGWR() {
                   Model transparency
                 </p>
                 <p className="mt-1 text-sm text-gold-200/80">
-                  Visualize bandwidth optimizations, coefficient sensitivity, and local R2 improvements in an interactive dashboard.
+                  Visualize bandwidth optimizations, coefficient sensitivity,
+                  and local R2 improvements in an interactive dashboard.
                 </p>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <BookOpen className="text-gold-300" size={20} />
               <div>
-                <p className="text-sm font-semibold text-gold-100">Documentation</p>
+                <p className="text-sm font-semibold text-gold-100">
+                  Documentation
+                </p>
                 <p className="mt-1 text-sm text-gold-200/80">
-                  Explore step-by-step tutorials, formula references, and sample workflows to shorten the learning curve.
+                  Explore step-by-step tutorials, formula references, and sample
+                  workflows to shorten the learning curve.
                 </p>
                 <Link
                   href="#"
