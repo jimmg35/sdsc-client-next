@@ -19,7 +19,7 @@ import Image from 'next/image';
 
 const WhoWeAre = () => {
   return (
-    <div className="relative w-full h-fit overflow-hidden px-4 py-12 flex flex-col items-center">
+    <div className="bg-white relative w-full h-fit overflow-hidden px-4 py-12 flex flex-col items-center">
       <Fade direction="up" duration={500} cascade triggerOnce>
         <h1 className="text-4xl md:text-6xl font-bold">Who We Are</h1>
         <p className="mt-4 text-xl mx-4 md:mx-84 text-center">

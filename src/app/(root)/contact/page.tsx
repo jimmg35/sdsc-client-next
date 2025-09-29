@@ -1,39 +1,98 @@
-// import Banner from '@/components/Utility/Banner';
-import { Clock, Mail, MapPin, PhoneCall } from 'lucide-react';
+import { Clock, Mail, MapPin, PhoneCall, Users } from 'lucide-react';
+
+const contactDetails = [
+  {
+    label: 'Call SDSC',
+    value: '+1 (850) 123-4567',
+    icon: PhoneCall
+  },
+  {
+    label: 'Email',
+    value: 'contact@sdsc.fsu.edu',
+    icon: Mail
+  },
+  {
+    label: 'Visit',
+    value:
+      'Department of Geography, Florida State University, Tallahassee, FL 32306',
+    icon: MapPin
+  },
+  {
+    label: 'Office Hours',
+    value: 'Monday - Friday | 9:00 AM - 5:00 PM ET',
+    icon: Clock
+  }
+];
 
 export default function Contact() {
   return (
-    <section className="relative min-h-dvh">
-      {/* <Banner
-        title="Contact"
-        imageUrl="/img/banners/publications-banner.jpg"
-        icon={<PhoneCall size={52} className="inline-block mr-2" />}
-      /> */}
-      <div className="mx-auto h-[calc(100dvh-300px)] max-w-7xl py-10 px-6 flex flex-wrap items-center justify-center gap-8">
-        <h2 className="text-2xl font-semibold mb-6 text-gray-800">
-          Contact Information
-        </h2>
-        <ul className="space-y-4 text-gray-700">
-          <li className="flex items-center">
-            <PhoneCall className="w-5 h-5 mr-3 text-teal-500" />
-            <span>+1 (850) 123-4567</span>
-          </li>
-          <li className="flex items-center">
-            <Mail className="w-5 h-5 mr-3 text-teal-500" />
-            <span>contact@sdsc.fsu.edu</span>
-          </li>
-          <li className="flex items-center">
-            <MapPin className="w-5 h-5 mr-3 text-teal-500" />
-            <span>
-              Department of Geography, Florida State University, Tallahassee, FL
-              32306
-            </span>
-          </li>
-          <li className="flex items-center">
-            <Clock className="w-5 h-5 mr-3 text-teal-500" />
-            <span>Office Hours: Mon - Fri, 9:00 AM - 5:00 PM</span>
-          </li>
-        </ul>
+    <section className="page-shell">
+      <div className="mx-auto max-w-5xl px-6 pb-28 pt-36 md:pt-40">
+        <header className="text-center text-ink-900">
+          <span className="chip-gold">Connect With Us</span>
+          <h1 className="mt-6 text-4xl font-semibold text-garnet-800 text-glow md:text-5xl">
+            Let&apos;s build spatial solutions together
+          </h1>
+          <p className="mx-auto mt-5 max-w-2xl text-sm text-ink-600 md:text-base">
+            Whether you are a researcher, student, or community partner, SDSC
+            collaborates on projects that transform spatial data into tangible
+            outcomes. Reach out - we&apos;re ready to help.
+          </p>
+        </header>
+
+        <section className="mt-16 grid gap-6 md:grid-cols-2">
+          {contactDetails.map(({ label, value, icon: Icon }) => (
+            <article
+              key={label}
+              className="glass-card flex items-start gap-4 px-6 py-6 text-ink-900"
+            >
+              <div className="flex h-12 w-12 flex-none items-center justify-center rounded-full border border-garnet-200/70 bg-gold-100/80 text-garnet-600">
+                <Icon size={22} />
+              </div>
+              <div>
+                <h2 className="text-sm font-semibold uppercase tracking-[0.22em] text-garnet-600">
+                  {label}
+                </h2>
+                <p className="mt-2 text-sm leading-6 text-ink-600">{value}</p>
+              </div>
+            </article>
+          ))}
+        </section>
+
+        <section className="mt-16 grid gap-6 md:grid-cols-[1.2fr_1fr]">
+          <article className="surface-fade px-8 py-10 text-ink-900">
+            <h2 className="panel-title text-garnet-500">Engage with SDSC</h2>
+            <ul className="mt-6 space-y-4 text-sm text-ink-600">
+              <li className="custom-li">
+                Schedule a consultation for research collaborations or sponsored
+                projects.
+              </li>
+              <li className="custom-li">
+                Host a workshop or guest lecture focused on spatial analytics
+                and MGWR.
+              </li>
+              <li className="custom-li">
+                Partner with our graduate studios for immersive design sprints.
+              </li>
+            </ul>
+          </article>
+
+          <article className="glass-card flex flex-col gap-4 px-6 py-8 text-ink-900">
+            <div className="flex items-center gap-3 text-garnet-600">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-garnet-200/70 bg-white/80">
+                <Users size={22} />
+              </div>
+              <h3 className="text-lg font-semibold text-garnet-800">
+                Student Opportunities
+              </h3>
+            </div>
+            <p className="text-sm leading-6 text-ink-600">
+              SDSC offers assistantships, studio projects, and mentoring for
+              students passionate about spatial data science. Email us to learn
+              about current openings and how to get involved.
+            </p>
+          </article>
+        </section>
       </div>
     </section>
   );

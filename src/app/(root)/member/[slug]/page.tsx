@@ -6,7 +6,7 @@ import {
   getMemberBiograpgyById,
   getMemberById
 } from '@/lib/members';
-import { ChevronLeft, GraduationCap, Mail } from 'lucide-react';
+import { ArrowLeft, GraduationCap, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
@@ -19,7 +19,7 @@ export default async function ProfilePage(props: { params: Props }) {
   const member = getMemberById(slug);
   const biography = getMemberBiograpgyById(slug);
 
-  let mdHtmlContent: string = '';
+  let mdHtmlContent = '';
   if (biography) {
     mdHtmlContent = await markdownToHTML(biography);
   }
@@ -29,156 +29,173 @@ export default async function ProfilePage(props: { params: Props }) {
   }
 
   return (
-    <section className="relative min-h-dvh">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="flex justify-between pb-12 pt-32 md:pb-20 md:pt-40">
-          <div className="max-w-3xl">
-            <div className="mb-6">
-              <Link
-                className="text-sm font-medium text-teal-500 transition-colors hover:text-teal-600 flex items-center"
-                href="/member"
-              >
-                <ChevronLeft size={16} className="inline-block mr-2" />
-                Back To Members
-              </Link>
-            </div>
-            <div className="flex items-center gap-6 mb-8">
-              <Avatar src={member.thumbnail} size={180} />
-              <div>
-                <h1 className="text-3xl font-bold">{member.name}</h1>
-                {member.title && (
-                  <p className="text-lg text-gray-600">{member.title}</p>
+    <section className="page-shell">
+      <div className="mx-auto max-w-5xl px-6 pb-28 pt-36 md:pt-40">
+        <div className="mb-8">
+          <Link
+            className="inline-flex items-center gap-2 rounded-full border border-garnet-200/70 bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-garnet-600 transition hover:border-garnet-300 hover:bg-gold-100/80 hover:text-garnet-700"
+            href="/member"
+          >
+            <ArrowLeft size={16} />
+            Back to Members
+          </Link>
+        </div>
+
+        <article className="surface-fade relative overflow-hidden rounded-[32px] px-6 py-10 md:px-12">
+          <div className="relative flex flex-col gap-12 md:flex-row">
+            <div className="flex flex-col items-center text-center md:max-w-xs md:flex-none md:text-left">
+              <div className="halo">
+                <Avatar
+                  src={member.thumbnail}
+                  size={200}
+                  alt={`${member.name} portrait`}
+                />
+              </div>
+              <h1 className="mt-6 text-3xl font-semibold text-garnet-800 text-glow md:text-4xl">
+                {member.name}
+              </h1>
+              {member.title && (
+                <p className="mt-2 text-sm text-ink-600 md:text-base">
+                  {member.title}
+                </p>
+              )}
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+                {member.email && (
+                  <Link
+                    href={`mailto:${member.email}`}
+                    className="inline-flex items-center gap-2 rounded-full border border-garnet-200/70 bg-gold-100/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-garnet-600 transition hover:bg-gold-200/70 hover:text-garnet-700"
+                  >
+                    <Mail size={16} />
+                    Email
+                  </Link>
                 )}
-                <div className="mt-2 flex items-center gap-2 flex-wrap">
-                  <Link href={`mailto:${member.email}`}>
-                    <div className="bg-teal-700 calcite-hover cursor-pointer select-none w-fit rounded-md flex items-center py-0.5 px-2.5 border border-transparent text-sm text-white transition-all shadow-sm">
-                      <Mail size={16} className="mr-1" />
-                      Email
-                    </div>
+                {member.googleScholar && (
+                  <Link
+                    href={member.googleScholar}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-garnet-200/70 bg-gold-100/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-garnet-600 transition hover:bg-gold-200/70 hover:text-garnet-700"
+                  >
+                    <GraduationCap size={16} />
+                    Scholar
                   </Link>
-                  <Link href={member.googleScholar} target="_blank">
-                    <div className="bg-teal-700 calcite-hover cursor-pointer select-none w-fit rounded-md flex items-center py-0.5 px-2.5 border border-transparent text-sm text-white transition-all shadow-sm">
-                      <GraduationCap size={16} className="mr-1" />
-                      Google Scholar
-                    </div>
-                  </Link>
-                </div>
+                )}
               </div>
             </div>
 
-            <div className="space-y-8">
-              <section className="p-6 w-full border-t border-black  ">
-                <div className="prose max-w-none prose-headings:scroll-mt-24 prose-headings:font-bold prose-a:font-medium prose-a:text-blue-500 prose-a:no-underline hover:prose-a:underline prose-blockquote:border-l-2 prose-blockquote:border-gray-300 prose-blockquote:pl-4 prose-blockquote:font-medium prose-blockquote:italic prose-blockquote:text-gray-900 prose-strong:font-medium prose-strong:text-gray-900 prose-code:rounded prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:font-mono prose-code:text-gray-900 prose-code:before:content-[''] prose-code:after:content-[''] prose-pre:border prose-pre:border-gray-700 prose-pre:bg-gray-900 prose-blockquote:xl:-ml-4">
-                  <h3 className="text-lg font-semibold text-teal-400">
-                    Biography
-                  </h3>
-                  <article
-                    dangerouslySetInnerHTML={{ __html: mdHtmlContent }}
-                  />
-                </div>
+            <div className="flex-1 space-y-10">
+              <section className="glass-card px-6 py-8 md:px-8">
+                <header className="mb-4 flex items-center justify-between gap-4">
+                  <h3 className="panel-title text-garnet-500">Biography</h3>
+                  <div className="h-px flex-1 bg-gradient-to-r from-garnet-100 to-garnet-300/60" />
+                </header>
+                <article
+                  className="prose max-w-none text-ink-700 prose-headings:font-semibold prose-headings:text-garnet-700 prose-a:text-garnet-600 prose-strong:text-ink-900 prose-blockquote:border-garnet-200 prose-blockquote:text-garnet-700"
+                  dangerouslySetInnerHTML={{ __html: mdHtmlContent }}
+                />
+              </section>
 
-                <div className="mb-6">
-                  <h3 className="text-lg font-semibold text-teal-400 mb-1">
+              <div className="grid gap-8 md:grid-cols-2">
+                <section className="glass-card px-6 py-6">
+                  <header className="panel-title text-garnet-500">
                     Department
-                  </h3>
-                  <p className="text-gray-700 ">{member.department}</p>
-                </div>
+                  </header>
+                  <p className="mt-3 text-sm text-ink-700 md:text-base">
+                    {member.department}
+                  </p>
+                </section>
 
-                {/* Education */}
                 {member.education && member.education.length > 0 && (
-                  <div>
-                    <h3 className="text-lg font-semibold text-teal-400 mb-2">
+                  <section className="glass-card px-6 py-6">
+                    <header className="panel-title text-garnet-500">
                       Education
-                    </h3>
-                    <ul className="space-y-2">
+                    </header>
+                    <ul className="mt-4 space-y-3">
                       {member.education.map((edu, idx) => (
                         <li key={idx} className="custom-li">
-                          <p className="text-gray-800 font-medium">
+                          <p className="text-sm font-semibold text-ink-700">
                             {edu.degree} in {edu.field}
                           </p>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
-                            {edu.institution}, 2022
+                          <p className="text-xs text-ink-500">
+                            {edu.institution}
+                            {edu.year ? `, ${edu.year}` : ''}
                           </p>
                         </li>
                       ))}
                     </ul>
-                  </div>
+                  </section>
                 )}
+              </div>
 
-                {/* Areas of Interest */}
-                {member.aoi && member.aoi.length > 0 && (
-                  <div className="mt-6">
-                    <h3 className="text-lg font-semibold text-teal-400 mb-2">
-                      Areas of Interest
-                    </h3>
-                    <ul className="space-y-2">
-                      {member.aoi.map((area, idx) => (
-                        <li key={idx} className="custom-li">
-                          {area}
-                        </li>
-                      ))}
+              {member.aoi && member.aoi.length > 0 && (
+                <section className="glass-card px-6 py-6">
+                  <header className="panel-title text-garnet-500">
+                    Areas of Interest
+                  </header>
+                  <ul className="mt-4 flex flex-wrap gap-3">
+                    {member.aoi.map((area, idx) => (
+                      <li
+                        key={idx}
+                        className="rounded-full border border-garnet-200/70 bg-gold-100/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-garnet-600"
+                      >
+                        {area}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
+
+              {member.courseTaught && member.courseTaught.length > 0 && (
+                <section className="glass-card px-6 py-6">
+                  <header className="panel-title text-garnet-500">
+                    Courses Taught
+                  </header>
+                  <ul className="mt-4 space-y-3">
+                    {member.courseTaught.map((course, idx) => (
+                      <li key={idx} className="custom-li">
+                        {course}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
+
+              {member.honor && member.honor.length > 0 && (
+                <section className="glass-card px-6 py-6">
+                  <header className="panel-title text-garnet-500">
+                    Honors & Awards
+                  </header>
+                  <ul className="mt-4 space-y-3">
+                    {member.honor.map((honor, idx) => (
+                      <li key={idx} className="custom-li">
+                        <p className="text-sm font-semibold text-ink-700">
+                          {honor.title}
+                        </p>
+                        <p className="text-xs text-ink-500">{honor.year}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
+
+              {member.selectedPublications &&
+                member.selectedPublications.length > 0 && (
+                  <section className="glass-card px-6 py-6">
+                    <header className="panel-title text-garnet-500">
+                      Selected Publications
+                    </header>
+                    <ul className="mt-6 flex flex-col gap-4">
+                      {member.selectedPublications.map(
+                        (pub: MemberPublication, idx: number) => (
+                          <PublicationPost {...pub} key={idx} />
+                        )
+                      )}
                     </ul>
-                  </div>
+                  </section>
                 )}
-
-                {/* Courses Taught */}
-                {member.courseTaught && member.courseTaught.length > 0 && (
-                  <div className="mt-6">
-                    <h3 className="text-lg font-semibold text-teal-400 mb-2">
-                      Courses Taught
-                    </h3>
-                    <ul className="space-y-2">
-                      {member.courseTaught.map((course, idx) => (
-                        <li key={idx} className="custom-li">
-                          {course}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {/* Honors */}
-                {member.honor && member.honor.length > 0 && (
-                  <div className="mt-6">
-                    <h3 className="text-lg font-semibold text-teal-400 mb-2">
-                      Honors & Awards
-                    </h3>
-                    <ul className="space-y-2">
-                      {member.honor.map((h, idx) => (
-                        <li key={idx} className="custom-li">
-                          <p className="text-gray-800 font-medium">{h.title}</p>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
-                            {h.year}
-                          </p>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {/* Selected Publications */}
-                {member.selectedPublications &&
-                  member.selectedPublications.length > 0 && (
-                    <div className="mt-6">
-                      <h3 className="text-lg font-semibold text-teal-400 mb-2">
-                        Selected Publications
-                      </h3>
-                      <ul className="space-y-2">
-                        {member.selectedPublications.map(
-                          (pub: MemberPublication, idx: number) => (
-                            <PublicationPost
-                              {...pub} // Spread the publication properties
-                              key={idx} // Use the publication ID as the key
-                            />
-                          )
-                        )}
-                      </ul>
-                    </div>
-                  )}
-              </section>
             </div>
           </div>
-        </div>
+        </article>
       </div>
     </section>
   );

@@ -1,21 +1,71 @@
+import { ArrowDownToLine } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
+
+interface AppCardProps {
+  title: string;
+  description: string;
+  imageUrl: string;
+  href?: string;
+  meta?: string;
+}
 
 const AppCard = ({
   title,
   description,
-  imageUrl
-}: {
-  title: string;
-  description: string;
-  imageUrl: string;
-}) => {
-  return (
-    <div className="bg-white shadow-md rounded-lg p-6 cursor-pointer hover:bg-gray-300 transition">
-      <Image src={imageUrl} alt="App Card" width={72} height={72} />
-      <h2 className="text-xl font-semibold">{title}</h2>
-      <p className="text-gray-700">{description}</p>
+  imageUrl,
+  href,
+  meta
+}: AppCardProps) => {
+  const card = (
+    <div className="glass-card group relative flex h-full flex-col justify-between overflow-hidden px-6 py-8 text-left transition duration-300 hover:-translate-y-1">
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-gold-100/50 via-transparent to-garnet-100/35 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      <div className="relative flex items-start gap-4">
+        <div className="halo">
+          <Image
+            src={imageUrl}
+            alt={title}
+            width={72}
+            height={72}
+            className="rounded-xl"
+          />
+        </div>
+        <div>
+          <h3 className="text-lg font-semibold text-garnet-700 text-glow">
+            {title}
+          </h3>
+          {meta && (
+            <p className="mt-1 text-xs uppercase tracking-[0.24em] text-garnet-500/80">
+              {meta}
+            </p>
+          )}
+        </div>
+      </div>
+      <p className="relative mt-6 text-sm text-ink-600">{description}</p>
+      <div className="relative mt-8 flex items-center justify-between text-xs font-semibold uppercase tracking-[0.24em] text-garnet-600">
+        <span>Download</span>
+        <ArrowDownToLine
+          size={18}
+          className="transition-transform duration-300 group-hover:translate-y-0.5 group-hover:scale-110"
+        />
+      </div>
     </div>
   );
+
+  if (href) {
+    return (
+      <Link
+        href={href}
+        className="block h-full"
+        target={href.startsWith('http') ? '_blank' : undefined}
+        rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+      >
+        {card}
+      </Link>
+    );
+  }
+
+  return card;
 };
 
 export default AppCard;

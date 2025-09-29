@@ -1,0 +1,60 @@
+import { NewsData } from '@/lib/news';
+import { ArrowUpRight } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+
+const formatter = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric'
+});
+
+const NewsCard = ({ data }: { data: NewsData }) => {
+  const publishDate = formatter.format(
+    data.date instanceof Date ? data.date : new Date(data.date)
+  );
+
+  return (
+    <article className="group glass-card flex h-full w-full max-w-[24rem] flex-col overflow-hidden text-ink-900 transition duration-300 hover:-translate-y-2">
+      <div className="relative h-56 w-full overflow-hidden">
+        <Image
+          src={data.thumbnail}
+          alt={data.title}
+          fill
+          sizes="(max-width: 768px) 100vw, 384px"
+          className="object-cover transition-transform duration-500 group-hover:scale-[1.08]"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/55 via-ink-900/20 to-transparent opacity-70 transition-opacity duration-300 group-hover:opacity-90" />
+        <div className="absolute bottom-4 left-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-gold-100">
+          <span className="rounded-full bg-ink-900/40 px-3 py-1 backdrop-blur">
+            {publishDate}
+          </span>
+          <span className="rounded-full border border-gold-100/70 bg-white/80 px-3 py-1 text-garnet-700">
+            {data.author}
+          </span>
+        </div>
+      </div>
+
+      <div className="flex flex-1 flex-col gap-6 px-6 py-6">
+        <div className="space-y-3">
+          <h3 className="text-lg font-semibold text-garnet-800 text-glow">
+            {data.title}
+          </h3>
+          <p className="text-sm leading-6 text-ink-600">{data.description}</p>
+        </div>
+        <Link
+          href={`/news/${data.slug}`}
+          className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-garnet-600 transition hover:text-garnet-700"
+        >
+          <span>Read Story</span>
+          <ArrowUpRight
+            size={18}
+            className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+          />
+        </Link>
+      </div>
+    </article>
+  );
+};
+
+export default NewsCard;
