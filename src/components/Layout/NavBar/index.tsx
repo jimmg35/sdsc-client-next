@@ -68,7 +68,7 @@ const Navbar = () => {
           className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] transition ${
             isActive
               ? 'bg-rose-100/90 text-rose-700 shadow-[0_18px_44px_-28px_rgba(168,110,161,0.35)] border border-rose-200/70'
-              : 'text-rose-600 hover:text-rose-700 hover:bg-rose-50'
+              : 'text-gray-600 hover:text-gray-700 hover:bg-rose-50'
           }`}
         >
           <Icon size={16} />
@@ -109,7 +109,7 @@ const Navbar = () => {
           height={46}
           src="/img/sdsc-logo.png"
           alt="SDSC logo"
-          className="rounded-full object-cover cursor-pointer"
+          className=" object-cover cursor-pointer bg-transparent rounded-md"
           onClick={() => {
             window.location.href = '/';
           }}
