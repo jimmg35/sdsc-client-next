@@ -1,6 +1,7 @@
 import Footer from '@/components/Layout/Footer';
 import NavBar from '@/components/Layout/NavBar';
 import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/next';
 import { IBM_Plex_Sans } from 'next/font/google';
 import '../globals.css';
 
@@ -25,6 +26,7 @@ export default function RootLayout({
         <NavBar />
         <main className="pt-[81px]">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
