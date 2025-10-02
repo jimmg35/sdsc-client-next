@@ -1,67 +1,144 @@
-// import Banner from '@/components/Utility/Banner';
-import { Globe, LineChart, MapPin } from 'lucide-react';
+import {
+  Activity,
+  GlobeLock,
+  Layers3,
+  Microscope,
+  Orbit,
+  Radar
+} from 'lucide-react';
+
+const focusAreas = [
+  {
+    title: 'Geospatial Modeling',
+    description:
+      'We design novel spatial models that link environmental systems, human mobility, and infrastructure dynamics across scales.',
+    icon: Microscope
+  },
+  {
+    title: 'Spatial Statistics',
+    description:
+      'Our teams develop methods that respect spatial dependence and heterogeneity, expanding the frontier of local inference.',
+    icon: Activity
+  },
+  {
+    title: 'Multi-scale GWR',
+    description:
+      'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
+    icon: Radar
+  }
+];
+
+const spotlights = [
+  {
+    title: 'Immersive Analytics Lab',
+    description:
+      'Extends spatial reasoning into XR environments so decision makers can interact with live models and simulations.',
+    icon: Orbit
+  },
+  {
+    title: 'GeoAI Resilience Studio',
+    description:
+      'Combines AI, Earth observation, and socio-economic data to support climate resilience and equitable planning.',
+    icon: GlobeLock
+  },
+  {
+    title: 'Spatial DevOps',
+    description:
+      'Production pipelines, automated testing, and deployment strategies for reproducible spatial science at scale.',
+    icon: Layers3
+  }
+];
 
 export default function Research() {
   return (
-    <section className="relative min-h-dvh">
-      {/* <Banner
-        title="Research"
-        imageUrl="/img/banners/research-banner.jpg"
-        icon={<Microscope size={52} className="inline-block mr-2" />}
-      /> */}
-      <div className="mx-auto max-w-7xl pb-16 pt-30 px-6">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
-          Our Research Focus
-        </h2>
+    <section className="page-shell">
+      <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 text-ink-900 md:pt-40">
+        <header className="text-center">
+          <span className="chip-gold">Research</span>
+          <h1 className="mt-6 text-4xl font-semibold text-rose-600 text-glow md:text-5xl">
+            Advancing spatial knowledge and practice
+          </h1>
+          <p className="mx-auto mt-5 max-w-3xl text-sm text-ink-600 md:text-base">
+            SDSC research pairs rigorous methodology with responsive design. Our
+            labs translate emerging spatial theory into tools that stakeholders
+            can deploy in cities, ecosystems, and virtual environments.
+          </p>
+        </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {/* Geospatial Modeling */}
-          <div className="bg-white rounded-2xl shadow p-6 hover:shadow-lg transition">
-            <div className="flex items-center mb-4">
-              <Globe className="text-teal-500 w-6 h-6 mr-3" />
-              <h3 className="text-xl font-semibold text-gray-800">
-                Geospatial Modeling
-              </h3>
-            </div>
-            <p className="text-gray-600 leading-relaxed">
-              We explore how spatial relationships and geographic features
-              influence real-world phenomena using computational and
-              mathematical modeling approaches. Applications include urban
-              dynamics, environmental modeling, and spatial simulation.
-            </p>
-          </div>
+        <section className="mt-16 grid gap-6 md:grid-cols-3">
+          {focusAreas.map(({ title, description, icon: Icon }) => (
+            <article
+              key={title}
+              className="glass-card flex flex-col gap-4 px-6 py-8 text-ink-900"
+            >
+              <div className="flex items-center gap-3 text-rose-500">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full border border-garnet-500/40 bg-[#160b29]/10">
+                  <Icon size={24} />
+                </div>
+                <h2 className="text-lg font-semibold text-rose-600 text-glow">
+                  {title}
+                </h2>
+              </div>
+              <p className="text-sm leading-6 text-ink-600">{description}</p>
+            </article>
+          ))}
+        </section>
 
-          {/* Spatial Statistics */}
-          <div className="bg-white rounded-2xl shadow p-6 hover:shadow-lg transition">
-            <div className="flex items-center mb-4">
-              <LineChart className="text-teal-500 w-6 h-6 mr-3" />
-              <h3 className="text-xl font-semibold text-gray-800">
-                Spatial Statistics
-              </h3>
-            </div>
-            <p className="text-gray-600 leading-relaxed">
-              We utilize statistical methods that account for spatial dependency
-              and heterogeneity. Topics include spatial autocorrelation, spatial
-              regression, clustering, and spatial hypothesis testing.
+        <section className="mt-20 grid gap-8 md:grid-cols-[1.3fr_1fr] text-ink-900">
+          <article className="surface-fade px-8 py-10">
+            <h2 className="panel-title text-rose-500">Methodology</h2>
+            <p className="mt-6 text-sm leading-7 text-ink-600 md:text-base">
+              We approach every research question with a balance of
+              computational experimentation, theoretical rigor, and co-design
+              with domain experts. Our projects span quantitative modeling,
+              qualitative insights, and participatory design to ensure outputs
+              travel from manuscript to policy.
             </p>
-          </div>
+            <p className="mt-4 text-sm leading-7 text-ink-600 md:text-base">
+              Faculty and graduate researchers collaborate through living
+              documentation, shared data catalogs, and reproducible pipelines.
+              The result is science that is easy to understand, extend, and
+              deploy beyond the lab.
+            </p>
+          </article>
 
-          {/* Geographically Weighted Regression */}
-          <div className="bg-white rounded-2xl shadow p-6 hover:shadow-lg transition">
-            <div className="flex items-center mb-4">
-              <MapPin className="text-teal-500 w-6 h-6 mr-3" />
-              <h3 className="text-xl font-semibold text-gray-800">
-                Geographically Weighted Regression
-              </h3>
-            </div>
-            <p className="text-gray-600 leading-relaxed">
-              GWR is a core method in our research. We investigate both its
-              theoretical development and real-world application, extending it
-              with AI techniques such as deep learning and reinforcement
-              learning to enhance local model interpretability.
-            </p>
-          </div>
-        </div>
+          <article className="glass-card px-6 py-8 text-ink-900">
+            <h3 className="panel-title text-rose-500">Core capabilities</h3>
+            <ul className="mt-6 space-y-4 text-sm text-ink-600">
+              <li className="custom-li">
+                Spatial econometrics and local inference
+              </li>
+              <li className="custom-li">
+                GeoAI model development and evaluation
+              </li>
+              <li className="custom-li">
+                Immersive visualization and UX research
+              </li>
+              <li className="custom-li">
+                Open-source software engineering for geospatial analytics
+              </li>
+            </ul>
+          </article>
+        </section>
+
+        <section className="mt-20 grid gap-6 md:grid-cols-3">
+          {spotlights.map(({ title, description, icon: Icon }) => (
+            <article
+              key={title}
+              className="glass-card flex flex-col gap-4 px-6 py-8 text-ink-900"
+            >
+              <div className="flex items-center gap-3 text-rose-500">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full border border-garnet-500/40 bg-[#160b29]/10">
+                  <Icon size={24} />
+                </div>
+                <h3 className="text-lg font-semibold text-rose-600 text-glow">
+                  {title}
+                </h3>
+              </div>
+              <p className="text-sm leading-6 text-ink-600">{description}</p>
+            </article>
+          ))}
+        </section>
       </div>
     </section>
   );

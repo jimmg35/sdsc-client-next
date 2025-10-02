@@ -2,176 +2,163 @@
 
 import {
   AppWindowMac,
-  CircleX,
   Info,
   Menu,
   Microscope,
   PhoneCall,
   Rss,
   ScrollText,
-  UserRound
+  UserRound,
+  X
 } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-export const NavDirection = [
-  {
-    name: 'About',
-    href: '/about',
-    icon: <Info size={18} />,
-    isHightlighted: false
-  },
-  {
-    name: 'Member',
-    href: '/member',
-    icon: <UserRound size={18} />,
-    isHightlighted: false
-  },
-  {
-    name: 'Research',
-    href: '/research',
-    icon: <Microscope size={18} />,
-    isHightlighted: false
-  },
-  {
-    name: 'MGWR',
-    href: '/mgwr',
-    icon: <AppWindowMac size={18} />,
-    isHightlighted: false
-  },
-  {
-    name: 'Publications',
-    href: '/publications',
-    icon: <ScrollText size={18} />,
-    isHightlighted: false
-  },
-  {
-    name: 'News',
-    href: '/news',
-    icon: <Rss size={18} />,
-    isHightlighted: false
-  },
-  {
-    name: 'Contact',
-    href: '/contact',
-    icon: <PhoneCall size={18} />,
-    isHightlighted: false
-  }
-];
+const navItems = [
+  { label: 'About', href: '/about', icon: Info },
+  { label: 'Members', href: '/member', icon: UserRound },
+  { label: 'Research', href: '/research', icon: Microscope },
+  { label: 'MGWR', href: '/mgwr', icon: AppWindowMac },
+  { label: 'Publications', href: '/publications', icon: ScrollText },
+  { label: 'News', href: '/news', icon: Rss },
+  { label: 'Contact', href: '/contact', icon: PhoneCall }
+] as const;
 
-const scrolledStyle = 'bg-white text-black h-[80px] shadow-md';
-// const notScrolledStyle = 'bg-transparent text-white h-[110px]';
-const notScrolledStyle = 'bg-white text-black h-[80px]';
+type NavItem = (typeof navItems)[number];
 
-const Navbar = ({
-  isForcedScrolled = false
-}: {
-  isForcedScrolled?: boolean;
-}) => {
-  const [isScrolled, setIsScrolled] = useState<boolean>(false);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+const Navbar = () => {
+  const pathname = usePathname();
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setHasScrolled(window.scrollY > 24);
     };
 
+    handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  return (
-    <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 flex items-center
-        ${
-          isForcedScrolled
-            ? scrolledStyle
-            : isScrolled
-              ? scrolledStyle
-              : notScrolledStyle
-        }
-      `}
-    >
-      <div className="container mx-auto flex items-center justify-between px-4 py-2">
-        {/* Logo */}
-        <Link href="/">
-          <div className="text-teal-400 text-3xl font-bold transition">
-            {/* SDSC */}
-            <Image
-              src={`/img/sdsc-logo.png`}
-              width={145}
-              height={46}
-              alt="SDSC"
-            />
-          </div>
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
+  const backgroundClass =
+    hasScrolled || isOpen
+      ? 'bg-white/92 border-b border-silk-200/80 shadow-[0_24px_70px_-48px_rgba(61,47,39,0.32)] backdrop-blur-xl'
+      : 'bg-white/80 border-b border-transparent backdrop-blur-sm';
+
+  const renderLink = (item: NavItem, variant: 'desktop' | 'mobile') => {
+    const Icon = item.icon;
+    const isActive =
+      pathname === item.href || pathname.startsWith(`${item.href}/`);
+
+    if (variant === 'desktop') {
+      return (
+        <Link
+          key={item.label}
+          href={item.href}
+          className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] transition ${
+            isActive
+              ? 'bg-rose-100/90 text-rose-700 shadow-[0_18px_44px_-28px_rgba(168,110,161,0.35)] border border-rose-200/70'
+              : 'text-gray-600 hover:text-gray-700 hover:bg-rose-50'
+          }`}
+        >
+          <Icon size={16} />
+          {item.label}
         </Link>
+      );
+    }
 
-        {/* Desktop Navigation */}
-        <ul className="hidden md:flex gap-8">
-          {NavDirection.map((item) => (
-            <li key={item.name}>
-              <Link
-                href={item.href}
-                className={`hover:text-teal-400 hover:border-teal-400 px-4 py-2 flex items-center justify-center gap-1 text-base transition border-b-2 border-transparent 
-                  ${item.isHightlighted && 'bg-teal-400 rounded-md text-white hover:bg-teal-500 hover:text-white'}`}
-              >
-                {item.icon}
-                {item.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
+    return (
+      <Link
+        key={item.label}
+        href={item.href}
+        className={`flex items-center justify-between rounded-2xl border px-4 py-3 text-sm font-medium transition ${
+          isActive
+            ? 'border-rose-200 bg-rose-100/60 text-rose-700'
+            : 'border-rose-200/70 bg-white/85 text-rose-600 hover:bg-rose-50'
+        }`}
+        onClick={() => setIsOpen(false)}
+      >
+        <span className="inline-flex items-center gap-2">
+          <Icon size={18} />
+          {item.label}
+        </span>
+        <span className="text-[0.65rem] uppercase tracking-[0.3em] text-rose-400">
+          Explore
+        </span>
+      </Link>
+    );
+  };
 
-        {/* Burger Menu Button */}
-        <div className="md:hidden">
-          <button
-            onClick={() => {
-              setIsOpen((prev) => !prev);
-            }}
-            className="p-2 rounded-md focus:outline-none hover:bg-gray-700"
-            aria-label="Toggle Navigation"
-          >
-            <Menu size={24} />
-          </button>
-        </div>
-      </div>
+  return (
+    <header
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${backgroundClass}`}
+    >
+      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 text-rose-700 md:h-20 md:px-6 gap-6">
+        <Image
+          width={145}
+          height={46}
+          src="/img/sdsc-logo.png"
+          alt="SDSC logo"
+          className=" object-cover cursor-pointer bg-transparent rounded-md"
+          onClick={() => {
+            window.location.href = '/';
+          }}
+        />
 
-      {/* <div className="container flex items-center justify-between px-4 py-2 bg-teal-400"></div> */}
-
-      {/* Mobile Dropdown Menu */}
-      {isOpen && (
-        <div className="absolute top-0 left-0 w-screen h-screen bg-gray-800 text-white">
-          <div className="pt-8 pr-8 pl-8 pb-4 flex justify-end">
-            <button
-              onClick={() => {
-                setIsOpen(false);
-              }}
-            >
-              <CircleX size={28} />
-            </button>
+        <div className="hidden items-center gap-5 md:flex">
+          <div className="flex items-center gap-3">
+            {navItems.map((item) => renderLink(item, 'desktop'))}
           </div>
-          <ul className="flex flex-col gap-2 p-4 ">
-            {NavDirection.map((item) => (
-              <li key={item.name}>
-                <Link
-                  href={item.href}
-                  className="flex items-center gap-1 px-4 py-2 text-base transition hover:bg-gray-700"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.icon}
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {/* <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 rounded-full border border-silk-300 bg-silk-200/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-silk-800 transition hover:bg-silk-200"
+          >
+            Connect
+          </Link> */}
+        </div>
+
+        <button
+          type="button"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-rose-200/70 bg-white text-rose-600 transition hover:text-rose-700 md:hidden"
+          onClick={() => setIsOpen((prev) => !prev)}
+          aria-label="Toggle navigation"
+        >
+          {isOpen ? <X size={18} /> : <Menu size={18} />}
+        </button>
+      </nav>
+
+      {isOpen && (
+        <div className="md:hidden">
+          <div className="px-4 pb-6">
+            <div className="space-y-4 rounded-3xl border border-rose-200/80 bg-white/95 p-6 shadow-[0_32px_64px_-42px_rgba(61,47,39,0.32)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.34em] text-rose-500">
+                Navigation
+              </p>
+              <div className="space-y-3">
+                {navItems.map((item) => renderLink(item, 'mobile'))}
+              </div>
+              <Link
+                href="/contact"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-silk-300 bg-silk-200/90 px-4 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-silk-800 transition hover:bg-silk-200"
+                onClick={() => setIsOpen(false)}
+              >
+                Partner with SDSC
+              </Link>
+            </div>
+          </div>
         </div>
       )}
-    </nav>
+    </header>
   );
 };
 

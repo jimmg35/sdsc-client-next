@@ -45,7 +45,7 @@ export function getNewsBySlug(slug: string): NewsData {
   return {
     slug,
     title: data.title,
-    date: data.date,
+    date: new Date(data.date),
     author: data.author,
     description: data.description,
     thumbnail: data.thumbnail || '/img/news-demo/news-22-370x240.jpg',

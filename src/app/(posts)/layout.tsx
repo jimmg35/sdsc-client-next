@@ -1,12 +1,12 @@
 import Footer from '@/components/Layout/Footer';
 import NavBar from '@/components/Layout/NavBar';
 import type { Metadata } from 'next';
-import { Noto_Sans_TC } from 'next/font/google';
+import { IBM_Plex_Sans } from 'next/font/google';
 import '../globals.css';
 
-const noto = Noto_Sans_TC({
-  weight: '500',
-  subsets: ['latin']
+const inter = IBM_Plex_Sans({
+  subsets: ['latin'],
+  weight: ['100', '200', '300', '400', '500', '600', '700']
 });
 
 export const metadata: Metadata = {
@@ -21,9 +21,9 @@ export default function PostLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${noto.className} antialiased`}>
-        <NavBar isForcedScrolled={false} />
-        {children}
+      <body className={`${inter.className} antialiased`}>
+        <NavBar />
+        <main className="pt-[81px]">{children}</main>
         <Footer />
       </body>
     </html>

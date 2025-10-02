@@ -1,75 +1,105 @@
-// import Banner from '@/components/Utility/Banner';
 import ProfileCard from '@/components/Utility/ProfileCard';
 import { MemberData, getMemberById } from '@/lib/members';
 
-// import { UserRound } from 'lucide-react';
+const collectMembers = (entries: Array<MemberData | null>): MemberData[] =>
+  entries.filter((entry): entry is MemberData => Boolean(entry));
 
 export default function Member() {
-  // Director
-  const stewart: MemberData | null = getMemberById('stewart-fotheringham');
+  const stewart = getMemberById('stewart-fotheringham');
 
-  // Core members
-  const mason: MemberData | null = getMemberById('mason-mathews');
-  const mehak: MemberData | null = getMemberById('mehak-sachdeva');
-  const ziqi: MemberData | null = getMemberById('ziqi-li');
-  const amber: MemberData | null = getMemberById('amber-dejohn');
-  const mark: MemberData | null = getMemberById('mark-horner');
-  const christopher: MemberData | null = getMemberById('christopher-uejio');
+  const coreMembers = collectMembers([
+    getMemberById('amber-dejohn'),
+    getMemberById('ziqi-li'),
+    getMemberById('mark-horner'),
+    getMemberById('mason-mathews'),
+    getMemberById('mehak-sachdeva'),
+    getMemberById('christopher-uejio')
+  ]);
 
-  // Graduate students
-  const jim: MemberData | null = getMemberById('jiajun-chang');
-  const weining: MemberData | null = getMemberById('weining-kan');
-  const fattah: MemberData | null = getMemberById('md-fattah');
-  const jacob: MemberData | null = getMemberById('jacob-tagnan');
-  const hanbin: MemberData | null = getMemberById('hanbin-wang');
-  const allan: MemberData | null = getMemberById('chenlun-kao');
+  const graduateStudents = collectMembers([
+    getMemberById('md-fattah'),
+    getMemberById('weining-kan'),
+    getMemberById('chenlun-kao'),
+    getMemberById('jiajun-chang'),
+    getMemberById('jacob-tagnan'),
+    getMemberById('hanbin-wang')
+  ]);
 
   return (
-    <section className="relative min-h-dvh">
-      {/* <Banner
-        title="Member"
-        imageUrl="/img/banners/member-banner.jpg"
-        icon={<UserRound size={52} className="inline-block mr-2" />}
-      /> */}
+    <section className="page-shell">
+      <div className="mx-auto max-w-6xl px-6 pb-24 pt-36 text-gold-100 md:pt-40">
+        <header className="mb-16 text-center">
+          <span className="chip-gold">People Of SDSC</span>
+          <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
+            Meet the minds advancing spatial science
+          </h1>
+          <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/75 md:text-base">
+            Our collective blends data science, geospatial analytics, and
+            immersive design to build forward-looking solutions for the
+            communities we serve.
+          </p>
+        </header>
 
-      <div className="mx-auto max-w-7xl pb-10 pt-30 px-6">
-        {/* Center Director */}
         {stewart && (
-          <>
-            <h2 className="text-2xl font-semibold text-center border-b border-gray-300 pb-2 mb-6">
-              Center Director
-            </h2>
-            <div className="flex flex-wrap items-center justify-center gap-8 mb-10">
+          <section className="surface-fade mb-16 px-6 py-10 md:px-12">
+            <div className="mb-10 text-center text-gold-100">
+              <p className="panel-title justify-center text-gold-300">
+                Center Director
+              </p>
+              <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
+                Center Director
+              </h2>
+              <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/80">
+                Strategic leadership guiding SDSC&apos;s interdisciplinary
+                collaborations and future roadmap.
+              </p>
+            </div>
+            <div className="flex justify-center">
               <ProfileCard key={stewart.id} {...stewart} />
             </div>
-          </>
+          </section>
         )}
 
-        {/* Core Members */}
-        <h2 className="text-2xl font-semibold text-center border-b border-gray-300 pb-2 mb-6">
-          Core Members
-        </h2>
-        <div className="flex flex-wrap items-center justify-center gap-8 mb-10">
-          {amber && <ProfileCard key={amber.id} {...amber} />}
-          {ziqi && <ProfileCard key={ziqi.id} {...ziqi} />}
-          {mark && <ProfileCard key={mark.id} {...mark} />}
-          {mason && <ProfileCard key={mason.id} {...mason} />}
-          {mehak && <ProfileCard key={mehak.id} {...mehak} />}
-          {christopher && <ProfileCard key={christopher.id} {...christopher} />}
-        </div>
+        <section className="surface-fade mb-16 px-6 py-10 md:px-12">
+          <div className="mb-10 text-center text-gold-100">
+            <p className="panel-title justify-center text-gold-300">
+              Core Members
+            </p>
+            <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
+              Core faculty & research leaders
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/80">
+              Specialists across geospatial intelligence, immersive tech, and
+              applied analytics crafting the next generation of spatial
+              solutions.
+            </p>
+          </div>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {coreMembers.map((member) => (
+              <ProfileCard key={member.id} {...member} />
+            ))}
+          </div>
+        </section>
 
-        {/* Graduate Students */}
-        <h2 className="text-2xl font-semibold text-center border-b border-gray-300 pb-2 mb-6">
-          Graduate Students
-        </h2>
-        <div className="flex flex-wrap items-center justify-center gap-8 mb-10">
-          {fattah && <ProfileCard key={fattah.id} {...fattah} />}
-          {weining && <ProfileCard key={weining.id} {...weining} />}
-          {allan && <ProfileCard key={allan.id} {...allan} />}
-          {jim && <ProfileCard key={jim.id} {...jim} />}
-          {jacob && <ProfileCard key={jacob.id} {...jacob} />}
-          {hanbin && <ProfileCard key={hanbin.id} {...hanbin} />}
-        </div>
+        <section className="surface-fade mb-10 px-6 py-10 md:px-12">
+          <div className="mb-10 text-center text-gold-100">
+            <p className="panel-title justify-center text-gold-300">
+              Graduate Students
+            </p>
+            <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
+              Emerging innovators & collaborators
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/80">
+              Graduate researchers pushing the boundaries of immersive
+              visualization, spatial statistics, and human-centered design.
+            </p>
+          </div>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {graduateStudents.map((member) => (
+              <ProfileCard key={member.id} {...member} />
+            ))}
+          </div>
+        </section>
       </div>
     </section>
   );
