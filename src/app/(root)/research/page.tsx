@@ -55,7 +55,7 @@ export default function Research() {
       <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 text-ink-900 md:pt-40">
         <header className="text-center">
           <span className="chip-gold">Research</span>
-          <h1 className="mt-6 text-4xl font-semibold text-rose-600 text-glow md:text-5xl">
+          <h1 className="mt-6 text-4xl font-semibold text-black text-glow md:text-5xl">
             Advancing spatial knowledge and practice
           </h1>
           <p className="mx-auto mt-5 max-w-3xl text-sm text-ink-600 md:text-base">
@@ -71,11 +71,11 @@ export default function Research() {
               key={title}
               className="glass-card flex flex-col gap-4 px-6 py-8 text-ink-900"
             >
-              <div className="flex items-center gap-3 text-rose-500">
+              <div className="flex items-center gap-3 text-black">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full border border-garnet-500/40 bg-[#160b29]/10">
                   <Icon size={24} />
                 </div>
-                <h2 className="text-lg font-semibold text-rose-600 text-glow">
+                <h2 className="text-lg font-semibold text-black text-glow">
                   {title}
                 </h2>
               </div>
@@ -86,7 +86,7 @@ export default function Research() {
 
         <section className="mt-20 grid gap-8 md:grid-cols-[1.3fr_1fr] text-ink-900">
           <article className="surface-fade px-8 py-10">
-            <h2 className="panel-title text-rose-500">Methodology</h2>
+            <h2 className="panel-title text-black">Methodology</h2>
             <p className="mt-6 text-sm leading-7 text-ink-600 md:text-base">
               We approach every research question with a balance of
               computational experimentation, theoretical rigor, and co-design
@@ -103,7 +103,7 @@ export default function Research() {
           </article>
 
           <article className="glass-card px-6 py-8 text-ink-900">
-            <h3 className="panel-title text-rose-500">Core capabilities</h3>
+            <h3 className="panel-title text-gold-300">Core capabilities</h3>
             <ul className="mt-6 space-y-4 text-sm text-ink-600">
               <li className="custom-li">
                 Spatial econometrics and local inference
@@ -127,11 +127,11 @@ export default function Research() {
               key={title}
               className="glass-card flex flex-col gap-4 px-6 py-8 text-ink-900"
             >
-              <div className="flex items-center gap-3 text-rose-500">
+              <div className="flex items-center gap-3 text-black">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full border border-garnet-500/40 bg-[#160b29]/10">
                   <Icon size={24} />
                 </div>
-                <h3 className="text-lg font-semibold text-rose-600 text-glow">
+                <h3 className="text-lg font-semibold text-black text-glow">
                   {title}
                 </h3>
               </div>
