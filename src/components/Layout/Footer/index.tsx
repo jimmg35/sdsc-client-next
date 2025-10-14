@@ -90,7 +90,7 @@ const Footer = () => {
             <p className="flex items-start gap-3 text-ink-700/80">
               <MapPin size={18} className="text-rose-500" />
               <span>
-                Department of Geography
+                Spatial Data Science Center
                 <br />
                 Florida State University
                 <br />

@@ -34,7 +34,7 @@ export default function MGWR() {
         <header className="text-center">
           <span className="chip-gold">MGWR Tools</span>
           <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
-            Spatial regression made accessible
+            Local regression made accessible
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/75 md:text-base">
             Download the latest graphical user interface for Multi-Scale

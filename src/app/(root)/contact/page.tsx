@@ -1,26 +1,16 @@
-import { Clock, Mail, MapPin, PhoneCall, Users } from 'lucide-react';
+import { Mail, MapPin, Users } from 'lucide-react';
 
 const contactDetails = [
   {
-    label: 'Call SDSC',
-    value: '+1 (850) 123-4567',
-    icon: PhoneCall
-  },
-  {
     label: 'Email',
-    value: 'contact@sdsc.fsu.edu',
+    value: 'admin@sdsc.edu',
     icon: Mail
   },
   {
     label: 'Visit',
     value:
-      'Department of Geography, Florida State University, Tallahassee, FL 32306',
+      'Spatial Data Science Center, College of Social Sciences and Public Policy, Florida State University, Tallahassee, FL 32306',
     icon: MapPin
-  },
-  {
-    label: 'Office Hours',
-    value: 'Monday - Friday | 9:00 AM - 5:00 PM ET',
-    icon: Clock
   }
 ];
 
@@ -85,7 +75,7 @@ export default function Contact() {
                 <Users size={22} />
               </div>
               <h3 className="text-lg font-semibold text-gold-50">
-                Student Opportunities
+                Graduate Student Opportunities
               </h3>
             </div>
             <p className="text-sm leading-6 text-gold-200/80">
