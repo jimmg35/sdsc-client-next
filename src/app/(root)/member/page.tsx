@@ -19,10 +19,11 @@ export default function Member() {
   const graduateStudents = collectMembers([
     getMemberById('md-fattah'),
     getMemberById('weining-kan'),
+    getMemberById('hanbin-wang'),
     getMemberById('chenlun-kao'),
+    getMemberById('zhipeng-li'),
     getMemberById('jiajun-chang'),
-    getMemberById('jacob-tagnan'),
-    getMemberById('hanbin-wang')
+    getMemberById('jacob-tagnan')
   ]);
 
   return (
