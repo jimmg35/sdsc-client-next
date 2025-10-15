@@ -84,15 +84,27 @@ export default function Member() {
         <section className="surface-fade mb-10 px-6 py-10 md:px-12">
           <div className="mb-10 text-center text-gold-100">
             <p className="panel-title justify-center text-gold-300">
+              Affiliated Members
+            </p>
+            <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
+              Affiliated Members
+            </h2>
+          </div>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {/* {graduateStudents.map((member) => (
+              <ProfileCard key={member.id} {...member} />
+            ))} */}
+          </div>
+        </section>
+
+        <section className="surface-fade mb-10 px-6 py-10 md:px-12">
+          <div className="mb-10 text-center text-gold-100">
+            <p className="panel-title justify-center text-gold-300">
               Graduate Students
             </p>
             <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
-              Emerging innovators & collaborators
+              Graduate Students
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/80">
-              Graduate researchers pushing the boundaries of immersive
-              visualization, spatial statistics, and human-centered design.
-            </p>
           </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {graduateStudents.map((member) => (

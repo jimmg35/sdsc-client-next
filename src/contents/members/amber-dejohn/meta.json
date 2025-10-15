@@ -6,10 +6,81 @@
   "email": "amber.dejohn@fsu.edu",
   "thumbnail": "/img/avatar/amber-dejohn.jpeg",
   "googleScholar": "",
-  "education": [],
-  "honor": [],
-  "selectedPublications": [],
-  "courseTaught": [],
-  "aoi": [],
+  "education": [
+    {
+      "degree": "Ph.D.",
+      "field": "Geography",
+      "institution": "University of Toronto",
+      "year": 2023
+    },
+    {
+      "degree": "M.A.",
+      "field": "Geography",
+      "institution": "University of Toronto",
+      "year": 2019
+    },
+    {
+      "degree": "B.A.",
+      "field": "Political Theory; Economic Geography",
+      "institution": "Michigan State University",
+      "year": 2018
+    }
+  ],
+  "honor": [
+    {
+      "title": "Jacques May Thesis Prize, Health & Medical Geography Group, American Association of Geographers",
+      "year": 2024
+    },
+    {
+      "title": "University of Toronto School of Cities Graduate Fellowship",
+      "year": 2022
+    },
+    {
+      "title": "Beinecke Scholarship, Beinecke Foundation",
+      "year": 2017
+    }
+  ],
+  "selectedPublications": [
+    {
+      "id": "mobility-ict-and-health",
+      "author": "DeJohn, A., Liu, B., Ma, X., Widener, M. J., & Liu, Z. (2025)",
+      "title": "Mobility, ICT, and health: a built environment investigation of older Chinese migrants' social isolation and loneliness",
+      "journal": "BMC Public Health",
+      "catalog": "25(1), Article 513",
+      "doi": "https://doi.org/10.1186/s12889-025-21750-3"
+    },
+    {
+      "id": "alone-together-time-use",
+      "author": "DeJohn, A., Liu, B., Ma, X., Widener, M. J., & Liu, Z. (2024)",
+      "title": "Alone together? A time use approach for examining socializing when travel is limited",
+      "journal": "Canadian Geographies / Geographies canadiennes",
+      "catalog": "69(1), e12961",
+      "doi": "https://doi.org/10.1111/cag.12961"
+    },
+    {
+      "id": "calculating-transit-accessibility",
+      "author": "Higgins, C. D., Palm, M., DeJohn, A., Xi, L., Widener, M. J., Vaughan, J., Miller, E. J., & Farber, S. (2022)",
+      "title": "Calculating place-based transit accessibility: Methods, tools and algorithmic dependence",
+      "journal": "Journal of Transport and Land Use",
+      "catalog": "15(1), 95-116",
+      "doi": "https://doi.org/10.5198/jtlu.2022.2012"
+    },
+    {
+      "id": "transit-access-subsidized-food-stores",
+      "author": "DeJohn, A. D., Widener, M. J., & Shannon, J. (2023)",
+      "title": "Transit access to subsidized food stores in the U.S. Midwest",
+      "journal": "The Professional Geographer",
+      "catalog": "75(1), 76-89",
+      "doi": "https://doi.org/10.1080/00330124.2022.2103720"
+    }
+  ],
+  "courseTaught": ["Medical Geography", "GIS & Health"],
+  "aoi": [
+    "Accessibility",
+    "Health Geography",
+    "Aging",
+    "ICT Use",
+    "Mixed Methods"
+  ],
   "professionalExperience": []
 }

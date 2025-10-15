@@ -4,7 +4,6 @@ import {
   Linkedin,
   Mail,
   MapPin,
-  PhoneCall,
   Twitter
 } from 'lucide-react';
 import Image from 'next/image';
@@ -16,6 +15,7 @@ const quickLinks = [
   { label: 'Research', href: '/research' },
   { label: 'MGWR', href: '/mgwr' },
   { label: 'Publications', href: '/publications' },
+  { label: 'Updates', href: '/announcements' },
   { label: 'News', href: '/news' },
   { label: 'Contact', href: '/contact' }
 ];
@@ -90,20 +90,20 @@ const Footer = () => {
             <p className="flex items-start gap-3 text-ink-700/80">
               <MapPin size={18} className="text-rose-500" />
               <span>
-                Department of Geography
+                Spatial Data Science Center
                 <br />
                 Florida State University
                 <br />
                 Tallahassee, FL 32306
               </span>
             </p>
-            <p className="flex items-center gap-3 text-ink-700/80">
+            {/* <p className="flex items-center gap-3 text-ink-700/80">
               <PhoneCall size={18} className="text-rose-500" />
               <span>+1 (850) 123-4567</span>
-            </p>
+            </p> */}
             <p className="flex items-center gap-3 text-ink-700/80">
               <Mail size={18} className="text-rose-500" />
-              <span>contact@sdsc.fsu.edu</span>
+              <span>admin@sdsc.edu</span>
             </p>
           </div>
 
