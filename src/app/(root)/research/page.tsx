@@ -25,6 +25,12 @@ const focusAreas = [
     description:
       'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
     icon: Radar
+  },
+  {
+    title: 'Urban',
+    description:
+      'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
+    icon: Radar
   }
 ];
 
