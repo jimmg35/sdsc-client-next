@@ -37,18 +37,6 @@ const focusAreas = [
     description:
       'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
     icon: Radar
-  },
-  {
-    title: 'Environment',
-    description:
-      'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
-    icon: Radar
-  },
-  {
-    title: 'Transportation',
-    description:
-      'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
-    icon: Radar
   }
 ];
 
@@ -66,10 +54,10 @@ const spotlights = [
     icon: GlobeLock
   },
   {
-    title: 'GeoAI Resilience Studio',
+    title: 'Spatial DevOps',
     description:
-      'Combines AI, Earth observation, and socio-economic data to support climate resilience and equitable planning.',
-    icon: GlobeLock
+      'Production pipelines, automated testing, and deployment strategies for reproducible spatial science at scale.',
+    icon: Layers3
   }
 ];
 
