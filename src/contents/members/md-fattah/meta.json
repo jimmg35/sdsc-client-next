@@ -1,10 +1,11 @@
 {
   "id": "md-fattah",
   "name": "Md A. Fattah",
-  "title": "Ph.D. student",
+  "title": "MS student",
   "department": "",
   "email": "mfattah@fsu.edu",
   "thumbnail": "/img/avatar/md-fattah.jpg",
+  "centerRole": "Graduate Research Assistant",
   "googleScholar": "",
   "facultySupervisor": "Mark W. Horner",
   "education": [],

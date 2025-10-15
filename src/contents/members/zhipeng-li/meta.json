@@ -1,0 +1,30 @@
+{
+  "id": "zhipeng-li",
+  "name": "Zhipeng Li",
+  "title": "Ph.D. student",
+  "department": "Department of Geography",
+  "email": "zl25a@fsu.edu",
+  "thumbnail": "/img/avatar/zhipeng-li.jpg",
+  "centerRole": "Graduate Research Assistant",
+  "cvPath": "/cv/zhipeng-li.doc",
+  "googleScholar": "https://scholar.google.com/citations?user=QywttFoAAAAJ&hl=en",
+  "education": [
+    {
+      "degree": "M.E.",
+      "field": "Urban Planning",
+      "institution": "Tongji University, China",
+      "year": 2023
+    },
+    {
+      "degree": "B.E.",
+      "field": "Urban Planning",
+      "institution": "Tongji University, China",
+      "year": 2020
+    }
+  ],
+  "honor": [],
+  "selectedPublications": [],
+  "courseTaught": [],
+  "aoi": [],
+  "professionalExperience": []
+}
