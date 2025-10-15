@@ -71,16 +71,10 @@
       "doi": "https://doi.org/10.1016/j.compenvurbsys.2022.101845"
     }
   ],
-  "courseTaught": [
-    "Spatial Data Analysis",
-    "Applied Spatial Statistics",
-    "GIS Programming"
-  ],
   "aoi": [
-    "Spatial Data Analysis",
-    "Network Science",
-    "Research Methods",
-    "Human Geography"
+    "Spatial Statistics",
+    "GeoAI",
+    "Explainable AI (XAI)"
   ],
   "professionalExperience": [
     {
