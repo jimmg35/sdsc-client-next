@@ -9,43 +9,40 @@ import {
 
 const focusAreas = [
   {
-    title: 'Geospatial Modeling',
+    title: 'Spatial Analytics',
     description:
       'We design novel spatial models that link environmental systems, human mobility, and infrastructure dynamics across scales.',
     icon: Microscope
   },
   {
-    title: 'Spatial Statistics',
+    title: 'Health',
     description:
       'Our teams develop methods that respect spatial dependence and heterogeneity, expanding the frontier of local inference.',
     icon: Activity
   },
   {
-    title: 'Multi-scale GWR',
+    title: 'Transportation',
     description:
       'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
     icon: Radar
   }
-];
-
-const spotlights = [
   {
-    title: 'Immersive Analytics Lab',
+    title: 'Voting',
     description:
-      'Extends spatial reasoning into XR environments so decision makers can interact with live models and simulations.',
-    icon: Orbit
-  },
+      'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
+    icon: Radar
+  }
   {
-    title: 'GeoAI Resilience Studio',
+    title: 'Urban',
     description:
-      'Combines AI, Earth observation, and socio-economic data to support climate resilience and equitable planning.',
-    icon: GlobeLock
-  },
+      'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
+    icon: Radar
+  }
   {
-    title: 'Spatial DevOps',
+    title: 'Crime',
     description:
-      'Production pipelines, automated testing, and deployment strategies for reproducible spatial science at scale.',
-    icon: Layers3
+      'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
+    icon: Radar
   }
 ];
 
