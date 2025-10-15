@@ -11,43 +11,19 @@ const focusAreas = [
   {
     title: 'Spatial Analytics',
     description:
-      'We develop advanced spatial statistical and AI methods, by open-source software, for modeling and understanding complex spatial data.',
+      'We design novel spatial models that link environmental systems, human mobility, and infrastructure dynamics across scales.',
     icon: Microscope
   },
   {
     title: 'Health',
     description:
-      'We harness spatial data and methods to reveal how place, people, and environment intertwine to shape patterns of health and disease.',
+      'Our teams develop methods that respect spatial dependence and heterogeneity, expanding the frontier of local inference.',
     icon: Activity
   },
   {
     title: 'Voting',
     description:
-      'By analyzing spatial and demographic data, we illuminate how geography and context influence political participation and representation.',
-    icon: Radar
-  },
-  {
-    title: 'Transportation',
-    description:
-      'Through spatial analytics, we map the pulse of human mobility—tracing how geography, infrastructure, and behavior connect to move people and communities.',
-    icon: Radar
-  },
-  {
-    title: 'Crime',
-    description:
-      'We use spatial intelligence to uncover the geographic and social dynamics that underlie patterns of safety, risk, and justice.',
-    icon: Radar
-  },
-  {
-    title: 'Urban',
-    description:
-      'Our work in spatial analytics explores how cities evolve—how design, density, and diversity shape the lived experience of urban spaces.',
-    icon: Radar
-  },
-  {
-    title: 'Environment',
-    description:
-      'We model the spatial interplay between human and environment to understand and guide sustainable environmental futures.',
+      'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
     icon: Radar
   }
 ];
@@ -58,6 +34,18 @@ const spotlights = [
     description:
       'Extends spatial reasoning into XR environments so decision makers can interact with live models and simulations.',
     icon: Orbit
+  },
+  {
+    title: 'GeoAI Resilience Studio',
+    description:
+      'Combines AI, Earth observation, and socio-economic data to support climate resilience and equitable planning.',
+    icon: GlobeLock
+  },
+  {
+    title: 'Spatial DevOps',
+    description:
+      'Production pipelines, automated testing, and deployment strategies for reproducible spatial science at scale.',
+    icon: Layers3
   }
 ];
 
