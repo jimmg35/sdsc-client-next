@@ -46,12 +46,6 @@ const spotlights = [
     description:
       'Combines AI, Earth observation, and socio-economic data to support climate resilience and equitable planning.',
     icon: GlobeLock
-  },
-  {
-    title: 'Spatial DevOps',
-    description:
-      'Production pipelines, automated testing, and deployment strategies for reproducible spatial science at scale.',
-    icon: Layers3
   }
 ];
 
