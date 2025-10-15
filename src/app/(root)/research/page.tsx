@@ -9,21 +9,45 @@ import {
 
 const focusAreas = [
   {
-    title: 'Geospatial Modeling',
+    title: 'Spatial Analytics',
     description:
-      'We design novel spatial models that link environmental systems, human mobility, and infrastructure dynamics across scales.',
+      'We develop advanced spatial statistical and AI methods, by open-source software, for modeling and understanding complex spatial data.',
     icon: Microscope
   },
   {
-    title: 'Spatial Statistics',
+    title: 'Health',
     description:
-      'Our teams develop methods that respect spatial dependence and heterogeneity, expanding the frontier of local inference.',
+      'We harness spatial data and methods to reveal how place, people, and environment intertwine to shape patterns of health and disease.',
     icon: Activity
   },
   {
-    title: 'Multi-scale GWR',
+    title: 'Voting',
     description:
-      'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
+      'By analyzing spatial and demographic data, we illuminate how geography and context influence political participation and representation.',
+    icon: Radar
+  }
+  {
+    title: 'Transportation',
+    description:
+      'Through spatial analytics, we map the pulse of human mobility—tracing how geography, infrastructure, and behavior connect to move people and communities.',
+    icon: Radar
+  }
+  {
+    title: 'Crime',
+    description:
+      'We use spatial intelligence to uncover the geographic and social dynamics that underlie patterns of safety, risk, and justice.',
+    icon: Radar
+  }
+  {
+    title: 'Urban',
+    description:
+      'Our work in spatial analytics explores how cities evolve—how design, density, and diversity shape the lived experience of urban spaces.',
+    icon: Radar
+  }
+  {
+    title: 'Environment',
+    description:
+      'We model the spatial interplay between human and environment to understand and guide sustainable environmental futures.',
     icon: Radar
   }
 ];
