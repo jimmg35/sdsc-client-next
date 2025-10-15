@@ -52,6 +52,15 @@ const focusAreas = [
   }
 ];
 
+const spotlights = [
+  {
+    title: 'Immersive Analytics Lab',
+    description:
+      'Extends spatial reasoning into XR environments so decision makers can interact with live models and simulations.',
+    icon: Orbit
+  }
+];
+
 export default function Research() {
   return (
     <section className="page-shell">
