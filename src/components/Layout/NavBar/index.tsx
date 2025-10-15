@@ -3,6 +3,7 @@
 import {
   AppWindowMac,
   Info,
+  Megaphone,
   Menu,
   Microscope,
   PhoneCall,
@@ -22,6 +23,7 @@ const navItems = [
   { label: 'Research', href: '/research', icon: Microscope },
   { label: 'MGWR', href: '/mgwr', icon: AppWindowMac },
   { label: 'Publications', href: '/publications', icon: ScrollText },
+  { label: 'Updates', href: '/announcements', icon: Megaphone },
   { label: 'News', href: '/news', icon: Rss },
   { label: 'Contact', href: '/contact', icon: PhoneCall }
 ] as const;
@@ -101,9 +103,9 @@ const Navbar = () => {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${backgroundClass}`}
+      className={`fixed flex items-center justify-center inset-x-0 top-0 z-50 border-b transition-all duration-300 ${backgroundClass}`}
     >
-      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 text-rose-700 md:h-20 md:px-6 gap-6">
+      <nav className="flex h-16 w-fit items-center justify-between px-4 text-rose-700 md:h-20 md:px-6 gap-6">
         <Image
           width={145}
           height={46}

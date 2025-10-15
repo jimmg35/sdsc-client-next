@@ -16,6 +16,7 @@ const quickLinks = [
   { label: 'Research', href: '/research' },
   { label: 'MGWR', href: '/mgwr' },
   { label: 'Publications', href: '/publications' },
+  { label: 'Updates', href: '/announcements' },
   { label: 'News', href: '/news' },
   { label: 'Contact', href: '/contact' }
 ];
