@@ -25,51 +25,30 @@ const focusAreas = [
     description:
       'By analyzing spatial and demographic data, we illuminate how geography and context influence political participation and representation.',
     icon: Radar
-  }
+  },
   {
     title: 'Transportation',
     description:
       'Through spatial analytics, we map the pulse of human mobility—tracing how geography, infrastructure, and behavior connect to move people and communities.',
     icon: Radar
-  }
+  },
   {
     title: 'Crime',
     description:
       'We use spatial intelligence to uncover the geographic and social dynamics that underlie patterns of safety, risk, and justice.',
     icon: Radar
-  }
+  },
   {
     title: 'Urban',
     description:
       'Our work in spatial analytics explores how cities evolve—how design, density, and diversity shape the lived experience of urban spaces.',
     icon: Radar
-  }
+  },
   {
     title: 'Environment',
     description:
       'We model the spatial interplay between human and environment to understand and guide sustainable environmental futures.',
     icon: Radar
-  }
-];
-
-const spotlights = [
-  {
-    title: 'Immersive Analytics Lab',
-    description:
-      'Extends spatial reasoning into XR environments so decision makers can interact with live models and simulations.',
-    icon: Orbit
-  },
-  {
-    title: 'GeoAI Resilience Studio',
-    description:
-      'Combines AI, Earth observation, and socio-economic data to support climate resilience and equitable planning.',
-    icon: GlobeLock
-  },
-  {
-    title: 'Spatial DevOps',
-    description:
-      'Production pipelines, automated testing, and deployment strategies for reproducible spatial science at scale.',
-    icon: Layers3
   }
 ];
 
