@@ -17,7 +17,7 @@ const News = () => {
           <Rss size={18} className="text-gold-200" />
           Latest Dispatches
         </span>
-        <Heading title="News & Updates" />
+        <Heading title="News & Events" />
         <p className="max-w-2xl text-sm text-gold-200/75 md:text-base">
           Catch up on lab breakthroughs, spatial data events, and faculty
           spotlights curated each month from the SDSC community.

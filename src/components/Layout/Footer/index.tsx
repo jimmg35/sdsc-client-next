@@ -97,13 +97,13 @@ const Footer = () => {
                 Tallahassee, FL 32306
               </span>
             </p>
-            <p className="flex items-center gap-3 text-ink-700/80">
+            {/* <p className="flex items-center gap-3 text-ink-700/80">
               <PhoneCall size={18} className="text-rose-500" />
               <span>+1 (850) 123-4567</span>
-            </p>
+            </p> */}
             <p className="flex items-center gap-3 text-ink-700/80">
               <Mail size={18} className="text-rose-500" />
-              <span>contact@sdsc.fsu.edu</span>
+              <span>admin@sdsc.edu</span>
             </p>
           </div>
 
