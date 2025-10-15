@@ -1,5 +1,5 @@
-import { markdownToHTML } from '@/lib/md';
 import { getAnnouncementBySlug } from '@/lib/announcements';
+import { markdownToHTML } from '@/lib/md';
 import { ArrowLeft, Calendar, User } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -23,6 +23,7 @@ export default async function AnnouncementPage(props: { params: Props }) {
   try {
     announcement = getAnnouncementBySlug(slug);
   } catch (error) {
+    console.log(error);
     notFound();
   }
 

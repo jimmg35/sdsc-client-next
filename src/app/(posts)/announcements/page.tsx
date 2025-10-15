@@ -1,8 +1,5 @@
 import AnnouncementCard from '@/components/Utility/AnnouncementCard';
-import {
-  AnnouncementData,
-  getAllAnnouncements
-} from '@/lib/announcements';
+import { AnnouncementData, getAllAnnouncements } from '@/lib/announcements';
 import { ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';

@@ -74,10 +74,7 @@
       "doi": "https://doi.org/10.1080/00330124.2022.2103720"
     }
   ],
-  "courseTaught": [
-    "Medical Geography",
-    "GIS & Health"
-  ],
+  "courseTaught": ["Medical Geography", "GIS & Health"],
   "aoi": [
     "Accessibility",
     "Health Geography",

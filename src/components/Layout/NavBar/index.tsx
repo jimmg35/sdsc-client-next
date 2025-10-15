@@ -1,8 +1,8 @@
 'use client';
 
 import {
-  ArrowUpRight,
   AppWindowMac,
+  ArrowUpRight,
   ChevronDown,
   Info,
   Megaphone,
@@ -14,11 +14,11 @@ import {
   UserRound,
   X
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import type { LucideIcon } from 'lucide-react';
 
 type PrimaryNavItem = {
   label: string;
@@ -178,7 +178,8 @@ const Navbar = () => {
               if (item.hasMega) {
                 const Icon = item.icon;
                 const isActive =
-                  pathname === item.href || pathname.startsWith(`${item.href}/`);
+                  pathname === item.href ||
+                  pathname.startsWith(`${item.href}/`);
 
                 return (
                   <div
@@ -287,9 +288,7 @@ const Navbar = () => {
                               ? 'border-rose-200 bg-rose-100/60 text-rose-700'
                               : 'border-rose-200/70 bg-white/85 text-rose-600 hover:bg-rose-50'
                           }`}
-                          onClick={() =>
-                            setIsResourcesOpen((prev) => !prev)
-                          }
+                          onClick={() => setIsResourcesOpen((prev) => !prev)}
                           aria-expanded={isResourcesOpen}
                           aria-haspopup="true"
                         >
