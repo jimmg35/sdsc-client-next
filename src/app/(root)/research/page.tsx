@@ -11,13 +11,13 @@ const focusAreas = [
   {
     title: 'Spatial Analytics',
     description:
-      'We design novel spatial models that link environmental systems, human mobility, and infrastructure dynamics across scales.',
+      'We develop advanced spatial statistical and AI methods and open-source software for modeling and understanding complex spatial data.',
     icon: Microscope
   },
   {
     title: 'Health',
     description:
-      'Our teams develop methods that respect spatial dependence and heterogeneity, expanding the frontier of local inference.',
+      'We employ advanced spatial analytical approaches to investigate how environmental, demographic, and geographic determinants influence health outcomes,aging, disease patterns, and healthcare accessibility.',
     icon: Activity
   },
   {
