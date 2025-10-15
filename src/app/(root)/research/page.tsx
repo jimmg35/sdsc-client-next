@@ -9,40 +9,43 @@ import {
 
 const focusAreas = [
   {
-    title: 'Spatial Analytics',
+    title: 'Geospatial Modeling',
     description:
-      'We develop advanced spatial statistical and AI methods and open-source software for modeling and understanding complex spatial data.',
+      'We design novel spatial models that link environmental systems, human mobility, and infrastructure dynamics across scales.',
     icon: Microscope
   },
   {
-    title: 'Health',
+    title: 'Spatial Statistics',
     description:
-      'We employ advanced spatial analytical approaches to investigate how environmental, demographic, and geographic determinants influence health outcomes,aging, disease patterns, and healthcare accessibility.',
+      'Our teams develop methods that respect spatial dependence and heterogeneity, expanding the frontier of local inference.',
     icon: Activity
   },
   {
-    title: 'Transportation',
+    title: 'Multi-scale GWR',
     description:
       'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
     icon: Radar
   }
+];
+
+const spotlights = [
   {
-    title: 'Voting',
+    title: 'Immersive Analytics Lab',
     description:
-      'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
-    icon: Radar
-  }
+      'Extends spatial reasoning into XR environments so decision makers can interact with live models and simulations.',
+    icon: Orbit
+  },
   {
-    title: 'Urban',
+    title: 'GeoAI Resilience Studio',
     description:
-      'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
-    icon: Radar
-  }
+      'Combines AI, Earth observation, and socio-economic data to support climate resilience and equitable planning.',
+    icon: GlobeLock
+  },
   {
-    title: 'Crime',
+    title: 'Spatial DevOps',
     description:
-      'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
-    icon: Radar
+      'Production pipelines, automated testing, and deployment strategies for reproducible spatial science at scale.',
+    icon: Layers3
   }
 ];
 
