@@ -20,12 +20,11 @@ export default async function ProfilePage(props: { params: Props }) {
   const member = getMemberById(slug);
   const biography = getMemberBiograpgyById(slug);
 
-  const advisorMember =
-    member?.advisorId
-      ? getMemberById(member.advisorId)
-      : member?.advisor
-        ? getAllMembers().find((mem) => mem.name === member.advisor)
-        : null;
+  const advisorMember = member?.advisorId
+    ? getMemberById(member.advisorId)
+    : member?.advisor
+      ? getAllMembers().find((mem) => mem.name === member.advisor)
+      : null;
   const advisorName = advisorMember?.name || member?.advisor || null;
   const advisorTitle = advisorMember?.title || null;
 
