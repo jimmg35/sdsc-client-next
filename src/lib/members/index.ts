@@ -42,6 +42,7 @@ export interface MemberData {
   cvPath?: string;
   googleScholar: string;
   advisor?: string;
+  advisorId?: string;
   education: MemberEducation[];
   honor: MemberHonor[];
   selectedPublications: MemberPublication[];
@@ -67,7 +68,9 @@ export function getAllMembers(): MemberData[] {
       centerRole,
       googleScholar,
       advisor,
+      advisorId,
       facultySupervisor,
+      facultySupervisorId,
       education,
       honor,
       selectedPublications,
@@ -87,6 +90,7 @@ export function getAllMembers(): MemberData[] {
       cvPath: cvPath || undefined,
       googleScholar,
       advisor: advisor || facultySupervisor || undefined,
+      advisorId: advisorId || facultySupervisorId || undefined,
       education: education || [],
       honor: honor || [],
       selectedPublications: selectedPublications || [],

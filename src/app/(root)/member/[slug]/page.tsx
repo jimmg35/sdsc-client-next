@@ -3,6 +3,7 @@ import PublicationPost from '@/components/Utility/PublicationPost';
 import { markdownToHTML } from '@/lib/md';
 import {
   MemberPublication,
+  getAllMembers,
   getMemberBiograpgyById,
   getMemberById
 } from '@/lib/members';
@@ -18,6 +19,15 @@ export default async function ProfilePage(props: { params: Props }) {
   const { slug } = await props.params;
   const member = getMemberById(slug);
   const biography = getMemberBiograpgyById(slug);
+
+  const advisorMember =
+    member?.advisorId
+      ? getMemberById(member.advisorId)
+      : member?.advisor
+        ? getAllMembers().find((mem) => mem.name === member.advisor)
+        : null;
+  const advisorName = advisorMember?.name || member?.advisor || null;
+  const advisorTitle = advisorMember?.title || null;
 
   let mdHtmlContent = '';
   if (biography) {
@@ -105,14 +115,31 @@ export default async function ProfilePage(props: { params: Props }) {
                   </p>
                 </section>
 
-                {member.advisor && (
+                {advisorName && (
                   <section className="glass-card px-6 py-6">
                     <header className="panel-title text-gold-300">
                       Advisor
                     </header>
-                    <p className="mt-3 text-sm text-gold-200/80 md:text-base">
-                      {member.advisor}
-                    </p>
+                    <div className="mt-4 flex items-center gap-4">
+                      {advisorMember?.thumbnail && (
+                        <Avatar
+                          src={advisorMember.thumbnail}
+                          size={56}
+                          alt={`${advisorName} portrait`}
+                          className="shrink-0"
+                        />
+                      )}
+                      <div>
+                        <p className="text-sm font-semibold text-gold-100 md:text-base">
+                          {advisorName}
+                        </p>
+                        {advisorTitle && (
+                          <p className="text-xs text-gold-300/70">
+                            {advisorTitle}
+                          </p>
+                        )}
+                      </div>
+                    </div>
                   </section>
                 )}
 
