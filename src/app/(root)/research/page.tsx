@@ -21,28 +21,43 @@ const focusAreas = [
     icon: Activity
   },
   {
-    title: 'Transportation',
-    description:
-      'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
-    icon: Radar
-  }
-  {
     title: 'Voting',
     description:
       'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
     icon: Radar
-  }
+  },
   {
     title: 'Urban',
     description:
       'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
     icon: Radar
-  }
+  },
   {
     title: 'Crime',
     description:
       'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
     icon: Radar
+  }
+];
+
+const spotlights = [
+  {
+    title: 'Immersive Analytics Lab',
+    description:
+      'Extends spatial reasoning into XR environments so decision makers can interact with live models and simulations.',
+    icon: Orbit
+  },
+  {
+    title: 'GeoAI Resilience Studio',
+    description:
+      'Combines AI, Earth observation, and socio-economic data to support climate resilience and equitable planning.',
+    icon: GlobeLock
+  },
+  {
+    title: 'Spatial DevOps',
+    description:
+      'Production pipelines, automated testing, and deployment strategies for reproducible spatial science at scale.',
+    icon: Layers3
   }
 ];
 
