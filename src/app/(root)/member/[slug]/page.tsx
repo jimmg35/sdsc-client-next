@@ -105,6 +105,17 @@ export default async function ProfilePage(props: { params: Props }) {
                   </p>
                 </section>
 
+                {member.advisor && (
+                  <section className="glass-card px-6 py-6">
+                    <header className="panel-title text-gold-300">
+                      Advisor
+                    </header>
+                    <p className="mt-3 text-sm text-gold-200/80 md:text-base">
+                      {member.advisor}
+                    </p>
+                  </section>
+                )}
+
                 {member.education && member.education.length > 0 && (
                   <section className="glass-card px-6 py-6">
                     <header className="panel-title text-gold-300">

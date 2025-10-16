@@ -9,7 +9,8 @@ const ProfileCard = ({
   name,
   title,
   cvPath,
-  centerRole
+  centerRole,
+  advisor
 }: MemberData) => {
   return (
     <article className="group glass-card flex w-[19.5rem] flex-col justify-between overflow-hidden text-gold-100 transition duration-300 ease-out hover:-translate-y-3">
@@ -28,6 +29,9 @@ const ProfileCard = ({
         <div className="space-y-1">
           <p className="text-xl font-semibold text-gold-50 text-glow">{name}</p>
           {title && <p className="text-sm text-gold-300/70">{title}</p>}
+          {advisor && (
+            <p className="text-xs text-gold-300/60">Advisor: {advisor}</p>
+          )}
         </div>
       </div>
 
