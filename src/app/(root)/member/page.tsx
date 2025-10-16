@@ -20,6 +20,7 @@ export default function Member() {
     getMemberById('md-fattah'),
     getMemberById('weining-kan'),
     getMemberById('hanbin-wang'),
+    getMemberById('ju-he'),
     getMemberById('chenlun-kao'),
     getMemberById('zhipeng-li'),
     getMemberById('jiajun-chang'),
