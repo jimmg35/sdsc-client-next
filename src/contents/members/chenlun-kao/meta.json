@@ -7,7 +7,8 @@
   "thumbnail": "/img/avatar/allan.jpg",
   "centerRole": "Graduate Research Assistant",
   "googleScholar": "",
-  "facultySupervisor": "Stewart Fotheringham",
+  "advisor": "Stewart Fotheringham",
+  "advisorId": "stewart-fotheringham",
   "education": [
     {
       "degree": "PhD",

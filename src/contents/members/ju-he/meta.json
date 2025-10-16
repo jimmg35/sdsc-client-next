@@ -1,0 +1,31 @@
+{
+  "id": "ju-he",
+  "name": "Ju He",
+  "title": "Ph.D. Student",
+  "department": "Department of Geography",
+  "email": "jh24p@fsu.edu",
+  "thumbnail": "/img/avatar/he-ju.jpg",
+  "centerRole": "Graduate Research Assistant",
+  "googleScholar": "",
+  "advisor": "Ziqi Li",
+  "advisorId": "ziqi-li",
+  "education": [
+    {
+      "degree": "M.S.",
+      "field": "Geography and Environmental Studies",
+      "institution": "University of Illinois Urbana Champaign",
+      "year": 2024
+    },
+    {
+      "degree": "B.Sc.",
+      "field": "Geology",
+      "institution": "China University of Geosciences Beijing",
+      "year": 2018
+    }
+  ],
+  "honor": [],
+  "selectedPublications": [],
+  "courseTaught": [],
+  "aoi": [],
+  "professionalExperience": []
+}
