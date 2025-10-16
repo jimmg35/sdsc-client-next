@@ -1,9 +1,9 @@
 import {
   Activity,
-  GlobeLock,
-  Layers3,
+  // GlobeLock,
+  // Layers3,
   Microscope,
-  Orbit,
+  // Orbit,
   Radar
 } from 'lucide-react';
 
@@ -40,26 +40,26 @@ const focusAreas = [
   }
 ];
 
-const spotlights = [
-  {
-    title: 'Immersive Analytics Lab',
-    description:
-      'Extends spatial reasoning into XR environments so decision makers can interact with live models and simulations.',
-    icon: Orbit
-  },
-  {
-    title: 'GeoAI Resilience Studio',
-    description:
-      'Combines AI, Earth observation, and socio-economic data to support climate resilience and equitable planning.',
-    icon: GlobeLock
-  },
-  {
-    title: 'Spatial DevOps',
-    description:
-      'Production pipelines, automated testing, and deployment strategies for reproducible spatial science at scale.',
-    icon: Layers3
-  }
-];
+// const spotlights = [
+//   {
+//     title: 'Immersive Analytics Lab',
+//     description:
+//       'Extends spatial reasoning into XR environments so decision makers can interact with live models and simulations.',
+//     icon: Orbit
+//   },
+//   {
+//     title: 'GeoAI Resilience Studio',
+//     description:
+//       'Combines AI, Earth observation, and socio-economic data to support climate resilience and equitable planning.',
+//     icon: GlobeLock
+//   },
+//   {
+//     title: 'Spatial DevOps',
+//     description:
+//       'Production pipelines, automated testing, and deployment strategies for reproducible spatial science at scale.',
+//     icon: Layers3
+//   }
+// ];
 
 export default function Research() {
   return (
@@ -133,7 +133,7 @@ export default function Research() {
           </article>
         </section>
 
-        <section className="mt-20 grid gap-6 md:grid-cols-3">
+        {/* <section className="mt-20 grid gap-6 md:grid-cols-3">
           {spotlights.map(({ title, description, icon: Icon }) => (
             <article
               key={title}
@@ -150,7 +150,7 @@ export default function Research() {
               <p className="text-sm leading-6 text-ink-600">{description}</p>
             </article>
           ))}
-        </section>
+        </section> */}
       </div>
     </section>
   );
