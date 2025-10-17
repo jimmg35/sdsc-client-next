@@ -56,7 +56,7 @@ const resourceLinks: ResourceLink[] = [
     icon: ScrollText
   },
   {
-    label: 'Updates',
+    label: 'Announcements',
     href: '/announcements',
     description: 'Official communications, initiatives, and leadership notes.',
     icon: Megaphone

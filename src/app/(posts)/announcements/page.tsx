@@ -18,7 +18,7 @@ export default function Announcements() {
     <section className="page-shell">
       <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 text-gold-100 md:pt-40">
         <header className="text-center">
-          <span className="chip-gold">Updates</span>
+          <span className="chip-gold">Announcements</span>
           <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
             Official updates from the Spatial Data Science Center
           </h1>
