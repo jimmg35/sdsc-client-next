@@ -2,6 +2,8 @@ import { ArrowDownToLine } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+const CURRENT_VERSION = '2.2.1';
+
 interface AppCardProps {
   title: string;
   description: string;
@@ -39,6 +41,9 @@ const AppCard = ({
               {meta}
             </p>
           )}
+          <p className="mt-1 text-xs uppercase tracking-[0.26em] text-gold-300/60">
+            Version {CURRENT_VERSION}
+          </p>
         </div>
       </div>
       <p className="relative mt-6 text-sm text-gold-200/80">{description}</p>
