@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { useState } from 'react';
+import Link from 'next/link';
 
 const BannerMessage = ({ isDuplicate = false }: { isDuplicate?: boolean }) => (
   <div aria-hidden={isDuplicate} className="marquee__item">
