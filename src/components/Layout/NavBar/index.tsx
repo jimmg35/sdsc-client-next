@@ -20,6 +20,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import NotificationBanner from '@/components/Layout/NotificationBanner';
 
 type PrimaryNavItem = {
   label: string;
@@ -264,6 +265,8 @@ const Navbar = () => {
           </div>
         )}
       </nav>
+
+      <NotificationBanner />
 
       {isOpen && (
         <div className="md:hidden">
