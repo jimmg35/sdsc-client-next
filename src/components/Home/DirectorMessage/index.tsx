@@ -18,28 +18,35 @@ const DirectorMessage = () => {
           />
         </div>
         <div className="text-gold-50 md:w-2/3">
-          <span className="text-xs font-semibold uppercase tracking-[0.35em] text-gold-200/70">
+          <span className="mt-4 text-3xl font-semibold leading-tight text-gold-50 md:text-4xl">
             Center Director&apos;s Message
           </span>
-          <h2 className="mt-4 text-3xl font-semibold leading-tight text-gold-50 md:text-4xl">
-            Mapping possibilities with purpose
-          </h2>
-          <p className="mt-6 text-base text-gold-100/80 md:text-lg">
+          <p className="mt-6 text-base text-gold-100/80 md:text-lg text-justify">
             At the Spatial Data Science Center, we build teams that blend
             rigorous spatial analytics with creative design to make sense of
             complex places. Every project is an invitation to look deeper,
             collaborate openly, and deliver insights that matter to communities
             and decision makers alike.
           </p>
-          <p className="mt-5 text-base text-gold-100/80 md:text-lg">
+          <p className="mt-5 text-base text-gold-100/80 md:text-lg text-justify">
             I am excited to welcome new colleagues who share our curiosity and
             our drive to illuminate how location shapes opportunity. Together,
             we will continue expanding the boundaries of GIScience and
             empowering partners across the globe.
           </p>
-          <p className="mt-6 text-sm font-semibold uppercase tracking-[0.25em] text-gold-200/70">
-            Stewart Fotheringham · Founding Director
-          </p>
+          <div className="mt-6 flex items-center flex-row-reverse gap-4">
+            <Image
+              src="/img/stewart-signature.png"
+              alt="Signature of Stewart Fotheringham"
+              width={220}
+              height={72}
+              className="h-auto w-auto max-w-[14rem]"
+              priority
+            />
+            <p className="mt-3 text-xs font-semibold uppercase tracking-[0.25em] text-gold-200/70">
+              Founding Director
+            </p>
+          </div>
         </div>
       </div>
     </section>
