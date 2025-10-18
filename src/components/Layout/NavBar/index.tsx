@@ -1,5 +1,6 @@
 'use client';
 
+import NotificationBanner from '@/components/Layout/NotificationBanner';
 import {
   AppWindowMac,
   ArrowUpRight,
@@ -104,8 +105,8 @@ const Navbar = () => {
 
   const backgroundClass =
     hasScrolled || isOpen
-      ? 'bg-white/92 border-b border-silk-200/80 shadow-[0_24px_70px_-48px_rgba(61,47,39,0.32)] backdrop-blur-xl'
-      : 'bg-white/80 border-b border-transparent backdrop-blur-sm';
+      ? 'border-b border-white/40 bg-gradient-to-r from-white/70 via-white/40 to-white/70 shadow-[0_24px_70px_-48px_rgba(61,47,39,0.32)] backdrop-blur-2xl'
+      : 'border-b border-white/30 bg-gradient-to-r from-white/85 via-white/70 to-white/85 shadow-[0_30px_80px_-60px_rgba(61,47,39,0.42)] backdrop-blur-xl';
 
   const openMega = () => setIsMegaOpen(true);
   const closeMega = () => setIsMegaOpen(false);
@@ -264,6 +265,8 @@ const Navbar = () => {
           </div>
         )}
       </nav>
+
+      <NotificationBanner />
 
       {isOpen && (
         <div className="md:hidden">
