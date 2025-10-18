@@ -9,8 +9,8 @@ const News = () => {
 
   return (
     <section className="surface-fade relative overflow-hidden rounded-none px-6 py-16 md:px-16">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_80%_-10%,_rgba(124,74,158,0.32),_transparent_65%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(110%_110%_at_20%_-20%,_rgba(189,156,99,0.32),_transparent_60%)]" />
+      {/* <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_80%_-10%,_rgba(124,74,158,0.32),_transparent_65%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(110%_110%_at_20%_-20%,_rgba(189,156,99,0.32),_transparent_60%)]" /> */}
 
       <div className="relative flex flex-col items-center gap-8 text-center text-gold-100">
         <span className="chip-gold inline-flex items-center gap-2">

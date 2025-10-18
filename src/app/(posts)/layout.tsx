@@ -23,7 +23,7 @@ export default function PostLayout({
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
         <NavBar />
-        <main className="pt-[81px]">{children}</main>
+        <main className="">{children}</main>
         <Footer />
       </body>
     </html>

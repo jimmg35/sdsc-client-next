@@ -12,7 +12,7 @@ const Welcome = () => {
       <div className="absolute top-0 left-0 w-full h-full bg-teal-900 opacity-30 -z-5 flex items-end justify-center">
         <div className="relative mb-8 flex items-center gap-4 animate-bounce">
           <ArrowDown size={48} className="text-white" />
-          <p className="text-white text-3xl">Scroll Down</p>
+          <p className="text-white text-6xl">Scroll Down</p>
         </div>
       </div>
 
@@ -23,7 +23,7 @@ const Welcome = () => {
             <h1 className="text-3xl md:text-5xl font-bold text-center">
               Welcome to Spatial Data Science Center!
             </h1>
-            <p className="text-lg md:text-3xl text-center">
+            <p className="text-lg font-bold md:text-3xl text-center">
               Your journey into GIScience begins here.
             </p>
 

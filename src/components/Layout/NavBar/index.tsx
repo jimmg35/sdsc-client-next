@@ -4,11 +4,12 @@ import {
   AppWindowMac,
   ArrowUpRight,
   ChevronDown,
-  Info,
+  // PhoneCall,
+  Home,
+  // Info,
   Megaphone,
   Menu,
   Microscope,
-  PhoneCall,
   Rss,
   ScrollText,
   UserRound,
@@ -35,7 +36,7 @@ type ResourceLink = {
 };
 
 const primaryNavItems: PrimaryNavItem[] = [
-  { label: 'About', href: '/about', icon: Info },
+  { label: 'Home', href: '/', icon: Home },
   { label: 'Members', href: '/member', icon: UserRound },
   { label: 'Research', href: '/research', icon: Microscope },
   { label: 'MGWR', href: '/mgwr', icon: AppWindowMac },
@@ -44,8 +45,8 @@ const primaryNavItems: PrimaryNavItem[] = [
     href: '/publications',
     icon: ScrollText,
     hasMega: true
-  },
-  { label: 'Contact', href: '/contact', icon: PhoneCall }
+  }
+  // { label: 'Contact', href: '/contact', icon: PhoneCall }
 ];
 
 const resourceLinks: ResourceLink[] = [
