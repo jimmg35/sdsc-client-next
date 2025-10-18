@@ -1,14 +1,16 @@
 // import Members from '@/components/Home/Members';
+import Announcement from '@/components/Home/Announcement';
+import DirectorMessage from '@/components/Home/DirectorMessage';
 import News from '@/components/Home/News';
 // import Publication from '@/components/Home/Publication';
 import Welcome from '@/components/Home/Welcome';
-import WhoWeAre from '@/components/Home/WhoWeAre';
 
 export default function Home() {
   return (
     <div className="h-fit">
       <Welcome />
-      <WhoWeAre />
+      <Announcement />
+      <DirectorMessage />
       {/* <Members /> */}
       {/* <Publication /> */}
       <News />

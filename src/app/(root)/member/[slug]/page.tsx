@@ -7,7 +7,7 @@ import {
   getMemberBiograpgyById,
   getMemberById
 } from '@/lib/members';
-import { ArrowLeft, GraduationCap, Mail } from 'lucide-react';
+import { ArrowLeft, FileDown, GraduationCap, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
@@ -87,6 +87,17 @@ export default async function ProfilePage(props: { params: Props }) {
                   >
                     <GraduationCap size={16} />
                     Scholar
+                  </Link>
+                )}
+                {member.cvPath && (
+                  <Link
+                    href={member.cvPath}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-gold-400/40 bg-gold-500/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.26em] text-gold-100 transition hover:bg-gold-500/35"
+                  >
+                    <FileDown size={16} />
+                    Download CV
                   </Link>
                 )}
               </div>

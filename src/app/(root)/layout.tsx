@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: 'SDSC | Spatial Data Science Center',
   description: 'Welcome to the SDSC!'
 };
-
+// pt-[60px]
 export default function RootLayout({
   children
 }: Readonly<{
@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
         <NavBar />
-        <main className="pt-[81px]">{children}</main>
+        <main className="">{children}</main>
         <Footer />
         <Analytics />
       </body>
