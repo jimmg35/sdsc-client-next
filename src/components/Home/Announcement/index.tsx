@@ -19,7 +19,7 @@ const Announcement = () => {
             open-source tooling. We are searching for bold scholars ready to
             shape the future of GIScience.
           </p>
-          <div className="mt-10 w-full max-w-3xl rounded-3xl border border-gold-50/30 bg-garnet-900/40 p-8 text-left shadow-[0_30px_60px_-32px_rgba(0,0,0,0.6)] backdrop-blur">
+          <div className="glass-card mt-10 w-full max-w-3xl rounded-3xl">
             <p className="text-lg font-semibold text-gold-50/90">
               What we&apos;re looking for
             </p>
@@ -47,20 +47,12 @@ const Announcement = () => {
               </li>
             </ul>
           </div>
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <Link
-              href="/contact"
-              className="rounded-full bg-gold-50 px-8 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-garnet-700 shadow-[0_20px_40px_-16px_rgba(255,215,141,0.5)] transition hover:-translate-y-1 hover:bg-white"
-            >
-              Share Your CV
-            </Link>
-            <Link
-              href="/news"
-              className="rounded-full border border-gold-200/60 px-8 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-gold-100 transition hover:-translate-y-1 hover:border-gold-100"
-            >
-              View Full Details
-            </Link>
-          </div>
+          <Link
+            href="/announcements/now-hiring-tenure-track-faculty"
+            className="w-240 mt-12 inline-flex items-center justify-center gap-2 rounded-full px-8 py-3 text-base font-semibold text-white transition-all duration-300 bg-[length:300%_100%] bg-[position:0_0] bg-[linear-gradient(to_right,_#25aae1,_#40e495,_#30dd8a,_#2bb673)] shadow-[0_4px_15px_rgba(49,196,190,0.45)] hover:-translate-y-0.5 hover:bg-[position:100%_0] hover:shadow-[0_6px_20px_rgba(49,196,190,0.6)] focus:outline-none focus:ring-2 focus:ring-[#40e495] focus:ring-offset-2 focus:ring-offset-garnet-900"
+          >
+            Apply To Lead &rarr;
+          </Link>
         </div>
       </Fade>
     </section>
