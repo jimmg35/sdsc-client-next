@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const Announcement = () => {
   return (
-    <section className="relative w-full overflow-hidden px-4 py-16 md:px-10">
+    <section className="surface-fade rounded-none relative w-full overflow-hidden px-4 py-16 md:px-10">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_10%_-20%,_rgba(255,126,95,0.35),_transparent_55%),_radial-gradient(130%_130%_at_85%_-15%,_rgba(255,215,141,0.35),_transparent_65%)]" />
       <Fade direction="up" duration={500} cascade triggerOnce>
         <div className="relative flex flex-col items-center text-center text-gold-50">

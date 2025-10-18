@@ -28,7 +28,7 @@ const socialLinks = [
 
 const Footer = () => {
   return (
-    <footer className="relative mt-24 border-t border-silk-200/80 bg-white/90 text-ink-700">
+    <footer className="relative border-t border-silk-200/80 bg-white/90 text-ink-700">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_15%_-10%,_rgba(198,164,215,0.28),_transparent_55%),_radial-gradient(105%_105%_at_80%_-15%,_rgba(194,156,106,0.24),_transparent_60%)]" />
 
       <div className="relative mx-auto max-w-6xl px-6 py-16">
