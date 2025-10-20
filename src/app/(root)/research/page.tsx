@@ -1,9 +1,12 @@
 import {
   Activity,
-  // GlobeLock,
-  // Layers3,
+  Building2,
+  Vote,
+  Bus,
   Microscope,
-  // Orbit,
+  HeartPlus,
+  SquaresExclude,
+  Earth,
   Radar
 } from 'lucide-react';
 
@@ -11,32 +14,44 @@ const focusAreas = [
   {
     title: 'Spatial Analytics',
     description:
-      'We design novel spatial models that link environmental systems, human mobility, and infrastructure dynamics across scales.',
-    icon: Microscope
+      'To advance spatial statistical and AI methods to better understand spatial processes and enable accurate prediction.',
+    icon: SquaresExclude
   },
   {
-    title: 'Health',
+    title: 'Health & Wellbeing',
     description:
-      'Our teams develop methods that respect spatial dependence and heterogeneity, expanding the frontier of local inference.',
-    icon: Activity
+      'We use of spatial data and mixed methods to analyze geographic patterns in health outcomes, risks, and healthcare access for better decision-making and prediction.',
+    icon: HeartPlus
+  },
+  {
+    title: 'Environment',
+    description:
+      'To monitor, model, and predict environmental changes and natural hazards, and assess their impacts on ecosystems and communities.',
+    icon: Earth
   },
   {
     title: 'Voting',
     description:
-      'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
-    icon: Radar
+      'To investigate spatial patterns of voter behavior, electoral processes, and participation disparities.',
+    icon: Vote
   },
   {
     title: 'Urban',
     description:
-      'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
-    icon: Radar
+      'To explore how urban systems, spatial dynamics, and governance influence equity and resilience in cities.',
+    icon: Building2
+  },
+  {
+    title: 'Transportation',
+    description:
+      'To understand travel behavior, enhance mobility systems, and advance equitable and sustainable transportation solutions.',
+    icon: Bus
   },
   {
     title: 'Crime',
     description:
-      'MGWR innovation remains a signature strength, blending theoretical advances with real-world tooling for analysts everywhere.',
-    icon: Radar
+      'To examine crime dynamics, neighborhood contexts, and social inequities shaping public safety.',
+    icon: ShieldAlert
   }
 ];
 
