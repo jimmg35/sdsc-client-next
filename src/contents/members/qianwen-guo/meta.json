@@ -1,0 +1,46 @@
+{
+  "id": "qianwen-guo",
+  "name": "Qianwen (Vivian) Guo",
+  "title": "Assistant Professor",
+  "department": "CEE - Civil & Environmental Engineering",
+  "email": "qguo@eng.famu.fsu.edu",
+  "thumbnail": "/img/avatar/Qianwen-Guo-200x270.jpg",
+  "centerRole": "Affiliated Member",
+  "googleScholar": "",
+  "education": [
+    {
+      "degree": "Joint Ph.D.",
+      "field": "Civil Engineering",
+      "institution": "Cornell University",
+      "year": null
+    },
+    {
+      "degree": "Ph.D.",
+      "field": "Management Science and Engineering",
+      "institution": "Huazhong University of Science and Technology",
+      "year": null
+    },
+    {
+      "degree": "M.S.",
+      "field": "Transportation Engineering",
+      "institution": "Huazhong University of Science and Technology",
+      "year": null
+    },
+    {
+      "degree": "B.S.",
+      "field": "Transportation Engineering",
+      "institution": "Southwest Jiaotong University",
+      "year": null
+    }
+  ],
+  "honor": [],
+  "selectedPublications": [],
+  "courseTaught": [],
+  "aoi": [
+    "Public transit",
+    "Transportation resilience",
+    "Shared mobility",
+    "Transportation infrastructure investment"
+  ],
+  "professionalExperience": []
+}

@@ -214,8 +214,7 @@ export default function MGWR() {
               <Database size={18} />
               Sample datasets
             </header>
-            <p className="mt-5 text-sm text-gold-200/80">
-            </p>
+            <p className="mt-5 text-sm text-gold-200/80"></p>
             <ul className="mt-5 space-y-2 text-sm">
               {sampleDatasets.map((dataset) => (
                 <li key={dataset.href}>

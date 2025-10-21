@@ -84,8 +84,10 @@ export default function Research() {
             Advancing spatial knowledge and practice
           </h1>
           <p className="mx-auto mt-5 max-w-3xl text-sm text-ink-600 md:text-base">
-            The Spatial Data Science Center (SDSC) is committed to developing solutions to some of society's most pressing problems in areas 
-            such as health, transportation, crime, poverty and the environment through the power of spatial data analytics. 
+            The Spatial Data Science Center (SDSC) is committed to developing
+            solutions to some of society&apos;s most pressing problems in areas
+            such as health, transportation, crime, poverty and the environment
+            through the power of spatial data analytics.
           </p>
         </header>
 

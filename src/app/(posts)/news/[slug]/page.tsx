@@ -58,13 +58,13 @@ export default async function PostPage(props: { params: Props }) {
             </header>
 
             {post.thumbnail && (
-              <div className="relative h-64 w-full overflow-hidden rounded-[24px] border border-garnet-500/30">
+              <div className="relative h-64 w-full overflow-hidden rounded-[24px]">
                 <Image
                   src={post.thumbnail}
                   alt={post.title}
                   fill
                   sizes="(max-width: 768px) 100vw, 720px"
-                  className="object-cover"
+                  className="object-contain object-center"
                 />
               </div>
             )}
