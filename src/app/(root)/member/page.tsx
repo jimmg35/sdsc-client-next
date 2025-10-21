@@ -51,8 +51,7 @@ export default function Member() {
                 Center Director
               </h2>
               <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/80">
-                Strategic leadership guiding SDSC&apos;s interdisciplinary
-                collaborations and future roadmap.
+
               </p>
             </div>
             <div className="flex justify-center">
@@ -67,12 +66,10 @@ export default function Member() {
               Core Members
             </p>
             <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
-              Core faculty & research leaders
+              Core Faculty
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/80">
-              Specialists across geospatial intelligence, immersive tech, and
-              applied analytics crafting the next generation of spatial
-              solutions.
+
             </p>
           </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
