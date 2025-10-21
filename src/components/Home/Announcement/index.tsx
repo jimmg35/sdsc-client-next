@@ -27,7 +27,7 @@ const Announcement = () => {
             (e.g., GeoAI, spatial statistics, health, transportation, urban, crime, voting, environment, etc.). 
             The candidate will have an academic home in one of the departments (Geography, Urban and Regional Planning, Economics, 
             Political Science, Public Administration, Sociology) of the College of Social Sciences & Public Policy at FSU.
-            
+            <br>
             Application review begins December 1, 2025.
             
           </p>
