@@ -12,43 +12,43 @@ const focusAreas = [
   {
     title: 'Spatial Analytics',
     description:
-      'To advance spatial statistical and AI methods to better understand spatial processes and enable accurate prediction.',
+      'Advance spatial statistical and AI methods to better understand spatial processes and enable accurate prediction.',
     icon: SquaresExclude
   },
   {
     title: 'Health & Wellbeing',
     description:
-      'We use of spatial data and mixed methods to analyze geographic patterns in health outcomes, risks, and healthcare access for better decision-making and prediction.',
+      'Analyze geographic patterns in health outcomes, risks, and healthcare access for better decision-making and prediction.',
     icon: HeartPlus
   },
   {
     title: 'Environment',
     description:
-      'To monitor, model, and predict environmental changes and natural hazards, and assess their impacts on ecosystems and communities.',
+      'Monitor, model, and predict environmental changes and natural hazards, and assess their impacts on ecosystems and communities.',
     icon: Earth
   },
   {
     title: 'Voting',
     description:
-      'To investigate spatial patterns of voter behavior, electoral processes, and participation disparities.',
+      'Mesaure spatial patterns of voter behavior, electoral processes, and participation disparities.',
     icon: Vote
   },
   {
     title: 'Urban',
     description:
-      'To explore how urban systems, spatial dynamics, and governance influence equity and resilience in cities.',
+      'Explore how urban systems, mobility and spatial dynamicsinfluence equity and resilience in cities.',
     icon: Building2
   },
   {
     title: 'Transportation',
     description:
-      'To understand travel behavior, enhance mobility systems, and advance equitable and sustainable transportation solutions.',
+      'Understand travel behavior, enhance mobility systems, and advance equitable and sustainable transportation solutions.',
     icon: Bus
   },
   {
     title: 'Crime',
     description:
-      'To examine crime dynamics, neighborhood contexts, and social inequities shaping public safety.',
+      'Examine crime dynamics, neighborhood contexts, and social inequities shaping public safety.',
     icon: ShieldAlert
   }
 ];
@@ -109,7 +109,7 @@ export default function Research() {
           ))}
         </section>
 
-        <section className="mt-20 grid gap-8 md:grid-cols-[1.3fr_1fr] text-ink-900">
+        {/* <section className="mt-20 grid gap-8 md:grid-cols-[1.3fr_1fr] text-ink-900">
           <article className="surface-fade px-8 py-10">
             <h2 className="panel-title text-black">Methodology</h2>
             <p className="mt-6 text-sm leading-7 text-ink-600 md:text-base">
@@ -146,7 +146,7 @@ export default function Research() {
           </article>
         </section>
 
-        {/* <section className="mt-20 grid gap-6 md:grid-cols-3">
+        <section className="mt-20 grid gap-6 md:grid-cols-3">
           {spotlights.map(({ title, description, icon: Icon }) => (
             <article
               key={title}
