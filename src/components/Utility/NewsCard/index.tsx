@@ -24,7 +24,7 @@ const NewsCard = ({ data }: { data: NewsData }) => {
           sizes="(max-width: 768px) 100vw, 384px"
           className="object-cover transition-transform duration-500 group-hover:scale-[1.08]"
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/15 via-white/60 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-95" />
+        {/* <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/15 via-white/60 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-95" /> */}
         <div className="absolute bottom-4 left-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-rose-600">
           <span className="rounded-full border border-rose-200/60 bg-white/90 px-3 py-1 shadow-sm">
             {publishDate}

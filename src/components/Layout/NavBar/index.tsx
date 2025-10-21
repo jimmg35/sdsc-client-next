@@ -8,7 +8,7 @@ import {
   // PhoneCall,
   Home,
   // Info,
-  Megaphone,
+  // Megaphone,
   Menu,
   Microscope,
   Rss,
@@ -57,12 +57,12 @@ const resourceLinks: ResourceLink[] = [
     description: 'Peer-reviewed insights and research outputs from the SDSC.',
     icon: ScrollText
   },
-  {
-    label: 'Announcements',
-    href: '/announcements',
-    description: 'Official communications, initiatives, and leadership notes.',
-    icon: Megaphone
-  },
+  // {
+  //   label: 'Announcements',
+  //   href: '/announcements',
+  //   description: 'Official communications, initiatives, and leadership notes.',
+  //   icon: Megaphone
+  // },
   {
     label: 'News',
     href: '/news',
@@ -79,6 +79,9 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMegaOpen, setIsMegaOpen] = useState(false);
   const [isResourcesOpen, setIsResourcesOpen] = useState(false);
+  const hasThreeOrMoreResources = resourceLinks.length >= 3;
+  const megaColumnClass = hasThreeOrMoreResources ? 'md:grid-cols-3' : 'md:grid-cols-2';
+  const megaWidthClass = hasThreeOrMoreResources ? 'max-w-5xl' : 'max-w-4xl';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -105,8 +108,8 @@ const Navbar = () => {
 
   const backgroundClass =
     hasScrolled || isOpen
-      ? 'border-b border-white/40 bg-gradient-to-r from-white/70 via-white/40 to-white/70 shadow-[0_24px_70px_-48px_rgba(61,47,39,0.32)] backdrop-blur-2xl'
-      : 'border-b border-white/30 bg-gradient-to-r from-white/85 via-white/70 to-white/85 shadow-[0_30px_80px_-60px_rgba(61,47,39,0.42)] backdrop-blur-xl';
+      ? 'border-b border-rose-100 bg-white shadow-[0_24px_70px_-48px_rgba(61,47,39,0.22)]'
+      : 'border-b border-rose-100 bg-white shadow-[0_30px_80px_-60px_rgba(61,47,39,0.28)]';
 
   const openMega = () => setIsMegaOpen(true);
   const closeMega = () => setIsMegaOpen(false);
@@ -227,12 +230,14 @@ const Navbar = () => {
 
         {isMegaOpen && (
           <div
-            className="absolute left-0 right-0 top-full hidden pt-4 md:block"
+            className="absolute left-0 right-0 top-full hidden pt-4 md:block z-50"
             onMouseEnter={openMega}
             onMouseLeave={closeMega}
           >
-            <div className="mx-auto max-w-5xl rounded-3xl border border-rose-200/70 bg-white/95 p-8 shadow-[0_40px_80px_-48px_rgba(61,47,39,0.45)] backdrop-blur">
-              <div className="grid gap-6 md:grid-cols-3">
+            <div
+              className={`mx-auto ${megaWidthClass} rounded-3xl border border-rose-200/70 bg-white/95 p-8 shadow-[0_40px_80px_-48px_rgba(61,47,39,0.45)] backdrop-blur`}
+            >
+              <div className={`grid grid-cols-1 gap-6 ${megaColumnClass}`}>
                 {resourceLinks.map((link) => {
                   const LinkIcon = link.icon;
                   const isActive =
