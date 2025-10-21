@@ -33,12 +33,11 @@ export default function Member() {
         <header className="mb-16 text-center">
           <span className="chip-gold">People Of SDSC</span>
           <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
-            Meet the minds advancing spatial science
+            Meet the minds advancing spatial data science
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/75 md:text-base">
-            Our collective blends data science, geospatial analytics, and
-            immersive design to build forward-looking solutions for the
-            communities we serve.
+            Our collective brings together geospatial analysts, data scientists, 
+            and domain experts to advance spatial sciences and build forward-looking solutions for the communities we serve.
           </p>
         </header>
 
