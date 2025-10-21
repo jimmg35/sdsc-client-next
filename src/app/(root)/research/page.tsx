@@ -1,13 +1,11 @@
 import {
-  Activity,
   Building2,
-  Vote,
   Bus,
-  Microscope,
-  HeartPlus,
-  SquaresExclude,
   Earth,
-  Radar
+  HeartPlus,
+  ShieldAlert,
+  SquaresExclude,
+  Vote
 } from 'lucide-react';
 
 const focusAreas = [
