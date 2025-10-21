@@ -28,6 +28,8 @@ export default function Member() {
     getMemberById('stephen-liwur')
   ]);
 
+  const affiliatedMembers = collectMembers([getMemberById('qianwen-guo')]);
+
   return (
     <section className="page-shell">
       <div className="mx-auto max-w-6xl px-6 pb-24 pt-36 text-gold-100 md:pt-40">
@@ -94,9 +96,9 @@ export default function Member() {
             </h2>
           </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {/* {graduateStudents.map((member) => (
+            {affiliatedMembers.map((member) => (
               <ProfileCard key={member.id} {...member} />
-            ))} */}
+            ))}
           </div>
         </section>
 
