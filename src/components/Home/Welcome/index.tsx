@@ -23,9 +23,9 @@ const Welcome = () => {
             <h1 className="text-3xl md:text-5xl font-bold text-center">
               Welcome to Spatial Data Science Center!
             </h1>
-            <p className="text-lg font-bold md:text-3xl text-center">
+            {/*<p className="text-lg font-bold md:text-3xl text-center">
               Your journey into GIScience begins here.
-            </p>
+            </p> */}
 
             {/* <Button
               href="/about"
