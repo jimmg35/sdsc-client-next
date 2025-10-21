@@ -24,7 +24,8 @@ export default function Member() {
     getMemberById('chenlun-kao'),
     getMemberById('zhipeng-li'),
     getMemberById('jiajun-chang'),
-    getMemberById('jacob-tagnan')
+    getMemberById('jacob-tagnan'),
+    getMemberById('stephen-liwur')
   ]);
 
   return (
