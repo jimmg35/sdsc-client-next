@@ -108,8 +108,8 @@ const Navbar = () => {
 
   const backgroundClass =
     hasScrolled || isOpen
-      ? 'border-b border-white/40 bg-gradient-to-r from-white/70 via-white/40 to-white/70 shadow-[0_24px_70px_-48px_rgba(61,47,39,0.32)] backdrop-blur-2xl'
-      : 'border-b border-white/30 bg-gradient-to-r from-white/85 via-white/70 to-white/85 shadow-[0_30px_80px_-60px_rgba(61,47,39,0.42)] backdrop-blur-xl';
+      ? 'border-b border-rose-100 bg-white shadow-[0_24px_70px_-48px_rgba(61,47,39,0.22)]'
+      : 'border-b border-rose-100 bg-white shadow-[0_30px_80px_-60px_rgba(61,47,39,0.28)]';
 
   const openMega = () => setIsMegaOpen(true);
   const closeMega = () => setIsMegaOpen(false);
