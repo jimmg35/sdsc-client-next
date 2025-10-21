@@ -23,13 +23,15 @@ const Announcement = () => {
           </h1>
 
           <p className="mt-6 max-w-3xl text-base text-gold-100/80 md:text-xl">
-            SDSC is hiring two tenure-track assistant professors in any area of spatial data science 
-            (e.g., GeoAI, spatial statistics, health, transportation, urban, crime, voting, environment, etc.). 
-            The candidate will have an academic home in one of the departments (Geography, Urban and Regional Planning, Economics, 
-            Political Science, Public Administration, Sociology) of the College of Social Sciences & Public Policy at FSU.
+            SDSC is hiring two tenure-track assistant professors in any area of
+            spatial data science (e.g., GeoAI, spatial statistics, health,
+            transportation, urban, crime, voting, environment, etc.). The
+            candidate will have an academic home in one of the departments
+            (Geography, Urban and Regional Planning, Economics, Political
+            Science, Public Administration, Sociology) of the College of Social
+            Sciences & Public Policy at FSU.
             <br />
             Application review begins December 1, 2025.
-            
           </p>
 
           {/*

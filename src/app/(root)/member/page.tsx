@@ -42,8 +42,9 @@ export default function Member() {
             Meet the minds advancing spatial data science
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/75 md:text-base">
-            Our collective brings together geospatial analysts, data scientists, 
-            and domain experts to advance spatial sciences and build forward-looking solutions for the communities we serve.
+            Our collective brings together geospatial analysts, data scientists,
+            and domain experts to advance spatial sciences and build
+            forward-looking solutions for the communities we serve.
           </p>
         </header>
 
@@ -56,9 +57,7 @@ export default function Member() {
               <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
                 Center Director
               </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/80">
-
-              </p>
+              <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/80"></p>
             </div>
             <div className="flex justify-center">
               <ProfileCard key={stewart.id} {...stewart} />
@@ -74,9 +73,7 @@ export default function Member() {
             <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
               Core Faculty
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/80">
-
-            </p>
+            <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/80"></p>
           </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {coreMembers.map((member) => (
