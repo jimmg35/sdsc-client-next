@@ -1,4 +1,4 @@
-import { AttentionSeeker, Fade } from 'react-awesome-reveal';
+import { Fade } from 'react-awesome-reveal';
 import Link from 'next/link';
 
 const Announcement = () => {
@@ -7,20 +7,13 @@ const Announcement = () => {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_10%_-20%,_rgba(255,126,95,0.35),_transparent_55%),_radial-gradient(130%_130%_at_85%_-15%,_rgba(255,215,141,0.35),_transparent_65%)]" />
 
       <div className="relative flex flex-col items-center text-center text-gold-50">
-        {/* <AttentionSeeker effect="rubberBand" triggerOnce={false}>
-          <span className="rounded-full bg-garnet-500/30 px-4 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-gold-50">
-            Now Hiring
-          </span>
-        </AttentionSeeker> */}
-
-        <AttentionSeeker effect="tada">
+        <Fade direction="up" duration={800} cascade triggerOnce>
           <h1 className="relative mt-10 flex flex-col items-center text-center text-balance text-4xl font-black tracking-tight text-gold-50 md:text-6xl">
             <span className="inline-flex items-center gap-2 rounded-full border bg-white px-4 py-1 text-sm font-bold uppercase tracking-[0.55em] text-gold-100/90 shadow-[0_18px_45px_-28px_rgba(0,0,0,0.8)] md:text-xs">
               Scholars Wanted
             </span>
             <span className="relative mt-5 inline-flex items-center">
-              <span className="absolute -inset-8 -z-10 rounded-full bg-[radial-gradient(circle,_rgba(98,83,225,0.35)_0%,_rgba(242,70,69,0)_70%)] blur-2xl" />
-              <span className="bg-gradient-to-r from-[#6253e1] via-[#a3a1ff] to-[#f24645] bg-clip-text text-transparent drop-shadow-[0_25px_65px_rgba(0,0,0,0.55)]">
+              <span className="text-black">
                 Two Tenure-Track Positions Open
               </span>
             </span>
@@ -28,9 +21,7 @@ const Announcement = () => {
               Join · Build · Inspire
             </span>
           </h1>
-        </AttentionSeeker>
 
-        <Fade direction="up" duration={800} cascade triggerOnce>
           <p className="mt-6 max-w-3xl text-base text-gold-100/80 md:text-xl">
             Help steer the Spatial Data Science Center as we expand our
             high-impact research in geospatial analytics, immersive design, and
