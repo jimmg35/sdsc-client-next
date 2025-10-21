@@ -11,8 +11,8 @@ const Welcome = () => {
       {/* Gray filter & scroll down hint */}
       <div className="absolute top-0 left-0 w-full h-full bg-teal-900 opacity-30 -z-5 flex items-end justify-center">
         <div className="relative mb-8 flex items-center gap-4 animate-bounce">
-          <ArrowDown size={48} className="text-white" />
-          <p className="text-white text-6xl">Scroll Down</p>
+          <ArrowDown size={36} className="text-white" />
+          <p className="text-white text-4xl">Scroll Down</p>
         </div>
       </div>
 
@@ -20,8 +20,8 @@ const Welcome = () => {
       <div className="flex flex-col items-center justify-center h-full relative z-10 text-white">
         <div className="flex flex-col gap-4 items-center justify-center">
           <Fade direction="up" duration={500} cascade triggerOnce>
-            <h1 className="text-3xl md:text-5xl font-bold text-center">
-              Welcome to Spatial Data Science Center!
+            <h1 className="text-6xl md:text-5xl font-bold text-center">
+              Welcome to the Spatial Data Science Center!
             </h1>
             {/*<p className="text-lg font-bold md:text-3xl text-center">
               Your journey into GIScience begins here.
