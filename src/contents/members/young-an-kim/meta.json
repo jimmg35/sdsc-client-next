@@ -1,0 +1,90 @@
+{
+  "id": "young-an-kim",
+  "name": "Young-An Kim",
+  "title": "Associate Professor",
+  "department": "College of Criminology and Criminal Justice",
+  "email": "youngan.kim@fsu.edu",
+  "thumbnail": "/img/avatar/young-an-kim.png",
+  "centerRole": "Affiliated Member",
+  "googleScholar": "",
+  "education": [
+    {
+      "degree": "Ph.D.",
+      "field": "Criminology",
+      "institution": "University of California-Irvine",
+      "year": 2018
+    },
+    {
+      "degree": "M.A.",
+      "field": "Sociology",
+      "institution": "University of Texas at El Paso",
+      "year": 2013
+    },
+    {
+      "degree": "B.A.",
+      "field": "Sociology",
+      "institution": "University of Seoul",
+      "year": 2010
+    }
+  ],
+  "honor": [],
+  "selectedPublications": [
+    {
+      "id": "racial-heterogeneity-neighborhood-crime",
+      "author": "Kim, Y.-A., & Wo, J. (2022)",
+      "title": "Revisiting the Relationship between Racial Heterogeneity and Neighborhood Crime: Do Spatial Scale and Functional Form Matter?",
+      "journal": "Crime & Delinquency",
+      "catalog": "2022",
+      "doi": ""
+    },
+    {
+      "id": "seasonality-crime-orlando",
+      "author": "Kim, Y.-A., & Wo, J. C. (2021)",
+      "title": "Seasonality and Crime in Orlando Neighborhoods",
+      "journal": "British Journal of Criminology",
+      "catalog": "2021",
+      "doi": ""
+    },
+    {
+      "id": "topography-crime-place",
+      "author": "Kim, Y.-A., & Wo, J. C. (2021)",
+      "title": "Topography and Crime in Place: The Effects of Elevation, Slope, and Betweenness in San Francisco Street Segments",
+      "journal": "Journal of Urban Affairs",
+      "catalog": "2021",
+      "doi": ""
+    },
+    {
+      "id": "both-sides-of-the-street",
+      "author": "Kim, Y.-A., & Hipp, J. R. (2021)",
+      "title": "Both Sides of the Street: Introducing Measures of Physical and Social Boundaries Based on Differences across Sides of the Street, and Consequences for Crime",
+      "journal": "Journal of Quantitative Criminology",
+      "catalog": "2021",
+      "doi": ""
+    },
+    {
+      "id": "pathways-street-network-configurations",
+      "author": "Kim, Y.-A., & Hipp, J. R. (2019)",
+      "title": "Pathways: Examining Street Network Configurations, Structural Characteristics and Spatial Crime Patterns in Street Segments",
+      "journal": "Journal of Quantitative Criminology",
+      "catalog": "2019",
+      "doi": ""
+    },
+    {
+      "id": "street-egohood-spatial-crime",
+      "author": "Kim, Y.-A., & Hipp, J. R. (2019)",
+      "title": "Street Egohood: An Alternative Perspective of Measuring Neighborhood and Spatial Patterns of Crime",
+      "journal": "Journal of Quantitative Criminology",
+      "catalog": "2019",
+      "doi": ""
+    }
+  ],
+  "courseTaught": [],
+  "aoi": [
+    "Neighborhoods and Crime",
+    "Criminology of Place",
+    "Spatial Analysis",
+    "Urban Sociology",
+    "Quantitative Research Methods"
+  ],
+  "professionalExperience": []
+}

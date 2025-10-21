@@ -28,7 +28,10 @@ export default function Member() {
     getMemberById('stephen-liwur')
   ]);
 
-  const affiliatedMembers = collectMembers([getMemberById('qianwen-guo')]);
+  const affiliatedMembers = collectMembers([
+    getMemberById('qianwen-guo'),
+    getMemberById('young-an-kim')
+  ]);
 
   return (
     <section className="page-shell">
