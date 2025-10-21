@@ -36,12 +36,11 @@ export default function Member() {
         <header className="mb-16 text-center">
           <span className="chip-gold">People Of SDSC</span>
           <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
-            Meet the minds advancing spatial science
+            Meet the minds advancing spatial data science
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/75 md:text-base">
-            Our collective blends data science, geospatial analytics, and
-            immersive design to build forward-looking solutions for the
-            communities we serve.
+            Our collective brings together geospatial analysts, data scientists, 
+            and domain experts to advance spatial sciences and build forward-looking solutions for the communities we serve.
           </p>
         </header>
 
@@ -55,8 +54,7 @@ export default function Member() {
                 Center Director
               </h2>
               <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/80">
-                Strategic leadership guiding SDSC&apos;s interdisciplinary
-                collaborations and future roadmap.
+
               </p>
             </div>
             <div className="flex justify-center">
@@ -71,12 +69,10 @@ export default function Member() {
               Core Members
             </p>
             <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
-              Core faculty & research leaders
+              Core Faculty
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/80">
-              Specialists across geospatial intelligence, immersive tech, and
-              applied analytics crafting the next generation of spatial
-              solutions.
+
             </p>
           </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
