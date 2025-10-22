@@ -36,7 +36,7 @@ const focusAreas = [
   {
     title: 'Urban',
     description:
-      'Explore how urban systems, mobility and spatial dynamicsinfluence equity and resilience in cities.',
+      'Explore how urban systems, mobility and spatial dynamics influence equity and resilience in cities.',
     icon: Building2
   },
   {

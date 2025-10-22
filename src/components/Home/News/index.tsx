@@ -19,8 +19,8 @@ const News = () => {
         </span>
         <Heading title="News & Events" />
         <p className="max-w-2xl text-sm text-gold-200/75 md:text-base">
-          Catch up on lab breakthroughs, spatial data events, and faculty
-          spotlights curated each month from the SDSC community.
+          Catch up on the latest research, projects, awards, 
+          events, and stories from the SDSC community.
         </p>
 
         <div className="mt-4 grid gap-6 md:grid-cols-3">
