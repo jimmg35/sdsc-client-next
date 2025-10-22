@@ -1,13 +1,5 @@
 import AppCard from '@/components/Utility/AppCard';
-import {
-  ArrowUpRight,
-  BookOpen,
-  Compass,
-  Database,
-  FileText,
-  Layers,
-  LineChart
-} from 'lucide-react';
+import { ArrowUpRight, BookMarked, BookOpen, Database } from 'lucide-react';
 import Link from 'next/link';
 
 const downloads = [
@@ -27,12 +19,6 @@ const downloads = [
     href: 'https://fsu-my.sharepoint.com/:u:/g/personal/zl23l_fsu_edu/EQ8R-YXyl9ZFtKASzfAtB2sBDWnICS4W2DHEaI0r2kfSFQ?download=1',
     meta: 'macOS | Universal'
   }
-];
-
-const highlights = [
-  'Multi-scale geographically weighted regression with intuitive controls',
-  'Interactive bandwidth exploration and model comparison dashboards',
-  'Bundled sample datasets to help you get started in minutes'
 ];
 
 const documentationLinks = [
@@ -115,93 +101,22 @@ export default function MGWR() {
           ))}
         </div>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-[2fr_1fr]">
-          <section className="glass-card px-8 py-8 text-gold-100">
-            <header className="panel-title text-gold-300">
-              <Compass size={18} />
-              Why analysts choose MGWR
-            </header>
-            <ul className="mt-6 space-y-3">
-              {highlights.map((feature) => (
-                <li key={feature} className="custom-li">
-                  {feature}
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <section className="glass-card flex flex-col gap-6 px-8 py-8 text-gold-100">
-            <div className="flex items-start gap-3">
-              <Layers className="text-gold-300" size={20} />
-              <div>
-                <p className="text-sm font-semibold text-gold-100">
-                  Inputs &amp; outputs
-                </p>
-                <p className="mt-1 text-sm text-gold-200/80">
-                  Works seamlessly with shapefiles and GeoPackage datasets.
-                  Export model diagnostics, parameter surfaces, and predictions
-                  back into your GIS workflow.
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <LineChart className="text-gold-300" size={20} />
-              <div>
-                <p className="text-sm font-semibold text-gold-100">
-                  Model transparency
-                </p>
-                <p className="mt-1 text-sm text-gold-200/80">
-                  Visualize bandwidth optimization, coefficient sensitivity, and
-                  local R2 improvements through an interactive dashboard.
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <FileText className="text-gold-300" size={20} />
-              <div>
-                <p className="text-sm font-semibold text-gold-100">
-                  Documentation
-                </p>
-                <p className="mt-1 text-sm text-gold-200/80">
-                  Follow the user manual, curated bibliography, and Python
-                  package docs to shorten the learning curve.
-                </p>
-                <div className="mt-3 flex flex-col gap-2">
-                  {documentationLinks.map((item) => (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.26em] text-gold-300 transition hover:text-gold-50"
-                    >
-                      {item.label}
-                      <ArrowUpRight size={14} />
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
-
         <div className="mt-14 grid gap-6 md:grid-cols-2">
           <section className="glass-card px-8 py-8 text-gold-100">
             <header className="panel-title text-gold-300">
-              <BookOpen size={18} />
-              Citation references
+              <BookMarked size={18} />
+              Documentation
             </header>
-            <ul className="mt-5 space-y-3 text-sm text-gold-200/85">
-              {citations.map((item) => (
-                <li key={item.href}>
-                  {item.text}{' '}
+            <ul className="mt-5 space-y-2 text-sm">
+              {documentationLinks.map((item) => (
+                <li key={item.label}>
                   <Link
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-gold-300 underline-offset-4 hover:text-gold-50 hover:underline"
                   >
-                    Access
+                    {item.label}
                     <ArrowUpRight size={14} />
                   </Link>
                 </li>
@@ -214,7 +129,6 @@ export default function MGWR() {
               <Database size={18} />
               Sample datasets
             </header>
-            <p className="mt-5 text-sm text-gold-200/80"></p>
             <ul className="mt-5 space-y-2 text-sm">
               {sampleDatasets.map((dataset) => (
                 <li key={dataset.href}>
@@ -232,6 +146,29 @@ export default function MGWR() {
             </ul>
           </section>
         </div>
+
+        <section className="mt-14 glass-card px-8 py-8 text-gold-100">
+          <header className="panel-title text-gold-300">
+            <BookOpen size={18} />
+            Citation references
+          </header>
+          <ul className="mt-5 space-y-3 text-sm text-gold-200/85">
+            {citations.map((item) => (
+              <li key={item.href}>
+                {item.text}{' '}
+                <Link
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-gold-300 underline-offset-4 hover:text-gold-50 hover:underline"
+                >
+                  Access
+                  <ArrowUpRight size={14} />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
       </div>
     </section>
   );
