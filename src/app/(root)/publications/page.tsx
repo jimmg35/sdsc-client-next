@@ -13,7 +13,8 @@ export default function Publications() {
             Research and scholarship from SDSC
           </h1>
           <p className="mx-auto mt-5 max-w-3xl text-sm text-gold-200/80 md:text-base">
-            Recent peer-reviewed publications by our faculty and students across the spatial data science spectrum.
+            Recent peer-reviewed publications by our faculty and students across
+            the spatial data science spectrum.
           </p>
         </header>
 
