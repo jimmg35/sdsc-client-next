@@ -248,3 +248,9 @@ export default async function ProfilePage(props: { params: Props }) {
     </section>
   );
 }
+
+export function generateStaticParams() {
+  return getAllMembers().map(({ id }) => ({ slug: id }));
+}
+
+export const dynamic = 'force-static';

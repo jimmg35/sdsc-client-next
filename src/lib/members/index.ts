@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { withBasePath } from '../basePath';
 
 const membersDirectory = path.join(process.cwd(), 'src', 'contents', 'members');
 
@@ -85,9 +86,9 @@ export function getAllMembers(): MemberData[] {
       title,
       department,
       email,
-      thumbnail,
+      thumbnail: withBasePath(thumbnail),
       centerRole,
-      cvPath: cvPath || undefined,
+      cvPath: cvPath ? withBasePath(cvPath) : undefined,
       googleScholar,
       advisor: advisor || facultySupervisor || undefined,
       advisorId: advisorId || facultySupervisorId || undefined,

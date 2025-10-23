@@ -55,7 +55,10 @@
     ),
     linear-gradient(165deg, #fdfbf7 0%, #f7efe3 40%, #f1e4d7 100%);
 
-  --background-image: url('/img/welcome.jpg');
+  --background-image: var(
+    --background-image-url,
+    url('/img/welcome.jpg')
+  );
 }
 
 @layer base {

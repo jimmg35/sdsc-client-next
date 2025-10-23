@@ -1,8 +1,9 @@
 import AppCard from '@/components/Utility/AppCard';
+import { withBasePath } from '@/lib/basePath';
 import { ArrowUpRight, BookMarked, BookOpen, Database } from 'lucide-react';
 import Link from 'next/link';
 
-const downloads = [
+const downloadSources = [
   {
     title: 'MGWR GUI (Windows)',
     description:
@@ -20,6 +21,11 @@ const downloads = [
     meta: 'macOS | Universal'
   }
 ];
+
+const downloads = downloadSources.map((item) => ({
+  ...item,
+  imageUrl: withBasePath(item.imageUrl)
+}));
 
 const documentationLinks = [
   {

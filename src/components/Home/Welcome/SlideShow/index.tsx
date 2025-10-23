@@ -1,13 +1,16 @@
 'use client';
 
+import { withBasePath } from '@/lib/basePath';
 import { useEffect, useState } from 'react';
 
-const images = [
+const imageSources = [
   '/img/welcome-banner/mgwr-bg.png'
   // '/img/welcome-banner/banner-2.jpg',
   // '/img/welcome-banner/banner-3.jpg',
   // '/img/welcome-banner/banner-4.jpg'
 ];
+
+const images = imageSources.map((src) => withBasePath(src));
 
 const SlideShow = () => {
   const [currentImage, setCurrentImage] = useState(0);

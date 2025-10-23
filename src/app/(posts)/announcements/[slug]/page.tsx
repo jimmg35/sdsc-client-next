@@ -1,4 +1,7 @@
-import { getAnnouncementBySlug } from '@/lib/announcements';
+import {
+  getAllAnnouncements,
+  getAnnouncementBySlug
+} from '@/lib/announcements';
 import { markdownToHTML } from '@/lib/md';
 import { ArrowLeft, Calendar, User } from 'lucide-react';
 import Image from 'next/image';
@@ -91,3 +94,9 @@ export default async function AnnouncementPage(props: { params: Props }) {
     </section>
   );
 }
+
+export function generateStaticParams() {
+  return getAllAnnouncements().map(({ slug }) => ({ slug }));
+}
+
+export const dynamic = 'force-static';

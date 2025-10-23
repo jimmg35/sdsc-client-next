@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { withBasePath } from '@/lib/basePath';
 
 const quickLinks = [
   { label: 'About', href: '/about' },
@@ -46,7 +47,7 @@ const Footer = () => {
             <Image
               width={145}
               height={46}
-              src="/img/sdsc-logo.png"
+              src={withBasePath('/img/sdsc-logo.png')}
               alt="SDSC logo"
               className="rounded-full object-cover"
             />

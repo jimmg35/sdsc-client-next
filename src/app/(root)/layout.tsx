@@ -1,9 +1,15 @@
 import Footer from '@/components/Layout/Footer';
 import NavBar from '@/components/Layout/NavBar';
+import { getAssetPrefix } from '@/lib/basePath';
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
 import { IBM_Plex_Sans } from 'next/font/google';
+import type { CSSProperties } from 'react';
 import '../globals.css';
+
+type BodyStyle = CSSProperties & {
+  '--background-image-url'?: string;
+};
 
 const inter = IBM_Plex_Sans({
   subsets: ['latin'],
@@ -20,9 +26,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const assetPrefix = getAssetPrefix();
+  const bodyStyle: BodyStyle | undefined = assetPrefix
+    ? {
+        '--background-image-url': `url(${assetPrefix}/img/welcome.jpg)`
+      }
+    : undefined;
+
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} antialiased`} style={bodyStyle}>
         <NavBar />
         <main className="">{children}</main>
         <Footer />

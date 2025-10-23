@@ -1,6 +1,7 @@
 import matter from 'gray-matter';
 import fs from 'fs';
 import path from 'path';
+import { withBasePath } from '../basePath';
 
 const announcementsDirectory = path.join(
   process.cwd(),
@@ -37,7 +38,9 @@ export function getAllAnnouncements(): AnnouncementData[] {
       date: new Date(data.date),
       author: data.author,
       description: data.description,
-      thumbnail: data.thumbnail || '/img/news-demo/default-news-thumbnail.jpg',
+      thumbnail: withBasePath(
+        data.thumbnail || '/img/news-demo/default-news-thumbnail.jpg'
+      ),
       content
     };
   });
@@ -62,7 +65,9 @@ export function getAnnouncementBySlug(slug: string): AnnouncementData {
     date: new Date(data.date),
     author: data.author,
     description: data.description,
-    thumbnail: data.thumbnail || '/img/news-demo/default-news-thumbnail.jpg',
+      thumbnail: withBasePath(
+        data.thumbnail || '/img/news-demo/default-news-thumbnail.jpg'
+      ),
     content
   };
 }

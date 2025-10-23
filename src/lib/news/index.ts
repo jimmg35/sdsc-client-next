@@ -2,6 +2,7 @@
 import matter from 'gray-matter';
 import fs from 'fs';
 import path from 'path';
+import { withBasePath } from '../basePath';
 
 const newsDirectory = path.join(process.cwd(), 'src', 'contents', 'news');
 
@@ -28,7 +29,9 @@ export function getAllNews(): NewsData[] {
       date: new Date(data.date),
       author: data.author,
       description: data.description,
-      thumbnail: data.thumbnail || '/img/news-demo/news-22-370x240.jpg',
+      thumbnail: withBasePath(
+        data.thumbnail || '/img/news-demo/news-22-370x240.jpg'
+      ),
       content
     };
   });
@@ -48,7 +51,9 @@ export function getNewsBySlug(slug: string): NewsData {
     date: new Date(data.date),
     author: data.author,
     description: data.description,
-    thumbnail: data.thumbnail || '/img/news-demo/news-22-370x240.jpg',
+    thumbnail: withBasePath(
+      data.thumbnail || '/img/news-demo/news-22-370x240.jpg'
+    ),
     content
   };
 }

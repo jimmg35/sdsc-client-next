@@ -1,6 +1,7 @@
 'use client';
 
 import NotificationBanner from '@/components/Layout/NotificationBanner';
+import { getAssetPrefix, withBasePath } from '@/lib/basePath';
 import {
   AppWindowMac,
   // PhoneCall,
@@ -39,7 +40,12 @@ const primaryNavItems: PrimaryNavItem[] = [
 type NavItem = PrimaryNavItem;
 
 const Navbar = () => {
+  const assetPrefix = getAssetPrefix();
   const pathname = usePathname();
+  const normalizedPathname =
+    assetPrefix && pathname.startsWith(assetPrefix)
+      ? pathname.slice(assetPrefix.length) || '/'
+      : pathname;
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -72,7 +78,8 @@ const Navbar = () => {
   const renderLink = (item: NavItem, variant: 'desktop' | 'mobile') => {
     const Icon = item.icon;
     const isActive =
-      pathname === item.href || pathname.startsWith(`${item.href}/`);
+      normalizedPathname === item.href ||
+      normalizedPathname.startsWith(`${item.href}/`);
 
     if (variant === 'desktop') {
       return (
@@ -121,11 +128,11 @@ const Navbar = () => {
         <Image
           width={145}
           height={46}
-          src="/img/sdsc-logo.png"
+          src={withBasePath('/img/sdsc-logo.png')}
           alt="SDSC logo"
           className="cursor-pointer rounded-md object-cover"
           onClick={() => {
-            window.location.href = '/';
+            window.location.href = withBasePath('/');
           }}
         />
 

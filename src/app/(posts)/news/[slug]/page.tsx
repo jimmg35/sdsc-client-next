@@ -1,5 +1,5 @@
 import { markdownToHTML } from '@/lib/md';
-import { getNewsBySlug } from '@/lib/news';
+import { getAllNews, getNewsBySlug } from '@/lib/news';
 import { ArrowLeft, Calendar, User } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -81,3 +81,9 @@ export default async function PostPage(props: { params: Props }) {
     </section>
   );
 }
+
+export function generateStaticParams() {
+  return getAllNews().map(({ slug }) => ({ slug }));
+}
+
+export const dynamic = 'force-static';
