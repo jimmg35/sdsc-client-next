@@ -1,5 +1,5 @@
+import SelectedPublicationCard from '@/components/Members/SelectedPublicationCard';
 import Avatar from '@/components/Utility/Avatar';
-import PublicationPost from '@/components/Utility/PublicationPost';
 import { markdownToHTML } from '@/lib/md';
 import {
   MemberPublication,
@@ -234,8 +234,8 @@ export default async function ProfilePage(props: { params: Props }) {
                     </header>
                     <ul className="mt-6 flex flex-col gap-4">
                       {member.selectedPublications.map(
-                        (pub: MemberPublication, idx: number) => (
-                          <PublicationPost {...pub} key={idx} />
+                        (pub: MemberPublication) => (
+                          <SelectedPublicationCard {...pub} key={pub.id} />
                         )
                       )}
                     </ul>

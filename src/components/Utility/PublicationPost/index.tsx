@@ -14,7 +14,7 @@ const PublicationPost = ({
     : '';
 
   return (
-    <li className="group relative">
+    <div className="group relative">
       {/* <div className="pointer-events-none absolute inset-0 rounded-[28px] border border-white/60 opacity-0 transition duration-300 group-hover:opacity-100" /> */}
       <article className="glass-card relative h-full overflow-hidden rounded-[28px] border border-black/5 bg-white/85 p-6 shadow-[0_24px_50px_-30px_rgba(5,0,40,0.28)] backdrop-blur-md transition duration-300 group-hover:-translate-y-1 group-hover:border-black/10 group-hover:shadow-[0_28px_70px_-28px_rgba(10,0,60,0.35)]">
         <div className="pointer-events-none absolute inset-x-6 -top-20 h-40 rounded-[32px] bg-white/60 blur-3xl transition duration-500 group-hover:translate-y-8 group-hover:opacity-90" />
@@ -56,7 +56,7 @@ const PublicationPost = ({
           )}
         </div>
       </article>
-    </li>
+    </div>
   );
 };
 
