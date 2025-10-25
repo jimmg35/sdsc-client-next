@@ -15,6 +15,8 @@ export interface PublicationData {
   journal: string;
   catalog: string;
   doi: string;
+  memberIds: string[];
+  year: number | null;
 }
 
 export function getAllPublications(): PublicationData[] {
@@ -28,8 +30,16 @@ export function getAllPublications(): PublicationData[] {
     );
     const fileContents = fs.readFileSync(filePath, 'utf8');
 
-    const { id, author, title, journal, catalog, doi } =
-      JSON.parse(fileContents);
+    const {
+      id,
+      author,
+      title,
+      journal,
+      catalog,
+      doi,
+      memberIds
+    } = JSON.parse(fileContents);
+    const year = extractPublicationYear(author, catalog);
 
     return {
       id,
@@ -37,7 +47,11 @@ export function getAllPublications(): PublicationData[] {
       title,
       journal,
       catalog,
-      doi
+      doi,
+      memberIds: Array.isArray(memberIds)
+        ? memberIds.filter((value): value is string => typeof value === 'string')
+        : [],
+      year
     };
   });
 
@@ -48,4 +62,21 @@ export function getPublicationById(id: string): PublicationData | null {
   const publications = getAllPublications();
   const publication = publications.find((pub) => pub.id === id);
   return publication || null;
+}
+
+function extractPublicationYear(
+  author: string,
+  catalog: string
+): number | null {
+  const authorMatch = author?.match(/\((\d{4})\)/);
+  if (authorMatch) {
+    return Number(authorMatch[1]);
+  }
+
+  const catalogMatch = catalog?.match(/(19|20)\d{2}/);
+  if (catalogMatch) {
+    return Number(catalogMatch[0]);
+  }
+
+  return null;
 }
