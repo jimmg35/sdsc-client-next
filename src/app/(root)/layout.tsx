@@ -1,5 +1,6 @@
 import Footer from '@/components/Layout/Footer';
 import NavBar from '@/components/Layout/NavBar';
+import type { CSSProperties } from 'react';
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
 import { IBM_Plex_Sans } from 'next/font/google';
@@ -20,9 +21,28 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const rawBasePath = process.env.NEXT_PUBLIC_BASE_PATH?.trim() ?? '';
+  const normalizedBasePath =
+    rawBasePath && rawBasePath !== '/'
+      ? rawBasePath.startsWith('/')
+        ? rawBasePath.replace(/\/+$/, '')
+        : `/${rawBasePath.replace(/\/+$/, '')}`
+      : '';
+  const withBasePath = (path: string) =>
+    `${normalizedBasePath}${path}`.replace(/\/{2,}/g, '/');
+
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
+      <body
+        className={`${inter.className} antialiased`}
+        style={
+          {
+            '--background-image': `url(${withBasePath('/img/welcome.jpg')})`,
+            '--base-path': normalizedBasePath
+          } as CSSProperties
+        }
+        data-base-path={normalizedBasePath}
+      >
         <NavBar />
         <main className="">{children}</main>
         <Footer />
