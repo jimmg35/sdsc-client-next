@@ -1,6 +1,6 @@
 import PublicationExplorer from '@/components/Publications/Explorer';
-import { PublicationData, getAllPublications } from '@/lib/publications';
 import { MemberData, getAllMembers } from '@/lib/members';
+import { PublicationData, getAllPublications } from '@/lib/publications';
 
 export default function Publications() {
   const publications: PublicationData[] = getAllPublications();

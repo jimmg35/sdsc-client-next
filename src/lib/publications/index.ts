@@ -30,15 +30,8 @@ export function getAllPublications(): PublicationData[] {
     );
     const fileContents = fs.readFileSync(filePath, 'utf8');
 
-    const {
-      id,
-      author,
-      title,
-      journal,
-      catalog,
-      doi,
-      memberIds
-    } = JSON.parse(fileContents);
+    const { id, author, title, journal, catalog, doi, memberIds } =
+      JSON.parse(fileContents);
     const year = extractPublicationYear(author, catalog);
 
     return {
@@ -49,7 +42,9 @@ export function getAllPublications(): PublicationData[] {
       catalog,
       doi,
       memberIds: Array.isArray(memberIds)
-        ? memberIds.filter((value): value is string => typeof value === 'string')
+        ? memberIds.filter(
+            (value): value is string => typeof value === 'string'
+          )
         : [],
       year
     };

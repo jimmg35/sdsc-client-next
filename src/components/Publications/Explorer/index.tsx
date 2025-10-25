@@ -1,12 +1,11 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
-import { createPortal } from 'react-dom';
-import { Check, Filter, Search, X } from 'lucide-react';
-
 import Avatar from '@/components/Utility/Avatar';
 import PublicationPost from '@/components/Utility/PublicationPost';
 import { PublicationData } from '@/lib/publications';
+import { Check, Filter, Search, X } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 type MemberOption = {
   id: string;
@@ -76,13 +75,13 @@ const PublicationExplorer = ({
           matcher &&
           publications.some(
             (publication) =>
-              publication.memberIds.length === 0 &&
-              matcher(publication.author)
+              publication.memberIds.length === 0 && matcher(publication.author)
           );
 
         return {
           ...member,
-          hasPublication: hasExplicitPublication || Boolean(hasHeuristicPublication),
+          hasPublication:
+            hasExplicitPublication || Boolean(hasHeuristicPublication),
           hasExplicitPublication
         };
       })
@@ -107,7 +106,13 @@ const PublicationExplorer = ({
     return publications.filter((publication) => {
       const matchesQuery =
         !normalizedQuery ||
-        [publication.title, publication.author, publication.journal, publication.catalog, publication.doi]
+        [
+          publication.title,
+          publication.author,
+          publication.journal,
+          publication.catalog,
+          publication.doi
+        ]
           .filter(Boolean)
           .some((field) => normalizeText(field).includes(normalizedQuery));
 
@@ -125,7 +130,13 @@ const PublicationExplorer = ({
 
       return matchesQuery && matchesYear && matchesAuthor;
     });
-  }, [publications, searchQuery, selectedYear, selectedAuthorId, memberMatchers]);
+  }, [
+    publications,
+    searchQuery,
+    selectedYear,
+    selectedAuthorId,
+    memberMatchers
+  ]);
 
   useEffect(() => {
     if (
@@ -517,10 +528,7 @@ function buildMemberMatcher(name: string) {
   const middleNames = parts.slice(1, -1);
   const firstInitial = firstName?.[0] ?? '';
 
-  const lastNamePattern = new RegExp(
-    `\\b${escapeRegExp(lastName)}\\b`,
-    'i'
-  );
+  const lastNamePattern = new RegExp(`\\b${escapeRegExp(lastName)}\\b`, 'i');
 
   const patterns: RegExp[] = [];
 
