@@ -1,5 +1,5 @@
 import Avatar from '@/components/Utility/Avatar';
-import PublicationPost from '@/components/Utility/PublicationPost';
+import SelectedPublicationCard from '@/components/Members/SelectedPublicationCard';
 import { markdownToHTML } from '@/lib/md';
 import {
   MemberPublication,
@@ -18,14 +18,18 @@ type Props = Promise<{
 export default async function ProfilePage(props: { params: Props }) {
   const { slug } = await props.params;
   const member = getMemberById(slug);
+  if (!member) {
+    notFound();
+  }
+
   const biography = getMemberBiograpgyById(slug);
 
-  const advisorMember = member?.advisorId
+  const advisorMember = member.advisorId
     ? getMemberById(member.advisorId)
-    : member?.advisor
+    : member.advisor
       ? getAllMembers().find((mem) => mem.name === member.advisor)
       : null;
-  const advisorName = advisorMember?.name || member?.advisor || null;
+  const advisorName = advisorMember?.name || member.advisor || null;
   const advisorTitle = advisorMember?.title || null;
 
   let mdHtmlContent = '';
@@ -33,9 +37,11 @@ export default async function ProfilePage(props: { params: Props }) {
     mdHtmlContent = await markdownToHTML(biography);
   }
 
-  if (!member) {
-    notFound();
-  }
+  const selectedPublications =
+    member.selectedPublications?.map((pub: MemberPublication, idx) => ({
+      ...pub,
+      id: pub.id || `${member.id}-pub-${idx}`
+    })) ?? [];
 
   return (
     <section className="page-shell">
@@ -226,21 +232,25 @@ export default async function ProfilePage(props: { params: Props }) {
                 </section>
               )}
 
-              {member.selectedPublications &&
-                member.selectedPublications.length > 0 && (
-                  <section className="glass-card px-6 py-6">
-                    <header className="panel-title text-gold-300">
-                      Selected Publications
-                    </header>
-                    <ul className="mt-6 flex flex-col gap-4">
-                      {member.selectedPublications.map(
-                        (pub: MemberPublication, idx: number) => (
-                          <PublicationPost {...pub} key={idx} />
-                        )
-                      )}
-                    </ul>
-                  </section>
-                )}
+              {selectedPublications.length > 0 && (
+                <section className="glass-card px-6 py-6">
+                  <header className="panel-title text-gold-300">
+                    Selected Publications
+                  </header>
+                  <ul className="mt-6 flex flex-col gap-4">
+                    {selectedPublications.map((pub, idx: number) => (
+                      <SelectedPublicationCard
+                        key={pub.id ?? idx}
+                        author={pub.author}
+                        title={pub.title}
+                        journal={pub.journal}
+                        catalog={pub.catalog}
+                        doi={pub.doi}
+                      />
+                    ))}
+                  </ul>
+                </section>
+              )}
             </div>
           </div>
         </article>

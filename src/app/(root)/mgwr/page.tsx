@@ -1,13 +1,16 @@
 import AppCard from '@/components/Utility/AppCard';
+import { withBasePath } from '@/lib/base-path';
 import { ArrowUpRight, BookMarked, BookOpen, Database } from 'lucide-react';
 import Link from 'next/link';
+
+const mgwrImage = withBasePath('/img/software/mgwr.png');
 
 const downloads = [
   {
     title: 'MGWR GUI (Windows)',
     description:
       'Installer package with the latest stable build, examples, and documentation for Windows 10/11 environments.',
-    imageUrl: '/img/software/mgwr.png',
+    imageUrl: mgwrImage,
     href: 'https://fsu-my.sharepoint.com/:u:/g/personal/zl23l_fsu_edu/ERbawWrrxUdAuqXxAcg_LcoBtZh-ENpHZAEKoCB8GZf7xg?download=1',
     meta: 'Windows | 64-bit'
   },
@@ -15,7 +18,7 @@ const downloads = [
     title: 'MGWR GUI (macOS)',
     description:
       'Universal binary for Apple Silicon and Intel Macs with notarized installer and starter projects.',
-    imageUrl: '/img/software/mgwr.png',
+    imageUrl: mgwrImage,
     href: 'https://fsu-my.sharepoint.com/:u:/g/personal/zl23l_fsu_edu/EQ8R-YXyl9ZFtKASzfAtB2sBDWnICS4W2DHEaI0r2kfSFQ?download=1',
     meta: 'macOS | Universal'
   }

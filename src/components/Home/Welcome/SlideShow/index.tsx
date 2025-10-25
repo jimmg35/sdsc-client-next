@@ -1,49 +1,13 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-
-const images = [
-  '/img/welcome-banner/mgwr-bg.png'
-  // '/img/welcome-banner/banner-2.jpg',
-  // '/img/welcome-banner/banner-3.jpg',
-  // '/img/welcome-banner/banner-4.jpg'
-];
+import { withBasePath } from '@/lib/base-path';
 
 const SlideShow = () => {
-  const [currentImage, setCurrentImage] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImage((prevImage) => (prevImage + 1) % images.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+  const backgroundImage = withBasePath('/img/welcome-banner/mgwr-bg.png');
 
   return (
-    <div className="absolute top-0 left-0 w-full h-full -z-10 overflow-hidden">
-      {images.map((image, index) => (
-        <div
-          key={index}
-          className={`absolute top-0 left-0 w-full h-full bg-cover bg-center transition-opacity duration-1000 ease-in-out ${
-            index === currentImage ? 'opacity-100' : 'opacity-0'
-          }`}
-          style={{
-            backgroundImage: `url(${image})`,
-            animation: index === currentImage ? 'zoomIn 5s ease-in-out' : ''
-          }}
-        ></div>
-      ))}
-      <style jsx>{`
-        @keyframes zoomIn {
-          0% {
-            transform: scale(1);
-          }
-          100% {
-            transform: scale(1.1);
-          }
-        }
-      `}</style>
-    </div>
+    <div
+      className="absolute inset-0 -z-10 bg-cover bg-center"
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+    />
   );
 };
 
