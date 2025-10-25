@@ -1,4 +1,5 @@
 import { PublicationData } from '@/lib/publications';
+import { ArrowUpRight } from 'lucide-react';
 
 const PublicationPost = ({
   author,
@@ -7,24 +8,54 @@ const PublicationPost = ({
   catalog,
   doi
 }: PublicationData) => {
+  const doiUrl = doi?.trim();
+  const doiLabel = doiUrl
+    ? doiUrl.replace(/^https?:\/\/(www\.)?(dx\.)?doi\.org\//i, '')
+    : '';
+
   return (
-    <li className="surface-fade group relative overflow-hidden rounded-[22px] border border-garnet-600/30 bg-[#120922]/80 p-5 transition duration-300 hover:-translate-y-1 hover:border-garnet-400/45">
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-garnet-600/35 via-transparent to-gold-500/25 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-      <div className="relative space-y-3 text-gold-100">
-        <p className="panel-title">{catalog}</p>
-        <p className="text-base font-semibold leading-6 text-gold-50 text-glow">
-          {title}
-        </p>
-        <p className="text-sm text-gold-300/80">{author}</p>
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-gold-300/80">
-          <span className="rounded-full border border-gold-400/30 bg-garnet-700/50 px-3 py-1 uppercase tracking-[0.18em]">
-            {journal}
-          </span>
-          <span className="glow-link text-[0.7rem] uppercase tracking-[0.25em]">
-            DOI {doi}
-          </span>
+    <li className="group relative">
+      {/* <div className="pointer-events-none absolute inset-0 rounded-[28px] border border-white/60 opacity-0 transition duration-300 group-hover:opacity-100" /> */}
+      <article className="glass-card relative h-full overflow-hidden rounded-[28px] border border-black/5 bg-white/85 p-6 shadow-[0_24px_50px_-30px_rgba(5,0,40,0.28)] backdrop-blur-md transition duration-300 group-hover:-translate-y-1 group-hover:border-black/10 group-hover:shadow-[0_28px_70px_-28px_rgba(10,0,60,0.35)]">
+        <div className="pointer-events-none absolute inset-x-6 -top-20 h-40 rounded-[32px] bg-white/60 blur-3xl transition duration-500 group-hover:translate-y-8 group-hover:opacity-90" />
+        <div className="relative flex h-full flex-col gap-6 text-ink-900">
+          <div className="space-y-4">
+            <span className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/80 px-4 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-ink-700">
+              {journal}
+            </span>
+            <p className="text-xs font-medium uppercase tracking-[0.3em] text-ink-500/70">
+              {catalog}
+            </p>
+            <h3 className="text-2xl font-semibold leading-7 text-ink-900">
+              {title}
+            </h3>
+          </div>
+
+          <p className="text-base font-bold leading-6 text-ink-700/90">
+            {author}
+          </p>
+
+          {doiUrl && (
+            <div className="mt-auto flex items-center  gap-3">
+              <span className="text-xs uppercase tracking-[0.28em] text-ink-500/90">
+                DOI
+              </span>
+              <a
+                href={doiUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="group/link inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/80 px-4 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-ink-700 transition duration-300 hover:border-black/20 hover:bg-white"
+              >
+                {doiLabel}
+                <ArrowUpRight
+                  size={14}
+                  className="transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
+                />
+              </a>
+            </div>
+          )}
         </div>
-      </div>
+      </article>
     </li>
   );
 };

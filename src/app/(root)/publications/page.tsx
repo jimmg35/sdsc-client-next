@@ -1,8 +1,18 @@
-import PublicationPost from '@/components/Utility/PublicationPost';
+import PublicationExplorer from '@/components/Publications/Explorer';
+import { MemberData, getAllMembers } from '@/lib/members';
 import { PublicationData, getAllPublications } from '@/lib/publications';
 
 export default function Publications() {
   const publications: PublicationData[] = getAllPublications();
+  const members: Pick<MemberData, 'id' | 'name' | 'title' | 'thumbnail'>[] =
+    getAllMembers()
+      .filter((member) => member.id && member.name && member.thumbnail)
+      .map(({ id, name, title, thumbnail }) => ({
+        id,
+        name,
+        title,
+        thumbnail
+      }));
 
   return (
     <section className="page-shell">
@@ -18,11 +28,7 @@ export default function Publications() {
           </p>
         </header>
 
-        <div className="mt-16 grid gap-6">
-          {publications.map((publication) => (
-            <PublicationPost key={publication.id} {...publication} />
-          ))}
-        </div>
+        <PublicationExplorer publications={publications} members={members} />
       </div>
     </section>
   );
