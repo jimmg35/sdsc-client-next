@@ -27,6 +27,8 @@ export function getAllPublications(): PublicationData[] {
       'meta.json'
     );
     const fileContents = fs.readFileSync(filePath, 'utf8');
+
+    console.log(fileContents);
     const { id, author, title, journal, catalog, doi } =
       JSON.parse(fileContents);
 
