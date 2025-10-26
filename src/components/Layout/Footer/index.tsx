@@ -10,14 +10,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const quickLinks = [
-  { label: 'About', href: '/about' },
+  { label: 'Home', href: '/' },
   { label: 'Members', href: '/member' },
   { label: 'Research', href: '/research' },
   { label: 'MGWR', href: '/mgwr' },
   { label: 'Publications', href: '/publications' },
-  { label: 'Updates', href: '/announcements' },
-  { label: 'News', href: '/news' },
-  { label: 'Contact', href: '/contact' }
+  { label: 'News', href: '/news' }
 ];
 
 const socialLinks = [
