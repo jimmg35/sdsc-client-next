@@ -1,6 +1,7 @@
 'use client';
 
 import NotificationBanner from '@/components/Layout/NotificationBanner';
+import easternEgg from '@/lib/easterneggs';
 import {
   AppWindowMac,
   // PhoneCall,
@@ -44,6 +45,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
+    console.log(easternEgg);
     const handleScroll = () => {
       setHasScrolled(window.scrollY > 24);
     };
