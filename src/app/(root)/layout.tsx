@@ -1,5 +1,6 @@
 import Footer from '@/components/Layout/Footer';
 import NavBar from '@/components/Layout/NavBar';
+import easternEgg from '@/lib/easterneggs';
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
 import { IBM_Plex_Sans } from 'next/font/google';
@@ -23,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
+        <div hidden dangerouslySetInnerHTML={{ __html: easternEgg }} />
         <NavBar />
         <main className="">{children}</main>
         <Footer />
