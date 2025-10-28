@@ -389,7 +389,7 @@ const PublicationOverlay = ({
             </div>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-2">
+          <div className="grid gap-8 md:grid-cols-0">
             <div className="space-y-3">
               <label
                 htmlFor="publication-year-select"
