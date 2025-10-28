@@ -22,17 +22,28 @@ const DirectorMessage = () => {
             Center Director&apos;s Message
           </span>
           <p className="mt-6 text-base text-gold-100/80 md:text-lg text-justify">
-            At the Spatial Data Science Center, we build teams that blend
-            rigorous spatial analytics with creative design to make sense of
-            complex places. Every project is an invitation to look deeper,
-            collaborate openly, and deliver insights that matter to communities
-            and decision makers alike.
+            Welcome to the Spatial Data Science Center (SDSC) where solutions to
+            many of the World&apos;s most pressing problems are being forged
+            through the development of sophisticated statistical methods and the
+            application of new approaches such as GeoAI and machine learning.
+            Our expertise extends to all types of domain areas including health,
+            transportation, voting, crime, housing, retailing, and the
+            environment.{' '}
+            <strong className="font-semibold">
+              Our work is built on the fundamental principle that understanding
+              where these challenges occur is the key to understanding why they
+              occur and how to solve them.
+            </strong>
           </p>
           <p className="mt-5 text-base text-gold-100/80 md:text-lg text-justify">
-            I am excited to welcome new colleagues who share our curiosity and
-            our drive to illuminate how location shapes opportunity. Together,
-            we will continue expanding the boundaries of GIScience and
-            empowering partners across the globe.
+            The SDSC aims to be a focal point for all the great work that is
+            taking place in spatial data science across many departments at FSU.
+            Whether you&apos;re a faculty member wanting to pursue joint
+            research or a funding application, or are interested in becoming an
+            affiliate, or a representative of a government department or private
+            firm needing consulting assistance, or a student interested in being
+            involved in SDSC activities, contact us at
+            stewart.fotheringham@fsu.edu.
           </p>
           <div className="mt-6 flex items-center flex-row-reverse gap-4">
             <Image
