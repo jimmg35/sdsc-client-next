@@ -52,44 +52,44 @@
   ],
   "selectedPublications": [
     {
-      "id": "mgwr-theory-and-practice",
-      "author": "Fotheringham, A. S., Oshan, T. M., & Li, Z. (2023).",
-      "title": "Multiscale geographically weighted regression: Theory and practice.",
-      "journal": "CRC Press.",
-      "catalog": "194",
-      "doi": "https://doi.org/10.1201/9781003435464"
+      "id": "multiscale-geographically-weighted-regression-theory-and-practice-2024",
+      "author": "Fotheringham, A. S., Oshan, T. M., & Li, Z. (2024).",
+      "title": "Multiscale Geographically Weighted Regression: Theory and Practice.",
+      "journal": "CRC Press (Routledge): Boca Raton, FL.",
+      "catalog": "ISBN 9781032564227; pp. xvii + 178.",
+      "doi": "https://www.routledge.com/Multiscale-Geographically-Weighted-Regression-Theory-and-Practice/Fotheringham-Oshan-Li/p/book/9781032564227"
     },
     {
-      "id": "gwographycally-weighted-regression",
-      "author": "Fotheringham, A.S., Brunsdon, C.. & Charlton, M.E. (2002)",
-      "title": "Geographically weighted regression.",
-      "journal": "The Sage handbook of spatial analysis",
-      "catalog": "1, 243-254.",
-      "doi": "http://digital.casalini.it/9781446206508"
+      "id": "inference-and-bandwidth-selection-mgtwr-2024",
+      "author": "Yu, H., & Fotheringham, A. S. (2024).",
+      "title": "Inference and Bandwidth Selection in Multiscale Geographically and Temporally Weighted Regression.",
+      "journal": "International Journal of Geographical Information Science",
+      "catalog": "39(6), 1203-1222.",
+      "doi": "https://doi.org/10.1080/13658816.2024.2440600"
     },
     {
-      "id": "measuring-the-unmeasurable",
-      "author": "Fotheringham, A. S., & Li, Z. (2023)",
-      "title": "Measuring the unmeasurable: Models of geographical context",
+      "id": "regiongcn-spatial-heterogeneity-aware-gcn-2025",
+      "author": "Guo, H., Wang, H., Zhu, D., Wu, L., Fotheringham, A. S., & Liu, Y. (2025).",
+      "title": "RegionGCN: Spatial-Heterogeneity-Aware Graph Convolutional Networks.",
       "journal": "Annals of the American Association of Geographers",
-      "catalog": "113(10), 2269-2286",
+      "catalog": "In press.",
+      "doi": "https://doi.org/10.1080/24694452.2025.2558661"
+    },
+    {
+      "id": "measuring-the-unmeasurable-2023",
+      "author": "Fotheringham, A. S., & Li, Z. (2023).",
+      "title": "Measuring the Unmeasurable: Models of Geographic Context.",
+      "journal": "Annals of the American Association of Geographers",
+      "catalog": "113(10), 2269-2286.",
       "doi": "https://doi.org/10.1080/24694452.2023.2227690"
     },
     {
-      "id": "multiscale-geographically-weighted-regression",
-      "author": "Fotheringham, A. S., Yang, W., & Kang, W. (2017)",
-      "title": "Multiscale geographically weighted regression (MGWR).",
-      "journal": "Annals of the American Association of Geographers",
-      "catalog": "107(6), 1247-1265.",
-      "doi": "https://doi.org/10.1080/24694452.2017.1352480"
-    },
-    {
-      "id": "a-new-set-of-spatial-interaction-models",
-      "author": "Fotheringham, A. S. (1983)",
-      "title": "A new set of spatial-interaction models: the theory of competing destinations.",
-      "journal": "Environment and Planning A: Economy and Space",
-      "catalog": "15(1), 15-36.",
-      "doi": "https://doi.org/10.1177/0308518X8301500103"
+      "id": "geographical-perspective-on-simpsons-paradox-2023",
+      "author": "Sachdeva, M., & Fotheringham, A. S. (2023).",
+      "title": "A Geographical Perspective on Simpson's Paradox.",
+      "journal": "Journal of Spatial Information Science",
+      "catalog": "26, 1-25.",
+      "doi": "https://doi.org/10.5311/josis.2023.26.212"
     }
   ],
   "courseTaught": [],
