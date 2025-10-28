@@ -19,7 +19,7 @@ const DirectorMessage = () => {
         </div>
         <div className="text-gold-50 md:w-2/3">
           <span className="mt-4 text-3xl font-semibold leading-tight text-gold-50 md:text-4xl">
-            Center Director&apos;s Message
+            Message from the Director
           </span>
           <p className="mt-6 text-base text-gold-100/80 md:text-lg text-justify">
             Welcome to the Spatial Data Science Center (SDSC) where solutions to
