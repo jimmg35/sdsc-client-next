@@ -14,7 +14,7 @@ const SelectedPublicationCard = ({
     : '';
 
   return (
-    <li className="group rounded-2xl border border-gold-400/30 bg-[#160b29]/55 p-5 transition duration-300 hover:border-gold-300/40 hover:bg-[#160b29]/70">
+    <li className="glass-card group rounded-2xl border border-gold-400/30  p-5 transition duration-300 ">
       <div className="flex flex-col gap-4 text-gold-100">
         <div className="space-y-2">
           <span className="inline-flex items-center gap-2 rounded-full border border-gold-400/40 bg-gold-500/10 px-3 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.28em] text-gold-200">
