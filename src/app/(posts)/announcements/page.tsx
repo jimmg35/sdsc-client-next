@@ -1,3 +1,4 @@
+import { withBasePath } from '@/lib/base-path';
 import AnnouncementCard from '@/components/Utility/AnnouncementCard';
 import { AnnouncementData, getAllAnnouncements } from '@/lib/announcements';
 import { ArrowUpRight } from 'lucide-react';
@@ -32,7 +33,7 @@ export default function Announcements() {
           <article className="mt-16 grid gap-6 overflow-hidden rounded-[32px] border border-garnet-600/35 bg-white shadow-[0_32px_60px_-40px_rgba(9,4,24,0.85)] md:grid-cols-[1.1fr_1fr]">
             <div className="relative h-64 w-full overflow-hidden md:h-auto">
               <Image
-                src={featured.thumbnail}
+                src={withBasePath(featured.thumbnail)}
                 alt={featured.title}
                 fill
                 sizes="(max-width: 768px) 100vw, 540px"

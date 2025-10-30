@@ -1,3 +1,4 @@
+import { withBasePath } from '@/lib/base-path';
 import { NewsData } from '@/lib/news';
 import { ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
@@ -18,7 +19,7 @@ const NewsCard = ({ data }: { data: NewsData }) => {
     <article className="group glass-card flex h-full w-full max-w-[24rem] flex-col overflow-hidden text-ink-900 transition duration-300 hover:-translate-y-2">
       <div className="relative h-56 w-full overflow-hidden bg-white">
         <Image
-          src={data.thumbnail}
+          src={withBasePath(data.thumbnail)}
           alt={data.title}
           fill
           sizes="(max-width: 768px) 100vw, 384px"

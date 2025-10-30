@@ -1,3 +1,4 @@
+import { withBasePath } from '@/lib/base-path';
 import Image from 'next/image';
 
 const DirectorMessage = () => {
@@ -9,7 +10,7 @@ const DirectorMessage = () => {
       <div className="relative items-center gap-8 text-center text-gold-100 mx-auto flex w-full max-w-6xl flex-col px-4 py-20 md:flex-row md:items-center md:gap-14 md:px-10">
         <div className="relative mx-auto h-[18rem] w-[18rem] max-w-xs overflow-hidden rounded-[3rem] border border-gold-50/30 bg-garnet-900/60 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.75)] backdrop-blur md:mx-0">
           <Image
-            src="/img/avatar/stewart-fotheringham.jpg"
+            src={withBasePath('/img/avatar/stewart-fotheringham.jpg')}
             alt="Professor Stewart Fotheringham, Center Director"
             fill
             className="object-cover"
@@ -47,7 +48,7 @@ const DirectorMessage = () => {
           </p>
           <div className="mt-6 flex items-center flex-row-reverse gap-4">
             <Image
-              src="/img/stewart-signature.png"
+              src={withBasePath('/img/stewart-signature.png')}
               alt="Signature of Stewart Fotheringham"
               width={220}
               height={72}

@@ -1,3 +1,4 @@
+import { withBasePath } from '@/lib/base-path';
 import Image from 'next/image';
 
 interface AvatarProps {
@@ -32,7 +33,7 @@ const Avatar = ({
 
   return (
     <Image
-      src={src}
+      src={withBasePath(src)}
       width={size}
       height={size}
       alt={alt}

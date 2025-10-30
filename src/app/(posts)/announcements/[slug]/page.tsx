@@ -1,3 +1,4 @@
+import { withBasePath } from '@/lib/base-path';
 import { getAnnouncementBySlug } from '@/lib/announcements';
 import { markdownToHTML } from '@/lib/md';
 import { ArrowLeft, Calendar, User } from 'lucide-react';
@@ -70,7 +71,7 @@ export default async function AnnouncementPage(props: { params: Props }) {
             {announcement.thumbnail && (
               <div className="relative h-64 w-full overflow-hidden rounded-[24px] border border-garnet-500/30">
                 <Image
-                  src={announcement.thumbnail}
+                  src={withBasePath(announcement.thumbnail)}
                   alt={announcement.title}
                   fill
                   sizes="(max-width: 768px) 100vw, 720px"

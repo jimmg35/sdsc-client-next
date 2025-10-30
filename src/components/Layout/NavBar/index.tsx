@@ -1,6 +1,7 @@
 'use client';
 
 import NotificationBanner from '@/components/Layout/NotificationBanner';
+import { withBasePath } from '@/lib/base-path';
 import easternEgg from '@/lib/easterneggs';
 import {
   AppWindowMac,
@@ -123,11 +124,11 @@ const Navbar = () => {
         <Image
           width={145}
           height={46}
-          src="/img/sdsc-logo.png"
+          src={withBasePath('/img/sdsc-logo.png')}
           alt="SDSC logo"
           className="cursor-pointer rounded-md object-cover"
           onClick={() => {
-            window.location.href = '/';
+            window.location.href = withBasePath('/');
           }}
         />
 

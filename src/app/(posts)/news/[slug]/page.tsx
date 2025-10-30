@@ -1,3 +1,4 @@
+import { withBasePath } from '@/lib/base-path';
 import { markdownToHTML } from '@/lib/md';
 import { getNewsBySlug } from '@/lib/news';
 import { ArrowLeft, Calendar, User } from 'lucide-react';
@@ -60,7 +61,7 @@ export default async function PostPage(props: { params: Props }) {
             {post.thumbnail && (
               <div className="relative h-64 w-full overflow-hidden rounded-[24px]">
                 <Image
-                  src={post.thumbnail}
+                  src={withBasePath(post.thumbnail)}
                   alt={post.title}
                   fill
                   sizes="(max-width: 768px) 100vw, 720px"

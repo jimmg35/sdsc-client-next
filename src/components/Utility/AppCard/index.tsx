@@ -1,3 +1,4 @@
+import { withBasePath } from '@/lib/base-path';
 import { ArrowDownToLine } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -25,7 +26,7 @@ const AppCard = ({
       <div className="relative flex items-start gap-4">
         <div className="halo">
           <Image
-            src={imageUrl}
+            src={withBasePath(imageUrl)}
             alt={title}
             width={72}
             height={72}

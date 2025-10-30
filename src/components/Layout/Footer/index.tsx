@@ -1,3 +1,4 @@
+import { withBasePath } from '@/lib/base-path';
 import {
   ArrowUpRight,
   Github,
@@ -44,7 +45,7 @@ const Footer = () => {
             <Image
               width={145}
               height={46}
-              src="/img/sdsc-logo.png"
+              src={withBasePath('/img/sdsc-logo.png')}
               alt="SDSC logo"
               className="rounded-full object-cover"
             />
