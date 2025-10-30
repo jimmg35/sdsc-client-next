@@ -25,7 +25,8 @@ export default function Member() {
     getMemberById('zhipeng-li'),
     getMemberById('jiajun-chang'),
     getMemberById('jacob-tagnan'),
-    getMemberById('stephen-liwur')
+    getMemberById('stephen-liwur'),
+    getMemberById('shangrui-zhu')
   ]);
 
   const affiliatedMembers = collectMembers([

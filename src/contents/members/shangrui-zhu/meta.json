@@ -1,0 +1,32 @@
+{
+  "id": "shangrui-zhu",
+  "name": "Shangrui Zhu",
+  "title": "Ph.D. student",
+  "department": "Department of Geography",
+  "email": "sz25c@fsu.edu",
+  "thumbnail": "/img/avatar/shangrui-zhu.jpg",
+  "centerRole": "Graduate Assistant",
+  "cvPath": "",
+  "googleScholar": "https://scholar.google.com/citations?user=drSl0s8AAAAJ&hl=en",
+  "advisor": "Christopher Uejio",
+  "advisorId": "christopher-uejio",
+  "education": [
+    {
+      "degree": "MURP",
+      "field": "Urban and Regional Planning",
+      "institution": "Michigan State University",
+      "year": 2024
+    },
+    {
+      "degree": "B.S.",
+      "field": "Urban and Regional Planning",
+      "institution": "Michigan State University",
+      "year": 2023
+    }
+  ],
+  "honor": [],
+  "selectedPublications": [],
+  "courseTaught": [],
+  "aoi": [],
+  "professionalExperience": []
+}
