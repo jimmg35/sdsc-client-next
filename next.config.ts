@@ -5,10 +5,13 @@ const resolvedBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
 const nextConfig: NextConfig = {
   /* config options here */
-  output: 'standalone',
+  output: 'export',
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   reactStrictMode: true,
   transpilePackages: ['next-mdx-remote'],
+  images: {
+    unoptimized: true
+  },
   ...(resolvedBasePath
     ? {
         basePath: resolvedBasePath

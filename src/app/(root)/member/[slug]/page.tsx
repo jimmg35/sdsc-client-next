@@ -248,3 +248,7 @@ export default async function ProfilePage(props: { params: Props }) {
     </section>
   );
 }
+
+export function generateStaticParams() {
+  return getAllMembers().map((member) => ({ slug: member.id }));
+}
