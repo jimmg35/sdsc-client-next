@@ -1,0 +1,23 @@
+{
+  "id": "cynthia-fan-yang",
+  "name": "Cynthia Fan Yang",
+  "title": "Associate Professor and Bernard Sliger Scholar",
+  "department": "Department of Economics",
+  "email": "cynthia.yang@fsu.edu",
+  "thumbnail": "/img/avatar/cynthia-yang.jpg",
+  "centerRole": "Affiliated Faculty",
+  "googleScholar": "https://scholar.google.com/citations?view_op=search_authors&mauthors=Cynthia+Fan+Yang",
+  "education": [
+    {
+      "degree": "Ph.D.",
+      "field": "Economics",
+      "institution": "University of Southern California",
+      "year": 2018
+    }
+  ],
+  "honor": [],
+  "selectedPublications": [],
+  "courseTaught": [],
+  "aoi": ["Econometrics", "Applied Econometrics"],
+  "professionalExperience": []
+}

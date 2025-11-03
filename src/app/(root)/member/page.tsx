@@ -31,7 +31,8 @@ export default function Member() {
 
   const affiliatedMembers = collectMembers([
     getMemberById('qianwen-guo'),
-    getMemberById('young-an-kim')
+    getMemberById('young-an-kim'),
+    getMemberById('cynthia-fan-yang')
   ]);
 
   return (
