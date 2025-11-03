@@ -28,7 +28,7 @@ const documentationLinks = [
   },
   {
     label: 'MGWR Bibliography (PDF)',
-    href: 'https://fsu-my.sharepoint.com/:b:/g/personal/zl23l_fsu_edu/ER0wFLcN4T1Ip5SP07DG4M8BFfH236Yp86KWU05K90aYRA?download=1'
+    href: '/contents/MGWR_Bibli_1102_2025.pdf'
   },
   {
     label: 'mgwr Python package on GitHub',
