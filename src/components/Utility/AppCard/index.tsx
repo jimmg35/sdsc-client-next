@@ -1,4 +1,5 @@
 import { ArrowDownToLine } from 'lucide-react';
+import type { MouseEventHandler } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -10,6 +11,7 @@ interface AppCardProps {
   imageUrl: string;
   href?: string;
   meta?: string;
+  onClick?: MouseEventHandler<HTMLAnchorElement>;
 }
 
 const AppCard = ({
@@ -17,7 +19,8 @@ const AppCard = ({
   description,
   imageUrl,
   href,
-  meta
+  meta,
+  onClick
 }: AppCardProps) => {
   const card = (
     <div className="glass-card group relative flex h-full flex-col justify-between overflow-hidden px-6 py-8 text-left text-gold-100 transition duration-300 hover:-translate-y-1">
@@ -64,6 +67,7 @@ const AppCard = ({
         className="block h-full"
         target={href.startsWith('http') ? '_blank' : undefined}
         rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+        onClick={onClick}
       >
         {card}
       </Link>

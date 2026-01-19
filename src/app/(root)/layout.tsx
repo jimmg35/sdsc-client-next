@@ -12,7 +12,7 @@ const inter = IBM_Plex_Sans({
   weight: ['100', '200', '300', '400', '500', '600', '700']
 });
 
-const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 export const metadata: Metadata = {
   title: 'SDSC | Spatial Data Science Center',
@@ -27,10 +27,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        {GA_MEASUREMENT_ID ? (
+        {GA_ID ? (
           <>
             <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
               strategy="afterInteractive"
             />
             <Script
@@ -41,7 +41,7 @@ export default function RootLayout({
                   window.dataLayer = window.dataLayer || [];
                   function gtag(){dataLayer.push(arguments);}
                   gtag('js', new Date());
-                  gtag('config', '${GA_MEASUREMENT_ID}');
+                  gtag('config', '${GA_ID}', { anonymize_ip: true });
                 `
               }}
             />

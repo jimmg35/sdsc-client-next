@@ -1,6 +1,11 @@
+'use client';
+
 import AppCard from '@/components/Utility/AppCard';
+import { trackMGWRDownload } from '@/lib/ga';
 import { ArrowUpRight, BookMarked, BookOpen, Database } from 'lucide-react';
 import Link from 'next/link';
+
+const DOWNLOAD_VERSION = '2.2.1';
 
 const downloads = [
   {
@@ -9,7 +14,8 @@ const downloads = [
       'Installer package with the latest stable build, examples, and documentation for Windows 10/11 environments.',
     imageUrl: '/img/software/mgwr.png',
     href: 'https://fsu-my.sharepoint.com/:u:/g/personal/zl23l_fsu_edu/ERbawWrrxUdAuqXxAcg_LcoBtZh-ENpHZAEKoCB8GZf7xg?download=1',
-    meta: 'Windows | 64-bit'
+    meta: 'Windows | 64-bit',
+    platform: 'windows'
   },
   {
     title: 'MGWR GUI (macOS)',
@@ -17,9 +23,10 @@ const downloads = [
       'Universal binary for Apple Silicon and Intel Macs with notarized installer and starter projects.',
     imageUrl: '/img/software/mgwr.png',
     href: 'https://fsu-my.sharepoint.com/:u:/g/personal/zl23l_fsu_edu/EQ8R-YXyl9ZFtKASzfAtB2sBDWnICS4W2DHEaI0r2kfSFQ?download=1',
-    meta: 'macOS | Universal'
+    meta: 'macOS | Universal',
+    platform: 'macos'
   }
-];
+] as const;
 
 const documentationLinks = [
   {
@@ -97,7 +104,17 @@ export default function MGWR() {
 
         <div className="mt-14 grid gap-6 md:grid-cols-2">
           {downloads.map((item) => (
-            <AppCard key={item.title} {...item} />
+            <AppCard
+              key={item.title}
+              title={item.title}
+              description={item.description}
+              imageUrl={item.imageUrl}
+              href={item.href}
+              meta={item.meta}
+              onClick={() =>
+                trackMGWRDownload(item.platform, item.href, DOWNLOAD_VERSION)
+              }
+            />
           ))}
         </div>
 
