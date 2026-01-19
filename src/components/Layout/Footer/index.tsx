@@ -154,6 +154,7 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} Spatial Data Science Center. All
             rights reserved.
           </span>
+          <span>Version b0.20260119.283</span>
         </div>
       </div>
     </footer>
