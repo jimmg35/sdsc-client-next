@@ -1,4 +1,4 @@
-import { getAnnouncementBySlug } from '@/lib/announcements';
+import { getAllAnnouncements, getAnnouncementBySlug } from '@/lib/announcements';
 import { markdownToHTML } from '@/lib/md';
 import { ArrowLeft, Calendar, User } from 'lucide-react';
 import Image from 'next/image';
@@ -14,6 +14,13 @@ const formatter = new Intl.DateTimeFormat('en-US', {
 type Props = Promise<{
   slug: string;
 }>;
+
+export async function generateStaticParams() {
+  const announcements = getAllAnnouncements();
+  return announcements.map((announcement) => ({
+    slug: announcement.slug
+  }));
+}
 
 export default async function AnnouncementPage(props: { params: Props }) {
   const { slug } = await props.params;

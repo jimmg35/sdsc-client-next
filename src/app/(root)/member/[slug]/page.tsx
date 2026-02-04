@@ -15,6 +15,11 @@ type Props = Promise<{
   slug: string;
 }>;
 
+export async function generateStaticParams() {
+  const members = getAllMembers();
+  return members.map((member) => ({ slug: member.id }));
+}
+
 export default async function ProfilePage(props: { params: Props }) {
   const { slug } = await props.params;
   const member = getMemberById(slug);

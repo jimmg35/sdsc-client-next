@@ -1,5 +1,5 @@
 import { markdownToHTML } from '@/lib/md';
-import { getNewsBySlug } from '@/lib/news';
+import { getAllNews, getNewsBySlug } from '@/lib/news';
 import { ArrowLeft, Calendar, User } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -14,6 +14,11 @@ const formatter = new Intl.DateTimeFormat('en-US', {
 type Props = Promise<{
   slug: string;
 }>;
+
+export async function generateStaticParams() {
+  const posts = getAllNews();
+  return posts.map((post) => ({ slug: post.slug }));
+}
 
 export default async function PostPage(props: { params: Props }) {
   const { slug } = await props.params;
