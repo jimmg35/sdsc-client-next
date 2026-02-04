@@ -1,0 +1,54 @@
+﻿import easternEgg from '@/lib/easterneggs';
+import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/next';
+import { IBM_Plex_Sans } from 'next/font/google';
+import Script from 'next/script';
+import './globals.css';
+
+const inter = IBM_Plex_Sans({
+  subsets: ['latin'],
+  weight: ['100', '200', '300', '400', '500', '600', '700']
+});
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+
+export const metadata: Metadata = {
+  title: 'SDSC | Spatial Data Science Center',
+  description: 'Welcome to the SDSC!'
+};
+
+export default function RootLayout({
+  children
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body className={`${inter.className} antialiased`}>
+        {GA_ID ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script
+              id="gtag-init"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${GA_ID}', { anonymize_ip: true });
+                `
+              }}
+            />
+          </>
+        ) : null}
+        <div hidden dangerouslySetInnerHTML={{ __html: easternEgg }} />
+        {children}
+        <Analytics />
+      </body>
+    </html>
+  );
+}

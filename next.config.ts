@@ -7,7 +7,8 @@ const nextConfig: NextConfig = {
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   reactStrictMode: true,
   transpilePackages: ['next-mdx-remote'],
-  images: { unoptimized: true }
+  images: { unoptimized: true },
+  trailingSlash: true
 };
 
 export default withMDX({
