@@ -15,6 +15,26 @@ export interface NewsData {
   content: string;
 }
 
+export interface RecentNewsWindow {
+  months: number;
+  windowStart: Date;
+  windowEnd: Date;
+  posts: NewsData[];
+}
+
+const parseContentDate = (value: string | Date) => {
+  if (value instanceof Date) {
+    return value;
+  }
+
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    const [year, month, day] = value.split('-').map(Number);
+    return new Date(year, month - 1, day);
+  }
+
+  return new Date(value);
+};
+
 export function getAllNews(): NewsData[] {
   const fileNames = fs.readdirSync(newsDirectory);
 
@@ -25,7 +45,7 @@ export function getAllNews(): NewsData[] {
     return {
       slug: fileName.replace(/\.mdx?$/, ''),
       title: data.title,
-      date: new Date(data.date),
+      date: parseContentDate(data.date),
       author: data.author,
       description: data.description,
       thumbnail: data.thumbnail || '/img/news-demo/news-22-370x240.jpg',
@@ -45,10 +65,39 @@ export function getNewsBySlug(slug: string): NewsData {
   return {
     slug,
     title: data.title,
-    date: new Date(data.date),
+    date: parseContentDate(data.date),
     author: data.author,
     description: data.description,
     thumbnail: data.thumbnail || '/img/news-demo/news-22-370x240.jpg',
     content
+  };
+}
+
+export function getRecentNewsWindow(
+  months = 3,
+  referenceDate = new Date()
+): RecentNewsWindow {
+  const windowEnd = new Date(referenceDate);
+  const windowStart = new Date(
+    referenceDate.getFullYear(),
+    referenceDate.getMonth(),
+    referenceDate.getDate()
+  );
+
+  windowStart.setMonth(windowStart.getMonth() - months);
+
+  const posts = getAllNews().filter((post) => {
+    const publishedAt = parseContentDate(post.date);
+    return (
+      publishedAt.getTime() >= windowStart.getTime() &&
+      publishedAt.getTime() <= windowEnd.getTime()
+    );
+  });
+
+  return {
+    months,
+    windowStart,
+    windowEnd,
+    posts
   };
 }

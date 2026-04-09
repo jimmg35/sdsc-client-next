@@ -47,7 +47,7 @@ export default async function ProfilePage(props: { params: Props }) {
       <div className="mx-auto max-w-5xl px-6 pb-28 pt-36 text-gold-100 md:pt-40">
         <div className="mb-8">
           <Link
-            className="inline-flex items-center gap-2 rounded-full border border-gold-400/40 bg-[#160b29]/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-gold-200 transition hover:border-gold-400 hover:text-gold-50"
+            className="inline-flex items-center gap-2 rounded-full border border-rose-200/80 bg-white/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-rose-600 shadow-[0_18px_42px_-30px_rgba(168,110,161,0.28)] transition hover:border-rose-300 hover:bg-white hover:text-rose-700"
             href="/member"
           >
             <ArrowLeft size={16} />
