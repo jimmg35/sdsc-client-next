@@ -35,7 +35,7 @@ const documentationLinks = [
   },
   {
     label: 'MGWR Bibliography (PDF)',
-    href: '/contents/MGWR_Bibli_0105_2026.pdf'
+    href: '/contents/(M)GWR Bibliography.pdf'
   },
   {
     label: 'mgwr Python package on GitHub',
