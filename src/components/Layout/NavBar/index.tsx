@@ -1,6 +1,6 @@
 'use client';
 
-import NotificationBanner from '@/components/Layout/NotificationBanner';
+// import NotificationBanner from '@/components/Layout/NotificationBanner';
 import easternEgg from '@/lib/easterneggs';
 import {
   AppWindowMac,
@@ -147,7 +147,7 @@ const Navbar = () => {
         </button>
       </nav>
 
-      <NotificationBanner />
+      {/* <NotificationBanner /> */}
 
       {isOpen && (
         <div className="md:hidden">

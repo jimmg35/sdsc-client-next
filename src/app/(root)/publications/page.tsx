@@ -1,6 +1,7 @@
 import PublicationExplorer from '@/components/Publications/Explorer';
 import { MemberData, getAllMembers } from '@/lib/members';
 import { PublicationData, getAllPublications } from '@/lib/publications';
+import { Suspense } from 'react';
 
 export default function Publications() {
   const publications: PublicationData[] = getAllPublications();
@@ -28,7 +29,15 @@ export default function Publications() {
           </p>
         </header>
 
-        <PublicationExplorer publications={publications} members={members} />
+        <Suspense
+          fallback={
+            <div className="mt-16 rounded-3xl border border-black/5 bg-white/70 p-8 text-center text-sm text-ink-500">
+              Loading publications...
+            </div>
+          }
+        >
+          <PublicationExplorer publications={publications} members={members} />
+        </Suspense>
       </div>
     </section>
   );

@@ -6,7 +6,7 @@ import {
 } from '@/lib/briefing';
 import { markdownToHTML } from '@/lib/md';
 import { getRecentNewsWindow } from '@/lib/news';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Bot } from 'lucide-react';
 import Link from 'next/link';
 
 const longFormatter = new Intl.DateTimeFormat('en-US', {
@@ -58,6 +58,18 @@ export default async function NewsBriefingPage() {
         </div>
 
         <header className="mt-10 text-gold-100">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-gold-100/90 backdrop-blur">
+              <Bot size={14} aria-hidden="true" />
+              SDSC AI Broadcaster
+            </span>
+            <span className="inline-flex items-center gap-2 rounded-full border border-amber-300/80 bg-amber-100 px-4 py-2 text-[0.78rem] font-semibold text-amber-950 shadow-[0_18px_42px_-32px_rgba(217,119,6,0.55)]">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-amber-400 text-[0.78rem] font-black leading-none text-amber-950">
+                !
+              </span>
+              AI briefing may contain errors. Review carefully.
+            </span>
+          </div>
           <h1 className="mt-6 max-w-4xl text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
             {briefing.title}
           </h1>

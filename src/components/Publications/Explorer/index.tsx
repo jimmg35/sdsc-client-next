@@ -1,11 +1,28 @@
 'use client';
 
 import Avatar from '@/components/Utility/Avatar';
-import PublicationPost from '@/components/Utility/PublicationPost';
+import PublicationPost, {
+  PublicationCardMember
+} from '@/components/Utility/PublicationPost';
 import { PublicationData } from '@/lib/publications';
-import { Check, Filter, Search, X } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
-import { createPortal } from 'react-dom';
+import {
+  ArrowLeft,
+  ArrowRight,
+  Filter,
+  RotateCcw,
+  Search,
+  SlidersHorizontal,
+  Sparkles,
+  X
+} from 'lucide-react';
+import {
+  ReactNode,
+  useDeferredValue,
+  useEffect,
+  useMemo,
+  useState
+} from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 type MemberOption = {
   id: string;
@@ -19,19 +36,47 @@ type PublicationExplorerProps = {
   members: MemberOption[];
 };
 
+type SortValue = 'year-desc' | 'year-asc' | 'author-asc' | 'author-desc';
+type HistoryMode = 'push' | 'replace';
+
+type PublicationRecord = {
+  publication: PublicationData;
+  centerMembers: PublicationCardMember[];
+  searchableText: string;
+};
+
 const DEFAULT_FILTER_VALUE = 'all';
+const DEFAULT_SORT_VALUE: SortValue = 'year-desc';
+const PUBLICATIONS_PER_PAGE = 12;
+const SORT_OPTIONS: Array<{ label: string; value: SortValue }> = [
+  { label: 'Newest year first', value: 'year-desc' },
+  { label: 'Oldest year first', value: 'year-asc' },
+  { label: 'Author name A-Z', value: 'author-asc' },
+  { label: 'Author name Z-A', value: 'author-desc' }
+];
 
 const PublicationExplorer = ({
   publications,
   members
 }: PublicationExplorerProps) => {
-  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const searchParamsString = searchParams.toString();
+
   const [searchQuery, setSearchQuery] = useState('');
+  const deferredSearchQuery = useDeferredValue(searchQuery);
   const [selectedYear, setSelectedYear] =
     useState<string>(DEFAULT_FILTER_VALUE);
   const [selectedAuthorId, setSelectedAuthorId] =
     useState<string>(DEFAULT_FILTER_VALUE);
-  const [isPortalReady, setIsPortalReady] = useState(false);
+
+  const pageParam = searchParams.get('page');
+  const sortParam = searchParams.get('sort');
+  const sortValue = isSortValue(sortParam) ? sortParam : DEFAULT_SORT_VALUE;
+  const parsedPage = Number.parseInt(pageParam ?? '1', 10);
+  const currentPageFromUrl =
+    Number.isFinite(parsedPage) && parsedPage > 0 ? parsedPage : 1;
 
   const yearOptions = useMemo(() => {
     const uniqueYears = new Set<number>();
@@ -63,80 +108,132 @@ const PublicationExplorer = ({
     );
   }, [members]);
 
+  const publicationRecords = useMemo<PublicationRecord[]>(() => {
+    return publications.map((publication) => {
+      const explicitMembers = publication.memberIds
+        .map((memberId) => membersById[memberId])
+        .filter((member): member is MemberOption => Boolean(member));
+
+      const heuristicMembers =
+        publication.memberIds.length === 0
+          ? members.filter((member) => {
+              const matcher = memberMatchers[member.id];
+              return matcher ? matcher(publication.author) : false;
+            })
+          : [];
+
+      const centerMembers = Array.from(
+        new Map(
+          [...explicitMembers, ...heuristicMembers].map((member) => [
+            member.id,
+            {
+              id: member.id,
+              name: member.name,
+              thumbnail: member.thumbnail
+            }
+          ])
+        ).values()
+      );
+
+      return {
+        publication,
+        centerMembers,
+        searchableText: normalizeText(
+          [
+            publication.title,
+            publication.journal,
+            publication.catalog,
+            publication.doi,
+            publication.author,
+            ...centerMembers.map((member) => member.name)
+          ]
+            .filter(Boolean)
+            .join(' ')
+        )
+      };
+    });
+  }, [memberMatchers, members, membersById, publications]);
+
   const authorOptions = useMemo(() => {
     return members
-      .map((member) => {
-        const matcher = memberMatchers[member.id];
-        const hasExplicitPublication = publications.some((publication) =>
-          publication.memberIds.includes(member.id)
-        );
-        const hasHeuristicPublication =
-          !hasExplicitPublication &&
-          matcher &&
-          publications.some(
-            (publication) =>
-              publication.memberIds.length === 0 && matcher(publication.author)
-          );
-
-        return {
-          ...member,
-          hasPublication:
-            hasExplicitPublication || Boolean(hasHeuristicPublication),
-          hasExplicitPublication
-        };
-      })
-      .sort((a, b) => {
-        if (a.hasPublication === b.hasPublication) {
-          if (a.hasExplicitPublication === b.hasExplicitPublication) {
-            return a.name.localeCompare(b.name);
-          }
-          return a.hasExplicitPublication ? -1 : 1;
+      .map((member) => ({
+        ...member,
+        hasPublication: publicationRecords.some((record) =>
+          record.centerMembers.some(
+            (centerMember) => centerMember.id === member.id
+          )
+        )
+      }))
+      .sort((left, right) => {
+        if (left.hasPublication === right.hasPublication) {
+          return left.name.localeCompare(right.name);
         }
-        return a.hasPublication ? -1 : 1;
+        return left.hasPublication ? -1 : 1;
       });
-  }, [members, publications, memberMatchers]);
+  }, [members, publicationRecords]);
 
-  const filteredPublications = useMemo(() => {
-    const normalizedQuery = normalizeText(searchQuery);
-    const activeMemberMatcher =
-      selectedAuthorId !== DEFAULT_FILTER_VALUE
-        ? memberMatchers[selectedAuthorId]
-        : null;
+  const filteredRecords = useMemo(() => {
+    const normalizedQuery = normalizeText(deferredSearchQuery);
 
-    return publications.filter((publication) => {
-      const matchesQuery =
-        !normalizedQuery ||
-        [
-          publication.title,
-          publication.author,
-          publication.journal,
-          publication.catalog,
-          publication.doi
-        ]
-          .filter(Boolean)
-          .some((field) => normalizeText(field).includes(normalizedQuery));
+    return publicationRecords.filter(
+      ({ publication, centerMembers, searchableText }) => {
+        const matchesQuery =
+          !normalizedQuery || searchableText.includes(normalizedQuery);
 
-      const matchesYear =
-        selectedYear === DEFAULT_FILTER_VALUE ||
-        (publication.year &&
-          publication.year.toString() === selectedYear.toString());
+        const matchesYear =
+          selectedYear === DEFAULT_FILTER_VALUE ||
+          (publication.year &&
+            publication.year.toString() === selectedYear.toString());
 
-      const matchesAuthor =
-        selectedAuthorId === DEFAULT_FILTER_VALUE ||
-        publication.memberIds.includes(selectedAuthorId) ||
-        (!publication.memberIds.length &&
-          activeMemberMatcher &&
-          activeMemberMatcher(publication.author));
+        const matchesAuthor =
+          selectedAuthorId === DEFAULT_FILTER_VALUE ||
+          centerMembers.some((member) => member.id === selectedAuthorId);
 
-      return matchesQuery && matchesYear && matchesAuthor;
-    });
-  }, [
-    publications,
-    searchQuery,
-    selectedYear,
-    selectedAuthorId,
-    memberMatchers
-  ]);
+        return matchesQuery && matchesYear && matchesAuthor;
+      }
+    );
+  }, [deferredSearchQuery, publicationRecords, selectedAuthorId, selectedYear]);
+
+  const sortedRecords = useMemo(() => {
+    return [...filteredRecords].sort((left, right) =>
+      comparePublications(left.publication, right.publication, sortValue)
+    );
+  }, [filteredRecords, sortValue]);
+
+  const totalPages = Math.max(
+    1,
+    Math.ceil(sortedRecords.length / PUBLICATIONS_PER_PAGE)
+  );
+  const currentPage = Math.min(currentPageFromUrl, totalPages);
+  const paginatedRecords = useMemo(() => {
+    const startIndex = (currentPage - 1) * PUBLICATIONS_PER_PAGE;
+    return sortedRecords.slice(startIndex, startIndex + PUBLICATIONS_PER_PAGE);
+  }, [currentPage, sortedRecords]);
+
+  const paginationItems = useMemo(
+    () => buildPaginationItems(currentPage, totalPages),
+    [currentPage, totalPages]
+  );
+
+  const activeFiltersCount = useMemo(() => {
+    let count = 0;
+    if (searchQuery.trim()) count += 1;
+    if (selectedYear !== DEFAULT_FILTER_VALUE) count += 1;
+    if (selectedAuthorId !== DEFAULT_FILTER_VALUE) count += 1;
+    return count;
+  }, [searchQuery, selectedAuthorId, selectedYear]);
+
+  const selectedAuthor =
+    selectedAuthorId !== DEFAULT_FILTER_VALUE
+      ? membersById[selectedAuthorId]
+      : null;
+
+  const pageStart = sortedRecords.length
+    ? (currentPage - 1) * PUBLICATIONS_PER_PAGE + 1
+    : 0;
+  const pageEnd = sortedRecords.length
+    ? Math.min(currentPage * PUBLICATIONS_PER_PAGE, sortedRecords.length)
+    : 0;
 
   useEffect(() => {
     if (
@@ -149,21 +246,52 @@ const PublicationExplorer = ({
     }
   }, [authorOptions, selectedAuthorId]);
 
-  const activeFiltersCount = useMemo(() => {
-    let count = 0;
-    if (searchQuery) count += 1;
-    if (selectedYear !== DEFAULT_FILTER_VALUE) count += 1;
-    if (selectedAuthorId !== DEFAULT_FILTER_VALUE) count += 1;
-    return count;
-  }, [searchQuery, selectedYear, selectedAuthorId]);
+  useEffect(() => {
+    if (pageParam === String(currentPage) && sortParam === sortValue) {
+      return;
+    }
 
-  const selectedAuthor =
-    selectedAuthorId !== DEFAULT_FILTER_VALUE
-      ? membersById[selectedAuthorId]
-      : null;
+    syncQuery({
+      pathname,
+      router,
+      searchParamsString,
+      updates: {
+        page: String(currentPage),
+        sort: sortValue
+      }
+    });
+  }, [
+    currentPage,
+    pageParam,
+    pathname,
+    router,
+    searchParamsString,
+    sortParam,
+    sortValue
+  ]);
 
-  const closeOverlay = () => setIsOverlayOpen(false);
-  const openOverlay = () => setIsOverlayOpen(true);
+  useEffect(() => {
+    if (currentPage === 1) {
+      return;
+    }
+
+    syncQuery({
+      pathname,
+      router,
+      searchParamsString,
+      updates: { page: '1', sort: sortValue },
+      historyMode: 'replace'
+    });
+  }, [
+    currentPage,
+    pathname,
+    router,
+    searchParamsString,
+    searchQuery,
+    selectedAuthorId,
+    selectedYear,
+    sortValue
+  ]);
 
   const resetFilters = () => {
     setSearchQuery('');
@@ -171,319 +299,334 @@ const PublicationExplorer = ({
     setSelectedAuthorId(DEFAULT_FILTER_VALUE);
   };
 
-  const handleAuthorSelect = (memberId: string) => {
-    setSelectedAuthorId((current) =>
-      current === memberId ? DEFAULT_FILTER_VALUE : memberId
-    );
+  const handleSortChange = (nextSortValue: SortValue) => {
+    syncQuery({
+      pathname,
+      router,
+      searchParamsString,
+      updates: {
+        page: '1',
+        sort: nextSortValue
+      },
+      historyMode: 'push'
+    });
   };
 
-  useEffect(() => {
-    if (!isOverlayOpen) {
-      document.body.style.removeProperty('overflow');
+  const handlePageChange = (nextPage: number) => {
+    if (nextPage < 1 || nextPage > totalPages || nextPage === currentPage) {
       return;
     }
 
-    const handleKeydown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        closeOverlay();
-      }
-    };
-
-    document.body.style.setProperty('overflow', 'hidden');
-    document.addEventListener('keydown', handleKeydown);
-
-    return () => {
-      document.body.style.removeProperty('overflow');
-      document.removeEventListener('keydown', handleKeydown);
-    };
-  }, [isOverlayOpen]);
-
-  useEffect(() => {
-    setIsPortalReady(true);
-  }, []);
-
-  return (
-    <div className="mt-16 space-y-10">
-      <div>
-        <button
-          type="button"
-          onClick={openOverlay}
-          className="flex w-full items-center justify-between rounded-3xl border border-black/5 bg-white/80 px-5 py-4 text-left text-ink-700 shadow-[0_18px_42px_-28px_rgba(15,15,35,0.35)] transition duration-300 hover:border-black/10 hover:bg-white"
-        >
-          <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-black/5 text-ink-700">
-              <Search size={20} />
-            </span>
-            <div className="flex flex-col">
-              <span className="text-sm uppercase tracking-[0.22em] text-ink-400">
-                Search publications
-              </span>
-              <span className="text-base font-medium text-ink-700">
-                {searchQuery
-                  ? `“${searchQuery}”`
-                  : 'Filter by keyword, author, or journal'}
-              </span>
-            </div>
-          </div>
-          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-ink-400">
-            <Filter size={16} />
-            {activeFiltersCount > 0 ? (
-              <span>{activeFiltersCount} active</span>
-            ) : (
-              <span>Open</span>
-            )}
-          </div>
-        </button>
-
-        {(searchQuery ||
-          selectedYear !== DEFAULT_FILTER_VALUE ||
-          selectedAuthorId !== DEFAULT_FILTER_VALUE) && (
-          <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-ink-600">
-            {searchQuery && (
-              <FilterChip
-                label={`Keyword: ${searchQuery}`}
-                onClear={() => setSearchQuery('')}
-              />
-            )}
-            {selectedYear !== DEFAULT_FILTER_VALUE && (
-              <FilterChip
-                label={`Year: ${selectedYear}`}
-                onClear={() => setSelectedYear(DEFAULT_FILTER_VALUE)}
-              />
-            )}
-            {selectedAuthor && (
-              <FilterChip
-                label={`Author: ${selectedAuthor.name}`}
-                onClear={() => setSelectedAuthorId(DEFAULT_FILTER_VALUE)}
-              />
-            )}
-            <button
-              type="button"
-              onClick={resetFilters}
-              className="ml-2 text-sm font-medium text-ink-500 hover:text-ink-700"
-            >
-              Clear all
-            </button>
-          </div>
-        )}
-      </div>
-
-      <div className="grid gap-6">
-        {filteredPublications.length > 0 ? (
-          filteredPublications.map((publication) => (
-            <PublicationPost key={publication.id} {...publication} />
-          ))
-        ) : (
-          <div className="rounded-3xl border border-black/5 bg-white/70 p-8 text-center text-sm text-ink-500">
-            No publications match your filters right now. Try adjusting your
-            search or selecting a different author or year.
-          </div>
-        )}
-      </div>
-
-      {isOverlayOpen &&
-        isPortalReady &&
-        createPortal(
-          <PublicationOverlay
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            selectedYear={selectedYear}
-            setSelectedYear={setSelectedYear}
-            selectedAuthorId={selectedAuthorId}
-            onAuthorSelect={handleAuthorSelect}
-            authorOptions={authorOptions}
-            yearOptions={yearOptions}
-            onClose={closeOverlay}
-            onReset={resetFilters}
-          />,
-          document.body
-        )}
-    </div>
-  );
-};
-
-type OverlayProps = {
-  searchQuery: string;
-  setSearchQuery: (value: string) => void;
-  selectedYear: string;
-  setSelectedYear: (value: string) => void;
-  selectedAuthorId: string;
-  onAuthorSelect: (memberId: string) => void;
-  authorOptions: Array<
-    MemberOption & { hasPublication: boolean; hasExplicitPublication: boolean }
-  >;
-  yearOptions: number[];
-  onClose: () => void;
-  onReset: () => void;
-};
-
-const PublicationOverlay = ({
-  searchQuery,
-  setSearchQuery,
-  selectedYear,
-  setSelectedYear,
-  selectedAuthorId,
-  onAuthorSelect,
-  authorOptions,
-  yearOptions,
-  onClose,
-  onReset
-}: OverlayProps) => {
-  useEffect(() => {
-    const timer = requestAnimationFrame(() => {
-      const input = document.querySelector<HTMLInputElement>(
-        '#publication-search-input'
-      );
-      input?.focus();
+    syncQuery({
+      pathname,
+      router,
+      searchParamsString,
+      updates: {
+        page: String(nextPage),
+        sort: sortValue
+      },
+      historyMode: 'push'
     });
-    return () => cancelAnimationFrame(timer);
-  }, []);
+  };
 
   return (
-    <div className="fixed inset-0 z-[999] flex items-center justify-center px-4 py-10 md:px-8">
-      <div
-        className="absolute inset-0 bg-ink-900/45 backdrop-blur-sm"
-        onClick={onClose}
-      />
-      <div className="relative z-10 flex h-full w-full max-w-4xl flex-col overflow-hidden rounded-[32px] border border-black/10 bg-white/95 shadow-[0_48px_120px_-32px_rgba(10,10,40,0.45)]">
-        <header className="flex items-center justify-between border-b border-black/5 px-6 py-4 md:px-8">
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-ink-400">
-              Publication search
-            </p>
-            <p className="mt-1 text-lg font-semibold text-ink-800">
-              Refine what you are looking for
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={onClose}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-ink-500 transition duration-200 hover:border-black/20 hover:text-ink-700"
-            aria-label="Close search"
-          >
-            <X size={18} />
-          </button>
-        </header>
+    <div className="mt-16 space-y-8">
+      <section className="calcite-box relative overflow-hidden px-5 py-5 md:px-6 md:py-5">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_82%_-12%,_rgba(214,167,208,0.26),_transparent_55%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(110%_110%_at_12%_0%,_rgba(194,156,106,0.18),_transparent_50%)]" />
 
-        <div className="flex flex-1 flex-col gap-8 overflow-y-auto px-6 pb-6 pt-6 md:px-8">
-          <div className="space-y-3">
-            <label
-              htmlFor="publication-search-input"
-              className="text-xs font-semibold uppercase tracking-[0.28em] text-ink-500"
-            >
-              Keywords
-            </label>
-            <div className="relative flex items-center">
-              <Search
-                size={18}
-                className="pointer-events-none absolute left-4 text-ink-300"
-              />
-              <input
-                id="publication-search-input"
-                type="text"
-                value={searchQuery}
-                onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder="Search title, journal, authors, DOI…"
-                className="w-full rounded-2xl border border-black/10 bg-white px-11 py-4 text-sm text-ink-800 shadow-[0_22px_50px_-32px_rgba(10,10,40,0.35)] outline-none transition duration-200 placeholder:text-ink-300 focus:border-black/30 focus:shadow-[0_30px_70px_-28px_rgba(10,10,40,0.45)]"
-              />
+        <div className="relative flex flex-col gap-4">
+          <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="chip-gold py-1">
+                <Sparkles size={14} />
+                Publication Finder
+              </span>
+              <span className="inline-flex items-center gap-2 rounded-full border border-silk-200/80 bg-white/82 px-3 py-1 text-[0.72rem] font-medium uppercase tracking-[0.24em] text-ink-500">
+                <Filter size={14} />
+                {activeFiltersCount
+                  ? `${activeFiltersCount} filters active`
+                  : 'Browse the archive'}
+              </span>
+              <span className="inline-flex items-center rounded-full border border-black/6 bg-white/80 px-3 py-1 text-[0.72rem] font-medium uppercase tracking-[0.22em] text-ink-500">
+                {sortedRecords.length} results
+              </span>
             </div>
-          </div>
 
-          <div className="grid gap-8 md:grid-cols-0">
-            <div className="space-y-3">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
               <label
-                htmlFor="publication-year-select"
-                className="text-xs font-semibold uppercase tracking-[0.28em] text-ink-500"
+                htmlFor="publication-sort-select"
+                className="inline-flex items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-ink-400"
               >
-                Year
+                <SlidersHorizontal size={14} />
+                Sort
               </label>
               <select
-                id="publication-year-select"
-                value={selectedYear}
-                onChange={(event) => setSelectedYear(event.target.value)}
-                className="w-full rounded-2xl border border-black/10 bg-white px-4 py-4 text-sm text-ink-800 shadow-[0_18px_42px_-28px_rgba(10,10,40,0.28)] outline-none transition duration-200 focus:border-black/30"
+                id="publication-sort-select"
+                value={sortValue}
+                onChange={(event) =>
+                  handleSortChange(event.target.value as SortValue)
+                }
+                className="calcite-focus rounded-[20px] border border-black/8 bg-white/88 px-4 py-3 text-sm font-medium text-ink-800"
               >
-                <option value={DEFAULT_FILTER_VALUE}>All years</option>
-                {yearOptions.map((year) => (
-                  <option key={year} value={year.toString()}>
-                    {year}
+                {SORT_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
                   </option>
                 ))}
               </select>
+
+              <button
+                type="button"
+                onClick={resetFilters}
+                className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/86 px-4 py-3 text-sm font-semibold text-ink-700 transition duration-200 hover:border-black/20 hover:bg-white"
+              >
+                <RotateCcw size={15} />
+                Reset
+              </button>
+            </div>
+          </div>
+
+          <div className="grid gap-3 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-center">
+            <div className="relative">
+              <Search
+                size={18}
+                className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-ink-400"
+              />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+                placeholder="Search by title, journal, DOI, or SDSC member"
+                className="calcite-focus w-full rounded-[24px] border border-black/8 bg-white/88 py-3.5 pl-13 pr-5 text-[0.97rem] text-ink-900 shadow-[0_22px_48px_-36px_rgba(44,36,32,0.24)] placeholder:text-ink-400"
+              />
             </div>
 
-            <div className="space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-ink-500">
-                Author
-              </p>
-              <div className="grid max-h-64 gap-3 overflow-y-auto pr-1">
-                {authorOptions.map((member) => {
-                  const isSelected = selectedAuthorId === member.id;
-                  const isDisabled = !member.hasPublication;
+            <div className="flex flex-wrap items-center gap-3 rounded-[24px] border border-black/6 bg-[linear-gradient(175deg,rgba(255,255,255,0.9),rgba(250,244,237,0.82))] px-4 py-3 text-sm text-ink-600 shadow-[0_20px_44px_-36px_rgba(44,36,32,0.22)]">
+              <span className="font-semibold text-ink-800">
+                {sortedRecords.length
+                  ? `Showing ${pageStart}-${pageEnd} of ${sortedRecords.length}`
+                  : '0 results'}
+              </span>
+              <span className="text-ink-400">/</span>
+              <span>
+                Page {currentPage} of {totalPages}
+              </span>
+            </div>
+          </div>
 
-                  return (
-                    <button
-                      key={member.id}
-                      type="button"
-                      className={`flex items-center gap-3 rounded-2xl border px-3 py-3 text-left transition duration-200 ${
-                        isSelected
-                          ? 'border-ink-800 bg-ink-800/5 text-ink-900'
-                          : 'border-black/10 bg-white text-ink-700 hover:border-black/25 hover:bg-white'
-                      } ${isDisabled ? 'opacity-50 hover:border-black/10 hover:bg-white cursor-not-allowed' : ''}`}
-                      onClick={() => !isDisabled && onAuthorSelect(member.id)}
-                      disabled={isDisabled}
-                    >
-                      <div className="flex items-center gap-3">
-                        <Avatar
-                          src={member.thumbnail}
-                          size={48}
-                          alt={`${member.name} portrait`}
-                          className="border-black/10 ring-black/5 shadow-none"
-                        />
-                        <div className="flex flex-col">
-                          <span className="text-sm font-semibold">
-                            {member.name}
-                          </span>
-                          {member.title && (
-                            <span className="text-[0.68rem] text-ink-500">
-                              {member.title}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      {isSelected && (
-                        <Check size={16} className="ml-auto text-ink-700" />
-                      )}
-                    </button>
-                  );
-                })}
-                {authorOptions.length === 0 && (
-                  <p className="rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-ink-500">
-                    No SDSC members are listed yet. Publications will surface
-                    matching authors automatically once profiles are added.
-                  </p>
-                )}
+          {(searchQuery ||
+            selectedYear !== DEFAULT_FILTER_VALUE ||
+            selectedAuthorId !== DEFAULT_FILTER_VALUE) && (
+            <div className="flex flex-wrap items-center gap-3">
+              {searchQuery && (
+                <FilterChip
+                  label={`Keyword: ${searchQuery}`}
+                  onClear={() => setSearchQuery('')}
+                />
+              )}
+              {selectedYear !== DEFAULT_FILTER_VALUE && (
+                <FilterChip
+                  label={`Year: ${selectedYear}`}
+                  onClear={() => setSelectedYear(DEFAULT_FILTER_VALUE)}
+                />
+              )}
+              {selectedAuthor && (
+                <FilterChip
+                  label={`SDSC Author: ${selectedAuthor.name}`}
+                  onClear={() => setSelectedAuthorId(DEFAULT_FILTER_VALUE)}
+                />
+              )}
+            </div>
+          )}
+        </div>
+      </section>
+
+      <div className="grid gap-8 xl:grid-cols-[285px_minmax(0,1fr)]">
+        <aside className="space-y-6 xl:sticky xl:top-28 xl:self-start">
+          <div className="calcite-box px-5 py-5">
+            <div className="space-y-4">
+              <div>
+                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-rose-500">
+                  Filter by Year
+                </p>
+                <p className="mt-2 text-sm text-ink-500">
+                  Keep the timeline tight when you want the latest or earliest
+                  work first.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                <YearFilterButton
+                  label="All years"
+                  active={selectedYear === DEFAULT_FILTER_VALUE}
+                  onClick={() => setSelectedYear(DEFAULT_FILTER_VALUE)}
+                />
+                {yearOptions.map((year) => (
+                  <YearFilterButton
+                    key={year}
+                    label={String(year)}
+                    active={selectedYear === String(year)}
+                    onClick={() => setSelectedYear(String(year))}
+                  />
+                ))}
               </div>
             </div>
           </div>
-        </div>
 
-        <footer className="flex flex-wrap items-center justify-between gap-4 border-t border-black/5 px-6 py-4 md:px-8">
-          <button
-            type="button"
-            onClick={onReset}
-            className="text-sm font-semibold text-ink-500 hover:text-ink-700"
-          >
-            Reset filters
-          </button>
-          <button
-            type="button"
-            onClick={onClose}
-            className="inline-flex items-center gap-2 rounded-full bg-ink-900 px-6 py-3 text-sm font-semibold uppercase tracking-[0.24em] text-white transition duration-200 hover:bg-black"
-          >
-            View results
-          </button>
-        </footer>
+          <div className="calcite-box px-5 py-5">
+            <div className="space-y-4">
+              <div>
+                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-rose-500">
+                  Filter by SDSC Member
+                </p>
+                <p className="mt-2 text-sm text-ink-500">
+                  Select a center member to narrow the archive to publications
+                  they contributed to.
+                </p>
+              </div>
+
+              <div className="grid max-h-[28rem] gap-2 overflow-y-auto pr-1">
+                <AuthorFilterButton
+                  label="All SDSC members"
+                  active={selectedAuthorId === DEFAULT_FILTER_VALUE}
+                  onClick={() => setSelectedAuthorId(DEFAULT_FILTER_VALUE)}
+                />
+                {authorOptions.map((member) => (
+                  <button
+                    key={member.id}
+                    type="button"
+                    onClick={() => setSelectedAuthorId(member.id)}
+                    disabled={!member.hasPublication}
+                    className={`flex items-center gap-3 rounded-[22px] border px-3 py-3 text-left transition duration-200 ${
+                      selectedAuthorId === member.id
+                        ? 'border-rose-300/70 bg-rose-50/75 text-ink-900 shadow-[0_20px_40px_-34px_rgba(168,110,161,0.45)]'
+                        : 'border-black/7 bg-white/80 text-ink-700 hover:border-black/12 hover:bg-white'
+                    } ${
+                      !member.hasPublication
+                        ? 'cursor-not-allowed opacity-45 hover:border-black/7 hover:bg-white/80'
+                        : ''
+                    }`}
+                  >
+                    <Avatar
+                      src={member.thumbnail}
+                      size={46}
+                      alt={`${member.name} portrait`}
+                      variant="soft"
+                    />
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-semibold">
+                        {member.name}
+                      </p>
+                      {member.title && (
+                        <p className="truncate text-[0.7rem] text-ink-500">
+                          {member.title}
+                        </p>
+                      )}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <div className="space-y-6">
+          <div className="flex flex-col gap-3 rounded-[30px] border border-black/6 bg-white/72 px-5 py-4 shadow-[0_24px_54px_-38px_rgba(44,36,32,0.18)] md:flex-row md:items-center md:justify-between">
+            <div className="space-y-1">
+              <p className="text-sm font-semibold text-ink-800">
+                {sortedRecords.length
+                  ? `Showing ${pageStart}-${pageEnd} of ${sortedRecords.length} publications`
+                  : 'No publications match the current query'}
+              </p>
+              <p className="text-xs uppercase tracking-[0.28em] text-ink-400">
+                Each card highlights only SDSC contributors
+              </p>
+            </div>
+
+            <div className="text-sm text-ink-500">
+              Query params: <span className="font-semibold">page</span>,{' '}
+              <span className="font-semibold">sort</span>
+            </div>
+          </div>
+
+          <div className="grid gap-6">
+            {paginatedRecords.length > 0 ? (
+              paginatedRecords.map(({ publication, centerMembers }) => (
+                <PublicationPost
+                  key={publication.id}
+                  {...publication}
+                  centerMembers={centerMembers}
+                />
+              ))
+            ) : (
+              <div className="calcite-box px-8 py-10 text-center text-sm text-ink-500">
+                No publications match your current search and filter
+                combination. Try clearing a filter or broadening the keyword.
+              </div>
+            )}
+          </div>
+
+          {totalPages > 1 && (
+            <nav
+              aria-label="Publication pagination"
+              className="calcite-box flex flex-col gap-4 px-5 py-5"
+            >
+              <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <p className="text-sm font-semibold text-ink-800">
+                    Page {currentPage} of {totalPages}
+                  </p>
+                  <p className="text-xs uppercase tracking-[0.28em] text-ink-400">
+                    Navigate the publication archive
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2">
+                  <PaginationButton
+                    label="Previous"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    icon={<ArrowLeft size={16} />}
+                  />
+
+                  {paginationItems.map((item, index) =>
+                    item === 'ellipsis' ? (
+                      <span
+                        key={`ellipsis-${index}`}
+                        className="px-2 text-sm text-ink-400"
+                      >
+                        ...
+                      </span>
+                    ) : (
+                      <button
+                        key={item}
+                        type="button"
+                        onClick={() => handlePageChange(item)}
+                        aria-current={item === currentPage ? 'page' : undefined}
+                        className={`min-w-11 rounded-[20px] border px-4 py-3 text-sm font-semibold transition duration-200 ${
+                          item === currentPage
+                            ? 'border-rose-400/70 bg-rose-500 text-white shadow-[0_24px_40px_-30px_rgba(168,110,161,0.6)]'
+                            : 'border-black/8 bg-white/85 text-ink-700 hover:border-black/16 hover:bg-white'
+                        }`}
+                      >
+                        {item}
+                      </button>
+                    )
+                  )}
+
+                  <PaginationButton
+                    label="Next"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    icon={<ArrowRight size={16} />}
+                    iconPosition="right"
+                  />
+                </div>
+              </div>
+            </nav>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -495,12 +638,12 @@ type FilterChipProps = {
 };
 
 const FilterChip = ({ label, onClear }: FilterChipProps) => (
-  <span className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/80 px-3 py-2 text-xs text-ink-600">
+  <span className="inline-flex items-center gap-2 rounded-full border border-rose-200/60 bg-rose-50/80 px-3 py-2 text-xs font-medium text-ink-700">
     {label}
     <button
       type="button"
       onClick={onClear}
-      className="rounded-full border border-black/10 p-1 text-ink-400 hover:border-black/20 hover:text-ink-700"
+      className="rounded-full border border-rose-200/70 p-1 text-rose-500 transition duration-200 hover:border-rose-300 hover:text-rose-600"
       aria-label={`Remove ${label}`}
     >
       <X size={12} />
@@ -508,8 +651,246 @@ const FilterChip = ({ label, onClear }: FilterChipProps) => (
   </span>
 );
 
+type YearFilterButtonProps = {
+  label: string;
+  active: boolean;
+  onClick: () => void;
+};
+
+const YearFilterButton = ({
+  label,
+  active,
+  onClick
+}: YearFilterButtonProps) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className={`rounded-full border px-3.5 py-2 text-sm font-medium transition duration-200 ${
+      active
+        ? 'border-rose-300/70 bg-rose-50 text-rose-700 shadow-[0_16px_30px_-24px_rgba(168,110,161,0.4)]'
+        : 'border-black/8 bg-white/82 text-ink-700 hover:border-black/14 hover:bg-white'
+    }`}
+  >
+    {label}
+  </button>
+);
+
+type AuthorFilterButtonProps = {
+  label: string;
+  active: boolean;
+  onClick: () => void;
+};
+
+const AuthorFilterButton = ({
+  label,
+  active,
+  onClick
+}: AuthorFilterButtonProps) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className={`rounded-[22px] border px-4 py-3 text-left text-sm font-semibold transition duration-200 ${
+      active
+        ? 'border-rose-300/70 bg-rose-50/78 text-ink-900 shadow-[0_20px_36px_-30px_rgba(168,110,161,0.45)]'
+        : 'border-black/8 bg-white/84 text-ink-700 hover:border-black/14 hover:bg-white'
+    }`}
+  >
+    {label}
+  </button>
+);
+
+type PaginationButtonProps = {
+  label: string;
+  onClick: () => void;
+  disabled?: boolean;
+  icon?: ReactNode;
+  iconPosition?: 'left' | 'right';
+};
+
+const PaginationButton = ({
+  label,
+  onClick,
+  disabled = false,
+  icon,
+  iconPosition = 'left'
+}: PaginationButtonProps) => (
+  <button
+    type="button"
+    onClick={onClick}
+    disabled={disabled}
+    className={`inline-flex items-center gap-2 rounded-[20px] border px-4 py-3 text-sm font-semibold transition duration-200 ${
+      disabled
+        ? 'cursor-not-allowed border-black/6 bg-white/70 text-ink-300'
+        : 'border-black/8 bg-white/85 text-ink-700 hover:border-black/16 hover:bg-white'
+    }`}
+  >
+    {iconPosition === 'left' && icon}
+    {label}
+    {iconPosition === 'right' && icon}
+  </button>
+);
+
+function syncQuery({
+  pathname,
+  router,
+  searchParamsString,
+  updates,
+  historyMode = 'replace'
+}: {
+  pathname: string;
+  router: ReturnType<typeof useRouter>;
+  searchParamsString: string;
+  updates: Record<string, string | null>;
+  historyMode?: HistoryMode;
+}) {
+  const nextParams = new URLSearchParams(searchParamsString);
+
+  Object.entries(updates).forEach(([key, value]) => {
+    if (!value) {
+      nextParams.delete(key);
+      return;
+    }
+
+    nextParams.set(key, value);
+  });
+
+  const queryString = nextParams.toString();
+  const nextUrl = queryString ? `${pathname}?${queryString}` : pathname;
+  const currentUrl = searchParamsString
+    ? `${pathname}?${searchParamsString}`
+    : pathname;
+
+  if (nextUrl === currentUrl) {
+    return;
+  }
+
+  if (historyMode === 'push') {
+    router.push(nextUrl);
+    return;
+  }
+
+  router.replace(nextUrl);
+}
+
 function normalizeText(value?: string | null) {
   return value?.toLowerCase().trim() || '';
+}
+
+function isSortValue(value: string | null): value is SortValue {
+  return SORT_OPTIONS.some((option) => option.value === value);
+}
+
+function comparePublications(
+  left: PublicationData,
+  right: PublicationData,
+  sortValue: SortValue
+) {
+  if (sortValue === 'year-desc') {
+    return compareByYearDesc(left, right) || compareByTitle(left, right);
+  }
+
+  if (sortValue === 'year-asc') {
+    return compareByYearAsc(left, right) || compareByTitle(left, right);
+  }
+
+  if (sortValue === 'author-asc') {
+    return compareByAuthor(left, right) || compareByTitle(left, right);
+  }
+
+  return compareByAuthor(right, left) || compareByTitle(left, right);
+}
+
+function compareByYearAsc(left: PublicationData, right: PublicationData) {
+  const leftHasYear = typeof left.year === 'number';
+  const rightHasYear = typeof right.year === 'number';
+
+  if (!leftHasYear && !rightHasYear) {
+    return 0;
+  }
+
+  if (!leftHasYear) {
+    return 1;
+  }
+
+  if (!rightHasYear) {
+    return -1;
+  }
+
+  const leftYear = left.year as number;
+  const rightYear = right.year as number;
+
+  if (leftYear !== rightYear) {
+    return leftYear - rightYear;
+  }
+
+  return 0;
+}
+
+function compareByYearDesc(left: PublicationData, right: PublicationData) {
+  const leftHasYear = typeof left.year === 'number';
+  const rightHasYear = typeof right.year === 'number';
+
+  if (!leftHasYear && !rightHasYear) {
+    return 0;
+  }
+
+  if (!leftHasYear) {
+    return 1;
+  }
+
+  if (!rightHasYear) {
+    return -1;
+  }
+
+  const leftYear = left.year as number;
+  const rightYear = right.year as number;
+
+  if (leftYear !== rightYear) {
+    return rightYear - leftYear;
+  }
+
+  return 0;
+}
+
+function compareByAuthor(left: PublicationData, right: PublicationData) {
+  return normalizeText(left.author).localeCompare(normalizeText(right.author));
+}
+
+function compareByTitle(left: PublicationData, right: PublicationData) {
+  return left.title.localeCompare(right.title);
+}
+
+function buildPaginationItems(currentPage: number, totalPages: number) {
+  if (totalPages <= 7) {
+    return Array.from({ length: totalPages }, (_, index) => index + 1);
+  }
+
+  const items: Array<number | 'ellipsis'> = [1];
+  let start = Math.max(2, currentPage - 1);
+  let end = Math.min(totalPages - 1, currentPage + 1);
+
+  if (currentPage <= 3) {
+    end = 4;
+  }
+
+  if (currentPage >= totalPages - 2) {
+    start = totalPages - 3;
+  }
+
+  if (start > 2) {
+    items.push('ellipsis');
+  }
+
+  for (let page = start; page <= end; page += 1) {
+    items.push(page);
+  }
+
+  if (end < totalPages - 1) {
+    items.push('ellipsis');
+  }
+
+  items.push(totalPages);
+  return items;
 }
 
 function buildMemberMatcher(name: string) {
