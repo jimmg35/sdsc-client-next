@@ -1,6 +1,7 @@
 'use client';
 
 // import NotificationBanner from '@/components/Layout/NotificationBanner';
+import OfficialSiteBar from '@/components/Layout/OfficialSiteBar';
 import easternEgg from '@/lib/easterneggs';
 import {
   AppWindowMac,
@@ -116,60 +117,62 @@ const Navbar = () => {
   };
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${backgroundClass}`}
-    >
-      <nav className="relative mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-4 text-rose-700 md:h-20 md:px-6">
-        <Image
-          width={145}
-          height={46}
-          src="/img/sdsc-logo.png"
-          alt="SDSC logo"
-          className="cursor-pointer rounded-md object-cover"
-          onClick={() => {
-            window.location.href = '/';
-          }}
-        />
+    <header className="fixed inset-x-0 top-0 z-50">
+      <OfficialSiteBar />
 
-        <div className="hidden items-center gap-5 md:flex">
-          <div className="flex items-center gap-3">
-            {primaryNavItems.map((item) => renderLink(item, 'desktop'))}
-          </div>
-        </div>
+      <div className={`transition-all duration-300 ${backgroundClass}`}>
+        <nav className="relative mx-auto flex h-[3.75rem] max-w-6xl items-center justify-between gap-6 px-4 text-rose-700 md:h-[4.5rem] md:px-6">
+          <Image
+            width={145}
+            height={46}
+            src="/img/sdsc-logo.png"
+            alt="SDSC logo"
+            className="cursor-pointer rounded-md object-cover"
+            onClick={() => {
+              window.location.href = '/';
+            }}
+          />
 
-        <button
-          type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-rose-200/70 bg-white text-rose-600 transition hover:text-rose-700 md:hidden"
-          onClick={() => setIsOpen((prev) => !prev)}
-          aria-label="Toggle navigation"
-        >
-          {isOpen ? <X size={18} /> : <Menu size={18} />}
-        </button>
-      </nav>
-
-      {/* <NotificationBanner /> */}
-
-      {isOpen && (
-        <div className="md:hidden">
-          <div className="px-4 pb-6">
-            <div className="space-y-4 rounded-3xl border border-rose-200/80 bg-white/95 p-6 shadow-[0_32px_64px_-42px_rgba(61,47,39,0.32)]">
-              <p className="text-xs font-semibold uppercase tracking-[0.34em] text-rose-500">
-                Navigation
-              </p>
-              <div className="space-y-3">
-                {primaryNavItems.map((item) => renderLink(item, 'mobile'))}
-              </div>
-              <Link
-                href="/contact"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-silk-300 bg-silk-200/90 px-4 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-silk-800 transition hover:bg-silk-200"
-                onClick={() => setIsOpen(false)}
-              >
-                Partner with SDSC
-              </Link>
+          <div className="hidden items-center gap-5 md:flex">
+            <div className="flex items-center gap-3">
+              {primaryNavItems.map((item) => renderLink(item, 'desktop'))}
             </div>
           </div>
-        </div>
-      )}
+
+          <button
+            type="button"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-rose-200/70 bg-white text-rose-600 transition hover:text-rose-700 md:hidden"
+            onClick={() => setIsOpen((prev) => !prev)}
+            aria-label="Toggle navigation"
+          >
+            {isOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
+        </nav>
+
+        {/* <NotificationBanner /> */}
+
+        {isOpen && (
+          <div className="md:hidden">
+            <div className="px-4 pb-6">
+              <div className="space-y-4 rounded-3xl border border-rose-200/80 bg-white/95 p-6 shadow-[0_32px_64px_-42px_rgba(61,47,39,0.32)]">
+                <p className="text-xs font-semibold uppercase tracking-[0.34em] text-rose-500">
+                  Navigation
+                </p>
+                <div className="space-y-3">
+                  {primaryNavItems.map((item) => renderLink(item, 'mobile'))}
+                </div>
+                <Link
+                  href="/contact"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-silk-300 bg-silk-200/90 px-4 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-silk-800 transition hover:bg-silk-200"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Partner with SDSC
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </header>
   );
 };
