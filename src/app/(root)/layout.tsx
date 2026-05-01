@@ -3,7 +3,7 @@ import NavBar from '@/components/Layout/NavBar';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'SDSC | Spatial Data Science Center',
+  title: 'Spatial Data Science Center',
   description: 'Welcome to the SDSC!'
 };
 

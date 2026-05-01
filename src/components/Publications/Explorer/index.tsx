@@ -331,7 +331,10 @@ const PublicationExplorer = ({
 
   return (
     <div className="mt-16 space-y-8">
-      <section className="calcite-box relative overflow-hidden px-5 py-5 md:px-6 md:py-5">
+      <section
+        id="publication-finder"
+        className="calcite-box relative overflow-hidden scroll-mt-36 px-5 py-5 md:scroll-mt-44 md:px-6 md:py-5"
+      >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_82%_-12%,_rgba(214,167,208,0.26),_transparent_55%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(110%_110%_at_12%_0%,_rgba(194,156,106,0.18),_transparent_50%)]" />
 
@@ -444,7 +447,10 @@ const PublicationExplorer = ({
 
       <div className="grid gap-8 xl:grid-cols-[285px_minmax(0,1fr)]">
         <aside className="space-y-6 xl:sticky xl:top-28 xl:self-start">
-          <div className="calcite-box px-5 py-5">
+          <div
+            id="publication-years"
+            className="calcite-box scroll-mt-36 px-5 py-5 md:scroll-mt-44"
+          >
             <div className="space-y-4">
               <div>
                 <p className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-rose-500">
@@ -474,7 +480,10 @@ const PublicationExplorer = ({
             </div>
           </div>
 
-          <div className="calcite-box px-5 py-5">
+          <div
+            id="publication-members"
+            className="calcite-box scroll-mt-36 px-5 py-5 md:scroll-mt-44"
+          >
             <div className="space-y-4">
               <div>
                 <p className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-rose-500">
@@ -531,7 +540,10 @@ const PublicationExplorer = ({
           </div>
         </aside>
 
-        <div className="space-y-6">
+        <div
+          id="publication-results"
+          className="space-y-6 scroll-mt-36 md:scroll-mt-44"
+        >
           <div className="flex flex-col gap-3 rounded-[30px] border border-black/6 bg-white/72 px-5 py-4 shadow-[0_24px_54px_-38px_rgba(44,36,32,0.18)] md:flex-row md:items-center md:justify-between">
             <div className="space-y-1">
               <p className="text-sm font-semibold text-ink-800">

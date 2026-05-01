@@ -52,9 +52,11 @@ export interface MemberData {
 }
 
 export function getAllMembers(): MemberData[] {
-  const memberNames = fs.readdirSync(membersDirectory);
+  const memberNames = fs
+    .readdirSync(membersDirectory)
+    .filter((memberName) => !memberName.startsWith('.'));
 
-  const members = memberNames.map((memberName) => {
+  const members = memberNames.flatMap<MemberData>((memberName) => {
     const filePath = path.join(membersDirectory, memberName, 'meta.json');
     const fileContents = fs.readFileSync(filePath, 'utf8');
     const {
@@ -79,25 +81,31 @@ export function getAllMembers(): MemberData[] {
       professionalExperience
     } = JSON.parse(fileContents);
 
-    return {
-      id,
-      name,
-      title,
-      department,
-      email,
-      thumbnail,
-      centerRole,
-      cvPath: cvPath || undefined,
-      googleScholar,
-      advisor: advisor || facultySupervisor || undefined,
-      advisorId: advisorId || facultySupervisorId || undefined,
-      education: education || [],
-      honor: honor || [],
-      selectedPublications: selectedPublications || [],
-      courseTaught: courseTaught || [],
-      aoi: aoi || [],
-      professionalExperience: professionalExperience || []
-    };
+    if (!id || !name) {
+      return [];
+    }
+
+    return [
+      {
+        id,
+        name,
+        title,
+        department,
+        email,
+        thumbnail,
+        centerRole,
+        cvPath: cvPath || undefined,
+        googleScholar,
+        advisor: advisor || facultySupervisor || undefined,
+        advisorId: advisorId || facultySupervisorId || undefined,
+        education: education || [],
+        honor: honor || [],
+        selectedPublications: selectedPublications || [],
+        courseTaught: courseTaught || [],
+        aoi: aoi || [],
+        professionalExperience: professionalExperience || []
+      }
+    ];
   });
 
   return members;

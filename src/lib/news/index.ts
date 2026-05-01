@@ -10,8 +10,10 @@ export interface NewsData {
   title: string;
   date: Date;
   author: string;
+  memberIds: string[];
   description: string;
   thumbnail: string;
+  sourceUrl?: string;
   content: string;
 }
 
@@ -47,8 +49,14 @@ export function getAllNews(): NewsData[] {
       title: data.title,
       date: parseContentDate(data.date),
       author: data.author,
+      memberIds: Array.isArray(data.memberIds)
+        ? data.memberIds.filter((memberId: unknown): memberId is string =>
+            typeof memberId === 'string'
+          )
+        : [],
       description: data.description,
       thumbnail: data.thumbnail || '/img/news-demo/news-22-370x240.jpg',
+      sourceUrl: data.sourceUrl || undefined,
       content
     };
   });
@@ -67,8 +75,14 @@ export function getNewsBySlug(slug: string): NewsData {
     title: data.title,
     date: parseContentDate(data.date),
     author: data.author,
+    memberIds: Array.isArray(data.memberIds)
+      ? data.memberIds.filter((memberId: unknown): memberId is string =>
+          typeof memberId === 'string'
+        )
+      : [],
     description: data.description,
     thumbnail: data.thumbnail || '/img/news-demo/news-22-370x240.jpg',
+    sourceUrl: data.sourceUrl || undefined,
     content
   };
 }
