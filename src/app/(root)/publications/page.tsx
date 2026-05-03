@@ -1,4 +1,5 @@
 import PublicationBrowseOverview, {
+  type LatestPublicationNoticeItem,
   type PublicationOverviewMetric
 } from '@/components/Publications/BrowseOverview';
 import PublicationExplorer from '@/components/Publications/Explorer';
@@ -43,6 +44,10 @@ export default function Publications() {
       detail: 'Output from all SDSC members over the past two years.'
     }
   ];
+  const latestPublications = buildLatestPublicationNotices(
+    publications,
+    members
+  );
 
   return (
     <section className="page-shell">
@@ -60,6 +65,7 @@ export default function Publications() {
 
         <PublicationBrowseOverview
           overview={overview}
+          latestPublications={latestPublications}
           linkedContributorCount={linkedContributorCount}
           latestYear={latestYear}
         />
@@ -80,4 +86,91 @@ export default function Publications() {
 
 function formatCount(value: number) {
   return new Intl.NumberFormat('en-US').format(value);
+}
+
+function buildLatestPublicationNotices(
+  publications: PublicationData[],
+  members: Pick<MemberData, 'id' | 'name' | 'title' | 'thumbnail'>[],
+  referenceDate = new Date()
+): LatestPublicationNoticeItem[] {
+  const membersById = new Map(members.map((member) => [member.id, member]));
+  const windowStart = new Date(referenceDate);
+  windowStart.setMonth(windowStart.getMonth() - 1);
+
+  return publications
+    .flatMap((publication) => {
+      const publishedDate = parsePublicationDate(publication.publishedAt);
+
+      if (
+        !publishedDate ||
+        publishedDate < windowStart ||
+        publishedDate > referenceDate
+      ) {
+        return [];
+      }
+
+      return [
+        {
+          item: {
+            id: publication.id,
+            title: publication.title,
+            author: publication.author,
+            doi: publication.doi,
+            publishedAgoLabel: formatDaysAgo(publishedDate, referenceDate),
+            members: publication.memberIds
+              .map((memberId) => membersById.get(memberId))
+              .filter((member): member is NonNullable<typeof member> =>
+                Boolean(member)
+              )
+              .map(({ id, name, thumbnail }) => ({ id, name, thumbnail }))
+          },
+          publishedTime: publishedDate.getTime()
+        }
+      ];
+    })
+    .sort((left, right) => right.publishedTime - left.publishedTime)
+    .map(({ item }) => item);
+}
+
+function parsePublicationDate(value: string | null): Date | null {
+  if (!value) {
+    return null;
+  }
+
+  const normalizedValue = /^\d{4}-\d{2}-\d{2}$/.test(value)
+    ? `${value}T12:00:00`
+    : value;
+  const date = new Date(normalizedValue);
+
+  if (Number.isNaN(date.getTime())) {
+    return null;
+  }
+
+  return date;
+}
+
+function formatDaysAgo(publishedDate: Date, referenceDate: Date) {
+  const millisecondsPerDay = 1000 * 60 * 60 * 24;
+  const publishedDay = new Date(
+    publishedDate.getFullYear(),
+    publishedDate.getMonth(),
+    publishedDate.getDate()
+  );
+  const referenceDay = new Date(
+    referenceDate.getFullYear(),
+    referenceDate.getMonth(),
+    referenceDate.getDate()
+  );
+  const daysAgo = Math.max(
+    0,
+    Math.floor(
+      (referenceDay.getTime() - publishedDay.getTime()) / millisecondsPerDay
+    )
+  );
+
+  if (daysAgo === 0) {
+    return 'today';
+  }
+
+  return daysAgo === 1 ? '1 day ago' : `${daysAgo} days ago`;
 }

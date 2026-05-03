@@ -70,7 +70,7 @@ export default async function ProfilePage(props: { params: Props }) {
 
         <header className="surface-fade mt-6 overflow-hidden px-6 py-8 md:px-8 lg:px-10">
           <div className="grid gap-8 lg:grid-cols-[13rem_1fr] lg:items-center">
-            <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+            <div className="flex flex-col items-center justify-self-center text-center">
               <div className="halo">
                 <Avatar
                   src={member.thumbnail}
@@ -78,7 +78,7 @@ export default async function ProfilePage(props: { params: Props }) {
                   alt={`${member.name} portrait`}
                 />
               </div>
-              <span className="mt-5 inline-flex rounded-full border border-rose-200/80 bg-rose-50/80 px-3 py-1 text-[0.66rem] font-semibold uppercase tracking-[0.24em] text-rose-600">
+              <span className="mt-5 inline-flex whitespace-nowrap rounded-full border border-rose-200/80 bg-rose-50/80 px-3 py-1 text-center text-[0.58rem] font-semibold uppercase tracking-[0.16em] text-rose-600">
                 {member.centerRole || 'SDSC Member'}
               </span>
             </div>

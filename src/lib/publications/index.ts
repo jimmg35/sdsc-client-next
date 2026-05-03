@@ -17,6 +17,7 @@ export interface PublicationData {
   doi: string;
   memberIds: string[];
   year: number | null;
+  publishedAt: string | null;
 }
 
 export function getAllPublications(): PublicationData[] {
@@ -38,8 +39,16 @@ export function getAllPublications(): PublicationData[] {
       }
 
       const fileContents = fs.readFileSync(filePath, 'utf8');
-      const { id, author, title, journal, catalog, doi, memberIds } =
-        JSON.parse(fileContents);
+      const {
+        id,
+        author,
+        title,
+        journal,
+        catalog,
+        doi,
+        memberIds,
+        publishedAt
+      } = JSON.parse(fileContents);
       const year = extractPublicationYear(author, catalog);
 
       return {
@@ -54,7 +63,8 @@ export function getAllPublications(): PublicationData[] {
               (value): value is string => typeof value === 'string'
             )
           : [],
-        year
+        year,
+        publishedAt: typeof publishedAt === 'string' ? publishedAt : null
       };
     })
     .filter(
@@ -102,7 +112,11 @@ function mergePublications(publications: PublicationData[]): PublicationData[] {
       memberIds: Array.from(
         new Set([...existingPublication.memberIds, ...publication.memberIds])
       ),
-      year: existingPublication.year ?? publication.year
+      year: existingPublication.year ?? publication.year,
+      publishedAt: preferLatestDate(
+        existingPublication.publishedAt,
+        publication.publishedAt
+      )
     });
   });
 
@@ -138,6 +152,23 @@ function preferLongerText(currentValue: string, incomingValue: string): string {
   }
 
   return incomingValue.length > currentValue.length
+    ? incomingValue
+    : currentValue;
+}
+
+function preferLatestDate(
+  currentValue: string | null,
+  incomingValue: string | null
+): string | null {
+  if (!currentValue) {
+    return incomingValue;
+  }
+
+  if (!incomingValue) {
+    return currentValue;
+  }
+
+  return Date.parse(incomingValue) > Date.parse(currentValue)
     ? incomingValue
     : currentValue;
 }
