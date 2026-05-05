@@ -13,7 +13,7 @@ const inter = IBM_Plex_Sans({
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 export const metadata: Metadata = {
-  title: 'SDSC | Spatial Data Science Center',
+  title: 'Spatial Data Science Center',
   description: 'Welcome to the SDSC!'
 };
 

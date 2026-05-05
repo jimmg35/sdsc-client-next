@@ -1,6 +1,6 @@
 import NewsCard from '@/components/Utility/NewsCard';
 import { NewsData, getAllNews } from '@/lib/news';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, RadioTower } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -28,6 +28,29 @@ export default function News() {
             spatial science.
           </p>
         </header>
+
+        <section className="surface-fade mt-12 px-6 py-6 text-left text-ink-900 md:px-8">
+          <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+            <div className="max-w-3xl">
+              <p className="panel-title">Need The Short Version?</p>
+              <h2 className="mt-4 text-2xl font-semibold text-rose-700">
+                Read the rolling SDSC briefing
+              </h2>
+              <p className="mt-3 text-sm leading-7 text-ink-700">
+                The briefing page turns the latest three months of SDSC news
+                into one running narrative, then anchors it to the underlying
+                story feed.
+              </p>
+            </div>
+            <Link
+              href="/news/briefing"
+              className="inline-flex items-center gap-2 self-start rounded-full border border-rose-200/80 bg-white/90 px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-rose-600 transition hover:border-rose-300 hover:text-rose-700"
+            >
+              Read briefing
+              <RadioTower size={18} />
+            </Link>
+          </div>
+        </section>
 
         {featured ? (
           <article className="mt-16 grid gap-6 overflow-hidden rounded-[32px] border border-garnet-600/35 bg-white shadow-[0_32px_60px_-40px_rgba(9,4,24,0.85)] md:grid-cols-[1.1fr_1fr]">

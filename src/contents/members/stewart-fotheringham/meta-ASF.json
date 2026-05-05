@@ -1,0 +1,98 @@
+{
+  "id": "stewart-fotheringham",
+  "name": "Stewart Fotheringham",
+  "title": "Krafft Professor of Spatial Data Science, Director of the Spatial Data Science Center",
+  "department": "Department of Geography",
+  "email": "stewart.fotheringham@fsu.edu",
+  "thumbnail": "/img/avatar/stewart-fotheringham.jpg",
+  "centerRole": "Center Director",
+  "cvPath": "/cv/CV Dec 2025 with ribbon.doc",
+  "googleScholar": "https://scholar.google.com/citations?user=AIcXcUIAAAAJ&hl=en",
+  "education": [
+    {
+      "degree": "Ph.D.",
+      "field": "Geography",
+      "institution": "McMaster University, Canada",
+      "year": 1980
+    },
+    {
+      "degree": "M.A.",
+      "field": "Geography",
+      "institution": "McMaster University, Canada",
+      "year": 1978
+    },
+    {
+      "degree": "B.Sc. (Honours)",
+      "field": "Geography",
+      "institution": "Aberdeen University, Scotland",
+      "year": 1976
+    }
+  ],
+  "honor": [
+    {
+      "title": "Elected member of the U.S. National Academy of Sciences",
+      "year": 2013
+    },
+    {
+      "title": "Elected Member of Academia Europaea",
+      "year": 2016
+    },
+    {
+      "title": "Elected Academician of the Academy of Social Sciences, UK",
+      "year": 2013
+    },
+    {
+      "title": "Appointed as Regents’ Professor (the highest award at ASU restricted to 3% of Full Professors) at universities in Arizona",
+      "year": 2019
+    },
+    {
+      "title": "American Association of Geographers Distinguished Scholarship Honors Award",
+      "year": 2019
+    }
+  ],
+  "selectedPublications": [
+    {
+      "id": "multiscale-geographically-weighted-regression-theory-and-practice-2024",
+      "author": "Fotheringham, A. S., Oshan, T. M., & Li, Z. (2024).",
+      "title": "Multiscale Geographically Weighted Regression: Theory and Practice.",
+      "journal": "CRC Press (Routledge): Boca Raton, FL.",
+      "catalog": "ISBN 9781032564227; pp. xvii + 178.",
+      "doi": "https://www.routledge.com/Multiscale-Geographically-Weighted-Regression-Theory-and-Practice/Fotheringham-Oshan-Li/p/book/9781032564227"
+    },
+    {
+      "id": "inference-and-bandwidth-selection-mgtwr-2024",
+      "author": "Yu, H., & Fotheringham, A. S. (2024).",
+      "title": "Inference and Bandwidth Selection in Multiscale Geographically and Temporally Weighted Regression.",
+      "journal": "International Journal of Geographical Information Science",
+      "catalog": "39(6), 1203-1222.",
+      "doi": "https://doi.org/10.1080/13658816.2024.2440600"
+    },
+    {
+      "id": "regiongcn-spatial-heterogeneity-aware-gcn-2025",
+      "author": "Guo, H., Wang, H., Zhu, D., Wu, L., Fotheringham, A. S., & Liu, Y. (2025).",
+      "title": "RegionGCN: Spatial-Heterogeneity-Aware Graph Convolutional Networks.",
+      "journal": "Annals of the American Association of Geographers",
+      "catalog": "In press.",
+      "doi": "https://doi.org/10.1080/24694452.2025.2558661"
+    },
+    {
+      "id": "measuring-the-unmeasurable-2023",
+      "author": "Fotheringham, A. S., & Li, Z. (2023).",
+      "title": "Measuring the Unmeasurable: Models of Geographic Context.",
+      "journal": "Annals of the American Association of Geographers",
+      "catalog": "113(10), 2269-2286.",
+      "doi": "https://doi.org/10.1080/24694452.2023.2227690"
+    },
+    {
+      "id": "geographical-perspective-on-simpsons-paradox-2023",
+      "author": "Sachdeva, M., & Fotheringham, A. S. (2023).",
+      "title": "A Geographical Perspective on Simpson's Paradox.",
+      "journal": "Journal of Spatial Information Science",
+      "catalog": "26, 1-25.",
+      "doi": "https://doi.org/10.5311/josis.2023.26.212"
+    }
+  ],
+  "courseTaught": [],
+  "aoi": [],
+  "professionalExperience": []
+}

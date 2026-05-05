@@ -1,6 +1,6 @@
 import NewsCard from '@/components/Utility/NewsCard';
 import { NewsData, getAllNews } from '@/lib/news';
-import { Rss } from 'lucide-react';
+import { RadioTower, Rss } from 'lucide-react';
 import Link from 'next/link';
 import Heading from '../Heading';
 
@@ -29,13 +29,22 @@ const News = () => {
           ))}
         </div>
 
-        <Link
-          href="/news"
-          className="inline-flex items-center gap-2 rounded-full border border-gold-400/40 bg-[#130722]/20 px-6 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-gold-300 transition hover:border-gold-400 hover:text-gold-50"
-        >
-          View all stories
-          <Rss size={18} />
-        </Link>
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <Link
+            href="/news"
+            className="inline-flex items-center gap-2 rounded-full border border-gold-400/40 bg-[#130722]/20 px-6 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-gold-300 transition hover:border-gold-400 hover:text-gold-50"
+          >
+            View all stories
+            <Rss size={18} />
+          </Link>
+          <Link
+            href="/news/briefing"
+            className="inline-flex items-center gap-2 rounded-full border border-gold-400/40 bg-gold-500/85 px-6 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-[#140a23] transition hover:bg-gold-400"
+          >
+            Read the briefing
+            <RadioTower size={18} />
+          </Link>
+        </div>
       </div>
     </section>
   );

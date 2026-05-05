@@ -25,7 +25,16 @@
     }
   ],
   "honor": [],
-  "selectedPublications": [],
+  "selectedPublications": [
+    {
+      "id": "spatial-context-time-invariant-confounder-mgwr-2026",
+      "author": "Li, Z., & Fotheringham, A. S. (2026).",
+      "title": "Spatial Context as a Time-Invariant Confounder: A Fixed-Effects Extension of MGWR.",
+      "journal": "Annals of the American Association of Geographers",
+      "catalog": "1-25.",
+      "doi": "https://doi.org/10.1080/24694452.2026.2654481"
+    }
+  ],
   "courseTaught": [],
   "aoi": [],
   "professionalExperience": []

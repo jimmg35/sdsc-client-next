@@ -1,8 +1,15 @@
-import ProfileCard from '@/components/Utility/ProfileCard';
+import MembersDirectory, {
+  type MemberDirectorySection
+} from '@/components/Members/Directory';
 import { MemberData, getMemberById } from '@/lib/members';
 
 const collectMembers = (entries: Array<MemberData | null>): MemberData[] =>
   entries.filter((entry): entry is MemberData => Boolean(entry));
+
+const sortMembersByName = (members: MemberData[]): MemberData[] =>
+  [...members].sort((left, right) =>
+    left.name.localeCompare(right.name, 'en', { sensitivity: 'base' })
+  );
 
 export default function Member() {
   const stewart = getMemberById('stewart-fotheringham');
@@ -17,13 +24,13 @@ export default function Member() {
   ]);
 
   const graduateStudents = collectMembers([
-    getMemberById('md-fattah'),
     getMemberById('weining-kan'),
-    getMemberById('hanbin-wang'),
     getMemberById('ju-he'),
+    getMemberById('hanbin-wang'),
     getMemberById('chenlun-kao'),
     getMemberById('zhipeng-li'),
     getMemberById('jiajun-chang'),
+    getMemberById('md-fattah'),
     getMemberById('jacob-tagnan'),
     getMemberById('stephen-liwur'),
     getMemberById('shangrui-zhu')
@@ -34,6 +41,57 @@ export default function Member() {
     getMemberById('young-an-kim'),
     getMemberById('cynthia-fan-yang')
   ]);
+
+  const sections: MemberDirectorySection[] = [
+    {
+      id: 'core',
+      eyebrow: 'Core Members',
+      title: 'Core Faculty',
+      description:
+        "Faculty members leading SDSC's central research agenda across spatial analytics, health, mobility, and computational social science.",
+      members: sortMembersByName(coreMembers)
+    },
+    {
+      id: 'affiliated',
+      eyebrow: 'Affiliated Members',
+      title: 'Affiliated Members',
+      description:
+        'Researchers connected to SDSC through collaborative projects, interdisciplinary scholarship, and adjacent domain expertise.',
+      members: sortMembersByName(affiliatedMembers)
+    },
+    {
+      id: 'graduate',
+      eyebrow: 'Graduate Students',
+      title: 'Graduate Students',
+      description:
+        'Graduate researchers building methods, applications, and empirical work that extend the center across emerging questions and new datasets.',
+      members: sortMembersByName(graduateStudents)
+    }
+  ].filter((section) => section.members.length > 0);
+
+  const overview = [
+    {
+      value: `${1 + coreMembers.length + affiliatedMembers.length + graduateStudents.length}`,
+      label: 'Directory',
+      detail:
+        'Researchers listed across leadership, faculty, affiliates, and graduate scholarship.'
+    },
+    {
+      value: `${coreMembers.length}`,
+      label: 'Core Faculty',
+      detail: "Faculty shaping the center's flagship research program."
+    },
+    {
+      value: `${affiliatedMembers.length}`,
+      label: 'Affiliates',
+      detail: 'Interdisciplinary collaborators extending SDSC across domains.'
+    },
+    {
+      value: `${graduateStudents.length}`,
+      label: 'Graduate',
+      detail: 'Emerging scholars advancing the next generation of SDSC work.'
+    }
+  ];
 
   return (
     <section className="page-shell">
@@ -50,71 +108,11 @@ export default function Member() {
           </p>
         </header>
 
-        {stewart && (
-          <section className="surface-fade mb-16 px-6 py-10 md:px-12">
-            <div className="mb-10 text-center text-gold-100">
-              <p className="panel-title justify-center text-gold-300">
-                Center Director
-              </p>
-              <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
-                Center Director
-              </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/80"></p>
-            </div>
-            <div className="flex justify-center">
-              <ProfileCard key={stewart.id} {...stewart} />
-            </div>
-          </section>
-        )}
-
-        <section className="surface-fade mb-16 px-6 py-10 md:px-12">
-          <div className="mb-10 text-center text-gold-100">
-            <p className="panel-title justify-center text-gold-300">
-              Core Members
-            </p>
-            <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
-              Core Faculty
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/80"></p>
-          </div>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {coreMembers.map((member) => (
-              <ProfileCard key={member.id} {...member} />
-            ))}
-          </div>
-        </section>
-
-        <section className="surface-fade mb-10 px-6 py-10 md:px-12">
-          <div className="mb-10 text-center text-gold-100">
-            <p className="panel-title justify-center text-gold-300">
-              Affiliated Members
-            </p>
-            <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
-              Affiliated Members
-            </h2>
-          </div>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {affiliatedMembers.map((member) => (
-              <ProfileCard key={member.id} {...member} />
-            ))}
-          </div>
-        </section>
-
-        <section className="surface-fade mb-10 px-6 py-10 md:px-12">
-          <div className="mb-10 text-center text-gold-100">
-            <p className="panel-title justify-center text-gold-300">
-              Graduate Students
-            </p>
-            <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
-              Graduate Students
-            </h2>
-          </div>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {graduateStudents.map((member) => (
-              <ProfileCard key={member.id} {...member} />
-            ))}
-          </div>
-        </section>
+        <MembersDirectory
+          director={stewart}
+          sections={sections}
+          overview={overview}
+        />
       </div>
     </section>
   );
