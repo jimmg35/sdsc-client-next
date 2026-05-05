@@ -20,6 +20,7 @@ import {
   useDeferredValue,
   useEffect,
   useMemo,
+  useRef,
   useState
 } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -47,7 +48,7 @@ type PublicationRecord = {
 
 const DEFAULT_FILTER_VALUE = 'all';
 const DEFAULT_SORT_VALUE: SortValue = 'year-desc';
-const PUBLICATIONS_PER_PAGE = 12;
+const PUBLICATIONS_PER_PAGE = 5;
 const SORT_OPTIONS: Array<{ label: string; value: SortValue }> = [
   { label: 'Newest year first', value: 'year-desc' },
   { label: 'Oldest year first', value: 'year-asc' },
@@ -70,6 +71,12 @@ const PublicationExplorer = ({
     useState<string>(DEFAULT_FILTER_VALUE);
   const [selectedAuthorId, setSelectedAuthorId] =
     useState<string>(DEFAULT_FILTER_VALUE);
+  const filterSignature = JSON.stringify([
+    deferredSearchQuery,
+    selectedYear,
+    selectedAuthorId
+  ]);
+  const previousFilterSignatureRef = useRef(filterSignature);
 
   const pageParam = searchParams.get('page');
   const sortParam = searchParams.get('sort');
@@ -271,6 +278,12 @@ const PublicationExplorer = ({
   ]);
 
   useEffect(() => {
+    if (previousFilterSignatureRef.current === filterSignature) {
+      return;
+    }
+
+    previousFilterSignatureRef.current = filterSignature;
+
     if (currentPage === 1) {
       return;
     }
@@ -284,12 +297,10 @@ const PublicationExplorer = ({
     });
   }, [
     currentPage,
+    filterSignature,
     pathname,
     router,
     searchParamsString,
-    searchQuery,
-    selectedAuthorId,
-    selectedYear,
     sortValue
   ]);
 
@@ -616,7 +627,7 @@ const PublicationExplorer = ({
                         type="button"
                         onClick={() => handlePageChange(item)}
                         aria-current={item === currentPage ? 'page' : undefined}
-                        className={`min-w-11 rounded-[20px] border px-4 py-3 text-sm font-semibold transition duration-200 ${
+                        className={`min-w-11 cursor-pointer rounded-[20px] border px-4 py-3 text-sm font-semibold transition duration-200 ${
                           item === currentPage
                             ? 'border-rose-400/70 bg-rose-500 text-white shadow-[0_24px_40px_-30px_rgba(168,110,161,0.6)]'
                             : 'border-black/8 bg-white/85 text-ink-700 hover:border-black/16 hover:bg-white'
@@ -733,7 +744,7 @@ const PaginationButton = ({
     className={`inline-flex items-center gap-2 rounded-[20px] border px-4 py-3 text-sm font-semibold transition duration-200 ${
       disabled
         ? 'cursor-not-allowed border-black/6 bg-white/70 text-ink-300'
-        : 'border-black/8 bg-white/85 text-ink-700 hover:border-black/16 hover:bg-white'
+        : 'cursor-pointer border-black/8 bg-white/85 text-ink-700 hover:border-black/16 hover:bg-white'
     }`}
   >
     {iconPosition === 'left' && icon}

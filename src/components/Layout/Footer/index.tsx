@@ -30,7 +30,7 @@ const Footer = () => {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_15%_-10%,_rgba(198,164,215,0.28),_transparent_55%),_radial-gradient(105%_105%_at_80%_-15%,_rgba(194,156,106,0.24),_transparent_60%)]" />
 
       <div className="relative mx-auto max-w-6xl px-6 py-16">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
           <div className="space-y-5">
             {/* <div className="inline-flex items-center gap-3">
               <span className="flex h-10 w-10 items-center justify-center rounded-full border border-rose-200/80 bg-rose-50">
@@ -105,7 +105,7 @@ const Footer = () => {
             </p>
           </div>
 
-          <div className="space-y-5">
+          <div className="space-y-5" hidden>
             <h3 className="text-xs font-semibold uppercase tracking-[0.34em] text-rose-500/80">
               Stay connected
             </h3>

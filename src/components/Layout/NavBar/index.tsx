@@ -67,10 +67,15 @@ const Navbar = () => {
     setIsOpen(false);
   }, [pathname]);
 
-  const backgroundClass =
-    hasScrolled || isOpen
-      ? 'border-b border-rose-100 bg-white shadow-[0_24px_70px_-48px_rgba(61,47,39,0.22)]'
-      : 'border-b border-rose-100 bg-white shadow-[0_30px_80px_-60px_rgba(61,47,39,0.28)]';
+  const shellClass = hasScrolled
+    ? `mx-auto mt-3 w-[calc(100%_-_1rem)] max-w-5xl border border-white/80 bg-white/95 shadow-[0_18px_48px_-28px_rgba(31,22,18,0.38),0_3px_12px_-8px_rgba(31,22,18,0.24)] ring-1 ring-black/5 backdrop-blur-xl ${
+        isOpen ? 'rounded-[2rem]' : 'rounded-full'
+      }`
+    : 'w-full border-b border-rose-100 bg-white shadow-[0_30px_80px_-60px_rgba(61,47,39,0.28)]';
+
+  const navClass = hasScrolled
+    ? 'relative mx-auto flex h-14 max-w-none items-center justify-between gap-4 px-3 text-rose-700 md:h-16 md:px-5'
+    : 'relative mx-auto flex h-[3.75rem] max-w-6xl items-center justify-between gap-6 px-4 text-rose-700 md:h-[4.5rem] md:px-6';
 
   const renderLink = (item: NavItem, variant: 'desktop' | 'mobile') => {
     const Icon = item.icon;
@@ -82,7 +87,11 @@ const Navbar = () => {
         <Link
           key={item.label}
           href={item.href}
-          className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] transition ${
+          className={`inline-flex items-center gap-2 whitespace-nowrap rounded-full font-semibold uppercase transition ${
+            hasScrolled
+              ? 'px-3 py-2 text-[0.68rem] tracking-[0.16em]'
+              : 'px-4 py-2 text-xs tracking-[0.28em]'
+          } ${
             isActive
               ? 'bg-rose-100/90 text-rose-700 shadow-[0_18px_44px_-28px_rgba(168,110,161,0.35)] border border-rose-200/70'
               : 'text-gray-600 hover:text-gray-700 hover:bg-rose-50'
@@ -118,30 +127,44 @@ const Navbar = () => {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <OfficialSiteBar />
+      <div
+        className={`overflow-hidden transition-all duration-300 ease-out ${
+          hasScrolled
+            ? 'max-h-0 -translate-y-2 opacity-0'
+            : 'max-h-10 translate-y-0 opacity-100'
+        }`}
+      >
+        <OfficialSiteBar />
+      </div>
 
-      <div className={`transition-all duration-300 ${backgroundClass}`}>
-        <nav className="relative mx-auto flex h-[3.75rem] max-w-6xl items-center justify-between gap-6 px-4 text-rose-700 md:h-[4.5rem] md:px-6">
+      <div className={`transition-all duration-300 ease-out ${shellClass}`}>
+        <nav className={navClass}>
           <Image
-            width={145}
-            height={46}
+            width={hasScrolled ? 118 : 145}
+            height={hasScrolled ? 38 : 46}
             src="/img/sdsc-logo.png"
             alt="SDSC logo"
-            className="cursor-pointer rounded-md object-cover"
+            className={`cursor-pointer rounded-md object-cover transition-all duration-300 ${
+              hasScrolled ? 'max-w-[7.375rem]' : 'max-w-[9.0625rem]'
+            }`}
             onClick={() => {
               window.location.href = '/';
             }}
           />
 
-          <div className="hidden items-center gap-5 md:flex">
-            <div className="flex items-center gap-3">
+          <div className="hidden items-center gap-4 md:flex">
+            <div
+              className={`flex items-center ${
+                hasScrolled ? 'gap-1.5' : 'gap-3'
+              }`}
+            >
               {primaryNavItems.map((item) => renderLink(item, 'desktop'))}
             </div>
           </div>
 
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-rose-200/70 bg-white text-rose-600 transition hover:text-rose-700 md:hidden"
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-rose-200/70 bg-white text-rose-600 transition hover:text-rose-700 md:hidden"
             onClick={() => setIsOpen((prev) => !prev)}
             aria-label="Toggle navigation"
           >
@@ -153,7 +176,7 @@ const Navbar = () => {
 
         {isOpen && (
           <div className="md:hidden">
-            <div className="px-4 pb-6">
+            <div className={hasScrolled ? 'px-3 pb-4' : 'px-4 pb-6'}>
               <div className="space-y-4 rounded-3xl border border-rose-200/80 bg-white/95 p-6 shadow-[0_32px_64px_-42px_rgba(61,47,39,0.32)]">
                 <p className="text-xs font-semibold uppercase tracking-[0.34em] text-rose-500">
                   Navigation
