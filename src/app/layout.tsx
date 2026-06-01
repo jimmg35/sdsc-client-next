@@ -14,7 +14,11 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 export const metadata: Metadata = {
   title: 'Spatial Data Science Center',
-  description: 'Welcome to the SDSC!'
+  description: 'Welcome to the SDSC!',
+  icons: {
+    icon: '/sdsc-icon.ico',
+    shortcut: '/sdsc-icon.ico'
+  }
 };
 
 export default function RootLayout({
