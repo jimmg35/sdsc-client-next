@@ -42,6 +42,8 @@ export default function Member() {
     getMemberById('cynthia-fan-yang')
   ]);
 
+  const staffMembers = collectMembers([getMemberById('crystal-goodwin')]);
+
   const sections: MemberDirectorySection[] = [
     {
       id: 'core',
@@ -66,12 +68,20 @@ export default function Member() {
       description:
         'Graduate researchers building methods, applications, and empirical work that extend the center across emerging questions and new datasets.',
       members: sortMembersByName(graduateStudents)
+    },
+    {
+      id: 'staff',
+      eyebrow: 'Staff',
+      title: 'Staff',
+      description:
+        'The team members supporting SDSC operations, administration, and day-to-day center activities.',
+      members: sortMembersByName(staffMembers)
     }
   ].filter((section) => section.members.length > 0);
 
   const overview = [
     {
-      value: `${1 + coreMembers.length + affiliatedMembers.length + graduateStudents.length}`,
+      value: `${1 + coreMembers.length + affiliatedMembers.length + graduateStudents.length + staffMembers.length}`,
       label: 'Directory',
       detail:
         'Researchers listed across leadership, faculty, affiliates, and graduate scholarship.'
