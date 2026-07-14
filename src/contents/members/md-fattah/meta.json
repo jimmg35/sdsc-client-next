@@ -1,7 +1,7 @@
 {
   "id": "md-fattah",
   "name": "Md A. Fattah",
-  "title": "MS student",
+  "title": "Ph.D. student",
   "department": "",
   "email": "mfattah@fsu.edu",
   "thumbnail": "/img/avatar/md-fattah.jpg",
@@ -11,7 +11,24 @@
   "advisorId": "mark-horner",
   "education": [],
   "honor": [],
-  "selectedPublications": [],
+  "selectedPublications": [
+    {
+      "id": "enhanced-rational-agent-access-model",
+      "author": "Fattah, M. A., Horner, M. W., & Kim, K. (2026)",
+      "title": "Incorporating Eligibility Constraints in Spatial Accessibility Modeling and Introducing Enhanced Rational Agent Access Model",
+      "journal": "Annals of the American Association of Geographers",
+      "catalog": "1-24",
+      "doi": "https://doi.org/10.1080/24694452.2026.2686208"
+    },
+    {
+      "id": "extreme-heat-adaptation-older-in-migrants",
+      "author": "DeJohn, A. D., Horner, M. W., & Fattah, M. A. (2026)",
+      "title": "Extreme heat adaptation and relocation intentions among older in-migrants in US coastal communities",
+      "journal": "Discover Public Health",
+      "catalog": "23(1), 947",
+      "doi": "https://doi.org/10.1186/s12982-026-02240-2"
+    }
+  ],
   "courseTaught": [],
   "aoi": [],
   "professionalExperience": []

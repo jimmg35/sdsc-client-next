@@ -7,7 +7,14 @@
   "thumbnail": "/img/avatar/crystal.jfif",
   "centerRole": "SDSC Staff",
   "googleScholar": "",
-  "education": [],
+  "education": [
+    {
+      "degree": "B.S.",
+      "field": "Social Sciences",
+      "institution": "Florida State University",
+      "year": 2015
+    }
+  ],
   "honor": [],
   "selectedPublications": [],
   "courseTaught": [],
