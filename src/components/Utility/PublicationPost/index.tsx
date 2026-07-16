@@ -1,7 +1,10 @@
+'use client';
+
 import Avatar from '@/components/Utility/Avatar';
+import { Link } from '@/i18n/navigation';
 import { PublicationData } from '@/lib/publications';
 import { ArrowUpRight, Users } from 'lucide-react';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 export type PublicationCardMember = {
   id: string;
@@ -21,11 +24,12 @@ const PublicationPost = ({
   year,
   centerMembers
 }: PublicationPostProps) => {
+  const t = useTranslations('publications.post');
   const doiUrl = doi?.trim();
   const doiLabel = doiUrl
     ? doiUrl.replace(/^https?:\/\/(www\.)?(dx\.)?doi\.org\//i, '')
     : '';
-  const publicationYear = year ? String(year) : 'Undated';
+  const publicationYear = year ? String(year) : t('undated');
 
   return (
     <article className="group calcite-box relative overflow-hidden px-6 py-6 md:px-7 md:py-7">
@@ -75,17 +79,14 @@ const PublicationPost = ({
             <div className="space-y-2">
               <p className="inline-flex items-center gap-2 text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-rose-500">
                 <Users size={14} />
-                SDSC Contributors
+                {t('contributors')}
               </p>
-              <p className="text-sm text-ink-500">
-                Only center members participating in this publication are shown.
-              </p>
+              <p className="text-sm text-ink-500">{t('contributorsHint')}</p>
             </div>
 
             {centerMembers.length > 0 && (
               <span className="inline-flex self-start rounded-full border border-silk-200/80 bg-white/85 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-ink-500">
-                {centerMembers.length}{' '}
-                {centerMembers.length === 1 ? 'Member' : 'Members'}
+                {t('memberCount', { count: centerMembers.length })}
               </span>
             )}
           </div>
@@ -111,8 +112,7 @@ const PublicationPost = ({
             </div>
           ) : (
             <div className="mt-4 rounded-2xl border border-dashed border-silk-300/90 bg-white/75 px-4 py-3 text-sm text-ink-500">
-              SDSC contributor metadata is not available for this publication
-              yet.
+              {t('noMetadata')}
             </div>
           )}
         </div>

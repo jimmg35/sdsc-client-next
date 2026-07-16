@@ -1,10 +1,12 @@
 import NewsCard from '@/components/Utility/NewsCard';
+import { Link } from '@/i18n/navigation';
 import { NewsData, getAllNews } from '@/lib/news';
 import { RadioTower, Rss } from 'lucide-react';
-import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 import Heading from '../Heading';
 
-const News = () => {
+const News = async () => {
+  const t = await getTranslations('home.news');
   const news: NewsData[] = getAllNews().slice(0, 3);
 
   return (
@@ -15,12 +17,11 @@ const News = () => {
       <div className="relative flex flex-col items-center gap-8 text-center text-gold-100">
         <span className="chip-gold inline-flex items-center gap-2">
           <Rss size={18} className="text-gold-200" />
-          Latest Dispatches
+          {t('eyebrow')}
         </span>
-        <Heading title="News & Events" />
+        <Heading title={t('heading')} />
         <p className="max-w-2xl text-sm text-gold-200/75 md:text-base">
-          Catch up on the latest research, projects, awards, events, and stories
-          from the SDSC community.
+          {t('description')}
         </p>
 
         <div className="mt-4 grid gap-6 md:grid-cols-3">
@@ -34,14 +35,14 @@ const News = () => {
             href="/news"
             className="inline-flex items-center gap-2 rounded-full border border-gold-400/40 bg-[#130722]/20 px-6 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-gold-300 transition hover:border-gold-400 hover:text-gold-50"
           >
-            View all stories
+            {t('viewAll')}
             <Rss size={18} />
           </Link>
           <Link
             href="/news/briefing"
             className="inline-flex items-center gap-2 rounded-full border border-gold-400/40 bg-gold-500/85 px-6 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-[#140a23] transition hover:bg-gold-400"
           >
-            Read the briefing
+            {t('readBriefing')}
             <RadioTower size={18} />
           </Link>
         </div>

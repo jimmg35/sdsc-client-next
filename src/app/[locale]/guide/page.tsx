@@ -1,12 +1,25 @@
-﻿import type { Metadata } from 'next';
-import Link from 'next/link';
+import type { Metadata } from 'next';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-export const metadata: Metadata = {
-  title: 'SDSC Guide',
-  description: 'Our official website has moved to the link below.'
-};
+type LocaleParams = Promise<{ locale: string }>;
 
-export default function GuidePage() {
+export async function generateMetadata(props: {
+  params: LocaleParams;
+}): Promise<Metadata> {
+  const { locale } = await props.params;
+  const t = await getTranslations({ locale, namespace: 'guide' });
+
+  return {
+    title: t('title'),
+    description: t('description')
+  };
+}
+
+export default async function GuidePage(props: { params: LocaleParams }) {
+  const { locale } = await props.params;
+  setRequestLocale(locale);
+  const t = await getTranslations('guide');
+
   return (
     <main className="page-shell flex min-h-screen items-center justify-center px-6 py-16">
       <section className="glass-card relative w-full max-w-5xl overflow-hidden p-10 md:p-14">
@@ -17,54 +30,49 @@ export default function GuidePage() {
 
         <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
           <div>
-            <div className="chip-gold mb-6">Official Notice</div>
+            <div className="chip-gold mb-6">{t('notice')}</div>
             <h1 className="text-glow text-3xl font-semibold text-ink-900 md:text-4xl">
-              Our Official Website Has Moved
+              {t('title')}
             </h1>
             <p className="mt-4 text-base leading-relaxed text-ink-700 md:text-lg">
-              Please use the link below to access the new official SDSC website.
-              Update your bookmarks to stay connected with the latest
-              information and services.
+              {t('description')}
             </p>
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-              <Link
+              <a
                 className="calcite-focus inline-flex items-center justify-center gap-2 rounded-full bg-rose-500 px-8 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-rose-600"
                 href="https://sdsc.fsu.edu/"
               >
-                Go to New SDSC Site
-              </Link>
+                {t('cta')}
+              </a>
             </div>
           </div>
 
           <div className="surface-fade p-6 md:p-8">
-            <div className="panel-title mb-4">What Changed</div>
+            <div className="panel-title mb-4">{t('whatChanged')}</div>
             <div className="space-y-4 text-sm text-ink-700">
               <div className="rounded-2xl border border-rose-100/80 bg-white/80 p-4">
                 <div className="text-xs font-semibold uppercase tracking-[0.24em] text-rose-500">
-                  New Destination
+                  {t('newDestinationTitle')}
                 </div>
                 <p className="mt-2 text-sm leading-relaxed">
-                  The official SDSC website is now hosted at the link shown on
-                  this page.
+                  {t('newDestinationBody')}
                 </p>
               </div>
               <div className="rounded-2xl border border-rose-100/80 bg-white/80 p-4">
                 <div className="text-xs font-semibold uppercase tracking-[0.24em] text-rose-500">
-                  Stay Updated
+                  {t('stayUpdatedTitle')}
                 </div>
                 <p className="mt-2 text-sm leading-relaxed">
-                  Please update any bookmarks or saved links to avoid missing
-                  announcements.
+                  {t('stayUpdatedBody')}
                 </p>
               </div>
               <div className="rounded-2xl border border-rose-100/80 bg-white/80 p-4">
                 <div className="text-xs font-semibold uppercase tracking-[0.24em] text-rose-500">
-                  Need Help
+                  {t('needHelpTitle')}
                 </div>
                 <p className="mt-2 text-sm leading-relaxed">
-                  Visit the official site for contact details and support
-                  options.
+                  {t('needHelpBody')}
                 </p>
               </div>
             </div>

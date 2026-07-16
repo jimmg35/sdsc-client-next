@@ -1,6 +1,7 @@
 import Avatar from '@/components/Utility/Avatar';
+import { Link } from '@/i18n/navigation';
 import { ArrowUpRight, CalendarDays } from 'lucide-react';
-import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 
 export type PublicationOverviewMetric = {
   value: string;
@@ -13,7 +14,7 @@ export type LatestPublicationNoticeItem = {
   title: string;
   author: string;
   doi: string;
-  publishedAgoLabel: string;
+  publishedDaysAgo: number;
   members: {
     id: string;
     name: string;
@@ -28,12 +29,14 @@ type PublicationBrowseOverviewProps = {
   latestYear: number | null;
 };
 
-export default function PublicationBrowseOverview({
+export default async function PublicationBrowseOverview({
   overview,
   latestPublications,
   linkedContributorCount,
   latestYear
 }: PublicationBrowseOverviewProps) {
+  const t = await getTranslations('publications.browse');
+
   return (
     <section className="surface-fade mb-16 mt-10 overflow-hidden px-6 py-8 md:mt-12 md:px-10">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_84%_-12%,_rgba(168,110,161,0.24),_transparent_55%),radial-gradient(110%_110%_at_12%_-16%,_rgba(194,156,106,0.22),_transparent_52%)]" />
@@ -41,16 +44,17 @@ export default function PublicationBrowseOverview({
       <div className="relative">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1.5fr)_minmax(19rem,1fr)] lg:items-end">
           <div>
-            <p className="panel-title text-gold-300">Browse The Archive</p>
+            <p className="panel-title text-gold-300">{t('eyebrow')}</p>
             <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
-              Navigate SDSC scholarship before you drop into the full finder
+              {t('title')}
             </h2>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-gold-200/78 md:text-base">
-              Start with the live finder, then tighten the archive by year, SDSC
-              contributor, or the results stream itself. The current index
-              {latestYear ? ` reaches into ${latestYear}` : ' is live'} and
-              already connects {linkedContributorCount} SDSC member profiles
-              back to publication cards.
+              {t('description', {
+                reach: latestYear
+                  ? t('reachInto', { year: latestYear })
+                  : t('reachLive'),
+                count: linkedContributorCount
+              })}
             </p>
           </div>
 
@@ -82,15 +86,14 @@ export default function PublicationBrowseOverview({
               <div>
                 <p className="inline-flex items-center gap-2 text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-rose-500">
                   <CalendarDays size={14} />
-                  Latest Publications
+                  {t('latestPublications')}
                 </p>
                 <p className="mt-2 text-sm text-ink-500">
-                  Publications added within the past month.
+                  {t('addedWithinMonth')}
                 </p>
               </div>
               <span className="inline-flex self-start rounded-full border border-silk-200/80 bg-white/88 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-ink-500">
-                {latestPublications.length}{' '}
-                {latestPublications.length === 1 ? 'Update' : 'Updates'}
+                {t('updates', { count: latestPublications.length })}
               </span>
             </div>
 
@@ -129,7 +132,11 @@ export default function PublicationBrowseOverview({
 
                     <div className="flex flex-col gap-3 lg:items-end">
                       <span className="inline-flex self-start rounded-full border border-rose-200/70 bg-rose-50/82 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-rose-600 lg:self-end">
-                        Published {publication.publishedAgoLabel}
+                        {t('published', {
+                          label: t('ago', {
+                            count: publication.publishedDaysAgo
+                          })
+                        })}
                       </span>
 
                       {publication.members.length > 0 && (

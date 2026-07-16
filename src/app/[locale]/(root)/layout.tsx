@@ -1,17 +1,17 @@
-﻿import Footer from '@/components/Layout/Footer';
+import Footer from '@/components/Layout/Footer';
 import NavBar from '@/components/Layout/NavBar';
-import type { Metadata } from 'next';
+import { setRequestLocale } from 'next-intl/server';
 
-export const metadata: Metadata = {
-  title: 'Spatial Data Science Center',
-  description: 'Welcome to the SDSC!'
-};
-
-export default function RootGroupLayout({
-  children
+export default async function RootGroupLayout({
+  children,
+  params
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   return (
     <>
       <NavBar />

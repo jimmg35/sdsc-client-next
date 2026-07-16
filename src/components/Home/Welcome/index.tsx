@@ -1,8 +1,11 @@
 import { ArrowDown } from 'lucide-react';
 import { Fade } from 'react-awesome-reveal';
+import { getTranslations } from 'next-intl/server';
 import SlideShow from './SlideShow';
 
-const Welcome = () => {
+const Welcome = async () => {
+  const t = await getTranslations('home.welcome');
+
   return (
     <div className="relative w-full h-[100dvh] overflow-hidden p-4 md:p-0">
       {/* Slideshow */}
@@ -12,7 +15,7 @@ const Welcome = () => {
       <div className="absolute top-0 left-0 w-full h-full bg-teal-900 opacity-30 -z-5 flex items-end justify-center">
         <div className="relative mb-8 flex items-center gap-4 animate-bounce">
           <ArrowDown size={36} className="text-white" />
-          <p className="text-white text-4xl">Scroll Down</p>
+          <p className="text-white text-4xl">{t('scrollDown')}</p>
         </div>
       </div>
 
@@ -21,7 +24,7 @@ const Welcome = () => {
         <div className="flex flex-col gap-4 items-center justify-center">
           <Fade direction="up" duration={500} cascade triggerOnce>
             <h1 className="text-6xl md:text-5xl font-bold text-center">
-              Welcome to the Spatial Data Science Center!
+              {t('title')}
             </h1>
             {/*<p className="text-lg font-bold md:text-3xl text-center">
               Your journey into GIScience begins here.

@@ -1,5 +1,6 @@
 import SelectedPublicationCard from '@/components/Members/SelectedPublicationCard';
 import Avatar from '@/components/Utility/Avatar';
+import { Link } from '@/i18n/navigation';
 import { markdownToHTML } from '@/lib/md';
 import {
   MemberEducation,
@@ -23,10 +24,11 @@ import {
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import type { ReactNode } from 'react';
-import Link from 'next/link';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 type Props = Promise<{
+  locale: string;
   slug: string;
 }>;
 
@@ -36,7 +38,10 @@ export async function generateStaticParams() {
 }
 
 export default async function ProfilePage(props: { params: Props }) {
-  const { slug } = await props.params;
+  const { locale, slug } = await props.params;
+  setRequestLocale(locale);
+  const t = await getTranslations('members.profile');
+
   const member = getMemberById(slug);
   const biography = getMemberBiograpgyById(slug);
 
@@ -65,7 +70,7 @@ export default async function ProfilePage(props: { params: Props }) {
           href="/member"
         >
           <ArrowLeft size={15} />
-          Members
+          {t('back')}
         </Link>
 
         <header className="surface-fade mt-6 overflow-hidden px-6 py-8 md:px-8 lg:px-10">
@@ -79,7 +84,7 @@ export default async function ProfilePage(props: { params: Props }) {
                 />
               </div>
               <span className="mt-5 inline-flex whitespace-nowrap rounded-full border border-rose-200/80 bg-rose-50/80 px-3 py-1 text-center text-[0.58rem] font-semibold uppercase tracking-[0.16em] text-rose-600">
-                {member.centerRole || 'SDSC Member'}
+                {member.centerRole || t('roleFallback')}
               </span>
             </div>
 
@@ -95,19 +100,21 @@ export default async function ProfilePage(props: { params: Props }) {
 
               <div className="mt-6 grid gap-3 text-sm text-ink-700/82 md:grid-cols-2">
                 {member.department && (
-                  <ProfileMeta icon={MapPin} label="Department">
+                  <ProfileMeta icon={MapPin} label={t('department')}>
                     {member.department}
                   </ProfileMeta>
                 )}
 
                 {advisorName && (
-                  <ProfileMeta icon={UserRound} label="Advisor">
+                  <ProfileMeta icon={UserRound} label={t('advisor')}>
                     <div className="flex items-center gap-3">
                       {advisorMember?.thumbnail && (
                         <Link
                           href={`/member/${advisorMember.id}`}
                           className="shrink-0"
-                          aria-label={`View ${advisorName}'s profile`}
+                          aria-label={t('viewProfileAria', {
+                            name: advisorName
+                          })}
                         >
                           <Avatar
                             src={advisorMember.thumbnail}
@@ -147,14 +154,14 @@ export default async function ProfilePage(props: { params: Props }) {
                   <ProfileActionLink
                     href={`mailto:${member.email}`}
                     icon={Mail}
-                    label="Email"
+                    label={t('email')}
                   />
                 )}
                 {member.googleScholar && (
                   <ProfileActionLink
                     href={member.googleScholar}
                     icon={GraduationCap}
-                    label="Google Scholar"
+                    label={t('googleScholar')}
                     external
                   />
                 )}
@@ -162,7 +169,7 @@ export default async function ProfilePage(props: { params: Props }) {
                   <ProfileActionLink
                     href={member.cvPath}
                     icon={FileDown}
-                    label="CV"
+                    label={t('cv')}
                     external
                   />
                 )}
@@ -175,7 +182,7 @@ export default async function ProfilePage(props: { params: Props }) {
           <main className="space-y-8">
             {mdHtmlContent && (
               <section className="glass-card px-6 py-7 md:px-8">
-                <SectionHeading icon={UserRound} title="Biography" />
+                <SectionHeading icon={UserRound} title={t('biography')} />
                 <article
                   className="prose mt-5 max-w-none text-sm leading-7 text-ink-700/88 prose-headings:text-ink-900 prose-p:my-4 prose-a:text-rose-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-ink-900 md:text-base"
                   dangerouslySetInnerHTML={{ __html: mdHtmlContent }}
@@ -187,7 +194,7 @@ export default async function ProfilePage(props: { params: Props }) {
               <section className="glass-card px-6 py-7 md:px-8">
                 <SectionHeading
                   icon={BookOpen}
-                  title="Selected Publications"
+                  title={t('selectedPublications')}
                   count={member.selectedPublications.length}
                 />
                 <ul className="mt-5 divide-y divide-silk-200/80">
@@ -202,15 +209,15 @@ export default async function ProfilePage(props: { params: Props }) {
           <aside className="space-y-6">
             {(hasEducation || hasExperience) && (
               <section className="glass-card px-6 py-6">
-                <SectionHeading icon={GraduationCap} title="Credentials" />
+                <SectionHeading icon={GraduationCap} title={t('credentials')} />
                 <div className="mt-5 space-y-6">
                   {hasEducation && (
-                    <DetailGroup title="Education">
+                    <DetailGroup title={t('education')}>
                       <CompactEducationList education={member.education} />
                     </DetailGroup>
                   )}
                   {hasExperience && (
-                    <DetailGroup title="Professional Experience">
+                    <DetailGroup title={t('professionalExperience')}>
                       <CompactExperienceList
                         experience={member.professionalExperience}
                       />
@@ -224,7 +231,7 @@ export default async function ProfilePage(props: { params: Props }) {
               <section className="glass-card px-6 py-6">
                 <SectionHeading
                   icon={Award}
-                  title="Honors & Awards"
+                  title={t('honorsAwards')}
                   count={member.honor.length}
                 />
                 <ul className="mt-5 space-y-4">
@@ -244,9 +251,9 @@ export default async function ProfilePage(props: { params: Props }) {
 
             {hasFocus && (
               <section className="glass-card px-6 py-6">
-                <SectionHeading icon={Sparkles} title="Focus" />
+                <SectionHeading icon={Sparkles} title={t('focus')} />
                 {member.aoi.length > 0 && (
-                  <DetailGroup title="Areas of Interest" className="mt-5">
+                  <DetailGroup title={t('areasOfInterest')} className="mt-5">
                     <ul className="flex flex-wrap gap-2">
                       {member.aoi.map((area, idx) => (
                         <li
@@ -262,7 +269,7 @@ export default async function ProfilePage(props: { params: Props }) {
 
                 {member.courseTaught.length > 0 && (
                   <DetailGroup
-                    title="Courses Taught"
+                    title={t('coursesTaught')}
                     className={member.aoi.length > 0 ? 'mt-6' : 'mt-5'}
                   >
                     <ul className="space-y-3">
@@ -343,13 +350,27 @@ function ProfileActionLink({
   label: string;
   external?: boolean;
 }) {
+  const className =
+    'inline-flex items-center justify-center gap-2 rounded-full border border-rose-200/80 bg-white/88 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-rose-600 transition hover:border-rose-300 hover:bg-rose-50';
+
+  // External targets (Scholar) and static assets (CV files under /cv) must not
+  // be rewritten with a locale prefix, so they bypass the i18n Link.
+  if (external) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+      >
+        <Icon size={15} />
+        {label}
+      </a>
+    );
+  }
+
   return (
-    <Link
-      href={href}
-      target={external ? '_blank' : undefined}
-      rel={external ? 'noopener noreferrer' : undefined}
-      className="inline-flex items-center justify-center gap-2 rounded-full border border-rose-200/80 bg-white/88 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-rose-600 transition hover:border-rose-300 hover:bg-rose-50"
-    >
+    <Link href={href} className={className}>
       <Icon size={15} />
       {label}
     </Link>
@@ -375,13 +396,19 @@ function DetailGroup({
   );
 }
 
-function CompactEducationList({ education }: { education: MemberEducation[] }) {
+async function CompactEducationList({
+  education
+}: {
+  education: MemberEducation[];
+}) {
+  const t = await getTranslations('members.profile');
+
   return (
     <ul className="space-y-4">
       {education.map((edu, idx) => (
         <li key={idx} className="border-l border-rose-200/80 pl-4">
           <p className="text-sm font-semibold leading-6 text-ink-900">
-            {edu.degree} in {edu.field}
+            {t('degreeInField', { degree: edu.degree, field: edu.field })}
           </p>
           <p className="text-sm leading-6 text-ink-600">
             {edu.institution}
@@ -393,11 +420,13 @@ function CompactEducationList({ education }: { education: MemberEducation[] }) {
   );
 }
 
-function CompactExperienceList({
+async function CompactExperienceList({
   experience
 }: {
   experience: MemberProfExp[];
 }) {
+  const t = await getTranslations('members.profile');
+
   return (
     <ul className="space-y-4">
       {experience.map((item, idx) => (
@@ -407,7 +436,8 @@ function CompactExperienceList({
             <span>{item.title}</span>
           </p>
           <p className="mt-1 text-sm leading-6 text-ink-600">
-            {item.institution}, {item.start_year}-{item.end_year || 'Present'}
+            {item.institution}, {item.start_year}-
+            {item.end_year || t('present')}
           </p>
         </li>
       ))}

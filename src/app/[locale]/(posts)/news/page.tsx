@@ -1,16 +1,22 @@
 import NewsCard from '@/components/Utility/NewsCard';
+import { Link } from '@/i18n/navigation';
 import { NewsData, getAllNews } from '@/lib/news';
 import { ArrowUpRight, RadioTower } from 'lucide-react';
+import {
+  getFormatter,
+  getTranslations,
+  setRequestLocale
+} from 'next-intl/server';
 import Image from 'next/image';
-import Link from 'next/link';
 
-const formatter = new Intl.DateTimeFormat('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric'
-});
+export default async function News(props: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await props.params;
+  setRequestLocale(locale);
+  const t = await getTranslations('news');
+  const format = await getFormatter();
 
-export default function News() {
   const articles: NewsData[] = getAllNews();
   const [featured, ...stories] = articles;
 
@@ -18,35 +24,31 @@ export default function News() {
     <section className="page-shell">
       <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 text-gold-100 md:pt-40">
         <header className="text-center">
-          <span className="chip-gold">Newsroom</span>
+          <span className="chip-gold">{t('page.chip')}</span>
           <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
-            Stories from the Spatial Data Science Center
+            {t('page.title')}
           </h1>
           <p className="mx-auto mt-5 max-w-3xl text-sm text-gold-200/80 md:text-base">
-            Explore breakthroughs, collaborations, and thought leadership from
-            SDSC. Every article spotlights the people and projects reshaping
-            spatial science.
+            {t('page.intro')}
           </p>
         </header>
 
         <section className="surface-fade mt-12 px-6 py-6 text-left text-ink-900 md:px-8">
           <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
             <div className="max-w-3xl">
-              <p className="panel-title">Need The Short Version?</p>
+              <p className="panel-title">{t('briefingCallout.eyebrow')}</p>
               <h2 className="mt-4 text-2xl font-semibold text-rose-700">
-                Read the rolling SDSC briefing
+                {t('briefingCallout.title')}
               </h2>
               <p className="mt-3 text-sm leading-7 text-ink-700">
-                The briefing page turns the latest three months of SDSC news
-                into one running narrative, then anchors it to the underlying
-                story feed.
+                {t('briefingCallout.description')}
               </p>
             </div>
             <Link
               href="/news/briefing"
               className="inline-flex items-center gap-2 self-start rounded-full border border-rose-200/80 bg-white/90 px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-rose-600 transition hover:border-rose-300 hover:text-rose-700"
             >
-              Read briefing
+              {t('briefingCallout.cta')}
               <RadioTower size={18} />
             </Link>
           </div>
@@ -64,16 +66,17 @@ export default function News() {
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#04010d]/85 via-transparent to-transparent" />
               <span className="absolute bottom-4 left-4 rounded-full border border-gold-400/40 bg-[#160b29]/85 px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-gold-100 backdrop-blur">
-                Featured
+                {t('featured')}
               </span>
             </div>
             <div className="flex flex-col justify-between gap-6 px-6 py-8 text-gold-100 md:px-10">
               <div className="space-y-4">
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-300/80">
-                  {formatter.format(
+                  {format.dateTime(
                     featured.date instanceof Date
                       ? featured.date
-                      : new Date(featured.date)
+                      : new Date(featured.date),
+                    { year: 'numeric', month: 'long', day: 'numeric' }
                   )}
                 </p>
                 <h2 className="text-3xl font-semibold text-gold-50 text-glow">
@@ -87,14 +90,14 @@ export default function News() {
                 href={`/news/${featured.slug}`}
                 className="inline-flex items-center gap-2 self-start rounded-full border border-gold-400/40 bg-gold-500/80 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#140a23] transition hover:bg-gold-400"
               >
-                Read the story
+                {t('readStory')}
                 <ArrowUpRight size={18} />
               </Link>
             </div>
           </article>
         ) : (
           <p className="mt-16 text-center text-sm text-gold-200/80">
-            Stay tuned--stories from SDSC are on the way.
+            {t('empty')}
           </p>
         )}
 

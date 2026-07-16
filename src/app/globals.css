@@ -82,6 +82,23 @@
     min-height: 100vh;
   }
 
+  /* Simplified and Traditional Chinese need separate faces: many Han
+     codepoints are shared but have different regional glyph forms, so one
+     font cannot serve both correctly. :lang() matches the locale wrapper in
+     [locale]/layout.tsx and every element inheriting from it. Latin text
+     inside Chinese pages still falls through to Inter first. */
+  :lang(zh-CN) {
+    font-family:
+      'Inter', var(--font-zh-cn), 'PingFang SC', 'Microsoft YaHei',
+      'Noto Sans CJK SC', sans-serif;
+  }
+
+  :lang(zh-TW) {
+    font-family:
+      'Inter', var(--font-zh-tw), 'PingFang TC', 'Microsoft JhengHei',
+      'Noto Sans CJK TC', sans-serif;
+  }
+
   main {
     position: relative;
     isolation: isolate;

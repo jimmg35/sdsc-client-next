@@ -1,3 +1,4 @@
+import { Link } from '@/i18n/navigation';
 import {
   ArrowUpRight,
   Github,
@@ -6,16 +7,16 @@ import {
   MapPin,
   Twitter
 } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
-import Link from 'next/link';
 
 const quickLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'Members', href: '/member' },
-  { label: 'Research', href: '/research' },
-  { label: 'MGWR', href: '/mgwr' },
-  { label: 'Publications', href: '/publications' },
-  { label: 'News', href: '/news' }
+  { key: 'home', href: '/' },
+  { key: 'members', href: '/member' },
+  { key: 'research', href: '/research' },
+  { key: 'mgwr', href: '/mgwr' },
+  { key: 'publications', href: '/publications' },
+  { key: 'news', href: '/news' }
 ];
 
 const socialLinks = [
@@ -24,7 +25,10 @@ const socialLinks = [
   { label: 'GitHub', href: '#', icon: Github }
 ];
 
-const Footer = () => {
+const Footer = async () => {
+  const t = await getTranslations('footer');
+  const tNav = await getTranslations('nav');
+
   return (
     <footer className="relative border-t border-silk-200/80 bg-white/90 text-ink-700">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_15%_-10%,_rgba(198,164,215,0.28),_transparent_55%),_radial-gradient(105%_105%_at_80%_-15%,_rgba(194,156,106,0.24),_transparent_60%)]" />
@@ -32,15 +36,6 @@ const Footer = () => {
       <div className="relative mx-auto max-w-6xl px-6 py-16">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
           <div className="space-y-5">
-            {/* <div className="inline-flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-rose-200/80 bg-rose-50">
-                <span className="h-6 w-6 rounded-full bg-rose-400/70" />
-              </span>
-              <div className="text-left">
-                <p className="text-sm font-semibold uppercase tracking-[0.32em] text-rose-700">SDSC</p>
-                <p className="text-[0.65rem] uppercase tracking-[0.34em] text-rose-400/80">Spatial Data Science Center</p>
-              </div>
-            </div> */}
             <Image
               width={145}
               height={46}
@@ -49,32 +44,30 @@ const Footer = () => {
               className="rounded-full object-cover"
             />
             <p className="max-w-xs text-sm leading-6 text-ink-700/80">
-              SDSC pairs spatial analytics, design, and community partnerships
-              to translate geospatial intelligence into impact across Florida
-              State University and beyond.
+              {t('tagline')}
             </p>
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 rounded-full border border-silk-300 bg-silk-200/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-silk-800 transition hover:bg-silk-200"
             >
-              Partner with us
+              {t('partnerWithUs')}
               <ArrowUpRight size={16} />
             </Link>
           </div>
 
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-[0.34em] text-rose-500/80">
-              Navigate
+              {t('navigate')}
             </h3>
             <ul className="mt-5 space-y-3 text-sm">
               {quickLinks.map((item) => (
-                <li key={item.label}>
+                <li key={item.key}>
                   <Link
                     href={item.href}
                     className="flex items-center gap-2 text-ink-700/80 transition hover:text-rose-600"
                   >
                     <span className="h-px w-6 bg-rose-200/70" />
-                    {item.label}
+                    {tNav(item.key)}
                   </Link>
                 </li>
               ))}
@@ -83,7 +76,7 @@ const Footer = () => {
 
           <div className="space-y-4 text-sm">
             <h3 className="text-xs font-semibold uppercase tracking-[0.34em] text-rose-500/80">
-              Visit
+              {t('visit')}
             </h3>
             <p className="flex items-start gap-3 text-ink-700/80">
               <MapPin size={18} className="text-rose-500" />
@@ -95,10 +88,6 @@ const Footer = () => {
                 Tallahassee, FL 32306
               </span>
             </p>
-            {/* <p className="flex items-center gap-3 text-ink-700/80">
-              <PhoneCall size={18} className="text-rose-500" />
-              <span>+1 (850) 123-4567</span>
-            </p> */}
             <p className="flex items-center gap-3 text-ink-700/80">
               <Mail size={18} className="text-rose-500" />
               <span>admin@sdsc.edu</span>
@@ -150,10 +139,7 @@ const Footer = () => {
       <div className="relative border-t border-silk-200/80 bg-white/80">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-4 text-[0.7rem] uppercase tracking-[0.3em] text-ink-500 md:flex-row">
           <span>SDSC - Florida State University</span>
-          <span>
-            &copy; {new Date().getFullYear()} Spatial Data Science Center. All
-            rights reserved.
-          </span>
+          <span>{t('copyright', { year: new Date().getFullYear() })}</span>
           <span>Version b0.20260119.283</span>
         </div>
       </div>

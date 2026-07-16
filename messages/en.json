@@ -1,0 +1,379 @@
+{
+  "metadata": {
+    "title": "Spatial Data Science Center",
+    "description": "Welcome to the SDSC!"
+  },
+  "common": {
+    "download": "Download",
+    "version": "Version {version}",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "officialBar": {
+    "shortLabel": "Official SDSC site",
+    "fullLabel": "Official website of the Spatial Data Science Center",
+    "university": "Florida State University"
+  },
+  "nav": {
+    "home": "Home",
+    "members": "Members",
+    "research": "Research",
+    "mgwr": "MGWR",
+    "publications": "Publications",
+    "news": "News",
+    "contact": "Contact",
+    "explore": "Explore",
+    "navigation": "Navigation",
+    "partnerCta": "Partner with SDSC"
+  },
+  "languageSwitcher": {
+    "label": "Language",
+    "aria": "Select language"
+  },
+  "home": {
+    "welcome": {
+      "scrollDown": "Scroll Down",
+      "title": "Welcome to the Spatial Data Science Center!"
+    },
+    "storyRail": {
+      "eyebrow": "Now Trending",
+      "title": "Fresh SDSC stories",
+      "description": "Each ring maps to one recent SDSC story.",
+      "ctaLabel": "Meet the storytellers"
+    },
+    "director": {
+      "eyebrow": "Message from the Director",
+      "p1": "Welcome to the Spatial Data Science Center (SDSC) where solutions to many of the World's most pressing problems are being forged through the development of sophisticated statistical methods and the application of new approaches such as GeoAI and machine learning. Our expertise extends to all types of domain areas including health, transportation, voting, crime, housing, retailing, and the environment. <strong>Our work is built on the fundamental principle that understanding where these challenges occur is the key to understanding why they occur and how to solve them.</strong>",
+      "p2": "The SDSC aims to be a focal point for all the great work that is taking place in spatial data science across many departments at FSU. Whether you're a faculty member wanting to pursue joint research or a funding application, or are interested in becoming an affiliate, or a representative of a government department or private firm needing consulting assistance, or a student interested in being involved in SDSC activities, contact us at stewart.fotheringham@fsu.edu.",
+      "role": "Founding Director"
+    },
+    "news": {
+      "eyebrow": "Latest Dispatches",
+      "heading": "News & Events",
+      "description": "Catch up on the latest research, projects, awards, events, and stories from the SDSC community.",
+      "viewAll": "View all stories",
+      "readBriefing": "Read the briefing"
+    }
+  },
+  "research": {
+    "chip": "Research",
+    "title": "Advancing spatial knowledge and practice",
+    "intro": "The Spatial Data Science Center (SDSC) is committed to developing solutions to some of society's most pressing problems in areas such as health, transportation, crime, poverty and the environment through the power of spatial data analytics.",
+    "areas": {
+      "spatialAnalytics": {
+        "title": "Spatial Analytics",
+        "description": "Advance spatial statistical and AI methods to better understand spatial processes and enable accurate prediction."
+      },
+      "healthWellbeing": {
+        "title": "Health & Wellbeing",
+        "description": "Analyze geographic patterns in health outcomes, risks, and healthcare access for better decision-making and prediction."
+      },
+      "environment": {
+        "title": "Environment",
+        "description": "Monitor, model, and predict environmental changes and natural hazards, and assess their impacts on ecosystems and communities."
+      },
+      "voting": {
+        "title": "Voting",
+        "description": "Measure spatial patterns of voter behavior, electoral processes, and participation disparities."
+      },
+      "urban": {
+        "title": "Urban",
+        "description": "Explore how urban systems, mobility and spatial dynamics influence equity and resilience in cities."
+      },
+      "transportation": {
+        "title": "Transportation",
+        "description": "Understand travel behavior, enhance mobility systems, and advance equitable and sustainable transportation solutions."
+      },
+      "crime": {
+        "title": "Crime",
+        "description": "Examine crime dynamics, neighborhood contexts, and social inequities shaping public safety."
+      }
+    }
+  },
+  "mgwr": {
+    "chip": "MGWR Tools",
+    "title": "Multiscale Geographically Weighted Regression (MGWR)",
+    "intro": "MGWR provides a Windows and macOS interface for calibrating multiscale geographically weighted regression models so you can explore how multi-scale relationships vary across space.",
+    "downloads": {
+      "windows": {
+        "title": "MGWR GUI (Windows)",
+        "description": "Installer package with the latest stable build, examples, and documentation for Windows 10/11 environments."
+      },
+      "macos": {
+        "title": "MGWR GUI (macOS)",
+        "description": "Universal binary for Apple Silicon and Intel Macs with notarized installer and starter projects."
+      }
+    },
+    "documentation": "Documentation",
+    "sampleDatasets": "Sample datasets",
+    "citationReferences": "Citation references",
+    "access": "Access"
+  },
+  "members": {
+    "page": {
+      "chip": "People Of SDSC",
+      "title": "Meet the minds advancing spatial data science",
+      "intro": "Our collective brings together geospatial analysts, data scientists, and domain experts to advance spatial sciences and build forward-looking solutions for the communities we serve."
+    },
+    "sections": {
+      "core": {
+        "eyebrow": "Core Members",
+        "title": "Core Faculty",
+        "description": "Faculty members leading SDSC's central research agenda across spatial analytics, health, mobility, and computational social science."
+      },
+      "affiliated": {
+        "eyebrow": "Affiliated Members",
+        "title": "Affiliated Members",
+        "description": "Researchers connected to SDSC through collaborative projects, interdisciplinary scholarship, and adjacent domain expertise."
+      },
+      "graduate": {
+        "eyebrow": "Graduate Students",
+        "title": "Graduate Students",
+        "description": "Graduate researchers building methods, applications, and empirical work that extend the center across emerging questions and new datasets."
+      },
+      "staff": {
+        "eyebrow": "Staff",
+        "title": "Staff",
+        "description": "The team members supporting SDSC operations, administration, and day-to-day center activities."
+      }
+    },
+    "overview": {
+      "directory": {
+        "label": "Directory",
+        "detail": "Researchers listed across leadership, faculty, affiliates, and graduate scholarship."
+      },
+      "coreFaculty": {
+        "label": "Core Faculty",
+        "detail": "Faculty shaping the center's flagship research program."
+      },
+      "affiliates": {
+        "label": "Affiliates",
+        "detail": "Interdisciplinary collaborators extending SDSC across domains."
+      },
+      "graduate": {
+        "label": "Graduate",
+        "detail": "Emerging scholars advancing the next generation of SDSC work."
+      }
+    },
+    "directory": {
+      "browseEyebrow": "Browse The Collective",
+      "browseTitle": "Navigate SDSC by role, then dive into individual profiles",
+      "browseDescription": "The directory is organized around how people contribute to the center: leadership, core faculty, affiliated collaborators, and graduate researchers. Use the section links below to jump directly into the layer you want.",
+      "centerDirector": "Center Director",
+      "memberCount": "{count, plural, one {# Member} other {# Members}}",
+      "sortedAZ": "Sorted A-Z",
+      "spotlightTitle": "Leadership at the center of SDSC",
+      "spotlightBadge": "Director Spotlight",
+      "spatialDataScienceCenter": "Spatial Data Science Center",
+      "viewProfile": "View Profile",
+      "scholar": "Scholar",
+      "email": "Email",
+      "selectRecognition": "Select Recognition",
+      "advisor": "Advisor:",
+      "directorRoleFallback": "Center Director",
+      "memberRoleFallback": "SDSC Member"
+    },
+    "profile": {
+      "back": "Members",
+      "roleFallback": "SDSC Member",
+      "department": "Department",
+      "advisor": "Advisor",
+      "email": "Email",
+      "googleScholar": "Google Scholar",
+      "cv": "CV",
+      "biography": "Biography",
+      "selectedPublications": "Selected Publications",
+      "credentials": "Credentials",
+      "education": "Education",
+      "professionalExperience": "Professional Experience",
+      "honorsAwards": "Honors & Awards",
+      "focus": "Focus",
+      "areasOfInterest": "Areas of Interest",
+      "coursesTaught": "Courses Taught",
+      "degreeInField": "{degree} in {field}",
+      "present": "Present",
+      "viewProfileAria": "View {name}'s profile"
+    }
+  },
+  "publications": {
+    "page": {
+      "chip": "Publications",
+      "title": "Research and scholarship from SDSC",
+      "intro": "Recent peer-reviewed publications by our faculty and students across the spatial data science spectrum.",
+      "loading": "Loading publications..."
+    },
+    "overview": {
+      "label": "Publications",
+      "detail": "Output from all SDSC members over the past two years."
+    },
+    "browse": {
+      "eyebrow": "Browse The Archive",
+      "title": "Navigate SDSC scholarship before you drop into the full finder",
+      "description": "Start with the live finder, then tighten the archive by year, SDSC contributor, or the results stream itself. The current index {reach} and already connects {count} SDSC member profiles back to publication cards.",
+      "reachInto": "reaches into {year}",
+      "reachLive": "is live",
+      "latestPublications": "Latest Publications",
+      "addedWithinMonth": "Publications added within the past month.",
+      "updates": "{count, plural, one {# Update} other {# Updates}}",
+      "published": "Published {label}",
+      "ago": "{count, plural, =0 {today} one {# day ago} other {# days ago}}"
+    },
+    "finder": {
+      "chip": "Publication Finder",
+      "filtersActive": "{count} filters active",
+      "browseArchive": "Browse the archive",
+      "results": "{count} results",
+      "sort": "Sort",
+      "reset": "Reset",
+      "showingRange": "Showing {start}-{end} of {total}",
+      "noResults": "0 results",
+      "pageOf": "Page {current} of {total}"
+    },
+    "sortOptions": {
+      "yearDesc": "Newest year first",
+      "yearAsc": "Oldest year first",
+      "authorAsc": "Author name A-Z",
+      "authorDesc": "Author name Z-A"
+    },
+    "search": {
+      "placeholder": "Search by title, journal, DOI, or SDSC member"
+    },
+    "chips": {
+      "keyword": "Keyword: {value}",
+      "year": "Year: {value}",
+      "author": "SDSC Author: {value}",
+      "remove": "Remove {label}"
+    },
+    "filters": {
+      "byYear": "Filter by Year",
+      "byYearHint": "Keep the timeline tight when you want the latest or earliest work first.",
+      "allYears": "All years",
+      "byMember": "Filter by SDSC Member",
+      "byMemberHint": "Select a center member to narrow the archive to publications they contributed to.",
+      "allMembers": "All SDSC members"
+    },
+    "results": {
+      "showing": "Showing {start}-{end} of {total} publications",
+      "noMatch": "No publications match the current query",
+      "eachCard": "Each card highlights only SDSC contributors",
+      "queryParams": "Query params: <b>page</b>, <b>sort</b>",
+      "empty": "No publications match your current search and filter combination. Try clearing a filter or broadening the keyword."
+    },
+    "pagination": {
+      "aria": "Publication pagination",
+      "pageOf": "Page {current} of {total}",
+      "navigate": "Navigate the publication archive"
+    },
+    "post": {
+      "undated": "Undated",
+      "contributors": "SDSC Contributors",
+      "contributorsHint": "Only center members participating in this publication are shown.",
+      "memberCount": "{count, plural, one {# Member} other {# Members}}",
+      "noMetadata": "SDSC contributor metadata is not available for this publication yet."
+    }
+  },
+  "news": {
+    "page": {
+      "chip": "Newsroom",
+      "title": "Stories from the Spatial Data Science Center",
+      "intro": "Explore breakthroughs, collaborations, and thought leadership from SDSC. Every article spotlights the people and projects reshaping spatial science."
+    },
+    "briefingCallout": {
+      "eyebrow": "Need The Short Version?",
+      "title": "Read the rolling SDSC briefing",
+      "description": "The briefing page turns the latest three months of SDSC news into one running narrative, then anchors it to the underlying story feed.",
+      "cta": "Read briefing"
+    },
+    "featured": "Featured",
+    "readStory": "Read the story",
+    "empty": "Stay tuned--stories from SDSC are on the way.",
+    "card": {
+      "readStory": "Read Story"
+    },
+    "detail": {
+      "back": "Back to Newsroom",
+      "chip": "SDSC Insight"
+    }
+  },
+  "briefing": {
+    "back": "Back to Newsroom",
+    "aiBroadcaster": "SDSC AI Broadcaster",
+    "aiWarning": "AI briefing may contain errors. Review carefully.",
+    "range": "{start} to {end}",
+    "updated": "Updated {date}",
+    "textSizeAria": "Set briefing text size to {size}",
+    "window": {
+      "title": "Briefing Window",
+      "storiesInScope": "Stories in scope",
+      "rolling": "Rolling {months} months",
+      "empty": "No stories are currently inside the rolling briefing window yet.",
+      "ordered": "Ordered newest to oldest"
+    }
+  },
+  "announcements": {
+    "page": {
+      "chip": "Announcements",
+      "title": "Official updates from the Spatial Data Science Center",
+      "intro": "Stay informed on new initiatives, major milestones, and strategic directions shaping the Spatial Data Science Center."
+    },
+    "featured": "Featured Update",
+    "readUpdate": "Read update",
+    "empty": "Official updates will appear here soon. Stay tuned!",
+    "card": {
+      "viewUpdate": "View Update"
+    },
+    "detail": {
+      "back": "Back to Updates",
+      "chip": "Official SDSC Update"
+    }
+  },
+  "contact": {
+    "chip": "Connect With Us",
+    "title": "Let's build spatial solutions together",
+    "intro": "Whether you are a researcher, student, or community partner, SDSC collaborates on projects that transform spatial data into tangible outcomes. Reach out - we're ready to help.",
+    "emailLabel": "Email",
+    "visitLabel": "Visit",
+    "engageTitle": "Engage with SDSC",
+    "engageItem1": "Schedule a consultation for research collaborations or sponsored projects.",
+    "engageItem2": "Host a workshop or guest lecture focused on spatial analytics and MGWR.",
+    "engageItem3": "Partner with our graduate studios for immersive design sprints.",
+    "gradTitle": "Graduate Student Opportunities",
+    "gradDescription": "SDSC offers assistantships, studio projects, and mentoring for students passionate about spatial data science. Email us to learn about current openings and how to get involved."
+  },
+  "events": {
+    "chip": "Events",
+    "title": "Upcoming gatherings and live sessions",
+    "intro": "We are curating the next wave of SDSC workshops, talks, and studio showcases. Check back soon for registration details and opportunities to connect in person or online."
+  },
+  "guide": {
+    "notice": "Official Notice",
+    "title": "Our Official Website Has Moved",
+    "description": "Please use the link below to access the new official SDSC website. Update your bookmarks to stay connected with the latest information and services.",
+    "cta": "Go to New SDSC Site",
+    "whatChanged": "What Changed",
+    "newDestinationTitle": "New Destination",
+    "newDestinationBody": "The official SDSC website is now hosted at the link shown on this page.",
+    "stayUpdatedTitle": "Stay Updated",
+    "stayUpdatedBody": "Please update any bookmarks or saved links to avoid missing announcements.",
+    "needHelpTitle": "Need Help",
+    "needHelpBody": "Visit the official site for contact details and support options."
+  },
+  "footer": {
+    "tagline": "SDSC pairs spatial analytics, design, and community partnerships to translate geospatial intelligence into impact across Florida State University and beyond.",
+    "partnerWithUs": "Partner with us",
+    "navigate": "Navigate",
+    "visit": "Visit",
+    "copyright": "© {year} Spatial Data Science Center. All rights reserved."
+  },
+  "stories": {
+    "close": "Close story viewer",
+    "counter": "Story {current} / {total}",
+    "memberStory": "Member Story",
+    "groupStory": "Group Story",
+    "memberCount": "{count, plural, one {# member} other {# members}}",
+    "spotlight": "Spotlight",
+    "featuredMembers": "Featured Members",
+    "readFullStory": "Read Full Story",
+    "voices": "{count} Voices"
+  }
+}

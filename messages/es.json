@@ -1,0 +1,379 @@
+{
+  "metadata": {
+    "title": "Centro de Ciencia de Datos Espaciales",
+    "description": "¡Bienvenido al SDSC!"
+  },
+  "common": {
+    "download": "Descargar",
+    "version": "Versión {version}",
+    "previous": "Anterior",
+    "next": "Siguiente"
+  },
+  "officialBar": {
+    "shortLabel": "Sitio oficial del SDSC",
+    "fullLabel": "Sitio web oficial del Centro de Ciencia de Datos Espaciales",
+    "university": "Florida State University"
+  },
+  "nav": {
+    "home": "Inicio",
+    "members": "Miembros",
+    "research": "Investigación",
+    "mgwr": "MGWR",
+    "publications": "Publicaciones",
+    "news": "Noticias",
+    "contact": "Contacto",
+    "explore": "Explorar",
+    "navigation": "Navegación",
+    "partnerCta": "Colabora con el SDSC"
+  },
+  "languageSwitcher": {
+    "label": "Idioma",
+    "aria": "Seleccionar idioma"
+  },
+  "home": {
+    "welcome": {
+      "scrollDown": "Desplázate hacia abajo",
+      "title": "¡Bienvenido al Centro de Ciencia de Datos Espaciales!"
+    },
+    "storyRail": {
+      "eyebrow": "Tendencia ahora",
+      "title": "Historias recientes del SDSC",
+      "description": "Cada anillo corresponde a una historia reciente del SDSC.",
+      "ctaLabel": "Conoce a los narradores"
+    },
+    "director": {
+      "eyebrow": "Mensaje del director",
+      "p1": "Bienvenido al Centro de Ciencia de Datos Espaciales (SDSC), donde se forjan soluciones a muchos de los problemas más apremiantes del mundo mediante el desarrollo de métodos estadísticos sofisticados y la aplicación de nuevos enfoques como la GeoIA y el aprendizaje automático. Nuestra experiencia abarca todo tipo de áreas temáticas, como salud, transporte, elecciones, delincuencia, vivienda, comercio minorista y medio ambiente. <strong>Nuestro trabajo se basa en el principio fundamental de que comprender dónde ocurren estos desafíos es la clave para entender por qué ocurren y cómo resolverlos.</strong>",
+      "p2": "El SDSC aspira a ser un punto de referencia para todo el gran trabajo que se realiza en ciencia de datos espaciales en los numerosos departamentos de la FSU. Ya sea que usted sea docente y desee emprender una investigación conjunta o una solicitud de financiación, esté interesado en convertirse en afiliado, sea representante de una entidad gubernamental o de una empresa privada que necesita asesoramiento, o un estudiante interesado en participar en las actividades del SDSC, contáctenos en stewart.fotheringham@fsu.edu.",
+      "role": "Director fundador"
+    },
+    "news": {
+      "eyebrow": "Últimas novedades",
+      "heading": "Noticias y eventos",
+      "description": "Ponte al día con las últimas investigaciones, proyectos, premios, eventos e historias de la comunidad del SDSC.",
+      "viewAll": "Ver todas las historias",
+      "readBriefing": "Leer el resumen"
+    }
+  },
+  "research": {
+    "chip": "Investigación",
+    "title": "Impulsando el conocimiento y la práctica espacial",
+    "intro": "El Centro de Ciencia de Datos Espaciales (SDSC) se dedica a desarrollar soluciones para algunos de los problemas más apremiantes de la sociedad en áreas como la salud, el transporte, la delincuencia, la pobreza y el medio ambiente, mediante el poder del análisis de datos espaciales.",
+    "areas": {
+      "spatialAnalytics": {
+        "title": "Análisis espacial",
+        "description": "Avanzar en métodos estadísticos y de IA espaciales para comprender mejor los procesos espaciales y lograr predicciones precisas."
+      },
+      "healthWellbeing": {
+        "title": "Salud y bienestar",
+        "description": "Analizar los patrones geográficos en los resultados de salud, los riesgos y el acceso a la atención médica para mejorar la toma de decisiones y la predicción."
+      },
+      "environment": {
+        "title": "Medio ambiente",
+        "description": "Monitorear, modelar y predecir los cambios ambientales y los peligros naturales, y evaluar sus impactos en los ecosistemas y las comunidades."
+      },
+      "voting": {
+        "title": "Elecciones",
+        "description": "Medir los patrones espaciales del comportamiento del votante, los procesos electorales y las disparidades en la participación."
+      },
+      "urban": {
+        "title": "Ciudad",
+        "description": "Explorar cómo los sistemas urbanos, la movilidad y las dinámicas espaciales influyen en la equidad y la resiliencia de las ciudades."
+      },
+      "transportation": {
+        "title": "Transporte",
+        "description": "Comprender el comportamiento de los desplazamientos, mejorar los sistemas de movilidad y promover soluciones de transporte equitativas y sostenibles."
+      },
+      "crime": {
+        "title": "Delincuencia",
+        "description": "Examinar las dinámicas delictivas, los contextos de vecindario y las desigualdades sociales que configuran la seguridad pública."
+      }
+    }
+  },
+  "mgwr": {
+    "chip": "Herramientas MGWR",
+    "title": "Regresión ponderada geográficamente multiescala (MGWR)",
+    "intro": "MGWR ofrece una interfaz para Windows y macOS para calibrar modelos de regresión ponderada geográficamente multiescala, de modo que puedas explorar cómo varían las relaciones multiescala a través del espacio.",
+    "downloads": {
+      "windows": {
+        "title": "MGWR GUI (Windows)",
+        "description": "Paquete de instalación con la última versión estable, ejemplos y documentación para entornos Windows 10/11."
+      },
+      "macos": {
+        "title": "MGWR GUI (macOS)",
+        "description": "Binario universal para Mac con Apple Silicon e Intel, con instalador certificado y proyectos de inicio."
+      }
+    },
+    "documentation": "Documentación",
+    "sampleDatasets": "Conjuntos de datos de ejemplo",
+    "citationReferences": "Referencias de citación",
+    "access": "Acceder"
+  },
+  "members": {
+    "page": {
+      "chip": "Personas del SDSC",
+      "title": "Conoce a las mentes que impulsan la ciencia de datos espaciales",
+      "intro": "Nuestro equipo reúne a analistas geoespaciales, científicos de datos y expertos en distintos dominios para impulsar las ciencias espaciales y crear soluciones con visión de futuro para las comunidades a las que servimos."
+    },
+    "sections": {
+      "core": {
+        "eyebrow": "Miembros principales",
+        "title": "Profesorado principal",
+        "description": "Docentes que lideran la agenda central de investigación del SDSC en análisis espacial, salud, movilidad y ciencias sociales computacionales."
+      },
+      "affiliated": {
+        "eyebrow": "Miembros afiliados",
+        "title": "Miembros afiliados",
+        "description": "Investigadores vinculados al SDSC mediante proyectos colaborativos, estudios interdisciplinarios y experiencia en dominios afines."
+      },
+      "graduate": {
+        "eyebrow": "Estudiantes de posgrado",
+        "title": "Estudiantes de posgrado",
+        "description": "Investigadores de posgrado que desarrollan métodos, aplicaciones y trabajo empírico que amplían el centro hacia nuevas preguntas y conjuntos de datos."
+      },
+      "staff": {
+        "eyebrow": "Personal",
+        "title": "Personal",
+        "description": "Miembros del equipo que apoyan las operaciones, la administración y las actividades cotidianas del SDSC."
+      }
+    },
+    "overview": {
+      "directory": {
+        "label": "Directorio",
+        "detail": "Investigadores listados entre liderazgo, profesorado, afiliados y estudios de posgrado."
+      },
+      "coreFaculty": {
+        "label": "Profesorado principal",
+        "detail": "Docentes que dan forma al programa de investigación insignia del centro."
+      },
+      "affiliates": {
+        "label": "Afiliados",
+        "detail": "Colaboradores interdisciplinarios que amplían el SDSC a través de distintos dominios."
+      },
+      "graduate": {
+        "label": "Posgrado",
+        "detail": "Académicos emergentes que impulsan la próxima generación del trabajo del SDSC."
+      }
+    },
+    "directory": {
+      "browseEyebrow": "Explora el colectivo",
+      "browseTitle": "Navega el SDSC por rol y luego explora los perfiles individuales",
+      "browseDescription": "El directorio está organizado según cómo cada persona contribuye al centro: liderazgo, profesorado principal, colaboradores afiliados e investigadores de posgrado. Usa los enlaces de sección a continuación para saltar directamente al nivel que te interese.",
+      "centerDirector": "Director del centro",
+      "memberCount": "{count, plural, one {# miembro} other {# miembros}}",
+      "sortedAZ": "Ordenado de la A a la Z",
+      "spotlightTitle": "Liderazgo en el corazón del SDSC",
+      "spotlightBadge": "Perfil del director",
+      "spatialDataScienceCenter": "Centro de Ciencia de Datos Espaciales",
+      "viewProfile": "Ver perfil",
+      "scholar": "Scholar",
+      "email": "Correo",
+      "selectRecognition": "Reconocimientos destacados",
+      "advisor": "Asesor:",
+      "directorRoleFallback": "Director del centro",
+      "memberRoleFallback": "Miembro del SDSC"
+    },
+    "profile": {
+      "back": "Miembros",
+      "roleFallback": "Miembro del SDSC",
+      "department": "Departamento",
+      "advisor": "Asesor",
+      "email": "Correo",
+      "googleScholar": "Google Scholar",
+      "cv": "CV",
+      "biography": "Biografía",
+      "selectedPublications": "Publicaciones seleccionadas",
+      "credentials": "Credenciales",
+      "education": "Formación académica",
+      "professionalExperience": "Experiencia profesional",
+      "honorsAwards": "Honores y premios",
+      "focus": "Enfoque",
+      "areasOfInterest": "Áreas de interés",
+      "coursesTaught": "Cursos impartidos",
+      "degreeInField": "{degree} en {field}",
+      "present": "Actualidad",
+      "viewProfileAria": "Ver el perfil de {name}"
+    }
+  },
+  "publications": {
+    "page": {
+      "chip": "Publicaciones",
+      "title": "Investigación y producción académica del SDSC",
+      "intro": "Publicaciones recientes revisadas por pares de nuestro profesorado y estudiantes en todo el espectro de la ciencia de datos espaciales.",
+      "loading": "Cargando publicaciones…"
+    },
+    "overview": {
+      "label": "Publicaciones",
+      "detail": "Producción de todos los miembros del SDSC durante los últimos dos años."
+    },
+    "browse": {
+      "eyebrow": "Explora el archivo",
+      "title": "Navega la producción académica del SDSC antes de entrar en el buscador completo",
+      "description": "Empieza con el buscador en vivo y luego acota el archivo por año, colaborador del SDSC o el propio flujo de resultados. El índice actual {reach} y ya conecta {count} perfiles de miembros del SDSC con las fichas de publicaciones.",
+      "reachInto": "llega hasta {year}",
+      "reachLive": "está activo",
+      "latestPublications": "Últimas publicaciones",
+      "addedWithinMonth": "Publicaciones añadidas durante el último mes.",
+      "updates": "{count, plural, one {# actualización} other {# actualizaciones}}",
+      "published": "Publicado {label}",
+      "ago": "{count, plural, =0 {hoy} one {hace # día} other {hace # días}}"
+    },
+    "finder": {
+      "chip": "Buscador de publicaciones",
+      "filtersActive": "{count} filtros activos",
+      "browseArchive": "Explorar el archivo",
+      "results": "{count} resultados",
+      "sort": "Ordenar",
+      "reset": "Restablecer",
+      "showingRange": "Mostrando {start}-{end} de {total}",
+      "noResults": "0 resultados",
+      "pageOf": "Página {current} de {total}"
+    },
+    "sortOptions": {
+      "yearDesc": "Año más reciente primero",
+      "yearAsc": "Año más antiguo primero",
+      "authorAsc": "Autor de la A a la Z",
+      "authorDesc": "Autor de la Z a la A"
+    },
+    "search": {
+      "placeholder": "Busca por título, revista, DOI o miembro del SDSC"
+    },
+    "chips": {
+      "keyword": "Palabra clave: {value}",
+      "year": "Año: {value}",
+      "author": "Autor del SDSC: {value}",
+      "remove": "Eliminar {label}"
+    },
+    "filters": {
+      "byYear": "Filtrar por año",
+      "byYearHint": "Mantén la línea de tiempo acotada cuando quieras ver primero los trabajos más recientes o más antiguos.",
+      "allYears": "Todos los años",
+      "byMember": "Filtrar por miembro del SDSC",
+      "byMemberHint": "Selecciona a un miembro del centro para acotar el archivo a las publicaciones en las que participó.",
+      "allMembers": "Todos los miembros del SDSC"
+    },
+    "results": {
+      "showing": "Mostrando {start}-{end} de {total} publicaciones",
+      "noMatch": "Ninguna publicación coincide con la consulta actual",
+      "eachCard": "Cada ficha destaca solo a los colaboradores del SDSC",
+      "queryParams": "Parámetros de consulta: <b>page</b>, <b>sort</b>",
+      "empty": "Ninguna publicación coincide con tu búsqueda y filtros actuales. Intenta quitar un filtro o ampliar la palabra clave."
+    },
+    "pagination": {
+      "aria": "Paginación de publicaciones",
+      "pageOf": "Página {current} de {total}",
+      "navigate": "Navega el archivo de publicaciones"
+    },
+    "post": {
+      "undated": "Sin fecha",
+      "contributors": "Colaboradores del SDSC",
+      "contributorsHint": "Solo se muestran los miembros del centro que participan en esta publicación.",
+      "memberCount": "{count, plural, one {# miembro} other {# miembros}}",
+      "noMetadata": "Todavía no hay metadatos de colaboradores del SDSC para esta publicación."
+    }
+  },
+  "news": {
+    "page": {
+      "chip": "Sala de prensa",
+      "title": "Historias del Centro de Ciencia de Datos Espaciales",
+      "intro": "Explora los avances, las colaboraciones y el liderazgo intelectual del SDSC. Cada artículo destaca a las personas y los proyectos que están transformando la ciencia espacial."
+    },
+    "briefingCallout": {
+      "eyebrow": "¿Necesitas la versión breve?",
+      "title": "Lee el resumen continuo del SDSC",
+      "description": "La página de resumen convierte los últimos tres meses de noticias del SDSC en una narrativa continua y luego la ancla al flujo de historias subyacente.",
+      "cta": "Leer resumen"
+    },
+    "featured": "Destacado",
+    "readStory": "Leer la historia",
+    "empty": "Mantente atento: las historias del SDSC están en camino.",
+    "card": {
+      "readStory": "Leer historia"
+    },
+    "detail": {
+      "back": "Volver a la sala de prensa",
+      "chip": "Perspectiva del SDSC"
+    }
+  },
+  "briefing": {
+    "back": "Volver a la sala de prensa",
+    "aiBroadcaster": "Locutor de IA del SDSC",
+    "aiWarning": "El resumen de IA puede contener errores. Revísalo con atención.",
+    "range": "{start} a {end}",
+    "updated": "Actualizado el {date}",
+    "textSizeAria": "Establecer el tamaño del texto del resumen en {size}",
+    "window": {
+      "title": "Ventana del resumen",
+      "storiesInScope": "Historias en el alcance",
+      "rolling": "Últimos {months} meses",
+      "empty": "Actualmente no hay historias dentro de la ventana del resumen continuo.",
+      "ordered": "Ordenado de más reciente a más antiguo"
+    }
+  },
+  "announcements": {
+    "page": {
+      "chip": "Anuncios",
+      "title": "Actualizaciones oficiales del Centro de Ciencia de Datos Espaciales",
+      "intro": "Mantente informado sobre las nuevas iniciativas, los hitos importantes y las direcciones estratégicas que dan forma al Centro de Ciencia de Datos Espaciales."
+    },
+    "featured": "Actualización destacada",
+    "readUpdate": "Leer actualización",
+    "empty": "Las actualizaciones oficiales aparecerán aquí pronto. ¡Mantente atento!",
+    "card": {
+      "viewUpdate": "Ver actualización"
+    },
+    "detail": {
+      "back": "Volver a las actualizaciones",
+      "chip": "Actualización oficial del SDSC"
+    }
+  },
+  "contact": {
+    "chip": "Ponte en contacto",
+    "title": "Construyamos juntos soluciones espaciales",
+    "intro": "Ya seas investigador, estudiante o socio comunitario, el SDSC colabora en proyectos que transforman los datos espaciales en resultados tangibles. Escríbenos: estamos listos para ayudar.",
+    "emailLabel": "Correo",
+    "visitLabel": "Visitar",
+    "engageTitle": "Colabora con el SDSC",
+    "engageItem1": "Agenda una consulta para colaboraciones de investigación o proyectos patrocinados.",
+    "engageItem2": "Organiza un taller o una conferencia invitada sobre análisis espacial y MGWR.",
+    "engageItem3": "Colabora con nuestros estudios de posgrado en sprints de diseño inmersivos.",
+    "gradTitle": "Oportunidades para estudiantes de posgrado",
+    "gradDescription": "El SDSC ofrece ayudantías, proyectos de estudio y mentoría para estudiantes apasionados por la ciencia de datos espaciales. Escríbenos para conocer las vacantes actuales y cómo participar."
+  },
+  "events": {
+    "chip": "Eventos",
+    "title": "Próximos encuentros y sesiones en vivo",
+    "intro": "Estamos preparando la próxima ronda de talleres, charlas y muestras de estudio del SDSC. Vuelve pronto para conocer los detalles de inscripción y las oportunidades de conectar en persona o en línea."
+  },
+  "guide": {
+    "notice": "Aviso oficial",
+    "title": "Nuestro sitio web oficial se ha mudado",
+    "description": "Usa el enlace de abajo para acceder al nuevo sitio web oficial del SDSC. Actualiza tus marcadores para mantenerte al día con la información y los servicios más recientes.",
+    "cta": "Ir al nuevo sitio del SDSC",
+    "whatChanged": "Qué cambió",
+    "newDestinationTitle": "Nuevo destino",
+    "newDestinationBody": "El sitio web oficial del SDSC ahora está alojado en el enlace que se muestra en esta página.",
+    "stayUpdatedTitle": "Mantente al día",
+    "stayUpdatedBody": "Actualiza los marcadores o enlaces guardados para no perderte los anuncios.",
+    "needHelpTitle": "¿Necesitas ayuda?",
+    "needHelpBody": "Visita el sitio oficial para obtener los datos de contacto y las opciones de soporte."
+  },
+  "footer": {
+    "tagline": "El SDSC combina el análisis espacial, el diseño y las alianzas comunitarias para traducir la inteligencia geoespacial en impacto en Florida State University y más allá.",
+    "partnerWithUs": "Colabora con nosotros",
+    "navigate": "Navegar",
+    "visit": "Visitar",
+    "copyright": "© {year} Centro de Ciencia de Datos Espaciales. Todos los derechos reservados."
+  },
+  "stories": {
+    "close": "Cerrar el visor de historias",
+    "counter": "Historia {current} / {total}",
+    "memberStory": "Historia individual",
+    "groupStory": "Historia grupal",
+    "memberCount": "{count, plural, one {# miembro} other {# miembros}}",
+    "spotlight": "Destacado",
+    "featuredMembers": "Miembros destacados",
+    "readFullStory": "Leer la historia completa",
+    "voices": "{count} voces"
+  }
+}

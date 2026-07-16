@@ -2,10 +2,11 @@
 
 import StoryModal from '@/components/Stories/StoryModal';
 import Avatar from '@/components/Utility/Avatar';
+import { Link } from '@/i18n/navigation';
 import type { StoryEvent } from '@/lib/stories/types';
 import { ArrowUpRight, Sparkles, Users } from 'lucide-react';
 import { useState } from 'react';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 type StoryRailProps = {
   stories: StoryEvent[];
@@ -28,6 +29,7 @@ export default function StoryRail({
   panelClassName = 'surface-fade relative overflow-hidden px-6 py-12 md:px-10',
   overlayClassName = 'pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_82%_-8%,_rgba(249,115,22,0.16),_transparent_52%),radial-gradient(105%_105%_at_12%_0%,_rgba(190,24,93,0.16),_transparent_48%)]'
 }: StoryRailProps) {
+  const t = useTranslations('stories');
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const visibleStories = stories.slice(0, 8);
 
@@ -122,7 +124,7 @@ export default function StoryRail({
                   )}
                   {story.kind === 'single'
                     ? story.members[0].name
-                    : `${story.members.length} Voices`}
+                    : t('voices', { count: story.members.length })}
                 </p>
                 <p className="mt-2 line-clamp-2 text-sm font-medium leading-6 text-ink-900">
                   {story.title}

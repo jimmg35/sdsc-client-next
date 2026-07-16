@@ -1,6 +1,7 @@
 'use client';
 
 import Avatar from '@/components/Utility/Avatar';
+import { Link } from '@/i18n/navigation';
 import type { StoryEvent, StoryMember } from '@/lib/stories/types';
 import {
   ArrowLeft,
@@ -12,16 +13,10 @@ import {
 } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useFormatter, useTranslations } from 'next-intl';
 import Image from 'next/image';
-import Link from 'next/link';
 
 const AUTO_ADVANCE_MS = 7000;
-
-const formatter = new Intl.DateTimeFormat('en-US', {
-  year: 'numeric',
-  month: 'short',
-  day: 'numeric'
-});
 
 type StoryModalProps = {
   stories: StoryEvent[];
@@ -38,6 +33,9 @@ export default function StoryModal({
   requestedFocusMemberId = null,
   onClose
 }: StoryModalProps) {
+  const t = useTranslations('stories');
+  const tCommon = useTranslations('common');
+  const format = useFormatter();
   const [isMounted, setIsMounted] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [currentProgressMs, setCurrentProgressMs] = useState(0);
@@ -170,7 +168,7 @@ export default function StoryModal({
     <div className="fixed inset-0 z-[90] flex items-center justify-center p-3 sm:p-6">
       <button
         type="button"
-        aria-label="Close story viewer"
+        aria-label={t('close')}
         className="absolute inset-0 bg-[#100818]/82 backdrop-blur-md"
         onClick={handleClose}
       />
@@ -211,7 +209,7 @@ export default function StoryModal({
 
         <button
           type="button"
-          aria-label="Close story viewer"
+          aria-label={t('close')}
           className="absolute right-4 top-5 z-20 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/25 text-white transition hover:bg-black/40"
           onClick={handleClose}
         >
@@ -238,12 +236,15 @@ export default function StoryModal({
           <div className="absolute inset-x-6 bottom-6 z-10 space-y-4 md:inset-x-8 md:bottom-8">
             <div className="flex flex-wrap items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-white/80">
               <span className="rounded-full border border-white/20 bg-black/20 px-3 py-1 backdrop-blur">
-                Story {currentIndex + 1} / {stories.length}
+                {t('counter', {
+                  current: currentIndex + 1,
+                  total: stories.length
+                })}
               </span>
               <span className="rounded-full border border-white/20 bg-black/20 px-3 py-1 backdrop-blur">
                 {currentStory.kind === 'single'
-                  ? 'Member Story'
-                  : 'Group Story'}
+                  ? t('memberStory')
+                  : t('groupStory')}
               </span>
             </div>
 
@@ -262,7 +263,11 @@ export default function StoryModal({
           <div className="flex flex-wrap items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-white/72">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/6 px-3 py-1.5">
               <CalendarDays size={14} />
-              {formatter.format(new Date(currentStory.date))}
+              {format.dateTime(new Date(currentStory.date), {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+              })}
             </span>
             <span className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/6 px-3 py-1.5">
               {currentStory.kind === 'single' ? (
@@ -270,8 +275,7 @@ export default function StoryModal({
               ) : (
                 <Users size={14} />
               )}
-              {currentStory.members.length}{' '}
-              {currentStory.members.length === 1 ? 'member' : 'members'}
+              {t('memberCount', { count: currentStory.members.length })}
             </span>
           </div>
 
@@ -288,7 +292,7 @@ export default function StoryModal({
                 </span>
                 <div className="min-w-0">
                   <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/55">
-                    Spotlight
+                    {t('spotlight')}
                   </p>
                   <p className="truncate text-lg font-semibold text-white">
                     {focusedMember.name}
@@ -310,7 +314,7 @@ export default function StoryModal({
           {currentStory.members.length > 1 && (
             <section>
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/48">
-                Featured Members
+                {t('featuredMembers')}
               </p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {currentStory.members.map((member) => (
@@ -329,7 +333,7 @@ export default function StoryModal({
             href={currentStory.url}
             className="inline-flex items-center justify-center rounded-full border border-rose-300/35 bg-rose-100/90 px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-rose-900 transition hover:bg-rose-100"
           >
-            Read Full Story
+            {t('readFullStory')}
           </Link>
 
           <div className="mt-auto flex items-center justify-between gap-3 pt-4">
@@ -340,7 +344,7 @@ export default function StoryModal({
               className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/6 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-45"
             >
               <ArrowLeft size={16} />
-              Previous
+              {tCommon('previous')}
             </button>
             <button
               type="button"
@@ -348,7 +352,7 @@ export default function StoryModal({
               disabled={currentIndex === stories.length - 1}
               className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/6 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-45"
             >
-              Next
+              {tCommon('next')}
               <ArrowRight size={16} />
             </button>
           </div>

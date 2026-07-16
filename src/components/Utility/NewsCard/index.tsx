@@ -1,17 +1,16 @@
+import { Link } from '@/i18n/navigation';
 import { NewsData } from '@/lib/news';
 import { ArrowUpRight } from 'lucide-react';
+import { getFormatter, getTranslations } from 'next-intl/server';
 import Image from 'next/image';
-import Link from 'next/link';
 
-const formatter = new Intl.DateTimeFormat('en-US', {
-  year: 'numeric',
-  month: 'short',
-  day: 'numeric'
-});
+const NewsCard = async ({ data }: { data: NewsData }) => {
+  const t = await getTranslations('news.card');
+  const format = await getFormatter();
 
-const NewsCard = ({ data }: { data: NewsData }) => {
-  const publishDate = formatter.format(
-    data.date instanceof Date ? data.date : new Date(data.date)
+  const publishDate = format.dateTime(
+    data.date instanceof Date ? data.date : new Date(data.date),
+    { year: 'numeric', month: 'short', day: 'numeric' }
   );
 
   return (
@@ -45,7 +44,7 @@ const NewsCard = ({ data }: { data: NewsData }) => {
           href={`/news/${data.slug}`}
           className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-rose-600 transition hover:text-rose-700"
         >
-          <span>Read Story</span>
+          <span>{t('readStory')}</span>
           <ArrowUpRight
             size={18}
             className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"

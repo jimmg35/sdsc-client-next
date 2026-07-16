@@ -7,51 +7,18 @@ import {
   SquaresExclude,
   Vote
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 
-const focusAreas = [
-  {
-    title: 'Spatial Analytics',
-    description:
-      'Advance spatial statistical and AI methods to better understand spatial processes and enable accurate prediction.',
-    icon: SquaresExclude
-  },
-  {
-    title: 'Health & Wellbeing',
-    description:
-      'Analyze geographic patterns in health outcomes, risks, and healthcare access for better decision-making and prediction.',
-    icon: HeartPlus
-  },
-  {
-    title: 'Environment',
-    description:
-      'Monitor, model, and predict environmental changes and natural hazards, and assess their impacts on ecosystems and communities.',
-    icon: Earth
-  },
-  {
-    title: 'Voting',
-    description:
-      'Mesaure spatial patterns of voter behavior, electoral processes, and participation disparities.',
-    icon: Vote
-  },
-  {
-    title: 'Urban',
-    description:
-      'Explore how urban systems, mobility and spatial dynamics influence equity and resilience in cities.',
-    icon: Building2
-  },
-  {
-    title: 'Transportation',
-    description:
-      'Understand travel behavior, enhance mobility systems, and advance equitable and sustainable transportation solutions.',
-    icon: Bus
-  },
-  {
-    title: 'Crime',
-    description:
-      'Examine crime dynamics, neighborhood contexts, and social inequities shaping public safety.',
-    icon: ShieldAlert
-  }
+const focusAreas: { key: string; icon: LucideIcon }[] = [
+  { key: 'spatialAnalytics', icon: SquaresExclude },
+  { key: 'healthWellbeing', icon: HeartPlus },
+  { key: 'environment', icon: Earth },
+  { key: 'voting', icon: Vote },
+  { key: 'urban', icon: Building2 },
+  { key: 'transportation', icon: Bus },
+  { key: 'crime', icon: ShieldAlert }
 ];
 
 const iconPositions = [
@@ -74,7 +41,13 @@ const cardLayouts = [
   'lg:col-span-3'
 ];
 
-export default function Research() {
+export default async function Research(props: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await props.params;
+  setRequestLocale(locale);
+  const t = await getTranslations('research');
+
   return (
     <section className="page-shell">
       <div className="mx-auto max-w-6xl px-6 pb-28 pt-28 text-ink-900 md:pt-36">
@@ -93,16 +66,13 @@ export default function Research() {
           <div className="relative grid min-h-[31rem] grid-cols-1 items-center gap-8 px-6 py-12 md:px-10 lg:grid-cols-[minmax(0,1fr)_28rem]">
             <div className="min-w-0 max-w-2xl">
               <span className="chip-gold border-white/35 bg-white/88 text-rose-700">
-                Research
+                {t('chip')}
               </span>
               <h1 className="mt-6 text-4xl font-semibold text-white text-glow md:text-5xl">
-                Advancing spatial knowledge and practice
+                {t('title')}
               </h1>
               <p className="mt-5 max-w-3xl text-sm leading-7 text-white/82 md:text-base">
-                The Spatial Data Science Center (SDSC) is committed to
-                developing solutions to some of society&apos;s most pressing
-                problems in areas such as health, transportation, crime, poverty
-                and the environment through the power of spatial data analytics.
+                {t('intro')}
               </p>
             </div>
 
@@ -115,9 +85,9 @@ export default function Research() {
               <div className="absolute bottom-[32%] left-[19%] h-px w-[60%] -rotate-12 bg-white/22" />
               <div className="absolute left-[50%] top-[15%] h-[68%] w-px rotate-12 bg-white/20" />
 
-              {focusAreas.map(({ title, icon: Icon }, index) => (
+              {focusAreas.map(({ key, icon: Icon }, index) => (
                 <div
-                  key={title}
+                  key={key}
                   className={`absolute flex h-14 w-14 items-center justify-center rounded-2xl border border-white/25 bg-white/16 text-white shadow-[0_24px_48px_-32px_rgba(0,0,0,0.65)] backdrop-blur-md ${iconPositions[index]}`}
                 >
                   <Icon size={25} />
@@ -128,9 +98,9 @@ export default function Research() {
         </header>
 
         <section className="mt-12 grid grid-cols-1 auto-rows-fr gap-5 lg:grid-cols-12 lg:auto-rows-[minmax(12rem,auto)]">
-          {focusAreas.map(({ title, description, icon: Icon }, index) => (
+          {focusAreas.map(({ key, icon: Icon }, index) => (
             <article
-              key={title}
+              key={key}
               className={`group relative min-w-0 overflow-hidden rounded-[24px] border border-rose-100/75 bg-white/82 px-6 py-7 text-ink-900 shadow-[0_34px_70px_-52px_rgba(44,36,32,0.5)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-rose-200 hover:bg-white/92 ${cardLayouts[index] || 'lg:col-span-4'}`}
             >
               <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-rose-500/75 via-silk-500/75 to-transparent opacity-80" />
@@ -155,7 +125,7 @@ export default function Research() {
                           : 'text-lg font-semibold text-ink-900 text-glow'
                       }
                     >
-                      {title}
+                      {t(`areas.${key}.title`)}
                     </h2>
                     <p
                       className={
@@ -164,7 +134,7 @@ export default function Research() {
                           : 'mt-3 text-sm leading-6 text-ink-600'
                       }
                     >
-                      {description}
+                      {t(`areas.${key}.description`)}
                     </p>
                   </div>
                 </div>

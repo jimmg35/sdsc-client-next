@@ -1,12 +1,8 @@
 import Avatar from '@/components/Utility/Avatar';
+import { Link } from '@/i18n/navigation';
 import { MemberData } from '@/lib/members';
-import {
-  ArrowUpRight,
-  GraduationCap,
-  Mail,
-  UsersRound
-} from 'lucide-react';
-import Link from 'next/link';
+import { ArrowUpRight, GraduationCap, Mail, UsersRound } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 
 export type MemberDirectorySection = {
   id: string;
@@ -28,11 +24,15 @@ type MembersDirectoryProps = {
   overview: OverviewMetric[];
 };
 
-export default function MembersDirectory({
+type ActionVariant = 'profile' | 'scholar' | 'email';
+
+export default async function MembersDirectory({
   director,
   sections,
   overview
 }: MembersDirectoryProps) {
+  const t = await getTranslations('members.directory');
+
   return (
     <>
       <section className="surface-fade mb-16 overflow-hidden px-6 py-8 md:px-10">
@@ -41,20 +41,17 @@ export default function MembersDirectory({
         <div className="relative">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1.5fr)_minmax(19rem,1fr)] lg:items-end">
             <div>
-              <p className="panel-title text-gold-300">Browse The Collective</p>
+              <p className="panel-title text-gold-300">{t('browseEyebrow')}</p>
               <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
-                Navigate SDSC by role, then dive into individual profiles
+                {t('browseTitle')}
               </h2>
               <p className="mt-4 max-w-3xl text-sm leading-7 text-gold-200/78 md:text-base">
-                The directory is organized around how people contribute to the
-                center: leadership, core faculty, affiliated collaborators, and
-                graduate researchers. Use the section links below to jump
-                directly into the layer you want.
+                {t('browseDescription')}
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3">
                 {director && (
-                  <AnchorLink href="#director" label="Center Director" />
+                  <AnchorLink href="#director" label={t('centerDirector')} />
                 )}
                 {sections.map((section) => (
                   <AnchorLink
@@ -106,11 +103,10 @@ export default function MembersDirectory({
             <div className="flex flex-wrap items-center gap-2 self-start">
               <div className="inline-flex items-center gap-2 rounded-full border border-rose-200/70 bg-white/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-rose-600">
                 <UsersRound size={14} />
-                {section.members.length}{' '}
-                {section.members.length === 1 ? 'Member' : 'Members'}
+                {t('memberCount', { count: section.members.length })}
               </div>
               <div className="inline-flex items-center rounded-full border border-gold-400/35 bg-gold-500/15 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-gold-100">
-                Sorted A-Z
+                {t('sortedAZ')}
               </div>
             </div>
           </div>
@@ -126,7 +122,9 @@ export default function MembersDirectory({
   );
 }
 
-function DirectorSpotlight({ member }: { member: MemberData }) {
+async function DirectorSpotlight({ member }: { member: MemberData }) {
+  const t = await getTranslations('members.directory');
+
   return (
     <section
       id="director"
@@ -134,13 +132,13 @@ function DirectorSpotlight({ member }: { member: MemberData }) {
     >
       <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
         <div className="max-w-3xl">
-          <p className="panel-title text-gold-300">Center Director</p>
+          <p className="panel-title text-gold-300">{t('centerDirector')}</p>
           <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
-            Leadership at the center of SDSC
+            {t('spotlightTitle')}
           </h2>
         </div>
         <div className="inline-flex items-center self-start whitespace-nowrap rounded-full border border-rose-200/70 bg-white/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-rose-600">
-          Director Spotlight
+          {t('spotlightBadge')}
         </div>
       </div>
 
@@ -156,10 +154,10 @@ function DirectorSpotlight({ member }: { member: MemberData }) {
             </span>
           </div>
           <span className="chip-gold mt-6">
-            {member.centerRole || 'Center Director'}
+            {member.centerRole || t('directorRoleFallback')}
           </span>
           <p className="mt-4 text-xs font-semibold uppercase tracking-[0.26em] text-gold-300/75">
-            Spatial Data Science Center
+            {t('spatialDataScienceCenter')}
           </p>
         </div>
 
@@ -176,23 +174,32 @@ function DirectorSpotlight({ member }: { member: MemberData }) {
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <ActionLink href={`/member/${member.id}`} label="View Profile" />
+            <ActionLink
+              href={`/member/${member.id}`}
+              label={t('viewProfile')}
+              variant="profile"
+            />
             {member.googleScholar && (
               <ActionLink
                 href={member.googleScholar}
-                label="Scholar"
+                label={t('scholar')}
+                variant="scholar"
                 external
               />
             )}
             {member.email && (
-              <ActionLink href={`mailto:${member.email}`} label="Email" />
+              <ActionLink
+                href={`mailto:${member.email}`}
+                label={t('email')}
+                variant="email"
+              />
             )}
           </div>
 
           {member.honor.length > 0 && (
             <div className="mt-8">
               <p className="text-xs font-semibold uppercase tracking-[0.26em] text-gold-300/70">
-                Select Recognition
+                {t('selectRecognition')}
               </p>
               <div className="mt-4 grid gap-3 md:grid-cols-2">
                 {member.honor.slice(0, 4).map((honor) => (
@@ -215,7 +222,9 @@ function DirectorSpotlight({ member }: { member: MemberData }) {
   );
 }
 
-function MemberCard({ member }: { member: MemberData }) {
+async function MemberCard({ member }: { member: MemberData }) {
+  const t = await getTranslations('members.directory');
+
   return (
     <Link
       href={`/member/${member.id}`}
@@ -232,7 +241,7 @@ function MemberCard({ member }: { member: MemberData }) {
         </span>
         <div className="min-w-0">
           <p className="text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-rose-500">
-            {member.centerRole || 'SDSC Member'}
+            {member.centerRole || t('memberRoleFallback')}
           </p>
           <h3 className="mt-2 text-xl font-semibold text-gold-50 text-glow">
             {member.name}
@@ -248,7 +257,9 @@ function MemberCard({ member }: { member: MemberData }) {
       {member.advisor && (
         <div className="mt-3 w-full border-t border-white/10 pt-3">
           <p className="text-sm leading-6 text-gold-200/78">
-            <span className="font-semibold text-gold-300/82">Advisor:</span>{' '}
+            <span className="font-semibold text-gold-300/82">
+              {t('advisor')}
+            </span>{' '}
             {member.advisor}
           </p>
         </div>
@@ -260,10 +271,12 @@ function MemberCard({ member }: { member: MemberData }) {
 function ActionLink({
   href,
   label,
+  variant,
   external = false
 }: {
   href: string;
   label: string;
+  variant: ActionVariant;
   external?: boolean;
 }) {
   return (
@@ -277,9 +290,9 @@ function ActionLink({
         : {})}
       className="inline-flex items-center gap-2 rounded-full border border-gold-400/35 bg-gold-500/15 px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-gold-100 transition hover:bg-gold-500/28"
     >
-      {label === 'Scholar' ? (
+      {variant === 'scholar' ? (
         <GraduationCap size={15} />
-      ) : label === 'Email' ? (
+      ) : variant === 'email' ? (
         <Mail size={15} />
       ) : (
         <ArrowUpRight size={15} />

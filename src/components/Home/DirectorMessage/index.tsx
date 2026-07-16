@@ -1,6 +1,9 @@
+import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 
-const DirectorMessage = () => {
+const DirectorMessage = async () => {
+  const t = await getTranslations('home.director');
+
   return (
     <section className="surface-fade relative overflow-hidden rounded-none px-6 py-16 md:px-16">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_80%_-10%,_rgba(124,74,158,0.32),_transparent_65%)]" />
@@ -19,31 +22,17 @@ const DirectorMessage = () => {
         </div>
         <div className="text-gold-50 md:w-2/3">
           <span className="mt-4 text-3xl font-semibold leading-tight text-gold-50 md:text-4xl">
-            Message from the Director
+            {t('eyebrow')}
           </span>
           <p className="mt-6 text-base text-gold-100/80 md:text-lg text-justify">
-            Welcome to the Spatial Data Science Center (SDSC) where solutions to
-            many of the World&apos;s most pressing problems are being forged
-            through the development of sophisticated statistical methods and the
-            application of new approaches such as GeoAI and machine learning.
-            Our expertise extends to all types of domain areas including health,
-            transportation, voting, crime, housing, retailing, and the
-            environment.{' '}
-            <strong className="font-semibold">
-              Our work is built on the fundamental principle that understanding
-              where these challenges occur is the key to understanding why they
-              occur and how to solve them.
-            </strong>
+            {t.rich('p1', {
+              strong: (chunks) => (
+                <strong className="font-semibold">{chunks}</strong>
+              )
+            })}
           </p>
           <p className="mt-5 text-base text-gold-100/80 md:text-lg text-justify">
-            The SDSC aims to be a focal point for all the great work that is
-            taking place in spatial data science across many departments at FSU.
-            Whether you&apos;re a faculty member wanting to pursue joint
-            research or a funding application, or are interested in becoming an
-            affiliate, or a representative of a government department or private
-            firm needing consulting assistance, or a student interested in being
-            involved in SDSC activities, contact us at
-            stewart.fotheringham@fsu.edu.
+            {t('p2')}
           </p>
           <div className="mt-6 flex items-center flex-row-reverse gap-4">
             <Image
@@ -55,7 +44,7 @@ const DirectorMessage = () => {
               priority
             />
             <p className="mt-3 text-xs font-semibold uppercase tracking-[0.25em] text-gold-200/70">
-              Founding Director
+              {t('role')}
             </p>
           </div>
         </div>

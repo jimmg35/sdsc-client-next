@@ -1,0 +1,379 @@
+{
+  "metadata": {
+    "title": "空間資料科學中心",
+    "description": "歡迎來到 SDSC！"
+  },
+  "common": {
+    "download": "下載",
+    "version": "版本 {version}",
+    "previous": "上一則",
+    "next": "下一則"
+  },
+  "officialBar": {
+    "shortLabel": "SDSC 官方網站",
+    "fullLabel": "空間資料科學中心官方網站",
+    "university": "佛羅里達州立大學"
+  },
+  "nav": {
+    "home": "首頁",
+    "members": "成員",
+    "research": "研究",
+    "mgwr": "MGWR",
+    "publications": "著作",
+    "news": "新聞",
+    "contact": "聯絡我們",
+    "explore": "探索",
+    "navigation": "導覽",
+    "partnerCta": "與 SDSC 合作"
+  },
+  "languageSwitcher": {
+    "label": "語言",
+    "aria": "選擇語言"
+  },
+  "home": {
+    "welcome": {
+      "scrollDown": "向下捲動",
+      "title": "歡迎來到空間資料科學中心！"
+    },
+    "storyRail": {
+      "eyebrow": "熱門話題",
+      "title": "SDSC 最新故事",
+      "description": "每一個圓環都對應一則近期的 SDSC 故事。",
+      "ctaLabel": "認識這些說故事的人"
+    },
+    "director": {
+      "eyebrow": "主任的話",
+      "p1": "歡迎來到空間資料科學中心（SDSC）。在這裡，我們透過發展精密的統計方法，並運用 GeoAI 與機器學習等新方法，為世界上許多最迫切的問題打造解方。我們的專業橫跨各類領域，包括健康、交通、選舉、犯罪、住宅、零售與環境。<strong>我們的工作建立在一項基本原則之上：了解這些挑戰「發生在何處」，是理解它們「為何發生」以及「如何解決」的關鍵。</strong>",
+      "p2": "SDSC 期望成為 FSU 各系所在空間資料科學領域眾多卓越工作的匯聚點。無論您是希望展開共同研究或經費申請的教職員、有意成為附屬成員者、需要諮詢協助的政府部門或民間企業代表，或是想參與 SDSC 活動的學生，都歡迎透過 stewart.fotheringham@fsu.edu 與我們聯絡。",
+      "role": "創始主任"
+    },
+    "news": {
+      "eyebrow": "最新消息",
+      "heading": "新聞與活動",
+      "description": "掌握 SDSC 社群最新的研究、專案、獎項、活動與故事。",
+      "viewAll": "檢視所有故事",
+      "readBriefing": "閱讀簡報"
+    }
+  },
+  "research": {
+    "chip": "研究",
+    "title": "推進空間知識與實務",
+    "intro": "空間資料科學中心（SDSC）致力於運用空間資料分析的力量，為健康、交通、犯罪、貧窮與環境等社會最迫切的問題發展解方。",
+    "areas": {
+      "spatialAnalytics": {
+        "title": "空間分析",
+        "description": "推進空間統計與 AI 方法，以更深入理解空間過程並實現精準預測。"
+      },
+      "healthWellbeing": {
+        "title": "健康與福祉",
+        "description": "分析健康結果、風險與醫療可近性的地理模式，以促進更佳的決策與預測。"
+      },
+      "environment": {
+        "title": "環境",
+        "description": "監測、建模並預測環境變化與自然災害，評估其對生態系與社群的影響。"
+      },
+      "voting": {
+        "title": "選舉",
+        "description": "衡量選民行為、選舉過程與參與差異的空間模式。"
+      },
+      "urban": {
+        "title": "城市",
+        "description": "探索都市系統、移動性與空間動態如何影響城市的公平與韌性。"
+      },
+      "transportation": {
+        "title": "交通",
+        "description": "理解出行行為、強化移動系統，並推動公平且永續的交通解方。"
+      },
+      "crime": {
+        "title": "犯罪",
+        "description": "檢視犯罪動態、鄰里脈絡與形塑公共安全的社會不平等。"
+      }
+    }
+  },
+  "mgwr": {
+    "chip": "MGWR 工具",
+    "title": "多尺度地理加權迴歸（MGWR）",
+    "intro": "MGWR 提供 Windows 與 macOS 介面，用於校準多尺度地理加權迴歸模型，讓您能探索多尺度關係如何隨空間變化。",
+    "downloads": {
+      "windows": {
+        "title": "MGWR GUI（Windows）",
+        "description": "包含最新穩定版本、範例與說明文件的安裝套件，適用於 Windows 10/11 環境。"
+      },
+      "macos": {
+        "title": "MGWR GUI（macOS）",
+        "description": "適用於 Apple Silicon 與 Intel Mac 的通用二進位檔，內含經公證的安裝程式與入門專案。"
+      }
+    },
+    "documentation": "說明文件",
+    "sampleDatasets": "範例資料集",
+    "citationReferences": "引用文獻",
+    "access": "取用"
+  },
+  "members": {
+    "page": {
+      "chip": "SDSC 的成員",
+      "title": "認識推進空間資料科學的頂尖人才",
+      "intro": "我們的團隊匯聚地理空間分析師、資料科學家與領域專家，共同推進空間科學，並為所服務的社群打造前瞻解方。"
+    },
+    "sections": {
+      "core": {
+        "eyebrow": "核心成員",
+        "title": "核心教職",
+        "description": "帶領 SDSC 核心研究議程的教職員，橫跨空間分析、健康、移動性與計算社會科學。"
+      },
+      "affiliated": {
+        "eyebrow": "附屬成員",
+        "title": "附屬成員",
+        "description": "透過合作專案、跨領域學術與相鄰領域專業與 SDSC 連結的研究者。"
+      },
+      "graduate": {
+        "eyebrow": "研究生",
+        "title": "研究生",
+        "description": "研究生研究者建立方法、應用與實證工作，將中心的觸角延伸至新興議題與新資料集。"
+      },
+      "staff": {
+        "eyebrow": "行政人員",
+        "title": "行政人員",
+        "description": "支援 SDSC 營運、行政與日常中心活動的團隊成員。"
+      }
+    },
+    "overview": {
+      "directory": {
+        "label": "名錄",
+        "detail": "涵蓋領導層、教職、附屬成員與研究生的研究者名單。"
+      },
+      "coreFaculty": {
+        "label": "核心教職",
+        "detail": "形塑中心旗艦研究計畫的教職員。"
+      },
+      "affiliates": {
+        "label": "附屬成員",
+        "detail": "跨領域協作者，將 SDSC 延伸至各領域。"
+      },
+      "graduate": {
+        "label": "研究生",
+        "detail": "推進 SDSC 下一世代工作的新銳學者。"
+      }
+    },
+    "directory": {
+      "browseEyebrow": "瀏覽整個團隊",
+      "browseTitle": "依角色瀏覽 SDSC，再深入個人檔案",
+      "browseDescription": "本名錄依成員對中心的貢獻方式編排：領導層、核心教職、附屬協作者與研究生研究者。請使用下方的區塊連結，直接跳至您想瀏覽的層級。",
+      "centerDirector": "中心主任",
+      "memberCount": "{count, plural, other {# 位成員}}",
+      "sortedAZ": "依 A-Z 排序",
+      "spotlightTitle": "位居 SDSC 核心的領導",
+      "spotlightBadge": "主任焦點",
+      "spatialDataScienceCenter": "空間資料科學中心",
+      "viewProfile": "檢視檔案",
+      "scholar": "學術檔案",
+      "email": "電子郵件",
+      "selectRecognition": "重要榮譽",
+      "advisor": "指導教授：",
+      "directorRoleFallback": "中心主任",
+      "memberRoleFallback": "SDSC 成員"
+    },
+    "profile": {
+      "back": "成員",
+      "roleFallback": "SDSC 成員",
+      "department": "系所",
+      "advisor": "指導教授",
+      "email": "電子郵件",
+      "googleScholar": "Google Scholar",
+      "cv": "履歷",
+      "biography": "個人簡介",
+      "selectedPublications": "代表著作",
+      "credentials": "學經歷",
+      "education": "學歷",
+      "professionalExperience": "專業經歷",
+      "honorsAwards": "榮譽與獎項",
+      "focus": "專長",
+      "areasOfInterest": "研究興趣",
+      "coursesTaught": "授課課程",
+      "degreeInField": "{degree}，{field}",
+      "present": "迄今",
+      "viewProfileAria": "檢視 {name} 的檔案"
+    }
+  },
+  "publications": {
+    "page": {
+      "chip": "著作",
+      "title": "SDSC 的研究與學術成果",
+      "intro": "本中心教職與學生近期在空間資料科學領域發表的同儕審查著作。",
+      "loading": "正在載入著作…"
+    },
+    "overview": {
+      "label": "著作",
+      "detail": "SDSC 全體成員過去兩年的產出。"
+    },
+    "browse": {
+      "eyebrow": "瀏覽典藏",
+      "title": "在進入完整搜尋器前，先綜覽 SDSC 的學術成果",
+      "description": "先從即時搜尋器開始，再依年份、SDSC 貢獻者或結果串流本身縮小典藏範圍。目前的索引{reach}，並已將 {count} 位 SDSC 成員檔案連結回著作卡片。",
+      "reachInto": "已延伸至 {year} 年",
+      "reachLive": "為即時更新",
+      "latestPublications": "最新著作",
+      "addedWithinMonth": "過去一個月內新增的著作。",
+      "updates": "{count, plural, other {# 則更新}}",
+      "published": "發表於 {label}",
+      "ago": "{count, plural, =0 {今天} other {# 天前}}"
+    },
+    "finder": {
+      "chip": "著作搜尋器",
+      "filtersActive": "已套用 {count} 個篩選",
+      "browseArchive": "瀏覽典藏",
+      "results": "{count} 筆結果",
+      "sort": "排序",
+      "reset": "重設",
+      "showingRange": "顯示第 {start}-{end} 筆，共 {total} 筆",
+      "noResults": "0 筆結果",
+      "pageOf": "第 {current} 頁，共 {total} 頁"
+    },
+    "sortOptions": {
+      "yearDesc": "年份由新到舊",
+      "yearAsc": "年份由舊到新",
+      "authorAsc": "作者姓名 A-Z",
+      "authorDesc": "作者姓名 Z-A"
+    },
+    "search": {
+      "placeholder": "以標題、期刊、DOI 或 SDSC 成員搜尋"
+    },
+    "chips": {
+      "keyword": "關鍵字：{value}",
+      "year": "年份：{value}",
+      "author": "SDSC 作者：{value}",
+      "remove": "移除 {label}"
+    },
+    "filters": {
+      "byYear": "依年份篩選",
+      "byYearHint": "當您想優先看到最新或最早的成果時，讓時間範圍保持精簡。",
+      "allYears": "所有年份",
+      "byMember": "依 SDSC 成員篩選",
+      "byMemberHint": "選擇一位中心成員，將典藏縮小為其參與的著作。",
+      "allMembers": "所有 SDSC 成員"
+    },
+    "results": {
+      "showing": "顯示第 {start}-{end} 筆，共 {total} 筆著作",
+      "noMatch": "沒有符合目前查詢的著作",
+      "eachCard": "每張卡片僅標示 SDSC 貢獻者",
+      "queryParams": "查詢參數：<b>page</b>、<b>sort</b>",
+      "empty": "沒有著作符合您目前的搜尋與篩選組合。請試著清除某個篩選或放寬關鍵字。"
+    },
+    "pagination": {
+      "aria": "著作分頁",
+      "pageOf": "第 {current} 頁，共 {total} 頁",
+      "navigate": "瀏覽著作典藏"
+    },
+    "post": {
+      "undated": "未標註日期",
+      "contributors": "SDSC 貢獻者",
+      "contributorsHint": "僅顯示參與此著作的中心成員。",
+      "memberCount": "{count, plural, other {# 位成員}}",
+      "noMetadata": "此著作尚無 SDSC 貢獻者的相關資料。"
+    }
+  },
+  "news": {
+    "page": {
+      "chip": "新聞室",
+      "title": "來自空間資料科學中心的故事",
+      "intro": "探索 SDSC 的突破、合作與思想領導。每篇文章都聚焦於重塑空間科學的人物與專案。"
+    },
+    "briefingCallout": {
+      "eyebrow": "需要精簡版嗎？",
+      "title": "閱讀滾動式 SDSC 簡報",
+      "description": "簡報頁面將最近三個月的 SDSC 新聞整合成一則連貫的敘事，再錨定到底層的故事動態。",
+      "cta": "閱讀簡報"
+    },
+    "featured": "精選",
+    "readStory": "閱讀故事",
+    "empty": "敬請期待——SDSC 的故事即將登場。",
+    "card": {
+      "readStory": "閱讀故事"
+    },
+    "detail": {
+      "back": "返回新聞室",
+      "chip": "SDSC 洞察"
+    }
+  },
+  "briefing": {
+    "back": "返回新聞室",
+    "aiBroadcaster": "SDSC AI 廣播員",
+    "aiWarning": "AI 簡報可能含有錯誤，請仔細查核。",
+    "range": "{start} 至 {end}",
+    "updated": "更新於 {date}",
+    "textSizeAria": "將簡報文字大小設為 {size}",
+    "window": {
+      "title": "簡報範圍",
+      "storiesInScope": "範圍內故事",
+      "rolling": "滾動 {months} 個月",
+      "empty": "目前尚無故事落在滾動簡報範圍內。",
+      "ordered": "由新到舊排序"
+    }
+  },
+  "announcements": {
+    "page": {
+      "chip": "公告",
+      "title": "來自空間資料科學中心的官方更新",
+      "intro": "隨時掌握形塑空間資料科學中心的新計畫、重大里程碑與策略方向。"
+    },
+    "featured": "精選更新",
+    "readUpdate": "閱讀更新",
+    "empty": "官方更新即將在此發布，敬請期待！",
+    "card": {
+      "viewUpdate": "檢視更新"
+    },
+    "detail": {
+      "back": "返回更新",
+      "chip": "SDSC 官方更新"
+    }
+  },
+  "contact": {
+    "chip": "與我們聯繫",
+    "title": "攜手打造空間解方",
+    "intro": "無論您是研究者、學生或社群夥伴，SDSC 都樂於在將空間資料轉化為具體成果的專案上合作。歡迎與我們聯繫——我們隨時樂意提供協助。",
+    "emailLabel": "電子郵件",
+    "visitLabel": "造訪",
+    "engageTitle": "與 SDSC 互動",
+    "engageItem1": "預約諮詢，洽談研究合作或贊助專案。",
+    "engageItem2": "舉辦以空間分析與 MGWR 為主題的工作坊或客座講座。",
+    "engageItem3": "與我們的研究生工作室合作，進行沉浸式的設計衝刺。",
+    "gradTitle": "研究生機會",
+    "gradDescription": "SDSC 為熱衷空間資料科學的學生提供助理職、工作室專案與指導。歡迎來信了解目前的職缺以及參與方式。"
+  },
+  "events": {
+    "chip": "活動",
+    "title": "即將舉行的聚會與線上活動",
+    "intro": "我們正在籌備下一波 SDSC 工作坊、講座與工作室展示。請稍後再回來查看報名詳情，以及線上或實體交流的機會。"
+  },
+  "guide": {
+    "notice": "官方公告",
+    "title": "我們的官方網站已搬遷",
+    "description": "請使用下方連結前往全新的 SDSC 官方網站。請更新您的書籤，以持續掌握最新資訊與服務。",
+    "cta": "前往全新 SDSC 網站",
+    "whatChanged": "有何變動",
+    "newDestinationTitle": "新網址",
+    "newDestinationBody": "SDSC 官方網站現已改由本頁所示的連結提供。",
+    "stayUpdatedTitle": "保持更新",
+    "stayUpdatedBody": "請更新任何書籤或已儲存的連結，以免錯過公告。",
+    "needHelpTitle": "需要協助",
+    "needHelpBody": "請造訪官方網站以取得聯絡方式與支援選項。"
+  },
+  "footer": {
+    "tagline": "SDSC 結合空間分析、設計與社群夥伴關係，將地理空間智慧轉化為橫跨佛羅里達州立大學及更廣泛範圍的影響力。",
+    "partnerWithUs": "與我們合作",
+    "navigate": "導覽",
+    "visit": "造訪",
+    "copyright": "© {year} 空間資料科學中心。保留一切權利。"
+  },
+  "stories": {
+    "close": "關閉故事檢視器",
+    "counter": "故事 {current} / {total}",
+    "memberStory": "個人故事",
+    "groupStory": "團隊故事",
+    "memberCount": "{count, plural, other {# 位成員}}",
+    "spotlight": "焦點",
+    "featuredMembers": "參與成員",
+    "readFullStory": "閱讀完整故事",
+    "voices": "{count} 位主角"
+  }
+}

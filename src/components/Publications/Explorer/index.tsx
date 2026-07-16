@@ -23,6 +23,7 @@ import {
   useRef,
   useState
 } from 'react';
+import { useTranslations } from 'next-intl';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 type MemberOption = {
@@ -49,17 +50,19 @@ type PublicationRecord = {
 const DEFAULT_FILTER_VALUE = 'all';
 const DEFAULT_SORT_VALUE: SortValue = 'year-desc';
 const PUBLICATIONS_PER_PAGE = 5;
-const SORT_OPTIONS: Array<{ label: string; value: SortValue }> = [
-  { label: 'Newest year first', value: 'year-desc' },
-  { label: 'Oldest year first', value: 'year-asc' },
-  { label: 'Author name A-Z', value: 'author-asc' },
-  { label: 'Author name Z-A', value: 'author-desc' }
+const SORT_OPTIONS: Array<{ key: string; value: SortValue }> = [
+  { key: 'yearDesc', value: 'year-desc' },
+  { key: 'yearAsc', value: 'year-asc' },
+  { key: 'authorAsc', value: 'author-asc' },
+  { key: 'authorDesc', value: 'author-desc' }
 ];
 
 const PublicationExplorer = ({
   publications,
   members
 }: PublicationExplorerProps) => {
+  const t = useTranslations('publications');
+  const tCommon = useTranslations('common');
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -354,16 +357,16 @@ const PublicationExplorer = ({
             <div className="flex flex-wrap items-center gap-3">
               <span className="chip-gold py-1">
                 <Sparkles size={14} />
-                Publication Finder
+                {t('finder.chip')}
               </span>
               <span className="inline-flex items-center gap-2 rounded-full border border-silk-200/80 bg-white/82 px-3 py-1 text-[0.72rem] font-medium uppercase tracking-[0.24em] text-ink-500">
                 <Filter size={14} />
                 {activeFiltersCount
-                  ? `${activeFiltersCount} filters active`
-                  : 'Browse the archive'}
+                  ? t('finder.filtersActive', { count: activeFiltersCount })
+                  : t('finder.browseArchive')}
               </span>
               <span className="inline-flex items-center rounded-full border border-black/6 bg-white/80 px-3 py-1 text-[0.72rem] font-medium uppercase tracking-[0.22em] text-ink-500">
-                {sortedRecords.length} results
+                {t('finder.results', { count: sortedRecords.length })}
               </span>
             </div>
 
@@ -373,7 +376,7 @@ const PublicationExplorer = ({
                 className="inline-flex items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-ink-400"
               >
                 <SlidersHorizontal size={14} />
-                Sort
+                {t('finder.sort')}
               </label>
               <select
                 id="publication-sort-select"
@@ -385,7 +388,7 @@ const PublicationExplorer = ({
               >
                 {SORT_OPTIONS.map((option) => (
                   <option key={option.value} value={option.value}>
-                    {option.label}
+                    {t(`sortOptions.${option.key}`)}
                   </option>
                 ))}
               </select>
@@ -396,7 +399,7 @@ const PublicationExplorer = ({
                 className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/86 px-4 py-3 text-sm font-semibold text-ink-700 transition duration-200 hover:border-black/20 hover:bg-white"
               >
                 <RotateCcw size={15} />
-                Reset
+                {t('finder.reset')}
               </button>
             </div>
           </div>
@@ -411,7 +414,7 @@ const PublicationExplorer = ({
                 type="text"
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder="Search by title, journal, DOI, or SDSC member"
+                placeholder={t('search.placeholder')}
                 className="calcite-focus w-full rounded-[24px] border border-black/8 bg-white/88 py-3.5 pl-13 pr-5 text-[0.97rem] text-ink-900 shadow-[0_22px_48px_-36px_rgba(44,36,32,0.24)] placeholder:text-ink-400"
               />
             </div>
@@ -419,12 +422,19 @@ const PublicationExplorer = ({
             <div className="flex flex-wrap items-center gap-3 rounded-[24px] border border-black/6 bg-[linear-gradient(175deg,rgba(255,255,255,0.9),rgba(250,244,237,0.82))] px-4 py-3 text-sm text-ink-600 shadow-[0_20px_44px_-36px_rgba(44,36,32,0.22)]">
               <span className="font-semibold text-ink-800">
                 {sortedRecords.length
-                  ? `Showing ${pageStart}-${pageEnd} of ${sortedRecords.length}`
-                  : '0 results'}
+                  ? t('finder.showingRange', {
+                      start: pageStart,
+                      end: pageEnd,
+                      total: sortedRecords.length
+                    })
+                  : t('finder.noResults')}
               </span>
               <span className="text-ink-400">/</span>
               <span>
-                Page {currentPage} of {totalPages}
+                {t('finder.pageOf', {
+                  current: currentPage,
+                  total: totalPages
+                })}
               </span>
             </div>
           </div>
@@ -435,19 +445,28 @@ const PublicationExplorer = ({
             <div className="flex flex-wrap items-center gap-3">
               {searchQuery && (
                 <FilterChip
-                  label={`Keyword: ${searchQuery}`}
+                  label={t('chips.keyword', { value: searchQuery })}
+                  removeLabel={t('chips.remove', {
+                    label: t('chips.keyword', { value: searchQuery })
+                  })}
                   onClear={() => setSearchQuery('')}
                 />
               )}
               {selectedYear !== DEFAULT_FILTER_VALUE && (
                 <FilterChip
-                  label={`Year: ${selectedYear}`}
+                  label={t('chips.year', { value: selectedYear })}
+                  removeLabel={t('chips.remove', {
+                    label: t('chips.year', { value: selectedYear })
+                  })}
                   onClear={() => setSelectedYear(DEFAULT_FILTER_VALUE)}
                 />
               )}
               {selectedAuthor && (
                 <FilterChip
-                  label={`SDSC Author: ${selectedAuthor.name}`}
+                  label={t('chips.author', { value: selectedAuthor.name })}
+                  removeLabel={t('chips.remove', {
+                    label: t('chips.author', { value: selectedAuthor.name })
+                  })}
                   onClear={() => setSelectedAuthorId(DEFAULT_FILTER_VALUE)}
                 />
               )}
@@ -465,17 +484,16 @@ const PublicationExplorer = ({
             <div className="space-y-4">
               <div>
                 <p className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-rose-500">
-                  Filter by Year
+                  {t('filters.byYear')}
                 </p>
                 <p className="mt-2 text-sm text-ink-500">
-                  Keep the timeline tight when you want the latest or earliest
-                  work first.
+                  {t('filters.byYearHint')}
                 </p>
               </div>
 
               <div className="flex flex-wrap gap-2">
                 <YearFilterButton
-                  label="All years"
+                  label={t('filters.allYears')}
                   active={selectedYear === DEFAULT_FILTER_VALUE}
                   onClick={() => setSelectedYear(DEFAULT_FILTER_VALUE)}
                 />
@@ -498,17 +516,16 @@ const PublicationExplorer = ({
             <div className="space-y-4">
               <div>
                 <p className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-rose-500">
-                  Filter by SDSC Member
+                  {t('filters.byMember')}
                 </p>
                 <p className="mt-2 text-sm text-ink-500">
-                  Select a center member to narrow the archive to publications
-                  they contributed to.
+                  {t('filters.byMemberHint')}
                 </p>
               </div>
 
               <div className="grid max-h-[28rem] gap-2 overflow-y-auto pr-1">
                 <AuthorFilterButton
-                  label="All SDSC members"
+                  label={t('filters.allMembers')}
                   active={selectedAuthorId === DEFAULT_FILTER_VALUE}
                   onClick={() => setSelectedAuthorId(DEFAULT_FILTER_VALUE)}
                 />
@@ -559,17 +576,22 @@ const PublicationExplorer = ({
             <div className="space-y-1">
               <p className="text-sm font-semibold text-ink-800">
                 {sortedRecords.length
-                  ? `Showing ${pageStart}-${pageEnd} of ${sortedRecords.length} publications`
-                  : 'No publications match the current query'}
+                  ? t('results.showing', {
+                      start: pageStart,
+                      end: pageEnd,
+                      total: sortedRecords.length
+                    })
+                  : t('results.noMatch')}
               </p>
               <p className="text-xs uppercase tracking-[0.28em] text-ink-400">
-                Each card highlights only SDSC contributors
+                {t('results.eachCard')}
               </p>
             </div>
 
             <div className="text-sm text-ink-500">
-              Query params: <span className="font-semibold">page</span>,{' '}
-              <span className="font-semibold">sort</span>
+              {t.rich('results.queryParams', {
+                b: (chunks) => <span className="font-semibold">{chunks}</span>
+              })}
             </div>
           </div>
 
@@ -584,30 +606,32 @@ const PublicationExplorer = ({
               ))
             ) : (
               <div className="calcite-box px-8 py-10 text-center text-sm text-ink-500">
-                No publications match your current search and filter
-                combination. Try clearing a filter or broadening the keyword.
+                {t('results.empty')}
               </div>
             )}
           </div>
 
           {totalPages > 1 && (
             <nav
-              aria-label="Publication pagination"
+              aria-label={t('pagination.aria')}
               className="calcite-box flex flex-col gap-4 px-5 py-5"
             >
               <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                 <div>
                   <p className="text-sm font-semibold text-ink-800">
-                    Page {currentPage} of {totalPages}
+                    {t('pagination.pageOf', {
+                      current: currentPage,
+                      total: totalPages
+                    })}
                   </p>
                   <p className="text-xs uppercase tracking-[0.28em] text-ink-400">
-                    Navigate the publication archive
+                    {t('pagination.navigate')}
                   </p>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2">
                   <PaginationButton
-                    label="Previous"
+                    label={tCommon('previous')}
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
                     icon={<ArrowLeft size={16} />}
@@ -639,7 +663,7 @@ const PublicationExplorer = ({
                   )}
 
                   <PaginationButton
-                    label="Next"
+                    label={tCommon('next')}
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
                     icon={<ArrowRight size={16} />}
@@ -657,17 +681,18 @@ const PublicationExplorer = ({
 
 type FilterChipProps = {
   label: string;
+  removeLabel: string;
   onClear: () => void;
 };
 
-const FilterChip = ({ label, onClear }: FilterChipProps) => (
+const FilterChip = ({ label, removeLabel, onClear }: FilterChipProps) => (
   <span className="inline-flex items-center gap-2 rounded-full border border-rose-200/60 bg-rose-50/80 px-3 py-2 text-xs font-medium text-ink-700">
     {label}
     <button
       type="button"
       onClick={onClear}
       className="rounded-full border border-rose-200/70 p-1 text-rose-500 transition duration-200 hover:border-rose-300 hover:text-rose-600"
-      aria-label={`Remove ${label}`}
+      aria-label={removeLabel}
     >
       <X size={12} />
     </button>

@@ -6,8 +6,15 @@ import PublicationExplorer from '@/components/Publications/Explorer';
 import { MemberData, getAllMembers } from '@/lib/members';
 import { PublicationData, getAllPublications } from '@/lib/publications';
 import { Suspense } from 'react';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-export default function Publications() {
+export default async function Publications(props: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await props.params;
+  setRequestLocale(locale);
+  const t = await getTranslations('publications');
+
   const publications: PublicationData[] = getAllPublications();
   const members: Pick<MemberData, 'id' | 'name' | 'title' | 'thumbnail'>[] =
     getAllMembers()
@@ -39,9 +46,9 @@ export default function Publications() {
   ).length;
   const overview: PublicationOverviewMetric[] = [
     {
-      value: formatCount(recentPublicationCount),
-      label: 'Publications',
-      detail: 'Output from all SDSC members over the past two years.'
+      value: formatCount(recentPublicationCount, locale),
+      label: t('overview.label'),
+      detail: t('overview.detail')
     }
   ];
   const latestPublications = buildLatestPublicationNotices(
@@ -53,13 +60,12 @@ export default function Publications() {
     <section className="page-shell">
       <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 text-gold-100 md:pt-40">
         <header className="text-center">
-          <span className="chip-gold">Publications</span>
+          <span className="chip-gold">{t('page.chip')}</span>
           <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
-            Research and scholarship from SDSC
+            {t('page.title')}
           </h1>
           <p className="mx-auto mt-5 max-w-3xl text-sm text-gold-200/80 md:text-base">
-            Recent peer-reviewed publications by our faculty and students across
-            the spatial data science spectrum.
+            {t('page.intro')}
           </p>
         </header>
 
@@ -73,7 +79,7 @@ export default function Publications() {
         <Suspense
           fallback={
             <div className="mt-16 rounded-3xl border border-black/5 bg-white/70 p-8 text-center text-sm text-ink-500">
-              Loading publications...
+              {t('page.loading')}
             </div>
           }
         >
@@ -84,8 +90,8 @@ export default function Publications() {
   );
 }
 
-function formatCount(value: number) {
-  return new Intl.NumberFormat('en-US').format(value);
+function formatCount(value: number, locale: string) {
+  return new Intl.NumberFormat(locale).format(value);
 }
 
 function buildLatestPublicationNotices(
@@ -116,7 +122,7 @@ function buildLatestPublicationNotices(
             title: publication.title,
             author: publication.author,
             doi: publication.doi,
-            publishedAgoLabel: formatDaysAgo(publishedDate, referenceDate),
+            publishedDaysAgo: countDaysAgo(publishedDate, referenceDate),
             members: publication.memberIds
               .map((memberId) => membersById.get(memberId))
               .filter((member): member is NonNullable<typeof member> =>
@@ -149,7 +155,7 @@ function parsePublicationDate(value: string | null): Date | null {
   return date;
 }
 
-function formatDaysAgo(publishedDate: Date, referenceDate: Date) {
+function countDaysAgo(publishedDate: Date, referenceDate: Date) {
   const millisecondsPerDay = 1000 * 60 * 60 * 24;
   const publishedDay = new Date(
     publishedDate.getFullYear(),
@@ -161,16 +167,11 @@ function formatDaysAgo(publishedDate: Date, referenceDate: Date) {
     referenceDate.getMonth(),
     referenceDate.getDate()
   );
-  const daysAgo = Math.max(
+
+  return Math.max(
     0,
     Math.floor(
       (referenceDay.getTime() - publishedDay.getTime()) / millisecondsPerDay
     )
   );
-
-  if (daysAgo === 0) {
-    return 'today';
-  }
-
-  return daysAgo === 1 ? '1 day ago' : `${daysAgo} days ago`;
 }

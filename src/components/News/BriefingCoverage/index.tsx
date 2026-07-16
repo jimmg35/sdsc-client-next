@@ -2,6 +2,7 @@
 
 import { RadioTower } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 type BriefingRenderedSegment = {
   anchorSlug?: string;
@@ -40,6 +41,7 @@ const fontSizeOptions = {
 type FontSizeOption = keyof typeof fontSizeOptions;
 
 const BriefingCoverage = ({ readTime, segments, months, stories }: Props) => {
+  const t = useTranslations('briefing');
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [fontSize, setFontSize] = useState<FontSizeOption>('m');
   const clearHighlightTimeoutRef = useRef<number | null>(null);
@@ -102,22 +104,26 @@ const BriefingCoverage = ({ readTime, segments, months, stories }: Props) => {
       <article className="surface-fade px-6 py-8 md:px-10">
         <div className="mb-6 flex flex-wrap items-center justify-end gap-3">
           <div className="inline-flex rounded-full border border-rose-200/80 bg-white/90 p-1 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-rose-500 shadow-[0_16px_38px_-30px_rgba(168,110,161,0.22)]">
-            {(Object.keys(fontSizeOptions) as FontSizeOption[]).map((option) => (
-              <button
-                key={option}
-                type="button"
-                onClick={() => setFontSize(option)}
-                className={`rounded-full px-3 py-1 text-[0.72rem] font-semibold uppercase tracking-[0.18em] transition ${
-                  fontSize === option
-                    ? 'bg-rose-50 text-rose-700 shadow-sm'
-                    : 'text-rose-500 hover:text-rose-700'
-                }`}
-                aria-label={`Set briefing text size to ${fontSizeOptions[option].label}`}
-                aria-pressed={fontSize === option}
-              >
-                {fontSizeOptions[option].label}
-              </button>
-            ))}
+            {(Object.keys(fontSizeOptions) as FontSizeOption[]).map(
+              (option) => (
+                <button
+                  key={option}
+                  type="button"
+                  onClick={() => setFontSize(option)}
+                  className={`rounded-full px-3 py-1 text-[0.72rem] font-semibold uppercase tracking-[0.18em] transition ${
+                    fontSize === option
+                      ? 'bg-rose-50 text-rose-700 shadow-sm'
+                      : 'text-rose-500 hover:text-rose-700'
+                  }`}
+                  aria-label={t('textSizeAria', {
+                    size: fontSizeOptions[option].label
+                  })}
+                  aria-pressed={fontSize === option}
+                >
+                  {fontSizeOptions[option].label}
+                </button>
+              )
+            )}
           </div>
           <div className="inline-flex items-center rounded-full border border-rose-200/80 bg-white/90 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-rose-500 shadow-[0_16px_38px_-30px_rgba(168,110,161,0.18)]">
             {readTime}
@@ -156,17 +162,17 @@ const BriefingCoverage = ({ readTime, segments, months, stories }: Props) => {
 
       <aside className="lg:sticky lg:top-28 lg:self-start xl:top-32">
         <section className="glass-card briefing-window-card px-6 py-6 text-ink-900 lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto">
-          <p className="panel-title">Briefing Window</p>
+          <p className="panel-title">{t('window.title')}</p>
           <div className="mt-4 rounded-3xl border border-rose-100 bg-white/85 px-5 py-5">
             <p className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-rose-500">
-              Stories in scope
+              {t('window.storiesInScope')}
             </p>
             <div className="mt-4 flex items-end justify-between gap-4">
               <p className="text-4xl font-semibold text-rose-700">
                 {stories.length}
               </p>
               <span className="rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-rose-500">
-                Rolling {months} months
+                {t('window.rolling', { months })}
               </span>
             </div>
           </div>
@@ -196,14 +202,14 @@ const BriefingCoverage = ({ readTime, segments, months, stories }: Props) => {
             </div>
           ) : (
             <div className="mt-5 rounded-[24px] border border-dashed border-rose-200 bg-white/80 px-5 py-5 text-sm leading-7 text-ink-700">
-              No stories are currently inside the rolling briefing window yet.
+              {t('window.empty')}
             </div>
           )}
 
           <div className="mt-5 rounded-[24px] border border-rose-100 bg-rose-50/70 px-5 py-4">
             <p className="inline-flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-rose-500">
               <RadioTower size={14} />
-              Ordered newest to oldest
+              {t('window.ordered')}
             </p>
           </div>
         </section>

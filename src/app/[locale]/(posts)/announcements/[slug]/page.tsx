@@ -1,17 +1,20 @@
-import { getAllAnnouncements, getAnnouncementBySlug } from '@/lib/announcements';
+import { Link } from '@/i18n/navigation';
+import {
+  getAllAnnouncements,
+  getAnnouncementBySlug
+} from '@/lib/announcements';
 import { markdownToHTML } from '@/lib/md';
 import { ArrowLeft, Calendar, User } from 'lucide-react';
+import {
+  getFormatter,
+  getTranslations,
+  setRequestLocale
+} from 'next-intl/server';
 import Image from 'next/image';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-const formatter = new Intl.DateTimeFormat('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric'
-});
-
 type Props = Promise<{
+  locale: string;
   slug: string;
 }>;
 
@@ -23,7 +26,10 @@ export async function generateStaticParams() {
 }
 
 export default async function AnnouncementPage(props: { params: Props }) {
-  const { slug } = await props.params;
+  const { locale, slug } = await props.params;
+  setRequestLocale(locale);
+  const t = await getTranslations('announcements.detail');
+  const format = await getFormatter();
 
   let announcement;
 
@@ -52,14 +58,14 @@ export default async function AnnouncementPage(props: { params: Props }) {
           className="inline-flex items-center gap-2 rounded-full border border-rose-200/80 bg-white/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-rose-600 shadow-[0_18px_42px_-30px_rgba(168,110,161,0.28)] transition hover:border-rose-300 hover:bg-white hover:text-rose-700"
         >
           <ArrowLeft size={16} />
-          Back to Updates
+          {t('back')}
         </Link>
 
         <article className="surface-fade relative mt-10 overflow-hidden rounded-[32px] px-6 pb-10 pt-8 md:px-12">
           <div className="relative mx-auto flex max-w-3xl flex-col gap-6 text-gold-100">
             <header className="text-center">
               <span className="chip-gold inline-flex items-center justify-center">
-                Official SDSC Update
+                {t('chip')}
               </span>
               <h1 className="mt-4 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
                 {announcement.title}
@@ -69,7 +75,12 @@ export default async function AnnouncementPage(props: { params: Props }) {
                   <User size={16} /> {announcement.author}
                 </span>
                 <span className="inline-flex items-center gap-2">
-                  <Calendar size={16} /> {formatter.format(publishedAt)}
+                  <Calendar size={16} />{' '}
+                  {format.dateTime(publishedAt, {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
                 </span>
               </div>
             </header>

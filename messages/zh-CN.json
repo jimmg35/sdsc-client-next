@@ -1,0 +1,379 @@
+{
+  "metadata": {
+    "title": "空间数据科学中心",
+    "description": "欢迎来到 SDSC！"
+  },
+  "common": {
+    "download": "下载",
+    "version": "版本 {version}",
+    "previous": "上一条",
+    "next": "下一条"
+  },
+  "officialBar": {
+    "shortLabel": "SDSC 官方网站",
+    "fullLabel": "空间数据科学中心官方网站",
+    "university": "佛罗里达州立大学"
+  },
+  "nav": {
+    "home": "首页",
+    "members": "成员",
+    "research": "研究",
+    "mgwr": "MGWR",
+    "publications": "论著",
+    "news": "新闻",
+    "contact": "联系我们",
+    "explore": "探索",
+    "navigation": "导航",
+    "partnerCta": "与 SDSC 合作"
+  },
+  "languageSwitcher": {
+    "label": "语言",
+    "aria": "选择语言"
+  },
+  "home": {
+    "welcome": {
+      "scrollDown": "向下滚动",
+      "title": "欢迎来到空间数据科学中心！"
+    },
+    "storyRail": {
+      "eyebrow": "热门话题",
+      "title": "SDSC 最新故事",
+      "description": "每一个圆环都对应一则近期的 SDSC 故事。",
+      "ctaLabel": "认识这些讲故事的人"
+    },
+    "director": {
+      "eyebrow": "主任致辞",
+      "p1": "欢迎来到空间数据科学中心（SDSC）。在这里，我们通过发展精密的统计方法，并运用 GeoAI 与机器学习等新方法，为世界上许多最紧迫的问题打造解决方案。我们的专业横跨各类领域，包括健康、交通、选举、犯罪、住房、零售与环境。<strong>我们的工作建立在一项基本原则之上：了解这些挑战“发生在何处”，是理解它们“为何发生”以及“如何解决”的关键。</strong>",
+      "p2": "SDSC 期望成为 FSU 各院系在空间数据科学领域众多卓越工作的汇聚点。无论您是希望开展合作研究或经费申请的教职员、有意成为附属成员者、需要咨询协助的政府部门或民营企业代表，还是想参与 SDSC 活动的学生，都欢迎通过 stewart.fotheringham@fsu.edu 与我们联系。",
+      "role": "创始主任"
+    },
+    "news": {
+      "eyebrow": "最新动态",
+      "heading": "新闻与活动",
+      "description": "掌握 SDSC 社区最新的研究、项目、奖项、活动与故事。",
+      "viewAll": "查看所有故事",
+      "readBriefing": "阅读简报"
+    }
+  },
+  "research": {
+    "chip": "研究",
+    "title": "推进空间知识与实践",
+    "intro": "空间数据科学中心（SDSC）致力于运用空间数据分析的力量，为健康、交通、犯罪、贫困与环境等社会最紧迫的问题发展解决方案。",
+    "areas": {
+      "spatialAnalytics": {
+        "title": "空间分析",
+        "description": "推进空间统计与 AI 方法，以更深入理解空间过程并实现精准预测。"
+      },
+      "healthWellbeing": {
+        "title": "健康与福祉",
+        "description": "分析健康结果、风险与医疗可及性的地理模式，以促进更好的决策与预测。"
+      },
+      "environment": {
+        "title": "环境",
+        "description": "监测、建模并预测环境变化与自然灾害，评估其对生态系统与社区的影响。"
+      },
+      "voting": {
+        "title": "选举",
+        "description": "衡量选民行为、选举过程与参与差异的空间模式。"
+      },
+      "urban": {
+        "title": "城市",
+        "description": "探索城市系统、移动性与空间动态如何影响城市的公平与韧性。"
+      },
+      "transportation": {
+        "title": "交通",
+        "description": "理解出行行为、强化移动系统，并推动公平且可持续的交通解决方案。"
+      },
+      "crime": {
+        "title": "犯罪",
+        "description": "审视犯罪动态、邻里情境与塑造公共安全的社会不平等。"
+      }
+    }
+  },
+  "mgwr": {
+    "chip": "MGWR 工具",
+    "title": "多尺度地理加权回归（MGWR）",
+    "intro": "MGWR 提供 Windows 与 macOS 界面，用于校准多尺度地理加权回归模型，让您能够探索多尺度关系如何随空间变化。",
+    "downloads": {
+      "windows": {
+        "title": "MGWR GUI（Windows）",
+        "description": "包含最新稳定版本、示例与说明文档的安装包，适用于 Windows 10/11 环境。"
+      },
+      "macos": {
+        "title": "MGWR GUI（macOS）",
+        "description": "适用于 Apple Silicon 与 Intel Mac 的通用二进制文件，内含经公证的安装程序与入门项目。"
+      }
+    },
+    "documentation": "说明文档",
+    "sampleDatasets": "示例数据集",
+    "citationReferences": "引用文献",
+    "access": "访问"
+  },
+  "members": {
+    "page": {
+      "chip": "SDSC 的成员",
+      "title": "认识推进空间数据科学的顶尖人才",
+      "intro": "我们的团队汇聚地理空间分析师、数据科学家与领域专家，共同推进空间科学，并为所服务的社区打造前瞻性解决方案。"
+    },
+    "sections": {
+      "core": {
+        "eyebrow": "核心成员",
+        "title": "核心教职",
+        "description": "带领 SDSC 核心研究议程的教职员，横跨空间分析、健康、移动性与计算社会科学。"
+      },
+      "affiliated": {
+        "eyebrow": "附属成员",
+        "title": "附属成员",
+        "description": "通过合作项目、跨学科研究与相邻领域专长与 SDSC 相连的研究者。"
+      },
+      "graduate": {
+        "eyebrow": "研究生",
+        "title": "研究生",
+        "description": "研究生研究者建立方法、应用与实证工作，将中心的触角延伸至新兴议题与新数据集。"
+      },
+      "staff": {
+        "eyebrow": "行政人员",
+        "title": "行政人员",
+        "description": "支持 SDSC 运营、行政与日常中心活动的团队成员。"
+      }
+    },
+    "overview": {
+      "directory": {
+        "label": "名录",
+        "detail": "涵盖领导层、教职、附属成员与研究生的研究者名单。"
+      },
+      "coreFaculty": {
+        "label": "核心教职",
+        "detail": "塑造中心旗舰研究计划的教职员。"
+      },
+      "affiliates": {
+        "label": "附属成员",
+        "detail": "跨学科协作者，将 SDSC 延伸至各领域。"
+      },
+      "graduate": {
+        "label": "研究生",
+        "detail": "推进 SDSC 下一代工作的新锐学者。"
+      }
+    },
+    "directory": {
+      "browseEyebrow": "浏览整个团队",
+      "browseTitle": "按角色浏览 SDSC，再深入个人主页",
+      "browseDescription": "本名录按成员对中心的贡献方式编排：领导层、核心教职、附属协作者与研究生研究者。请使用下方的区块链接，直接跳转到您想浏览的层级。",
+      "centerDirector": "中心主任",
+      "memberCount": "{count, plural, other {# 位成员}}",
+      "sortedAZ": "按 A-Z 排序",
+      "spotlightTitle": "位居 SDSC 核心的领导",
+      "spotlightBadge": "主任聚焦",
+      "spatialDataScienceCenter": "空间数据科学中心",
+      "viewProfile": "查看主页",
+      "scholar": "学术主页",
+      "email": "电子邮件",
+      "selectRecognition": "重要荣誉",
+      "advisor": "导师：",
+      "directorRoleFallback": "中心主任",
+      "memberRoleFallback": "SDSC 成员"
+    },
+    "profile": {
+      "back": "成员",
+      "roleFallback": "SDSC 成员",
+      "department": "院系",
+      "advisor": "导师",
+      "email": "电子邮件",
+      "googleScholar": "Google Scholar",
+      "cv": "简历",
+      "biography": "个人简介",
+      "selectedPublications": "代表论著",
+      "credentials": "教育与经历",
+      "education": "教育背景",
+      "professionalExperience": "专业经历",
+      "honorsAwards": "荣誉与奖项",
+      "focus": "专长",
+      "areasOfInterest": "研究兴趣",
+      "coursesTaught": "授课课程",
+      "degreeInField": "{degree}，{field}",
+      "present": "至今",
+      "viewProfileAria": "查看 {name} 的主页"
+    }
+  },
+  "publications": {
+    "page": {
+      "chip": "论著",
+      "title": "SDSC 的研究与学术成果",
+      "intro": "本中心教职与学生近期在空间数据科学领域发表的同行评审论著。",
+      "loading": "正在加载论著…"
+    },
+    "overview": {
+      "label": "论著",
+      "detail": "SDSC 全体成员过去两年的产出。"
+    },
+    "browse": {
+      "eyebrow": "浏览典藏",
+      "title": "在进入完整检索器之前，先纵览 SDSC 的学术成果",
+      "description": "先从实时检索器开始，再按年份、SDSC 贡献者或结果流本身缩小典藏范围。当前的索引{reach}，并已将 {count} 位 SDSC 成员主页链接回论著卡片。",
+      "reachInto": "已延伸至 {year} 年",
+      "reachLive": "为实时更新",
+      "latestPublications": "最新论著",
+      "addedWithinMonth": "过去一个月内新增的论著。",
+      "updates": "{count, plural, other {# 条更新}}",
+      "published": "发表于 {label}",
+      "ago": "{count, plural, =0 {今天} other {# 天前}}"
+    },
+    "finder": {
+      "chip": "论著检索器",
+      "filtersActive": "已应用 {count} 个筛选",
+      "browseArchive": "浏览典藏",
+      "results": "{count} 条结果",
+      "sort": "排序",
+      "reset": "重置",
+      "showingRange": "显示第 {start}-{end} 条，共 {total} 条",
+      "noResults": "0 条结果",
+      "pageOf": "第 {current} 页，共 {total} 页"
+    },
+    "sortOptions": {
+      "yearDesc": "年份由新到旧",
+      "yearAsc": "年份由旧到新",
+      "authorAsc": "作者姓名 A-Z",
+      "authorDesc": "作者姓名 Z-A"
+    },
+    "search": {
+      "placeholder": "按标题、期刊、DOI 或 SDSC 成员搜索"
+    },
+    "chips": {
+      "keyword": "关键词：{value}",
+      "year": "年份：{value}",
+      "author": "SDSC 作者：{value}",
+      "remove": "移除 {label}"
+    },
+    "filters": {
+      "byYear": "按年份筛选",
+      "byYearHint": "当您想优先查看最新或最早的成果时，让时间范围保持精简。",
+      "allYears": "所有年份",
+      "byMember": "按 SDSC 成员筛选",
+      "byMemberHint": "选择一位中心成员，将典藏缩小为其参与的论著。",
+      "allMembers": "所有 SDSC 成员"
+    },
+    "results": {
+      "showing": "显示第 {start}-{end} 条，共 {total} 条论著",
+      "noMatch": "没有符合当前查询的论著",
+      "eachCard": "每张卡片仅标示 SDSC 贡献者",
+      "queryParams": "查询参数：<b>page</b>、<b>sort</b>",
+      "empty": "没有论著符合您当前的搜索与筛选组合。请尝试清除某个筛选或放宽关键词。"
+    },
+    "pagination": {
+      "aria": "论著分页",
+      "pageOf": "第 {current} 页，共 {total} 页",
+      "navigate": "浏览论著典藏"
+    },
+    "post": {
+      "undated": "未标注日期",
+      "contributors": "SDSC 贡献者",
+      "contributorsHint": "仅显示参与此论著的中心成员。",
+      "memberCount": "{count, plural, other {# 位成员}}",
+      "noMetadata": "此论著暂无 SDSC 贡献者的相关信息。"
+    }
+  },
+  "news": {
+    "page": {
+      "chip": "新闻室",
+      "title": "来自空间数据科学中心的故事",
+      "intro": "探索 SDSC 的突破、合作与思想引领。每篇文章都聚焦于重塑空间科学的人物与项目。"
+    },
+    "briefingCallout": {
+      "eyebrow": "需要精简版吗？",
+      "title": "阅读滚动式 SDSC 简报",
+      "description": "简报页面将最近三个月的 SDSC 新闻整合成一则连贯的叙事，再锚定到底层的故事流。",
+      "cta": "阅读简报"
+    },
+    "featured": "精选",
+    "readStory": "阅读故事",
+    "empty": "敬请期待——SDSC 的故事即将登场。",
+    "card": {
+      "readStory": "阅读故事"
+    },
+    "detail": {
+      "back": "返回新闻室",
+      "chip": "SDSC 洞察"
+    }
+  },
+  "briefing": {
+    "back": "返回新闻室",
+    "aiBroadcaster": "SDSC AI 播报员",
+    "aiWarning": "AI 简报可能含有错误，请仔细核对。",
+    "range": "{start} 至 {end}",
+    "updated": "更新于 {date}",
+    "textSizeAria": "将简报文字大小设为 {size}",
+    "window": {
+      "title": "简报范围",
+      "storiesInScope": "范围内故事",
+      "rolling": "滚动 {months} 个月",
+      "empty": "目前尚无故事落在滚动简报范围内。",
+      "ordered": "由新到旧排序"
+    }
+  },
+  "announcements": {
+    "page": {
+      "chip": "公告",
+      "title": "来自空间数据科学中心的官方更新",
+      "intro": "及时掌握塑造空间数据科学中心的新计划、重大里程碑与战略方向。"
+    },
+    "featured": "精选更新",
+    "readUpdate": "阅读更新",
+    "empty": "官方更新即将在此发布，敬请期待！",
+    "card": {
+      "viewUpdate": "查看更新"
+    },
+    "detail": {
+      "back": "返回更新",
+      "chip": "SDSC 官方更新"
+    }
+  },
+  "contact": {
+    "chip": "与我们联系",
+    "title": "携手打造空间解决方案",
+    "intro": "无论您是研究者、学生还是社区伙伴，SDSC 都乐于在将空间数据转化为具体成果的项目上合作。欢迎与我们联系——我们随时乐意提供帮助。",
+    "emailLabel": "电子邮件",
+    "visitLabel": "到访",
+    "engageTitle": "与 SDSC 互动",
+    "engageItem1": "预约咨询，洽谈研究合作或赞助项目。",
+    "engageItem2": "举办以空间分析与 MGWR 为主题的工作坊或客座讲座。",
+    "engageItem3": "与我们的研究生工作室合作，开展沉浸式的设计冲刺。",
+    "gradTitle": "研究生机会",
+    "gradDescription": "SDSC 为热衷空间数据科学的学生提供助研职位、工作室项目与指导。欢迎来信了解当前的空缺以及参与方式。"
+  },
+  "events": {
+    "chip": "活动",
+    "title": "即将举行的聚会与线上活动",
+    "intro": "我们正在筹备下一波 SDSC 工作坊、讲座与工作室展示。请稍后再回来查看报名详情，以及线上或线下交流的机会。"
+  },
+  "guide": {
+    "notice": "官方公告",
+    "title": "我们的官方网站已迁移",
+    "description": "请使用下方链接前往全新的 SDSC 官方网站。请更新您的书签，以持续掌握最新信息与服务。",
+    "cta": "前往全新 SDSC 网站",
+    "whatChanged": "有何变化",
+    "newDestinationTitle": "新网址",
+    "newDestinationBody": "SDSC 官方网站现已改由本页所示的链接提供。",
+    "stayUpdatedTitle": "保持更新",
+    "stayUpdatedBody": "请更新任何书签或已保存的链接，以免错过公告。",
+    "needHelpTitle": "需要帮助",
+    "needHelpBody": "请访问官方网站以获取联系方式与支持选项。"
+  },
+  "footer": {
+    "tagline": "SDSC 结合空间分析、设计与社区伙伴关系，将地理空间智慧转化为横跨佛罗里达州立大学及更广泛范围的影响力。",
+    "partnerWithUs": "与我们合作",
+    "navigate": "导航",
+    "visit": "到访",
+    "copyright": "© {year} 空间数据科学中心。保留所有权利。"
+  },
+  "stories": {
+    "close": "关闭故事查看器",
+    "counter": "故事 {current} / {total}",
+    "memberStory": "个人故事",
+    "groupStory": "团队故事",
+    "memberCount": "{count, plural, other {# 位成员}}",
+    "spotlight": "聚焦",
+    "featuredMembers": "参与成员",
+    "readFullStory": "阅读完整故事",
+    "voices": "{count} 位主角"
+  }
+}

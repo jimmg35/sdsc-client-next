@@ -3,24 +3,21 @@
 import AppCard from '@/components/Utility/AppCard';
 import { trackMGWRDownload } from '@/lib/ga';
 import { ArrowUpRight, BookMarked, BookOpen, Database } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
 const DOWNLOAD_VERSION = '2.2.1';
 
 const downloads = [
   {
-    title: 'MGWR GUI (Windows)',
-    description:
-      'Installer package with the latest stable build, examples, and documentation for Windows 10/11 environments.',
+    key: 'windows',
     imageUrl: '/img/software/mgwr.png',
     href: 'https://fsu-my.sharepoint.com/:u:/g/personal/zl23l_fsu_edu/ERbawWrrxUdAuqXxAcg_LcoBtZh-ENpHZAEKoCB8GZf7xg?download=1',
     meta: 'Windows | 64-bit',
     platform: 'windows'
   },
   {
-    title: 'MGWR GUI (macOS)',
-    description:
-      'Universal binary for Apple Silicon and Intel Macs with notarized installer and starter projects.',
+    key: 'macos',
     imageUrl: '/img/software/mgwr.png',
     href: 'https://fsu-my.sharepoint.com/:u:/g/personal/zl23l_fsu_edu/EQ8R-YXyl9ZFtKASzfAtB2sBDWnICS4W2DHEaI0r2kfSFQ?download=1',
     meta: 'macOS | Universal',
@@ -78,18 +75,18 @@ const sampleDatasets = [
 ];
 
 export default function MGWR() {
+  const t = useTranslations('mgwr');
+
   return (
     <section className="page-shell">
       <div className="mx-auto max-w-6xl px-6 pb-24 pt-32 text-gold-100 md:pt-40">
         <header className="text-center">
-          <span className="chip-gold">MGWR Tools</span>
+          <span className="chip-gold">{t('chip')}</span>
           <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
-            Multiscale Geographically Weighted Regression (MGWR)
+            {t('title')}
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/75 md:text-base">
-            MGWR provides a Windows and macOS interface for calibrating
-            multiscale geographically weighted regression models so you can
-            explore how multi-scale relationships vary across space.
+            {t('intro')}
           </p>
         </header>
 
@@ -105,9 +102,9 @@ export default function MGWR() {
         <div className="mt-14 grid gap-6 md:grid-cols-2">
           {downloads.map((item) => (
             <AppCard
-              key={item.title}
-              title={item.title}
-              description={item.description}
+              key={item.key}
+              title={t(`downloads.${item.key}.title`)}
+              description={t(`downloads.${item.key}.description`)}
               imageUrl={item.imageUrl}
               href={item.href}
               meta={item.meta}
@@ -122,7 +119,7 @@ export default function MGWR() {
           <section className="glass-card px-8 py-8 text-gold-100">
             <header className="panel-title text-gold-300">
               <BookMarked size={18} />
-              Documentation
+              {t('documentation')}
             </header>
             <ul className="mt-5 space-y-2 text-sm">
               {documentationLinks.map((item) => (
@@ -144,7 +141,7 @@ export default function MGWR() {
           <section className="glass-card px-8 py-8 text-gold-100">
             <header className="panel-title text-gold-300">
               <Database size={18} />
-              Sample datasets
+              {t('sampleDatasets')}
             </header>
             <ul className="mt-5 space-y-2 text-sm">
               {sampleDatasets.map((dataset) => (
@@ -167,7 +164,7 @@ export default function MGWR() {
         <section className="mt-14 glass-card px-8 py-8 text-gold-100">
           <header className="panel-title text-gold-300">
             <BookOpen size={18} />
-            Citation references
+            {t('citationReferences')}
           </header>
           <ul className="mt-5 space-y-3 text-sm text-gold-200/85">
             {citations.map((item) => (
@@ -179,7 +176,7 @@ export default function MGWR() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-gold-300 underline-offset-4 hover:text-gold-50 hover:underline"
                 >
-                  Access
+                  {t('access')}
                   <ArrowUpRight size={14} />
                 </Link>
               </li>

@@ -1,32 +1,37 @@
 import { Mail, MapPin, Users } from 'lucide-react';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-const contactDetails = [
-  {
-    label: 'Email',
-    value: 'admin@sdsc.edu',
-    icon: Mail
-  },
-  {
-    label: 'Visit',
-    value:
-      'Spatial Data Science Center, College of Social Sciences and Public Policy, Florida State University, Tallahassee, FL 32306',
-    icon: MapPin
-  }
-];
+export default async function Contact(props: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await props.params;
+  setRequestLocale(locale);
+  const t = await getTranslations('contact');
 
-export default function Contact() {
+  const contactDetails = [
+    {
+      label: t('emailLabel'),
+      value: 'admin@sdsc.edu',
+      icon: Mail
+    },
+    {
+      label: t('visitLabel'),
+      value:
+        'Spatial Data Science Center, College of Social Sciences and Public Policy, Florida State University, Tallahassee, FL 32306',
+      icon: MapPin
+    }
+  ];
+
   return (
     <section className="page-shell">
       <div className="mx-auto max-w-5xl px-6 pb-28 pt-36 text-gold-100 md:pt-40">
         <header className="text-center">
-          <span className="chip-gold">Connect With Us</span>
+          <span className="chip-gold">{t('chip')}</span>
           <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
-            Let&apos;s build spatial solutions together
+            {t('title')}
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-sm text-gold-200/80 md:text-base">
-            Whether you are a researcher, student, or community partner, SDSC
-            collaborates on projects that transform spatial data into tangible
-            outcomes. Reach out - we&apos;re ready to help.
+            {t('intro')}
           </p>
         </header>
 
@@ -53,19 +58,11 @@ export default function Contact() {
 
         <section className="mt-16 grid gap-6 md:grid-cols-[1.2fr_1fr] text-gold-100">
           <article className="surface-fade px-8 py-10">
-            <h2 className="panel-title text-gold-300">Engage with SDSC</h2>
+            <h2 className="panel-title text-gold-300">{t('engageTitle')}</h2>
             <ul className="mt-6 space-y-4 text-sm text-gold-200/80">
-              <li className="custom-li">
-                Schedule a consultation for research collaborations or sponsored
-                projects.
-              </li>
-              <li className="custom-li">
-                Host a workshop or guest lecture focused on spatial analytics
-                and MGWR.
-              </li>
-              <li className="custom-li">
-                Partner with our graduate studios for immersive design sprints.
-              </li>
+              <li className="custom-li">{t('engageItem1')}</li>
+              <li className="custom-li">{t('engageItem2')}</li>
+              <li className="custom-li">{t('engageItem3')}</li>
             </ul>
           </article>
 
@@ -75,13 +72,11 @@ export default function Contact() {
                 <Users size={22} />
               </div>
               <h3 className="text-lg font-semibold text-gold-50">
-                Graduate Student Opportunities
+                {t('gradTitle')}
               </h3>
             </div>
             <p className="text-sm leading-6 text-gold-200/80">
-              SDSC offers assistantships, studio projects, and mentoring for
-              students passionate about spatial data science. Email us to learn
-              about current openings and how to get involved.
+              {t('gradDescription')}
             </p>
           </article>
         </section>

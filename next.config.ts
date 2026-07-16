@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next';
 import withMDX from '@next/mdx';
+import createNextIntlPlugin from 'next-intl/plugin';
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -11,6 +12,10 @@ const nextConfig: NextConfig = {
   trailingSlash: true
 };
 
-export default withMDX({
-  extension: /\.mdx?$/
-})(nextConfig);
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
+
+export default withNextIntl(
+  withMDX({
+    extension: /\.mdx?$/
+  })(nextConfig)
+);
