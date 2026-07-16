@@ -432,10 +432,10 @@
   dependencies:
     fast-glob "3.3.1"
 
-"@next/mdx@^15.3.6":
-  version "15.5.15"
-  resolved "https://registry.npmjs.org/@next/mdx/-/mdx-15.5.15.tgz"
-  integrity sha512-4F4A89eL7ZoBjh4MEBQQzZvgKfS24hXHbqS9CsncwtLctgWYTilXlvDxTWYDokgq8jJxeJnBEooBLogZzW/vRw==
+"@next/mdx@15.3.6":
+  version "15.3.6"
+  resolved "https://registry.npmjs.org/@next/mdx/-/mdx-15.3.6.tgz"
+  integrity sha512-LCnNtVXbJeupfkHztksmNV7mg2b3z96NE0bmMZPHr0x6F3PM3aajUnEPx/cjqXRztjc35W+2cMxTXGSxrO/v/g==
   dependencies:
     source-map "^0.7.0"
 
