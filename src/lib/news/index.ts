@@ -50,8 +50,9 @@ export function getAllNews(): NewsData[] {
       date: parseContentDate(data.date),
       author: data.author,
       memberIds: Array.isArray(data.memberIds)
-        ? data.memberIds.filter((memberId: unknown): memberId is string =>
-            typeof memberId === 'string'
+        ? data.memberIds.filter(
+            (memberId: unknown): memberId is string =>
+              typeof memberId === 'string'
           )
         : [],
       description: data.description,
@@ -76,8 +77,9 @@ export function getNewsBySlug(slug: string): NewsData {
     date: parseContentDate(data.date),
     author: data.author,
     memberIds: Array.isArray(data.memberIds)
-      ? data.memberIds.filter((memberId: unknown): memberId is string =>
-          typeof memberId === 'string'
+      ? data.memberIds.filter(
+          (memberId: unknown): memberId is string =>
+            typeof memberId === 'string'
         )
       : [],
     description: data.description,
