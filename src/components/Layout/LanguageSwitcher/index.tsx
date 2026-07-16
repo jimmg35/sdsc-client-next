@@ -75,10 +75,23 @@ export default function LanguageSwitcher({
       window.localStorage.setItem(STORAGE_KEY, nextLocale);
     }
 
-    if (nextLocale !== activeLocale) {
-      // `pathname` is locale-less; next-intl re-adds the target locale prefix.
-      router.replace(pathname, { locale: nextLocale });
+    if (nextLocale === activeLocale) {
+      return;
     }
+
+    // Switching locale is a soft navigation between two pre-rendered trees, so
+    // the reader stays where they were: `scroll: false` suppresses the App
+    // Router's scroll-to-top, and the current query string is carried over so
+    // paginated views (e.g. /publications?page=3) do not reset underneath the
+    // restored scroll offset. Read from window rather than useSearchParams,
+    // which would force a Suspense boundary around the navbar on every page.
+    const search = typeof window === 'undefined' ? '' : window.location.search;
+
+    // `pathname` is locale-less; next-intl re-adds the target locale prefix.
+    router.replace(`${pathname}${search}`, {
+      locale: nextLocale,
+      scroll: false
+    });
   };
 
   const isMobile = variant === 'mobile';

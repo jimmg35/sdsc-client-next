@@ -42,10 +42,10 @@
       "ctaLabel": "認識這些說故事的人"
     },
     "director": {
-      "eyebrow": "主任的話",
+      "eyebrow": "總監的話",
       "p1": "歡迎來到空間資料科學中心（SDSC）。在這裡，我們透過發展精密的統計方法，並運用 GeoAI 與機器學習等新方法，為世界上許多最迫切的問題打造解方。我們的專業橫跨各類領域，包括健康、交通、選舉、犯罪、住宅、零售與環境。<strong>我們的工作建立在一項基本原則之上：了解這些挑戰「發生在何處」，是理解它們「為何發生」以及「如何解決」的關鍵。</strong>",
       "p2": "SDSC 期望成為 FSU 各系所在空間資料科學領域眾多卓越工作的匯聚點。無論您是希望展開共同研究或經費申請的教職員、有意成為附屬成員者、需要諮詢協助的政府部門或民間企業代表，或是想參與 SDSC 活動的學生，都歡迎透過 stewart.fotheringham@fsu.edu 與我們聯絡。",
-      "role": "創始主任"
+      "role": "創始總監"
     },
     "news": {
       "eyebrow": "最新消息",
@@ -159,18 +159,18 @@
       "browseEyebrow": "瀏覽整個團隊",
       "browseTitle": "依角色瀏覽 SDSC，再深入個人檔案",
       "browseDescription": "本名錄依成員對中心的貢獻方式編排：領導層、核心教職、附屬協作者與研究生研究者。請使用下方的區塊連結，直接跳至您想瀏覽的層級。",
-      "centerDirector": "中心主任",
+      "centerDirector": "中心總監",
       "memberCount": "{count, plural, other {# 位成員}}",
       "sortedAZ": "依 A-Z 排序",
       "spotlightTitle": "位居 SDSC 核心的領導",
-      "spotlightBadge": "主任焦點",
+      "spotlightBadge": "總監焦點",
       "spatialDataScienceCenter": "空間資料科學中心",
       "viewProfile": "檢視檔案",
       "scholar": "學術檔案",
       "email": "電子郵件",
       "selectRecognition": "重要榮譽",
       "advisor": "指導教授：",
-      "directorRoleFallback": "中心主任",
+      "directorRoleFallback": "中心總監",
       "memberRoleFallback": "SDSC 成員"
     },
     "profile": {
