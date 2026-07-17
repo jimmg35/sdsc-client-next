@@ -1,29 +1,13 @@
 ﻿import easternEgg from '@/lib/easterneggs';
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
-import { IBM_Plex_Sans, Noto_Sans_SC, Noto_Sans_TC } from 'next/font/google';
+import { IBM_Plex_Sans } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
 
 const inter = IBM_Plex_Sans({
   subsets: ['latin'],
   weight: ['100', '200', '300', '400', '500', '600', '700']
-});
-
-// CJK faces are split by unicode-range, so browsers only fetch the chunks that
-// the rendered characters actually need. Weights are kept minimal on purpose.
-const notoSansSC = Noto_Sans_SC({
-  subsets: ['latin'],
-  weight: ['400', '500', '700'],
-  display: 'swap',
-  variable: '--font-zh-cn'
-});
-
-const notoSansTC = Noto_Sans_TC({
-  subsets: ['latin'],
-  weight: ['400', '500', '700'],
-  display: 'swap',
-  variable: '--font-zh-tw'
 });
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -49,9 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} ${notoSansSC.variable} ${notoSansTC.variable} antialiased`}
-      >
+      <body className={`${inter.className} antialiased`}>
         {GA_ID ? (
           <>
             <Script
