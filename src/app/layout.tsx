@@ -7,7 +7,13 @@ import './globals.css';
 
 const inter = IBM_Plex_Sans({
   subsets: ['latin'],
-  weight: ['100', '200', '300', '400', '500', '600', '700']
+  weight: ['100', '200', '300', '400', '500', '600', '700'],
+  // Exposed so the per-script stacks in globals.css can keep Latin text on
+  // this face; those rules override body's font-family outright, so without
+  // the variable the Latin runs inside Chinese pages fall through to the CJK
+  // font's own Latin glyphs. Deliberately not --font-sans, which Tailwind v4
+  // already defines in its theme.
+  variable: '--font-latin'
 });
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -33,7 +39,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} ${inter.variable} antialiased`}>
         {GA_ID ? (
           <>
             <Script
