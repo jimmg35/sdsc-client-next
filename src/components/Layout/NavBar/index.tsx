@@ -174,7 +174,7 @@ const Navbar = () => {
               height={hasScrolled ? 38 : 46}
               src="/img/sdsc-logo.png"
               alt="SDSC logo"
-              className={`cursor-pointer rounded-md object-cover transition-all duration-300 ${
+              className={`cursor-pointer rounded-md object-cover transition-all duration-300 dark:invert ${
                 hasScrolled ? 'max-w-[7.375rem]' : 'max-w-[9.0625rem]'
               }`}
             />

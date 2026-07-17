@@ -41,7 +41,7 @@ const Footer = async () => {
               height={46}
               src="/img/sdsc-logo.png"
               alt="SDSC logo"
-              className="rounded-full object-cover"
+              className="rounded-full object-cover dark:invert"
             />
             <p className="max-w-xs text-sm leading-6 text-ink-700/80">
               {t('tagline')}
