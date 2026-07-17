@@ -25,7 +25,7 @@ export default async function NewsBriefingPage(props: {
   const t = await getTranslations('briefing');
   const format = await getFormatter();
 
-  const briefing = getCurrentBriefing();
+  const briefing = getCurrentBriefing(locale);
   const { months, windowStart, windowEnd, posts } = getRecentNewsWindow(3);
   const briefingSegments = parseBriefingSegments(briefing.content);
   const renderedSegments = await Promise.all(

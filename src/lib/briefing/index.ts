@@ -9,6 +9,8 @@ const briefingsDirectory = path.join(
   'briefings'
 );
 
+const SOURCE_FILE = 'recent-briefing.mdx';
+
 export interface BriefingData {
   title: string;
   eyebrow: string;
@@ -16,6 +18,9 @@ export interface BriefingData {
   description: string;
   readTime: string;
   content: string;
+  /** True when a translation was missing or stale and the English original is
+   *  being shown instead. */
+  isTranslationFallback: boolean;
 }
 
 export interface BriefingSegment {
@@ -36,18 +41,53 @@ const parseBriefingDate = (value: string | Date) => {
   return new Date(value);
 };
 
-export function getCurrentBriefing(): BriefingData {
-  const fullPath = path.join(briefingsDirectory, 'recent-briefing.mdx');
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
-  const { data, content } = matter(fileContents);
+const readBriefingFile = (fileName: string) => {
+  const fullPath = path.join(briefingsDirectory, fileName);
+
+  if (!fs.existsSync(fullPath)) {
+    return null;
+  }
+
+  return matter(fs.readFileSync(fullPath, 'utf8'));
+};
+
+/**
+ * The English file is the source of truth: the broadcaster rewrites it whenever
+ * the news window moves. A translation is therefore only shown when its
+ * `sourceUpdatedAt` matches the English `updatedAt` it was written against —
+ * otherwise the reader would get months-old grants and dates presented under a
+ * fresh timestamp. Stale or missing translations degrade to the English
+ * original instead.
+ */
+export function getCurrentBriefing(locale?: string): BriefingData {
+  const source = readBriefingFile(SOURCE_FILE);
+
+  if (!source) {
+    throw new Error(`Missing briefing source: ${SOURCE_FILE}`);
+  }
+
+  const updatedAt = parseBriefingDate(source.data.updatedAt);
+  const translated =
+    locale && locale !== 'en'
+      ? readBriefingFile(`recent-briefing.${locale}.mdx`)
+      : null;
+
+  const isCurrentTranslation =
+    translated?.data.sourceUpdatedAt != null &&
+    parseBriefingDate(translated.data.sourceUpdatedAt).getTime() ===
+      updatedAt.getTime();
+
+  const chosen = isCurrentTranslation && translated ? translated : source;
 
   return {
-    title: data.title,
-    eyebrow: data.eyebrow || 'SDSC Briefing',
-    updatedAt: parseBriefingDate(data.updatedAt),
-    description: data.description,
-    readTime: data.readTime || '3 min read',
-    content
+    title: chosen.data.title,
+    eyebrow: chosen.data.eyebrow || 'SDSC Briefing',
+    updatedAt,
+    description: chosen.data.description,
+    readTime: chosen.data.readTime || '3 min read',
+    content: chosen.content,
+    isTranslationFallback:
+      chosen === source && locale != null && locale !== 'en'
   };
 }
 
