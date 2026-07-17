@@ -30,6 +30,9 @@
     "label": "Language",
     "aria": "Select language"
   },
+  "themeToggle": {
+    "aria": "Toggle dark mode"
+  },
   "home": {
     "welcome": {
       "scrollDown": "Scroll Down",

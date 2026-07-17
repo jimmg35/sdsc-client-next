@@ -15,7 +15,7 @@ const NewsCard = async ({ data }: { data: NewsData }) => {
 
   return (
     <article className="group glass-card flex h-full w-full max-w-[24rem] flex-col overflow-hidden text-ink-900 transition duration-300 hover:-translate-y-2">
-      <div className="relative h-56 w-full overflow-hidden bg-white">
+      <div className="relative h-56 w-full overflow-hidden bg-surface">
         <Image
           src={data.thumbnail}
           alt={data.title}
@@ -24,7 +24,7 @@ const NewsCard = async ({ data }: { data: NewsData }) => {
           className="object-contain object-center"
         />
         <div className="absolute bottom-4 left-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-rose-600">
-          <span className="rounded-full border border-rose-200/60 bg-white/90 px-3 py-1 shadow-sm">
+          <span className="rounded-full border border-rose-200/60 bg-surface/90 px-3 py-1 shadow-sm">
             {publishDate}
           </span>
           <span className="rounded-full border border-rose-200/60 bg-rose-50/90 px-3 py-1 text-rose-600">

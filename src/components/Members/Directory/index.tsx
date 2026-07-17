@@ -67,7 +67,7 @@ export default async function MembersDirectory({
               {overview.map((item) => (
                 <div
                   key={item.label}
-                  className="rounded-[24px] border border-rose-100/75 bg-white/78 px-5 py-5 text-ink-900 shadow-[0_20px_44px_-34px_rgba(61,47,39,0.35)]"
+                  className="rounded-[24px] border border-rose-100/75 bg-surface/78 px-5 py-5 text-ink-900 shadow-[0_20px_44px_-34px_rgba(61,47,39,0.35)]"
                 >
                   <p className="text-3xl font-semibold text-rose-700">
                     {item.value}
@@ -101,7 +101,7 @@ export default async function MembersDirectory({
               </h2>
             </div>
             <div className="flex flex-wrap items-center gap-2 self-start">
-              <div className="inline-flex items-center gap-2 rounded-full border border-rose-200/70 bg-white/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-rose-600">
+              <div className="inline-flex items-center gap-2 rounded-full border border-rose-200/70 bg-surface/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-rose-600">
                 <UsersRound size={14} />
                 {t('memberCount', { count: section.members.length })}
               </div>
@@ -137,7 +137,7 @@ async function DirectorSpotlight({ member }: { member: MemberData }) {
             {t('spotlightTitle')}
           </h2>
         </div>
-        <div className="inline-flex items-center self-start whitespace-nowrap rounded-full border border-rose-200/70 bg-white/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-rose-600">
+        <div className="inline-flex items-center self-start whitespace-nowrap rounded-full border border-rose-200/70 bg-surface/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-rose-600">
           {t('spotlightBadge')}
         </div>
       </div>
@@ -205,7 +205,7 @@ async function DirectorSpotlight({ member }: { member: MemberData }) {
                 {member.honor.slice(0, 4).map((honor) => (
                   <div
                     key={`${honor.title}-${honor.year}`}
-                    className="rounded-[20px] border border-rose-100/70 bg-white/70 px-4 py-4 text-sm leading-6 text-ink-700"
+                    className="rounded-[20px] border border-rose-100/70 bg-surface/70 px-4 py-4 text-sm leading-6 text-ink-700"
                   >
                     <p className="font-semibold text-ink-900">{honor.title}</p>
                     <p className="mt-1 text-xs font-semibold uppercase tracking-[0.24em] text-rose-500">
@@ -306,7 +306,7 @@ function AnchorLink({ href, label }: { href: string; label: string }) {
   return (
     <Link
       href={href}
-      className="inline-flex items-center rounded-full border border-rose-200/70 bg-white/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.26em] text-rose-600 transition hover:border-rose-300 hover:text-rose-700"
+      className="inline-flex items-center rounded-full border border-rose-200/70 bg-surface/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.26em] text-rose-600 transition hover:border-rose-300 hover:text-rose-700"
     >
       {label}
     </Link>

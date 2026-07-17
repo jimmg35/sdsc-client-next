@@ -30,6 +30,9 @@
     "label": "语言",
     "aria": "选择语言"
   },
+  "themeToggle": {
+    "aria": "切换深色模式"
+  },
   "home": {
     "welcome": {
       "scrollDown": "向下滚动",

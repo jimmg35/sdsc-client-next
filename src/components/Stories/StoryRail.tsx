@@ -57,7 +57,7 @@ export default function StoryRail({
             {ctaHref && ctaLabel && (
               <Link
                 href={ctaHref}
-                className="inline-flex items-center gap-2 self-start rounded-full border border-rose-200/80 bg-white/90 px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-rose-600 transition hover:border-rose-300 hover:text-rose-700"
+                className="inline-flex items-center gap-2 self-start rounded-full border border-rose-200/80 bg-surface/90 px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-rose-600 transition hover:border-rose-300 hover:text-rose-700"
               >
                 {ctaLabel}
                 <ArrowUpRight size={18} />

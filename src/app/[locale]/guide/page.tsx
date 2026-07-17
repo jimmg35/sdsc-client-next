@@ -51,7 +51,7 @@ export default async function GuidePage(props: { params: LocaleParams }) {
           <div className="surface-fade p-6 md:p-8">
             <div className="panel-title mb-4">{t('whatChanged')}</div>
             <div className="space-y-4 text-sm text-ink-700">
-              <div className="rounded-2xl border border-rose-100/80 bg-white/80 p-4">
+              <div className="rounded-2xl border border-rose-100/80 bg-surface/80 p-4">
                 <div className="text-xs font-semibold uppercase tracking-[0.24em] text-rose-500">
                   {t('newDestinationTitle')}
                 </div>
@@ -59,7 +59,7 @@ export default async function GuidePage(props: { params: LocaleParams }) {
                   {t('newDestinationBody')}
                 </p>
               </div>
-              <div className="rounded-2xl border border-rose-100/80 bg-white/80 p-4">
+              <div className="rounded-2xl border border-rose-100/80 bg-surface/80 p-4">
                 <div className="text-xs font-semibold uppercase tracking-[0.24em] text-rose-500">
                   {t('stayUpdatedTitle')}
                 </div>
@@ -67,7 +67,7 @@ export default async function GuidePage(props: { params: LocaleParams }) {
                   {t('stayUpdatedBody')}
                 </p>
               </div>
-              <div className="rounded-2xl border border-rose-100/80 bg-white/80 p-4">
+              <div className="rounded-2xl border border-rose-100/80 bg-surface/80 p-4">
                 <div className="text-xs font-semibold uppercase tracking-[0.24em] text-rose-500">
                   {t('needHelpTitle')}
                 </div>

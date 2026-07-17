@@ -46,7 +46,7 @@ export default async function News(props: {
             </div>
             <Link
               href="/news/briefing"
-              className="inline-flex items-center gap-2 self-start rounded-full border border-rose-200/80 bg-white/90 px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-rose-600 transition hover:border-rose-300 hover:text-rose-700"
+              className="inline-flex items-center gap-2 self-start rounded-full border border-rose-200/80 bg-surface/90 px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-rose-600 transition hover:border-rose-300 hover:text-rose-700"
             >
               {t('briefingCallout.cta')}
               <RadioTower size={18} />
@@ -55,7 +55,7 @@ export default async function News(props: {
         </section>
 
         {featured ? (
-          <article className="mt-16 grid gap-6 overflow-hidden rounded-[32px] border border-garnet-600/35 bg-white shadow-[0_32px_60px_-40px_rgba(9,4,24,0.85)] md:grid-cols-[1.1fr_1fr]">
+          <article className="mt-16 grid gap-6 overflow-hidden rounded-[32px] border border-garnet-600/35 bg-surface shadow-[0_32px_60px_-40px_rgba(9,4,24,0.85)] md:grid-cols-[1.1fr_1fr]">
             <div className="relative h-64 w-full overflow-hidden md:h-auto">
               <Image
                 src={featured.thumbnail}

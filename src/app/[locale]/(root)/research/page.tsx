@@ -65,7 +65,7 @@ export default async function Research(props: {
 
           <div className="relative grid min-h-[31rem] grid-cols-1 items-center gap-8 px-6 py-12 md:px-10 lg:grid-cols-[minmax(0,1fr)_28rem]">
             <div className="min-w-0 max-w-2xl">
-              <span className="chip-gold border-white/35 bg-white/88 text-rose-700">
+              <span className="chip-gold border-white/35 bg-surface/88 text-rose-700">
                 {t('chip')}
               </span>
               <h1 className="mt-6 text-4xl font-semibold text-white text-glow md:text-5xl">
@@ -101,7 +101,7 @@ export default async function Research(props: {
           {focusAreas.map(({ key, icon: Icon }, index) => (
             <article
               key={key}
-              className={`group relative min-w-0 overflow-hidden rounded-[24px] border border-rose-100/75 bg-white/82 px-6 py-7 text-ink-900 shadow-[0_34px_70px_-52px_rgba(44,36,32,0.5)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-rose-200 hover:bg-white/92 ${cardLayouts[index] || 'lg:col-span-4'}`}
+              className={`group relative min-w-0 overflow-hidden rounded-[24px] border border-rose-100/75 bg-surface/82 px-6 py-7 text-ink-900 shadow-[0_34px_70px_-52px_rgba(44,36,32,0.5)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-rose-200 hover:bg-surface/92 ${cardLayouts[index] || 'lg:col-span-4'}`}
             >
               <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-rose-500/75 via-silk-500/75 to-transparent opacity-80" />
               {index === 0 && (

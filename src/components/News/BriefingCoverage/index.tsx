@@ -103,7 +103,7 @@ const BriefingCoverage = ({ readTime, segments, months, stories }: Props) => {
     <div className="mt-12 grid gap-6 lg:items-start lg:grid-cols-[minmax(0,1fr)_22rem] xl:grid-cols-[minmax(0,1fr)_24rem]">
       <article className="surface-fade px-6 py-8 md:px-10">
         <div className="mb-6 flex flex-wrap items-center justify-end gap-3">
-          <div className="inline-flex rounded-full border border-rose-200/80 bg-white/90 p-1 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-rose-500 shadow-[0_16px_38px_-30px_rgba(168,110,161,0.22)]">
+          <div className="inline-flex rounded-full border border-rose-200/80 bg-surface/90 p-1 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-rose-500 shadow-[0_16px_38px_-30px_rgba(168,110,161,0.22)]">
             {(Object.keys(fontSizeOptions) as FontSizeOption[]).map(
               (option) => (
                 <button
@@ -125,13 +125,13 @@ const BriefingCoverage = ({ readTime, segments, months, stories }: Props) => {
               )
             )}
           </div>
-          <div className="inline-flex items-center rounded-full border border-rose-200/80 bg-white/90 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-rose-500 shadow-[0_16px_38px_-30px_rgba(168,110,161,0.18)]">
+          <div className="inline-flex items-center rounded-full border border-rose-200/80 bg-surface/90 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-rose-500 shadow-[0_16px_38px_-30px_rgba(168,110,161,0.18)]">
             {readTime}
           </div>
         </div>
 
         <div
-          className={`prose max-w-none text-justify text-ink-700 prose-headings:text-rose-700 prose-a:text-rose-600 prose-strong:text-ink-900 prose-p:text-justify prose-p:leading-8 prose-li:text-ink-700 ${fontSizeOptions[fontSize].proseClass}`}
+          className={`prose dark:prose-invert max-w-none text-justify text-ink-700 prose-headings:text-rose-700 prose-a:text-rose-600 prose-strong:text-ink-900 prose-p:text-justify prose-p:leading-8 prose-li:text-ink-700 ${fontSizeOptions[fontSize].proseClass}`}
         >
           {segments.map((segment, index) => {
             if (segment.anchorSlug) {
@@ -163,7 +163,7 @@ const BriefingCoverage = ({ readTime, segments, months, stories }: Props) => {
       <aside className="lg:sticky lg:top-28 lg:self-start xl:top-32">
         <section className="glass-card briefing-window-card px-6 py-6 text-ink-900 lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto">
           <p className="panel-title">{t('window.title')}</p>
-          <div className="mt-4 rounded-3xl border border-rose-100 bg-white/85 px-5 py-5">
+          <div className="mt-4 rounded-3xl border border-rose-100 bg-surface/85 px-5 py-5">
             <p className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-rose-500">
               {t('window.storiesInScope')}
             </p>
@@ -184,7 +184,7 @@ const BriefingCoverage = ({ readTime, segments, months, stories }: Props) => {
                   key={story.slug}
                   type="button"
                   onClick={() => focusStory(story.slug)}
-                  className="group flex w-full cursor-pointer items-start gap-4 rounded-[24px] border border-rose-100 bg-white/88 px-4 py-4 text-left transition duration-300 hover:-translate-y-0.5 hover:border-rose-300 hover:shadow-[0_22px_48px_-32px_rgba(168,110,161,0.3)]"
+                  className="group flex w-full cursor-pointer items-start gap-4 rounded-[24px] border border-rose-100 bg-surface/88 px-4 py-4 text-left transition duration-300 hover:-translate-y-0.5 hover:border-rose-300 hover:shadow-[0_22px_48px_-32px_rgba(168,110,161,0.3)]"
                 >
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-rose-200 bg-rose-50 text-xs font-semibold text-rose-600">
                     {index + 1}
@@ -201,7 +201,7 @@ const BriefingCoverage = ({ readTime, segments, months, stories }: Props) => {
               ))}
             </div>
           ) : (
-            <div className="mt-5 rounded-[24px] border border-dashed border-rose-200 bg-white/80 px-5 py-5 text-sm leading-7 text-ink-700">
+            <div className="mt-5 rounded-[24px] border border-dashed border-rose-200 bg-surface/80 px-5 py-5 text-sm leading-7 text-ink-700">
               {t('window.empty')}
             </div>
           )}

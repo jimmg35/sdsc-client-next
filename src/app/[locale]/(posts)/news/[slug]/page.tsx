@@ -41,7 +41,7 @@ export default async function PostPage(props: { params: Props }) {
       <div className="mx-auto max-w-5xl px-6 pb-28 pt-36 text-gold-100 md:pt-40">
         <Link
           href="/news"
-          className="inline-flex items-center gap-2 rounded-full border border-rose-200/80 bg-white/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-rose-600 shadow-[0_18px_42px_-30px_rgba(168,110,161,0.28)] transition hover:border-rose-300 hover:bg-white hover:text-rose-700"
+          className="inline-flex items-center gap-2 rounded-full border border-rose-200/80 bg-surface/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-rose-600 shadow-[0_18px_42px_-30px_rgba(168,110,161,0.28)] transition hover:border-rose-300 hover:bg-surface hover:text-rose-700"
         >
           <ArrowLeft size={16} />
           {t('back')}
@@ -85,7 +85,7 @@ export default async function PostPage(props: { params: Props }) {
 
             <div className="px-6 py-8 text-gold-100">
               <article
-                className="prose max-w-none text-gold-200/80 prose-headings:text-gold-50 prose-a:text-gold-300 prose-strong:text-gold-50 prose-blockquote:border-gold-400/30 prose-blockquote:text-gold-50"
+                className="prose dark:prose-invert max-w-none text-gold-200/80 prose-headings:text-gold-50 prose-a:text-gold-300 prose-strong:text-gold-50 prose-blockquote:border-gold-400/30 prose-blockquote:text-gold-50"
                 dangerouslySetInnerHTML={{ __html: mdHtmlContent }}
               />
             </div>

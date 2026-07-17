@@ -78,7 +78,7 @@ export default async function Publications(props: {
 
         <Suspense
           fallback={
-            <div className="mt-16 rounded-3xl border border-black/5 bg-white/70 p-8 text-center text-sm text-ink-500">
+            <div className="mt-16 rounded-3xl border border-black/5 bg-surface/70 p-8 text-center text-sm text-ink-500">
               {t('page.loading')}
             </div>
           }

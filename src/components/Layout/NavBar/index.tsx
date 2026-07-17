@@ -3,6 +3,7 @@
 // import NotificationBanner from '@/components/Layout/NotificationBanner';
 import LanguageSwitcher from '@/components/Layout/LanguageSwitcher';
 import OfficialSiteBar from '@/components/Layout/OfficialSiteBar';
+import ThemeToggle from '@/components/Layout/ThemeToggle';
 import { Link, usePathname } from '@/i18n/navigation';
 import easternEgg from '@/lib/easterneggs';
 import {
@@ -91,10 +92,10 @@ const Navbar = () => {
   }, [pathname]);
 
   const shellClass = hasScrolled
-    ? `mx-auto mt-3 w-[calc(100%_-_1rem)] max-w-6xl border border-white/80 bg-white/95 shadow-[0_18px_48px_-28px_rgba(31,22,18,0.38),0_3px_12px_-8px_rgba(31,22,18,0.24)] ring-1 ring-black/5 backdrop-blur-xl ${
+    ? `mx-auto mt-3 w-[calc(100%_-_1rem)] max-w-6xl border border-white/80 bg-surface/95 shadow-[0_18px_48px_-28px_rgba(31,22,18,0.38),0_3px_12px_-8px_rgba(31,22,18,0.24)] ring-1 ring-black/5 backdrop-blur-xl dark:border-white/10 dark:bg-silk-100/95 dark:ring-white/5 ${
         isOpen ? 'rounded-[2rem]' : 'rounded-full'
       }`
-    : 'w-full border-b border-rose-100 bg-white shadow-[0_30px_80px_-60px_rgba(61,47,39,0.28)]';
+    : 'w-full border-b border-rose-100 bg-surface shadow-[0_30px_80px_-60px_rgba(61,47,39,0.28)] dark:bg-silk-50';
 
   const navClass = hasScrolled
     ? 'relative mx-auto flex h-14 max-w-none items-center justify-between gap-4 px-3 text-rose-700 md:h-16 md:px-5'
@@ -122,7 +123,7 @@ const Navbar = () => {
           } ${
             isActive
               ? 'bg-rose-100/90 text-rose-700 shadow-[0_18px_44px_-28px_rgba(168,110,161,0.35)] border border-rose-200/70'
-              : 'text-gray-600 hover:text-gray-700 hover:bg-rose-50'
+              : 'text-ink-700 hover:text-ink-900 hover:bg-rose-50'
           }`}
         >
           <Icon size={16} className="hidden xl:block" />
@@ -138,7 +139,7 @@ const Navbar = () => {
         className={`flex items-center justify-between rounded-2xl border px-4 py-3 text-sm font-medium transition ${
           isActive
             ? 'border-rose-200 bg-rose-100/60 text-rose-700'
-            : 'border-rose-200/70 bg-white/85 text-rose-600 hover:bg-rose-50'
+            : 'border-rose-200/70 bg-surface/85 text-rose-600 hover:bg-rose-50 dark:bg-silk-200/85'
         }`}
         onClick={() => setIsOpen(false)}
       >
@@ -191,12 +192,13 @@ const Navbar = () => {
             >
               {primaryNavItems.map((item) => renderLink(item, 'desktop'))}
             </div>
+            <ThemeToggle />
             <LanguageSwitcher />
           </div>
 
           <button
             type="button"
-            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-rose-200/70 bg-white text-rose-600 transition hover:text-rose-700 lg:hidden"
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-rose-200/70 bg-surface text-rose-600 transition hover:text-rose-700 dark:bg-silk-200 lg:hidden"
             onClick={() => setIsOpen((prev) => !prev)}
             aria-label="Toggle navigation"
           >
@@ -209,14 +211,19 @@ const Navbar = () => {
         {isOpen && (
           <div className="lg:hidden">
             <div className={hasScrolled ? 'px-3 pb-4' : 'px-4 pb-6'}>
-              <div className="space-y-4 rounded-3xl border border-rose-200/80 bg-white/95 p-6 shadow-[0_32px_64px_-42px_rgba(61,47,39,0.32)]">
+              <div className="space-y-4 rounded-3xl border border-rose-200/80 bg-surface/95 p-6 shadow-[0_32px_64px_-42px_rgba(61,47,39,0.32)] dark:bg-silk-100/95">
                 <p className="text-xs font-semibold uppercase tracking-[0.34em] text-rose-500">
                   {t('navigation')}
                 </p>
                 <div className="space-y-3">
                   {primaryNavItems.map((item) => renderLink(item, 'mobile'))}
                 </div>
-                <LanguageSwitcher variant="mobile" />
+                <div className="flex items-center gap-3">
+                  <ThemeToggle variant="mobile" />
+                  <div className="min-w-0 flex-1">
+                    <LanguageSwitcher variant="mobile" />
+                  </div>
+                </div>
                 <Link
                   href="/contact"
                   className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-silk-300 bg-silk-200/90 px-4 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-silk-800 transition hover:bg-silk-200"

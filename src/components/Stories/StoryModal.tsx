@@ -193,10 +193,10 @@ export default function StoryModal({
                 className="h-1 flex-1 overflow-hidden rounded-full bg-white/20"
               >
                 {isCompleted ? (
-                  <span className="block h-full w-full bg-white" />
+                  <span className="block h-full w-full bg-surface" />
                 ) : isActive ? (
                   <span
-                    className="block h-full bg-white transition-[width] duration-75 ease-linear"
+                    className="block h-full bg-surface transition-[width] duration-75 ease-linear"
                     style={{
                       width: progressWidth
                     }}

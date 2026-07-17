@@ -53,7 +53,7 @@ export default async function NewsBriefingPage(props: {
         <div className="flex flex-wrap items-center gap-3">
           <Link
             href="/news"
-            className="inline-flex items-center gap-2 rounded-full border border-rose-200/80 bg-white/90 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-rose-600 shadow-[0_18px_42px_-30px_rgba(168,110,161,0.2)] transition hover:border-rose-300 hover:bg-white hover:text-rose-700"
+            className="inline-flex items-center gap-2 rounded-full border border-rose-200/80 bg-surface/90 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-rose-600 shadow-[0_18px_42px_-30px_rgba(168,110,161,0.2)] transition hover:border-rose-300 hover:bg-surface hover:text-rose-700"
           >
             <ArrowLeft size={16} />
             {t('back')}

@@ -106,8 +106,8 @@ export default function LanguageSwitcher({
         aria-label={t('aria')}
         className={`inline-flex shrink-0 cursor-pointer items-center rounded-full border font-semibold transition ${
           isMobile
-            ? 'w-full justify-between gap-2 border-rose-200/70 bg-white/85 px-4 py-3 text-sm text-rose-600 hover:border-rose-300 hover:bg-rose-50 hover:text-rose-700'
-            : 'gap-1.5 border-rose-200/70 bg-white/85 px-2.5 py-2 text-[0.68rem] uppercase tracking-[0.1em] text-rose-600 hover:border-rose-300 hover:bg-rose-50 hover:text-rose-700'
+            ? 'w-full justify-between gap-2 border-rose-200/70 bg-surface/85 px-4 py-3 text-sm text-rose-600 hover:border-rose-300 hover:bg-rose-50 hover:text-rose-700 dark:bg-silk-200/85'
+            : 'gap-1.5 border-rose-200/70 bg-surface/85 px-2.5 py-2 text-[0.68rem] uppercase tracking-[0.1em] text-rose-600 hover:border-rose-300 hover:bg-rose-50 hover:text-rose-700 dark:bg-silk-200/85'
         }`}
       >
         <span className="inline-flex items-center gap-1.5">
@@ -128,7 +128,7 @@ export default function LanguageSwitcher({
         <ul
           role="listbox"
           aria-label={t('label')}
-          className={`absolute z-50 overflow-hidden rounded-2xl border border-rose-200/70 bg-white/95 p-1.5 shadow-[0_28px_60px_-32px_rgba(61,47,39,0.5)] ring-1 ring-black/5 backdrop-blur-xl ${
+          className={`absolute z-50 overflow-hidden rounded-2xl border border-rose-200/70 bg-surface/95 p-1.5 dark:bg-silk-100/95 shadow-[0_28px_60px_-32px_rgba(61,47,39,0.5)] ring-1 ring-black/5 backdrop-blur-xl dark:ring-white/5 ${
             isMobile ? 'left-0 right-0 mt-2' : 'right-0 mt-2 min-w-[13rem]'
           }`}
         >

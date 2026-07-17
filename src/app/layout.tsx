@@ -1,4 +1,5 @@
 ﻿import easternEgg from '@/lib/easterneggs';
+import { themeInitScript } from '@/lib/theme';
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
 import { IBM_Plex_Sans } from 'next/font/google';
@@ -38,7 +39,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    // The theme script mutates <html> before React hydrates, which is the point
+    // of it — suppressHydrationWarning stops React objecting to its own markup
+    // not matching.
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className={`${inter.className} ${inter.variable} antialiased`}>
         {GA_ID ? (
           <>

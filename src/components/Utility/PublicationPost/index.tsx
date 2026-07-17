@@ -43,7 +43,7 @@ const PublicationPost = ({
               {publicationYear}
             </span>
             {journal && (
-              <span className="inline-flex items-center rounded-full border border-silk-300/70 bg-white/85 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-ink-700">
+              <span className="inline-flex items-center rounded-full border border-silk-300/70 bg-surface/85 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-ink-700">
                 {journal}
               </span>
             )}
@@ -54,7 +54,7 @@ const PublicationPost = ({
               href={doiUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 self-start rounded-full border border-black/10 bg-white/85 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-ink-700 transition duration-300 hover:border-black/20 hover:bg-white"
+              className="inline-flex items-center gap-2 self-start rounded-full border border-black/10 bg-surface/85 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-ink-700 transition duration-300 hover:border-black/20 hover:bg-surface"
             >
               DOI
               <span className="max-w-[14rem] truncate">{doiLabel}</span>
@@ -74,7 +74,7 @@ const PublicationPost = ({
           )}
         </div>
 
-        <div className="rounded-[26px] border border-black/6 bg-[linear-gradient(160deg,rgba(255,255,255,0.92),rgba(253,247,241,0.82))] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)] md:p-5">
+        <div className="rounded-[26px] border border-black/6 bg-[linear-gradient(160deg,rgba(255,255,255,0.92),rgba(253,247,241,0.82))] dark:bg-[linear-gradient(160deg,rgba(48,40,31,0.92),rgba(36,30,24,0.82))] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)] md:p-5">
           <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
             <div className="space-y-2">
               <p className="inline-flex items-center gap-2 text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-rose-500">
@@ -85,7 +85,7 @@ const PublicationPost = ({
             </div>
 
             {centerMembers.length > 0 && (
-              <span className="inline-flex self-start rounded-full border border-silk-200/80 bg-white/85 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-ink-500">
+              <span className="inline-flex self-start rounded-full border border-silk-200/80 bg-surface/85 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-ink-500">
                 {t('memberCount', { count: centerMembers.length })}
               </span>
             )}
@@ -97,7 +97,7 @@ const PublicationPost = ({
                 <Link
                   key={member.id}
                   href={`/member/${member.id}`}
-                  className="group/member inline-flex items-center gap-3 rounded-full border border-silk-200/80 bg-white/90 px-3 py-2 text-sm font-medium text-ink-700 transition duration-200 hover:border-rose-200/70 hover:bg-rose-50/70 hover:text-ink-900"
+                  className="group/member inline-flex items-center gap-3 rounded-full border border-silk-200/80 bg-surface/90 px-3 py-2 text-sm font-medium text-ink-700 transition duration-200 hover:border-rose-200/70 hover:bg-rose-50/70 hover:text-ink-900"
                 >
                   <Avatar
                     src={member.thumbnail}
@@ -111,7 +111,7 @@ const PublicationPost = ({
               ))}
             </div>
           ) : (
-            <div className="mt-4 rounded-2xl border border-dashed border-silk-300/90 bg-white/75 px-4 py-3 text-sm text-ink-500">
+            <div className="mt-4 rounded-2xl border border-dashed border-silk-300/90 bg-surface/75 px-4 py-3 text-sm text-ink-500">
               {t('noMetadata')}
             </div>
           )}

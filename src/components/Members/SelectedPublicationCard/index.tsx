@@ -38,7 +38,7 @@ const SelectedPublicationCard = ({
             href={doiUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-full border border-rose-200/80 bg-white/80 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-rose-600 transition hover:border-rose-300 hover:bg-rose-50"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-rose-200/80 bg-surface/80 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-rose-600 transition hover:border-rose-300 hover:bg-rose-50"
           >
             DOI
             <ArrowUpRight

@@ -25,7 +25,7 @@ const AnnouncementCard = async ({ data }: { data: AnnouncementData }) => {
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/15 via-white/60 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-95" />
         <div className="absolute bottom-4 left-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-rose-600">
-          <span className="rounded-full border border-rose-200/60 bg-white/90 px-3 py-1 shadow-sm">
+          <span className="rounded-full border border-rose-200/60 bg-surface/90 px-3 py-1 shadow-sm">
             {publishDate}
           </span>
           <span className="rounded-full border border-rose-200/60 bg-rose-50/90 px-3 py-1 text-rose-600">

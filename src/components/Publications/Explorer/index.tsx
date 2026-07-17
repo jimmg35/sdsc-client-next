@@ -359,13 +359,13 @@ const PublicationExplorer = ({
                 <Sparkles size={14} />
                 {t('finder.chip')}
               </span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-silk-200/80 bg-white/82 px-3 py-1 text-[0.72rem] font-medium uppercase tracking-[0.24em] text-ink-500">
+              <span className="inline-flex items-center gap-2 rounded-full border border-silk-200/80 bg-surface/82 px-3 py-1 text-[0.72rem] font-medium uppercase tracking-[0.24em] text-ink-500">
                 <Filter size={14} />
                 {activeFiltersCount
                   ? t('finder.filtersActive', { count: activeFiltersCount })
                   : t('finder.browseArchive')}
               </span>
-              <span className="inline-flex items-center rounded-full border border-black/6 bg-white/80 px-3 py-1 text-[0.72rem] font-medium uppercase tracking-[0.22em] text-ink-500">
+              <span className="inline-flex items-center rounded-full border border-black/6 bg-surface/80 px-3 py-1 text-[0.72rem] font-medium uppercase tracking-[0.22em] text-ink-500">
                 {t('finder.results', { count: sortedRecords.length })}
               </span>
             </div>
@@ -384,7 +384,7 @@ const PublicationExplorer = ({
                 onChange={(event) =>
                   handleSortChange(event.target.value as SortValue)
                 }
-                className="calcite-focus rounded-[20px] border border-black/8 bg-white/88 px-4 py-3 text-sm font-medium text-ink-800"
+                className="calcite-focus rounded-[20px] border border-black/8 bg-surface/88 px-4 py-3 text-sm font-medium text-ink-800"
               >
                 {SORT_OPTIONS.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -396,7 +396,7 @@ const PublicationExplorer = ({
               <button
                 type="button"
                 onClick={resetFilters}
-                className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/86 px-4 py-3 text-sm font-semibold text-ink-700 transition duration-200 hover:border-black/20 hover:bg-white"
+                className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-surface/86 px-4 py-3 text-sm font-semibold text-ink-700 transition duration-200 hover:border-black/20 hover:bg-surface"
               >
                 <RotateCcw size={15} />
                 {t('finder.reset')}
@@ -415,11 +415,11 @@ const PublicationExplorer = ({
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
                 placeholder={t('search.placeholder')}
-                className="calcite-focus w-full rounded-[24px] border border-black/8 bg-white/88 py-3.5 pl-13 pr-5 text-[0.97rem] text-ink-900 shadow-[0_22px_48px_-36px_rgba(44,36,32,0.24)] placeholder:text-ink-400"
+                className="calcite-focus w-full rounded-[24px] border border-black/8 bg-surface/88 py-3.5 pl-13 pr-5 text-[0.97rem] text-ink-900 shadow-[0_22px_48px_-36px_rgba(44,36,32,0.24)] placeholder:text-ink-400"
               />
             </div>
 
-            <div className="flex flex-wrap items-center gap-3 rounded-[24px] border border-black/6 bg-[linear-gradient(175deg,rgba(255,255,255,0.9),rgba(250,244,237,0.82))] px-4 py-3 text-sm text-ink-600 shadow-[0_20px_44px_-36px_rgba(44,36,32,0.22)]">
+            <div className="flex flex-wrap items-center gap-3 rounded-[24px] border border-black/6 bg-[linear-gradient(175deg,rgba(255,255,255,0.9),rgba(250,244,237,0.82))] dark:bg-[linear-gradient(175deg,rgba(48,40,31,0.9),rgba(36,30,24,0.82))] px-4 py-3 text-sm text-ink-600 shadow-[0_20px_44px_-36px_rgba(44,36,32,0.22)]">
               <span className="font-semibold text-ink-800">
                 {sortedRecords.length
                   ? t('finder.showingRange', {
@@ -538,10 +538,10 @@ const PublicationExplorer = ({
                     className={`flex items-center gap-3 rounded-[22px] border px-3 py-3 text-left transition duration-200 ${
                       selectedAuthorId === member.id
                         ? 'border-rose-300/70 bg-rose-50/75 text-ink-900 shadow-[0_20px_40px_-34px_rgba(168,110,161,0.45)]'
-                        : 'border-black/7 bg-white/80 text-ink-700 hover:border-black/12 hover:bg-white'
+                        : 'border-black/7 bg-surface/80 text-ink-700 hover:border-black/12 hover:bg-surface'
                     } ${
                       !member.hasPublication
-                        ? 'cursor-not-allowed opacity-45 hover:border-black/7 hover:bg-white/80'
+                        ? 'cursor-not-allowed opacity-45 hover:border-black/7 hover:bg-surface/80'
                         : ''
                     }`}
                   >
@@ -572,7 +572,7 @@ const PublicationExplorer = ({
           id="publication-results"
           className="space-y-6 scroll-mt-36 md:scroll-mt-44"
         >
-          <div className="flex flex-col gap-3 rounded-[30px] border border-black/6 bg-white/72 px-5 py-4 shadow-[0_24px_54px_-38px_rgba(44,36,32,0.18)] md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col gap-3 rounded-[30px] border border-black/6 bg-surface/72 px-5 py-4 shadow-[0_24px_54px_-38px_rgba(44,36,32,0.18)] md:flex-row md:items-center md:justify-between">
             <div className="space-y-1">
               <p className="text-sm font-semibold text-ink-800">
                 {sortedRecords.length
@@ -654,7 +654,7 @@ const PublicationExplorer = ({
                         className={`min-w-11 cursor-pointer rounded-[20px] border px-4 py-3 text-sm font-semibold transition duration-200 ${
                           item === currentPage
                             ? 'border-rose-400/70 bg-rose-500 text-white shadow-[0_24px_40px_-30px_rgba(168,110,161,0.6)]'
-                            : 'border-black/8 bg-white/85 text-ink-700 hover:border-black/16 hover:bg-white'
+                            : 'border-black/8 bg-surface/85 text-ink-700 hover:border-black/16 hover:bg-surface'
                         }`}
                       >
                         {item}
@@ -716,7 +716,7 @@ const YearFilterButton = ({
     className={`rounded-full border px-3.5 py-2 text-sm font-medium transition duration-200 ${
       active
         ? 'border-rose-300/70 bg-rose-50 text-rose-700 shadow-[0_16px_30px_-24px_rgba(168,110,161,0.4)]'
-        : 'border-black/8 bg-white/82 text-ink-700 hover:border-black/14 hover:bg-white'
+        : 'border-black/8 bg-surface/82 text-ink-700 hover:border-black/14 hover:bg-surface'
     }`}
   >
     {label}
@@ -740,7 +740,7 @@ const AuthorFilterButton = ({
     className={`rounded-[22px] border px-4 py-3 text-left text-sm font-semibold transition duration-200 ${
       active
         ? 'border-rose-300/70 bg-rose-50/78 text-ink-900 shadow-[0_20px_36px_-30px_rgba(168,110,161,0.45)]'
-        : 'border-black/8 bg-white/84 text-ink-700 hover:border-black/14 hover:bg-white'
+        : 'border-black/8 bg-surface/84 text-ink-700 hover:border-black/14 hover:bg-surface'
     }`}
   >
     {label}
@@ -768,8 +768,8 @@ const PaginationButton = ({
     disabled={disabled}
     className={`inline-flex items-center gap-2 rounded-[20px] border px-4 py-3 text-sm font-semibold transition duration-200 ${
       disabled
-        ? 'cursor-not-allowed border-black/6 bg-white/70 text-ink-300'
-        : 'cursor-pointer border-black/8 bg-white/85 text-ink-700 hover:border-black/16 hover:bg-white'
+        ? 'cursor-not-allowed border-black/6 bg-surface/70 text-ink-300'
+        : 'cursor-pointer border-black/8 bg-surface/85 text-ink-700 hover:border-black/16 hover:bg-surface'
     }`}
   >
     {iconPosition === 'left' && icon}

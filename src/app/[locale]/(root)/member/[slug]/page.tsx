@@ -66,7 +66,7 @@ export default async function ProfilePage(props: { params: Props }) {
     <section className="member-profile-page page-shell overflow-visible">
       <div className="mx-auto w-full max-w-6xl px-5 pb-24 pt-32 text-ink-900 md:px-6 md:pt-36">
         <Link
-          className="inline-flex items-center gap-2 rounded-full border border-rose-200/80 bg-white/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-rose-600 shadow-[0_18px_42px_-30px_rgba(168,110,161,0.28)] transition hover:border-rose-300 hover:bg-white hover:text-rose-700"
+          className="inline-flex items-center gap-2 rounded-full border border-rose-200/80 bg-surface/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-rose-600 shadow-[0_18px_42px_-30px_rgba(168,110,161,0.28)] transition hover:border-rose-300 hover:bg-surface hover:text-rose-700"
           href="/member"
         >
           <ArrowLeft size={15} />
@@ -184,7 +184,7 @@ export default async function ProfilePage(props: { params: Props }) {
               <section className="glass-card px-6 py-7 md:px-8">
                 <SectionHeading icon={UserRound} title={t('biography')} />
                 <article
-                  className="prose mt-5 max-w-none text-sm leading-7 text-ink-700/88 prose-headings:text-ink-900 prose-p:my-4 prose-a:text-rose-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-ink-900 md:text-base"
+                  className="prose dark:prose-invert mt-5 max-w-none text-sm leading-7 text-ink-700/88 prose-headings:text-ink-900 prose-p:my-4 prose-a:text-rose-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-ink-900 md:text-base"
                   dangerouslySetInnerHTML={{ __html: mdHtmlContent }}
                 />
               </section>
@@ -258,7 +258,7 @@ export default async function ProfilePage(props: { params: Props }) {
                       {member.aoi.map((area, idx) => (
                         <li
                           key={idx}
-                          className="rounded-full border border-silk-300/80 bg-white/80 px-3 py-1.5 text-xs font-medium text-ink-700"
+                          className="rounded-full border border-silk-300/80 bg-surface/80 px-3 py-1.5 text-xs font-medium text-ink-700"
                         >
                           {area}
                         </li>
@@ -309,7 +309,7 @@ function SectionHeading({
         {title}
       </h2>
       {typeof count === 'number' && (
-        <span className="rounded-full border border-silk-300/80 bg-white/80 px-3 py-1 text-xs font-semibold text-ink-500">
+        <span className="rounded-full border border-silk-300/80 bg-surface/80 px-3 py-1 text-xs font-semibold text-ink-500">
           {count}
         </span>
       )}
@@ -351,7 +351,7 @@ function ProfileActionLink({
   external?: boolean;
 }) {
   const className =
-    'inline-flex items-center justify-center gap-2 rounded-full border border-rose-200/80 bg-white/88 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-rose-600 transition hover:border-rose-300 hover:bg-rose-50';
+    'inline-flex items-center justify-center gap-2 rounded-full border border-rose-200/80 bg-surface/88 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-rose-600 transition hover:border-rose-300 hover:bg-rose-50';
 
   // External targets (Scholar) and static assets (CV files under /cv) must not
   // be rewritten with a locale prefix, so they bypass the i18n Link.

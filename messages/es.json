@@ -30,6 +30,9 @@
     "label": "Idioma",
     "aria": "Seleccionar idioma"
   },
+  "themeToggle": {
+    "aria": "Cambiar al modo oscuro"
+  },
   "home": {
     "welcome": {
       "scrollDown": "Desplázate hacia abajo",

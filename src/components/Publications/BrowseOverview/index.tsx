@@ -62,7 +62,7 @@ export default async function PublicationBrowseOverview({
             {overview.map((item) => (
               <div
                 key={item.label}
-                className="rounded-[24px] border border-rose-100/75 bg-white/78 px-5 py-5 text-ink-900 shadow-[0_20px_44px_-34px_rgba(61,47,39,0.35)]"
+                className="rounded-[24px] border border-rose-100/75 bg-surface/78 px-5 py-5 text-ink-900 shadow-[0_20px_44px_-34px_rgba(61,47,39,0.35)]"
               >
                 <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-rose-500">
                   {item.label}
@@ -81,7 +81,7 @@ export default async function PublicationBrowseOverview({
         </div>
 
         {latestPublications.length > 0 && (
-          <div className="mt-8 rounded-[28px] border border-rose-100/75 bg-white/78 px-5 py-5 text-ink-900 shadow-[0_24px_56px_-38px_rgba(61,47,39,0.32)] md:px-6">
+          <div className="mt-8 rounded-[28px] border border-rose-100/75 bg-surface/78 px-5 py-5 text-ink-900 shadow-[0_24px_56px_-38px_rgba(61,47,39,0.32)] md:px-6">
             <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
               <div>
                 <p className="inline-flex items-center gap-2 text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-rose-500">
@@ -92,7 +92,7 @@ export default async function PublicationBrowseOverview({
                   {t('addedWithinMonth')}
                 </p>
               </div>
-              <span className="inline-flex self-start rounded-full border border-silk-200/80 bg-white/88 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-ink-500">
+              <span className="inline-flex self-start rounded-full border border-silk-200/80 bg-surface/88 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-ink-500">
                 {t('updates', { count: latestPublications.length })}
               </span>
             </div>
@@ -101,7 +101,7 @@ export default async function PublicationBrowseOverview({
               {latestPublications.map((publication) => (
                 <article
                   key={publication.id}
-                  className="rounded-[22px] border border-black/6 bg-[linear-gradient(160deg,rgba(255,255,255,0.92),rgba(253,247,241,0.82))] px-4 py-4 md:px-5"
+                  className="rounded-[22px] border border-black/6 bg-[linear-gradient(160deg,rgba(255,255,255,0.92),rgba(253,247,241,0.82))] dark:bg-[linear-gradient(160deg,rgba(48,40,31,0.92),rgba(36,30,24,0.82))] px-4 py-4 md:px-5"
                 >
                   <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
                     <div className="min-w-0">
@@ -145,7 +145,7 @@ export default async function PublicationBrowseOverview({
                             <Link
                               key={member.id}
                               href={`/member/${member.id}`}
-                              className="inline-flex items-center gap-2 rounded-full border border-silk-200/80 bg-white/90 px-2.5 py-1.5 text-sm font-medium text-ink-700 transition hover:border-rose-200/70 hover:bg-rose-50/70 hover:text-ink-900"
+                              className="inline-flex items-center gap-2 rounded-full border border-silk-200/80 bg-surface/90 px-2.5 py-1.5 text-sm font-medium text-ink-700 transition hover:border-rose-200/70 hover:bg-rose-50/70 hover:text-ink-900"
                             >
                               <Avatar
                                 src={member.thumbnail}

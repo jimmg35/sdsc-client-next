@@ -30,7 +30,7 @@ const Footer = async () => {
   const tNav = await getTranslations('nav');
 
   return (
-    <footer className="relative border-t border-silk-200/80 bg-white/90 text-ink-700">
+    <footer className="relative border-t border-silk-200/80 bg-surface/90 text-ink-700 dark:bg-silk-50/90">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_15%_-10%,_rgba(198,164,215,0.28),_transparent_55%),_radial-gradient(105%_105%_at_80%_-15%,_rgba(194,156,106,0.24),_transparent_60%)]" />
 
       <div className="relative mx-auto max-w-6xl px-6 py-16">
@@ -108,7 +108,7 @@ const Footer = async () => {
                 name="email"
                 aria-label="Email"
                 placeholder="Email address"
-                className="flex-1 rounded-full border border-rose-200/80 bg-white px-4 py-2 text-sm text-ink-700 placeholder:text-ink-500/70 focus:outline-none focus:ring-2 focus:ring-rose-200"
+                className="flex-1 rounded-full border border-rose-200/80 bg-surface px-4 py-2 text-sm text-ink-700 placeholder:text-ink-500/70 focus:outline-none focus:ring-2 focus:ring-rose-200"
               />
               <button
                 type="submit"
@@ -124,7 +124,7 @@ const Footer = async () => {
                   <a
                     key={item.label}
                     href={item.href}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-rose-200/60 bg-white text-rose-600 transition hover:bg-rose-50 hover:text-rose-700"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-rose-200/60 bg-surface text-rose-600 transition hover:bg-rose-50 hover:text-rose-700"
                     aria-label={item.label}
                   >
                     <Icon size={18} />
@@ -136,7 +136,7 @@ const Footer = async () => {
         </div>
       </div>
 
-      <div className="relative border-t border-silk-200/80 bg-white/80">
+      <div className="relative border-t border-silk-200/80 bg-surface/80 dark:bg-silk-100/80">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-4 text-[0.7rem] uppercase tracking-[0.3em] text-ink-500 md:flex-row">
           <span>SDSC - Florida State University</span>
           <span>{t('copyright', { year: new Date().getFullYear() })}</span>

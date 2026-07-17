@@ -2,6 +2,10 @@
 @plugin '@tailwindcss/typography';
 @import './modal.css';
 
+/* Theme is user-chosen, not OS-derived, so `dark:` keys off a class the theme
+   script puts on <html> rather than Tailwind v4's default prefers-color-scheme. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-silk-50: #fdfaf4;
   --color-silk-100: #f7f0e2;
@@ -24,6 +28,10 @@
   --color-rose-700: #663d60;
   --color-rose-800: #462a42;
   --color-rose-900: #2f1b2c;
+
+  /* Card/panel background. Distinct from `white`, which several places use
+     deliberately as a scrim over a photo and must stay white in both themes. */
+  --color-surface: #ffffff;
 
   --color-ink-100: #f9f6f0;
   --color-ink-200: #eee6d7;
@@ -56,6 +64,68 @@
     linear-gradient(165deg, #fdfbf7 0%, #f7efe3 40%, #f1e4d7 100%);
 
   --background-image: url('/img/welcome.jpg');
+}
+
+/* Dark theme.
+   The ramps are inverted rather than replaced: the codebase consistently uses
+   the low end for surfaces (bg-rose-50, bg-silk-200) and the high end for text
+   (text-ink-900, text-silk-800), so flipping each ramp end-for-end keeps every
+   existing utility meaningful without touching call sites. Hues are carried
+   over from the light theme, so the dark side stays warm rather than going
+   neutral grey. */
+.dark {
+  color-scheme: dark;
+
+  /* Lifted just above the page ground so cards still read as raised. */
+  --color-surface: #2b241c;
+
+  --color-silk-50: #171310;
+  --color-silk-100: #1f1a15;
+  --color-silk-200: #2b241c;
+  --color-silk-300: #3f3427;
+  --color-silk-400: #5c4b35;
+  --color-silk-500: #86694a;
+  --color-silk-600: #a5815c;
+  --color-silk-700: #c29c6a;
+  --color-silk-800: #dcbd8f;
+  --color-silk-900: #f2e2c8;
+
+  --color-rose-50: #2b1b28;
+  --color-rose-100: #3a2436;
+  --color-rose-200: #4d3247;
+  --color-rose-300: #66445e;
+  --color-rose-400: #855a7c;
+  --color-rose-500: #a86ea1;
+  --color-rose-600: #c08fb8;
+  --color-rose-700: #d6afd0;
+  --color-rose-800: #e8cfe4;
+  --color-rose-900: #f7edf4;
+
+  --color-ink-100: #201b17;
+  --color-ink-200: #2b2521;
+  --color-ink-300: #5f544c;
+  --color-ink-500: #9b8f84;
+  --color-ink-700: #cdc3b7;
+  --color-ink-900: #f5f0e8;
+
+  --shadow-surface:
+    0 50px 90px -50px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --shadow-hover: 0 45px 80px -48px rgba(0, 0, 0, 0.75);
+  --shadow-soft: 0 36px 70px -46px rgba(0, 0, 0, 0.7);
+
+  --background-gradient:
+    radial-gradient(
+      120% 120% at 15% -20%,
+      rgba(134, 105, 74, 0.22) 0%,
+      rgba(23, 19, 16, 0) 55%
+    ),
+    radial-gradient(
+      110% 110% at 85% -10%,
+      rgba(168, 110, 161, 0.22) 0%,
+      rgba(23, 19, 16, 0) 60%
+    ),
+    linear-gradient(165deg, #17130f 0%, #1b1611 40%, #201a14 100%);
 }
 
 @layer base {
@@ -144,6 +214,15 @@
     box-shadow: var(--shadow-surface);
   }
 
+  .dark .calcite-box {
+    background: linear-gradient(
+      165deg,
+      rgba(43, 36, 28, 0.92),
+      rgba(31, 26, 21, 0.78)
+    );
+    border-color: rgba(214, 175, 208, 0.14);
+  }
+
   .calcite-focus {
     @apply focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-rose-200/50 focus-visible:border-rose-400/60;
   }
@@ -188,6 +267,15 @@
 
   .glass-card:hover::before {
     opacity: 1;
+  }
+
+  .dark .glass-card {
+    border-color: rgba(194, 156, 106, 0.16);
+    background: linear-gradient(
+      178deg,
+      rgba(43, 36, 28, 0.88),
+      rgba(31, 26, 21, 0.72)
+    );
   }
 
   .chip-gold {
@@ -274,6 +362,15 @@
     );
     border: 1px solid rgba(206, 184, 136, 0.16);
     box-shadow: var(--shadow-soft);
+  }
+
+  .dark .surface-fade {
+    background: linear-gradient(
+      182deg,
+      rgba(38, 31, 25, 0.94),
+      rgba(28, 23, 19, 0.9)
+    );
+    border-color: rgba(206, 184, 136, 0.14);
   }
 
   .briefing-story-card {
@@ -371,6 +468,27 @@
   .custom-li:hover::before {
     opacity: 1;
   }
+
+  .dark .custom-li {
+    color: rgba(245, 240, 232, 0.8);
+  }
+
+  .dark .custom-li:hover {
+    color: rgba(245, 240, 232, 0.95);
+  }
+
+  .dark .briefing-window-card {
+    scrollbar-color: rgba(214, 175, 208, 0.4) rgba(43, 36, 28, 0.55);
+  }
+
+  .dark .briefing-window-card::-webkit-scrollbar-track {
+    background: rgba(43, 36, 28, 0.5);
+  }
+
+  .dark .briefing-window-card::-webkit-scrollbar-thumb {
+    background: rgba(214, 175, 208, 0.4);
+    border-color: rgba(31, 26, 21, 0.72);
+  }
 }
 
 @layer utilities {
@@ -414,6 +532,35 @@
         rgba(198, 164, 215, 0.26) 0%,
         transparent 62%
       );
+  }
+
+  .dark .page-shell::before {
+    background-image:
+      linear-gradient(rgba(214, 175, 208, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(214, 175, 208, 0.1) 1px, transparent 1px);
+    opacity: 0.14;
+  }
+
+  .dark .page-shell::after {
+    background:
+      radial-gradient(
+        130% 130% at 18% -20%,
+        rgba(134, 105, 74, 0.22) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        128% 128% at 82% -10%,
+        rgba(168, 110, 161, 0.2) 0%,
+        transparent 62%
+      );
+  }
+
+  .dark .chip-gold {
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .dark .text-glow {
+    text-shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
   }
 
   .text-glow {

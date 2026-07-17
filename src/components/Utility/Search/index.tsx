@@ -9,7 +9,7 @@ const Search = ({ placeholder }: { placeholder: string }) => {
     <>
       <div className="calcite-box relative w-full h-14">
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-          <span className="text-gray-500 sm:text-sm">
+          <span className="text-ink-500 sm:text-sm">
             <SearchIcon size={18} />
           </span>
         </div>

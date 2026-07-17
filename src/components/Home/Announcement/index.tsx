@@ -9,7 +9,7 @@ const Announcement = () => {
       <div className="relative flex flex-col items-center text-center text-gold-50">
         <Fade direction="up" duration={800} cascade triggerOnce>
           <h1 className="relative mt-10 flex flex-col items-center text-center text-balance text-4xl font-black tracking-tight text-gold-50 md:text-6xl">
-            <span className="inline-flex items-center gap-2 rounded-full border bg-white px-4 py-1 text-sm font-bold uppercase tracking-[0.55em] text-gold-100/90 shadow-[0_18px_45px_-28px_rgba(0,0,0,0.8)] md:text-xs">
+            <span className="inline-flex items-center gap-2 rounded-full border bg-surface px-4 py-1 text-sm font-bold uppercase tracking-[0.55em] text-gold-100/90 shadow-[0_18px_45px_-28px_rgba(0,0,0,0.8)] md:text-xs">
               Faculty Hire
             </span>
             <span className="relative mt-5 inline-flex items-center">
