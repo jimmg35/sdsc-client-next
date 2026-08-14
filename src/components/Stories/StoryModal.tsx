@@ -1,7 +1,6 @@
 'use client';
 
 import Avatar from '@/components/Utility/Avatar';
-import { Link } from '@/i18n/navigation';
 import type { StoryEvent, StoryMember } from '@/lib/stories/types';
 import {
   ArrowLeft,
@@ -15,6 +14,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useFormatter, useTranslations } from 'next-intl';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const AUTO_ADVANCE_MS = 7000;
 

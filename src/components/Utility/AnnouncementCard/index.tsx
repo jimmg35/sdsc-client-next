@@ -1,8 +1,8 @@
-import { Link } from '@/i18n/navigation';
 import { AnnouncementData } from '@/lib/announcements';
 import { ArrowUpRight } from 'lucide-react';
 import { getFormatter, getTranslations } from 'next-intl/server';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const AnnouncementCard = async ({ data }: { data: AnnouncementData }) => {
   const t = await getTranslations('announcements.card');

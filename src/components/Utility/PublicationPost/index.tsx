@@ -1,10 +1,10 @@
 'use client';
 
 import Avatar from '@/components/Utility/Avatar';
-import { Link } from '@/i18n/navigation';
 import { PublicationData } from '@/lib/publications';
 import { ArrowUpRight, Users } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 
 export type PublicationCardMember = {
   id: string;

@@ -1,7 +1,7 @@
 import Avatar from '@/components/Utility/Avatar';
-import { Link } from '@/i18n/navigation';
 import { ArrowUpRight, CalendarDays } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
+import Link from 'next/link';
 
 export type PublicationOverviewMetric = {
   value: string;

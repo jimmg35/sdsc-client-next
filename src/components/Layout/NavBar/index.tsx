@@ -1,10 +1,8 @@
 'use client';
 
 // import NotificationBanner from '@/components/Layout/NotificationBanner';
-import LanguageSwitcher from '@/components/Layout/LanguageSwitcher';
 import OfficialSiteBar from '@/components/Layout/OfficialSiteBar';
 import ThemeToggle from '@/components/Layout/ThemeToggle';
-import { Link, usePathname } from '@/i18n/navigation';
 import easternEgg from '@/lib/easterneggs';
 import {
   AppWindowMac,
@@ -23,6 +21,8 @@ import type { LucideIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 type PrimaryNavItem = {
   key: string;
@@ -43,9 +43,10 @@ const primaryNavItems: PrimaryNavItem[] = [
 type NavItem = PrimaryNavItem;
 
 // Roughly how much horizontal room the six nav labels need. CJK glyphs are
-// about double the advance width of a Latin cap, so they count double. Locales
-// past this budget (currently es/fr) get tighter tracking instead of
-// overflowing the fixed-width shell.
+// about double the advance width of a Latin cap, so they count double. Labels
+// past this budget get tighter tracking instead of overflowing the fixed-width
+// shell. Inert while the site is English-only, but kept for when the other
+// locales (es/fr, which do exceed the budget) come back.
 const DENSE_LABEL_BUDGET = 44;
 
 const measureLabelWeight = (labels: string[]) =>
@@ -193,7 +194,6 @@ const Navbar = () => {
               {primaryNavItems.map((item) => renderLink(item, 'desktop'))}
             </div>
             <ThemeToggle />
-            <LanguageSwitcher />
           </div>
 
           <button
@@ -220,9 +220,6 @@ const Navbar = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <ThemeToggle variant="mobile" />
-                  <div className="min-w-0 flex-1">
-                    <LanguageSwitcher variant="mobile" />
-                  </div>
                 </div>
                 <Link
                   href="/contact"

@@ -26,10 +26,6 @@
     "navigation": "Navigation",
     "partnerCta": "Partner with SDSC"
   },
-  "languageSwitcher": {
-    "label": "Language",
-    "aria": "Select language"
-  },
   "themeToggle": {
     "aria": "Toggle dark mode"
   },

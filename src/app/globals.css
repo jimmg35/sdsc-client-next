@@ -152,36 +152,6 @@
     min-height: 100vh;
   }
 
-  /* Simplified and Traditional Chinese need separate stacks: many Han
-     codepoints are shared but have different regional glyph forms, so one
-     font cannot serve both correctly. The CJK faces are whatever the OS ships
-     — no webfont is downloaded, which keeps the build free of the ~200 font
-     requests a CJK webfont costs. :lang() matches the locale wrapper in
-     [locale]/layout.tsx and everything inheriting from it, and because it
-     replaces body's font-family outright it must re-state the Latin face
-     first, or Latin runs on Chinese pages would render in the CJK font. */
-  :lang(zh-CN) {
-    font-family:
-      var(--font-latin), 'PingFang SC', 'Noto Sans SC', 'Noto Sans CJK SC',
-      'Source Han Sans SC', 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif;
-  }
-
-  :lang(zh-TW) {
-    font-family:
-      var(--font-latin), 'PingFang TC', 'Noto Sans TC', 'Noto Sans CJK TC',
-      'Source Han Sans TC', 'Microsoft JhengHei', sans-serif;
-  }
-
-  /* Han faces read lighter than the Latin at the same nominal weight, so body
-     copy asks for Medium. Faces that ship a 500 (PingFang, Noto Sans TC/SC)
-     use it; Microsoft JhengHei/YaHei only ship 300/400/700, so those machines
-     round back down to Regular and are no worse off. Headings are unaffected —
-     their Tailwind weight utility wins over this base rule. */
-  :lang(zh-CN),
-  :lang(zh-TW) {
-    font-weight: 500;
-  }
-
   main {
     position: relative;
     isolation: isolate;

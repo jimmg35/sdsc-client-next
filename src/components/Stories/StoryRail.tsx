@@ -2,11 +2,11 @@
 
 import StoryModal from '@/components/Stories/StoryModal';
 import Avatar from '@/components/Utility/Avatar';
-import { Link } from '@/i18n/navigation';
 import type { StoryEvent } from '@/lib/stories/types';
 import { ArrowUpRight, Sparkles, Users } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 
 type StoryRailProps = {
   stories: StoryEvent[];

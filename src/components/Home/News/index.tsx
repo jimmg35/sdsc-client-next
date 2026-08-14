@@ -1,8 +1,8 @@
 import NewsCard from '@/components/Utility/NewsCard';
-import { Link } from '@/i18n/navigation';
 import { NewsData, getAllNews } from '@/lib/news';
 import { RadioTower, Rss } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
+import Link from 'next/link';
 import Heading from '../Heading';
 
 const News = async () => {

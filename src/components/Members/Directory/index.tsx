@@ -1,8 +1,8 @@
 import Avatar from '@/components/Utility/Avatar';
-import { Link } from '@/i18n/navigation';
 import { MemberData } from '@/lib/members';
 import { ArrowUpRight, GraduationCap, Mail, UsersRound } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
+import Link from 'next/link';
 
 export type MemberDirectorySection = {
   id: string;

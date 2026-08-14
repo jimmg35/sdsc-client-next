@@ -1,4 +1,3 @@
-import { Link } from '@/i18n/navigation';
 import {
   ArrowUpRight,
   Github,
@@ -9,6 +8,7 @@ import {
 } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const quickLinks = [
   { key: 'home', href: '/' },
