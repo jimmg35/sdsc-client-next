@@ -1,8 +1,16 @@
 'use client';
 
 import AppCard from '@/components/Utility/AppCard';
+import { bibliographyVersions, currentBibliography } from '@/lib/bibliography';
 import { trackMGWRDownload } from '@/lib/ga';
-import { ArrowUpRight, BookMarked, BookOpen, Database } from 'lucide-react';
+import {
+  ArrowUpRight,
+  BookMarked,
+  BookOpen,
+  Database,
+  Download,
+  History
+} from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
@@ -32,7 +40,7 @@ const documentationLinks = [
   },
   {
     label: 'MGWR Bibliography (PDF)',
-    href: '/contents/(M)GWR Bibliography.pdf'
+    href: currentBibliography.href
   },
   {
     label: 'mgwr Python package on GitHub',
@@ -160,6 +168,43 @@ export default function MGWR() {
             </ul>
           </section>
         </div>
+
+        <section className="mt-14 glass-card px-8 py-8 text-gold-100">
+          <header className="panel-title text-gold-300">
+            <History size={18} />
+            {t('bibliographyHistory.title')}
+          </header>
+          <p className="mt-4 max-w-2xl text-sm text-gold-200/75">
+            {t('bibliographyHistory.description')}
+          </p>
+          <ul className="mt-6 divide-y divide-silk-200/80 border-t border-silk-200/80 text-sm">
+            {bibliographyVersions.map((edition, index) => (
+              <li
+                key={edition.version}
+                className="flex flex-wrap items-center gap-x-4 gap-y-2 py-3.5"
+              >
+                <span className="font-medium">{edition.releasedAt}</span>
+                {index === 0 ? (
+                  <span className="rounded-full border border-rose-200/70 px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-rose-600">
+                    {t('bibliographyHistory.current')}
+                  </span>
+                ) : null}
+                <span className="text-xs text-gold-200/60">
+                  PDF &middot; {edition.size}
+                </span>
+                <Link
+                  href={encodeURI(edition.href)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ml-auto inline-flex items-center gap-1 text-gold-300 underline-offset-4 hover:text-gold-50 hover:underline"
+                >
+                  <Download size={14} />
+                  {t('bibliographyHistory.download')}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
 
         <section className="mt-14 glass-card px-8 py-8 text-gold-100">
           <header className="panel-title text-gold-300">

@@ -106,6 +106,12 @@
     "documentation": "Documentation",
     "sampleDatasets": "Sample datasets",
     "citationReferences": "Citation references",
+    "bibliographyHistory": {
+      "title": "Bibliography changelog",
+      "description": "The (M)GWR bibliography is revised as new studies appear. Every edition we have published stays available below, so a citation to a specific release can always be traced back to the exact file.",
+      "current": "Current",
+      "download": "Download"
+    },
     "access": "Access"
   },
   "members": {
