@@ -36,7 +36,9 @@ export default async function Member() {
     getMemberById('md-fattah'),
     getMemberById('jacob-tagnan'),
     getMemberById('stephen-liwur'),
-    getMemberById('shangrui-zhu')
+    getMemberById('shangrui-zhu'),
+    getMemberById('kazi-jihadur-rashid'),
+    getMemberById('segun-adewale-ojo')
   ]);
 
   const affiliatedMembers = collectMembers([

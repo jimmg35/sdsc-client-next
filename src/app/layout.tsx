@@ -1,5 +1,8 @@
-﻿import easternEgg from '@/lib/easterneggs';
+﻿import GAPageView from '@/components/Analytics/GAPageView';
+import easternEgg from '@/lib/easterneggs';
+import { GA_ID, gaInitScript } from '@/lib/ga';
 import { themeInitScript } from '@/lib/theme';
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
 import { NextIntlClientProvider } from 'next-intl';
@@ -15,8 +18,6 @@ const inter = IBM_Plex_Sans({
   // in its theme.
   variable: '--font-latin'
 });
-
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 export const metadata: Metadata = {
   title: 'Spatial Data Science Center',
@@ -44,28 +45,20 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        {/* Plain inline script rather than next/script: this has to run before
+            hydration so window.gtag already exists when GAPageView and the
+            MGWR download handler call it. gtag.js itself can load late. */}
+        <script dangerouslySetInnerHTML={{ __html: gaInitScript }} />
       </head>
       <body className={`${inter.className} ${inter.variable} antialiased`}>
-        {GA_ID ? (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-              strategy="afterInteractive"
-            />
-            <Script
-              id="gtag-init"
-              strategy="afterInteractive"
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${GA_ID}', { anonymize_ip: true });
-                `
-              }}
-            />
-          </>
-        ) : null}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
+        {/* useSearchParams needs a suspense boundary under output: 'export'. */}
+        <Suspense fallback={null}>
+          <GAPageView />
+        </Suspense>
         <div hidden dangerouslySetInnerHTML={{ __html: easternEgg }} />
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
         <Analytics />

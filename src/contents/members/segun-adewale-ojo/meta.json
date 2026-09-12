@@ -1,0 +1,31 @@
+{
+  "id": "segun-adewale-ojo",
+  "name": "Segun Adewale Ojo",
+  "title": "Ph.D. student",
+  "department": "Department of Geography",
+  "email": "",
+  "thumbnail": "/img/avatar/segunOjo1.png",
+  "centerRole": "Graduate Research Assistant",
+  "googleScholar": "",
+  "advisor": "Christopher Uejio",
+  "advisorId": "christopher-uejio",
+  "education": [
+    {
+      "degree": "M.A.",
+      "field": "Research Training Program in Social Sciences",
+      "institution": "Humboldt University of Berlin",
+      "year": 2024
+    },
+    {
+      "degree": "M.S.",
+      "field": "Applied Earth Observation and Geoanalysis",
+      "institution": "Julius Maximilians University of Wuerzburg",
+      "year": 2020
+    }
+  ],
+  "honor": [],
+  "selectedPublications": [],
+  "courseTaught": [],
+  "aoi": [],
+  "professionalExperience": []
+}

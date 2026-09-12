@@ -94,18 +94,27 @@
     "title": "Multiscale Geographically Weighted Regression (MGWR)",
     "intro": "MGWR provides a Windows and macOS interface for calibrating multiscale geographically weighted regression models so you can explore how multi-scale relationships vary across space.",
     "downloads": {
+      "heading": "Get the software",
+      "productName": "MGWR GUI",
+      "tagline": "Free and open source. Pick the build that matches your machine.",
       "windows": {
-        "title": "MGWR GUI (Windows)",
-        "description": "Installer package with the latest stable build, examples, and documentation for Windows 10/11 environments."
+        "title": "Windows",
+        "meta": "Windows 10 / 11 · 64-bit",
+        "description": "Installer package with the latest stable build, examples, and documentation."
       },
       "macos": {
-        "title": "MGWR GUI (macOS)",
-        "description": "Universal binary for Apple Silicon and Intel Macs with notarized installer and starter projects."
+        "title": "macOS",
+        "meta": "Universal · Apple Silicon & Intel",
+        "description": "Notarized universal binary for Apple Silicon and Intel Macs, bundled with starter projects."
       }
     },
     "documentation": "Documentation",
+    "documentationHint": "Manuals, references, and the open-source Python package.",
     "sampleDatasets": "Sample datasets",
+    "sampleDatasetsHint": "Example datasets to try the software on.",
     "citationReferences": "Citation references",
+    "citationCopy": "Copy",
+    "citationCopied": "Copied",
     "bibliographyHistory": {
       "title": "Bibliography changelog",
       "description": "The (M)GWR bibliography is revised as new studies appear. Every edition we have published stays available below, so a citation to a specific release can always be traced back to the exact file.",

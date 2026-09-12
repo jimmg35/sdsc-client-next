@@ -27,6 +27,12 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
+# NEXT_PUBLIC_* is inlined by next build, so the id has to be present in this
+# stage — a runtime env var on the final image arrives far too late. Optional:
+# src/lib/ga.ts carries the production id as the fallback when this is unset.
+ARG NEXT_PUBLIC_GA_ID
+ENV NEXT_PUBLIC_GA_ID=$NEXT_PUBLIC_GA_ID
+
 RUN yarn build
 
 # If using npm comment out above and use below instead

@@ -400,6 +400,341 @@
     animation: briefing-story-sheen 1.7s ease;
   }
 
+  /* --- Home hero -------------------------------------------------------
+     The welcome banner is a 1300x450 piece of artwork, so it is shown at its
+     own proportions inside a floating band instead of being cropped to a
+     full-bleed cover. The same file, blurred past legibility, doubles as the
+     ambient light behind that band. `--hero-image` is set by the component. */
+  /* Two offset copies of the artwork, blurred into each other, so the wash has
+     more than one colour in it — a single centred copy washes out to a flat
+     lavender once the veil goes over it. */
+  .hero-ambient {
+    position: absolute;
+    inset: -16%;
+    z-index: -2;
+    background-image: var(--hero-image), var(--hero-image);
+    background-repeat: no-repeat, no-repeat;
+    background-size:
+      150% 150%,
+      115% 115%;
+    background-position:
+      -18% 8%,
+      116% 96%;
+    background-blend-mode: multiply;
+    filter: blur(62px) saturate(1.45);
+    opacity: 0.74;
+    animation: hero-drift 26s ease-in-out infinite alternate;
+  }
+
+  .dark .hero-ambient {
+    opacity: 0.62;
+  }
+
+  /* Knocks the wash back far enough to read text over, without bleaching it.
+     The centre stays open so the band sits in clear air; the colour is allowed
+     to survive at the edges, and only the last 10% goes to the page ground so
+     the hero still meets the next section cleanly. */
+  .hero-veil {
+    z-index: -1;
+    background:
+      radial-gradient(
+        80% 62% at 50% 44%,
+        rgba(253, 250, 244, 0.86) 0%,
+        rgba(253, 250, 244, 0.5) 55%,
+        rgba(253, 250, 244, 0.14) 100%
+      ),
+      /* Warms the lower half back towards the page palette, so the blue wash
+         reads as light rather than as a second, cooler brand colour. */
+        linear-gradient(
+          180deg,
+          rgba(239, 224, 199, 0) 38%,
+          rgba(239, 224, 199, 0.42) 78%,
+          rgba(239, 224, 199, 0.7) 100%
+        ),
+      linear-gradient(
+        180deg,
+        rgba(253, 250, 244, 0.32) 0%,
+        rgba(253, 250, 244, 0.22) 55%,
+        rgba(253, 250, 244, 0.44) 84%,
+        var(--color-silk-50) 100%
+      );
+  }
+
+  .dark .hero-veil {
+    background:
+      radial-gradient(
+        80% 62% at 50% 44%,
+        rgba(23, 19, 16, 0.84) 0%,
+        rgba(23, 19, 16, 0.5) 55%,
+        rgba(23, 19, 16, 0.16) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(56, 43, 28, 0) 38%,
+        rgba(56, 43, 28, 0.4) 78%,
+        rgba(56, 43, 28, 0.62) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(23, 19, 16, 0.38) 0%,
+        rgba(23, 19, 16, 0.28) 55%,
+        rgba(23, 19, 16, 0.5) 84%,
+        var(--color-silk-50) 100%
+      );
+  }
+
+  /* Faint contour rings, centred on the band. Cheap texture that reads as
+     cartographic rather than decorative, and keeps the lower half of the hero
+     from going empty. */
+  .hero-weave {
+    z-index: -1;
+    background-image: repeating-radial-gradient(
+      circle at 50% 44%,
+      rgba(97, 61, 96, 0.12) 0 1px,
+      transparent 1px 54px
+    );
+    -webkit-mask-image: radial-gradient(
+      78% 72% at 50% 44%,
+      #000 15%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(78% 72% at 50% 44%, #000 15%, transparent 100%);
+    opacity: 0.55;
+  }
+
+  .dark .hero-weave {
+    background-image: repeating-radial-gradient(
+      circle at 50% 44%,
+      rgba(214, 175, 208, 0.14) 0 1px,
+      transparent 1px 54px
+    );
+  }
+
+  /* Frames the composition so the colour ends on a soft edge instead of
+     running flat into the viewport corners. */
+  .hero-vignette {
+    z-index: -1;
+    background: radial-gradient(
+      108% 92% at 50% 44%,
+      transparent 42%,
+      rgba(86, 66, 42, 0.16) 100%
+    );
+  }
+
+  .dark .hero-vignette {
+    background: radial-gradient(
+      108% 92% at 50% 44%,
+      transparent 42%,
+      rgba(0, 0, 0, 0.55) 100%
+    );
+  }
+
+  .hero-float {
+    transform: perspective(1400px) rotateX(calc(var(--tilt-y, 0) * -3.2deg))
+      rotateY(calc(var(--tilt-x, 0) * 5deg))
+      translate3d(
+        calc(var(--tilt-x, 0) * 10px),
+        calc(var(--tilt-y, 0) * 8px),
+        0
+      );
+    transform-style: preserve-3d;
+    transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    animation: hero-lift 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .hero-halo {
+    position: absolute;
+    inset: -14% -7%;
+    z-index: -1;
+    border-radius: 48px;
+    background:
+      radial-gradient(
+        58% 76% at 22% 34%,
+        rgba(46, 78, 208, 0.85),
+        transparent 72%
+      ),
+      radial-gradient(
+        52% 74% at 80% 58%,
+        rgba(226, 76, 40, 0.65),
+        transparent 72%
+      ),
+      radial-gradient(
+        60% 60% at 52% 92%,
+        rgba(168, 110, 161, 0.5),
+        transparent 75%
+      );
+    filter: blur(58px);
+    opacity: 0.9;
+    animation: hero-halo-breathe 9s ease-in-out infinite alternate;
+  }
+
+  .hero-band {
+    aspect-ratio: 5 / 4;
+    box-shadow:
+      0 60px 120px -60px rgba(11, 16, 48, 0.85),
+      0 30px 60px -45px rgba(44, 36, 32, 0.6);
+  }
+
+  @media (min-width: 640px) {
+    .hero-band {
+      aspect-ratio: 16 / 10;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-band {
+      aspect-ratio: 1300 / 450;
+    }
+  }
+
+  /* The artwork itself, slowly pushing in. Held off-centre below `lg` so the
+     hot spot on the right of the image survives the narrower crop. */
+  .hero-plate {
+    background-image: var(--hero-image);
+    background-size: cover;
+    background-position: 92% 50%;
+    animation: hero-push-in 20s ease-in-out infinite alternate;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-plate {
+      background-position: center;
+    }
+  }
+
+  .hero-scrim {
+    background:
+      linear-gradient(
+        to top,
+        rgba(6, 10, 34, 0.94) 6%,
+        rgba(6, 10, 34, 0.5) 52%,
+        rgba(6, 10, 34, 0.12) 100%
+      ),
+      radial-gradient(70% 90% at 12% 50%, rgba(6, 10, 34, 0.6), transparent 70%);
+  }
+
+  @media (min-width: 1024px) {
+    .hero-scrim {
+      background: linear-gradient(
+        100deg,
+        rgba(6, 10, 34, 0.93) 0%,
+        rgba(6, 10, 34, 0.72) 38%,
+        rgba(6, 10, 34, 0.18) 68%,
+        rgba(6, 10, 34, 0) 100%
+      );
+    }
+  }
+
+  /* One slow pass of light across the band on load, repeated on hover. */
+  .hero-sheen {
+    background: linear-gradient(
+      100deg,
+      transparent 38%,
+      rgba(255, 255, 255, 0.16) 50%,
+      transparent 62%
+    );
+    opacity: 0;
+    animation: hero-sheen-sweep 2.6s ease 600ms 1;
+  }
+
+  .hero-band:hover .hero-sheen {
+    animation: hero-sheen-sweep 1.8s ease 1;
+  }
+
+  .hero-rule {
+    animation: hero-fade-in 700ms ease 220ms both;
+  }
+
+  .hero-pip {
+    height: 9px;
+    width: 9px;
+    border-radius: 999px;
+    background: var(--color-silk-400);
+    box-shadow: 0 0 0 0 rgba(211, 178, 135, 0.6);
+    animation: hero-pip-pulse 2.8s ease-out infinite;
+  }
+
+  .hero-line {
+    height: 1px;
+    width: 4.5rem;
+    background: linear-gradient(
+      90deg,
+      rgba(211, 178, 135, 0.9),
+      rgba(211, 178, 135, 0)
+    );
+  }
+
+  /* Each word rides up from behind its own clipping mask. */
+  .hero-word {
+    display: inline-block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+    vertical-align: bottom;
+  }
+
+  .hero-word + .hero-word {
+    margin-left: 0.28em;
+  }
+
+  .hero-word-inner {
+    display: inline-block;
+    background: linear-gradient(180deg, #ffffff 20%, #efe0c7 135%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: hero-word-rise 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .hero-scroll {
+    animation: hero-fade-in 800ms ease 900ms both;
+  }
+
+  .hero-scroll-track {
+    position: relative;
+    display: block;
+    height: 3.25rem;
+    width: 1px;
+    overflow: hidden;
+    background: linear-gradient(
+      180deg,
+      rgba(168, 110, 161, 0.45),
+      rgba(168, 110, 161, 0)
+    );
+  }
+
+  .hero-scroll-dot {
+    position: absolute;
+    left: -2px;
+    height: 5px;
+    width: 5px;
+    border-radius: 999px;
+    background: var(--color-rose-500);
+    box-shadow: 0 0 12px rgba(168, 110, 161, 0.8);
+    animation: hero-scroll-travel 2.2s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+  }
+
+  /* A faint lat/long graticule for the director's letter. Masked with a
+     radial gradient so it dissolves into the panel instead of ending on a
+     hard edge, and re-tinted in dark mode where the light ink would vanish. */
+  .graticule-fade {
+    background-image:
+      linear-gradient(rgba(97, 61, 96, 0.09) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(97, 61, 96, 0.09) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(
+      72% 62% at 50% 40%,
+      #000 0%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(72% 62% at 50% 40%, #000 0%, transparent 100%);
+  }
+
+  .dark .graticule-fade {
+    background-image:
+      linear-gradient(rgba(214, 175, 208, 0.11) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(214, 175, 208, 0.11) 1px, transparent 1px);
+  }
+
   .custom-li {
     position: relative;
     padding-left: 1.6rem;
@@ -616,5 +951,132 @@
   100% {
     opacity: 0;
     transform: translateX(22%);
+  }
+}
+
+@keyframes hero-drift {
+  0% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: scale(1.12) translate3d(-2%, -1.5%, 0);
+  }
+}
+
+@keyframes hero-push-in {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.09);
+  }
+}
+
+@keyframes hero-halo-breathe {
+  0% {
+    opacity: 0.55;
+    transform: scale(0.97);
+  }
+  100% {
+    opacity: 0.85;
+    transform: scale(1.03);
+  }
+}
+
+@keyframes hero-lift {
+  0% {
+    opacity: 0;
+    transform: perspective(1400px) translate3d(0, 34px, 0) scale(0.975);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes hero-word-rise {
+  0% {
+    transform: translate3d(0, 115%, 0) rotate(2deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0);
+    opacity: 1;
+  }
+}
+
+@keyframes hero-sheen-sweep {
+  0% {
+    opacity: 0;
+    transform: translate3d(-40%, 0, 0);
+  }
+  22% {
+    opacity: 1;
+  }
+  78% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(40%, 0, 0);
+  }
+}
+
+@keyframes hero-pip-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(211, 178, 135, 0.65);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 12px rgba(211, 178, 135, 0);
+  }
+}
+
+@keyframes hero-fade-in {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes hero-scroll-travel {
+  0% {
+    top: -20%;
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+/* The hero leans on motion for its entrance; everything it animates is legible
+   in its final state, so honouring the preference just skips to that. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-ambient,
+  .hero-plate,
+  .hero-halo,
+  .hero-float,
+  .hero-sheen,
+  .hero-pip,
+  .hero-scroll-dot,
+  .hero-rule,
+  .hero-scroll,
+  .hero-word-inner {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .hero-sheen {
+    opacity: 0;
   }
 }

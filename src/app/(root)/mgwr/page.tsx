@@ -1,17 +1,25 @@
 'use client';
 
-import AppCard from '@/components/Utility/AppCard';
+import CitationCard from '@/components/MGWR/CitationCard';
+import DownloadCard from '@/components/Utility/DownloadCard';
+import { AppleIcon, WindowsIcon } from '@/components/Utility/PlatformIcon';
 import { bibliographyVersions, currentBibliography } from '@/lib/bibliography';
 import { trackMGWRDownload } from '@/lib/ga';
 import {
+  ArrowDownToLine,
   ArrowUpRight,
   BookMarked,
   BookOpen,
   Database,
   Download,
-  History
+  FileText,
+  Github,
+  History,
+  Library,
+  MapPin
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const DOWNLOAD_VERSION = '2.2.1';
@@ -19,31 +27,35 @@ const DOWNLOAD_VERSION = '2.2.1';
 const downloads = [
   {
     key: 'windows',
-    imageUrl: '/img/software/mgwr.png',
+    Icon: WindowsIcon,
     href: 'https://fsu-my.sharepoint.com/:u:/g/personal/zl23l_fsu_edu/ERbawWrrxUdAuqXxAcg_LcoBtZh-ENpHZAEKoCB8GZf7xg?download=1',
-    meta: 'Windows | 64-bit',
     platform: 'windows'
   },
   {
     key: 'macos',
-    imageUrl: '/img/software/mgwr.png',
+    Icon: AppleIcon,
     href: 'https://fsu-my.sharepoint.com/:u:/g/personal/zl23l_fsu_edu/EQ8R-YXyl9ZFtKASzfAtB2sBDWnICS4W2DHEaI0r2kfSFQ?download=1',
-    meta: 'macOS | Universal',
     platform: 'macos'
   }
 ] as const;
 
 const documentationLinks = [
   {
-    label: 'MGWR User Manual (PDF)',
+    label: 'MGWR User Manual',
+    kind: 'PDF',
+    Icon: BookOpen,
     href: 'https://fsu-my.sharepoint.com/:b:/g/personal/zl23l_fsu_edu/ES4OcNxvDoNLqRClYPxLt7YB2mwKySD8QdloVuaH0WK0sw?download=1'
   },
   {
-    label: 'MGWR Bibliography (PDF)',
+    label: 'MGWR Bibliography',
+    kind: `PDF · ${currentBibliography.size}`,
+    Icon: Library,
     href: currentBibliography.href
   },
   {
-    label: 'mgwr Python package on GitHub',
+    label: 'mgwr Python package',
+    kind: 'GitHub',
+    Icon: Github,
     href: 'https://github.com/pysal/mgwr'
   }
 ];
@@ -84,6 +96,7 @@ const sampleDatasets = [
 
 export default function MGWR() {
   const t = useTranslations('mgwr');
+  const tCommon = useTranslations('common');
 
   return (
     <section className="page-shell">
@@ -107,61 +120,119 @@ export default function MGWR() {
           </p>
         </section>*/}
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
-          {downloads.map((item) => (
-            <AppCard
-              key={item.key}
-              title={t(`downloads.${item.key}.title`)}
-              description={t(`downloads.${item.key}.description`)}
-              imageUrl={item.imageUrl}
-              href={item.href}
-              meta={item.meta}
-              onClick={() =>
-                trackMGWRDownload(item.platform, item.href, DOWNLOAD_VERSION)
-              }
-            />
-          ))}
-        </div>
+        <section className="mt-14">
+          <header className="panel-title text-rose-500">
+            <Download size={18} />
+            {t('downloads.heading')}
+          </header>
+
+          <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-4">
+            <div className="halo">
+              <Image
+                src="/img/software/mgwr.png"
+                alt={t('downloads.productName')}
+                width={64}
+                height={64}
+                className="rounded-xl"
+              />
+            </div>
+            <div className="min-w-0">
+              <h2 className="text-2xl font-semibold text-ink-900 text-glow">
+                {t('downloads.productName')}
+              </h2>
+              <p className="mt-1 text-sm text-ink-700">
+                {t('downloads.tagline')}
+              </p>
+            </div>
+            <span className="chip-gold ml-auto">
+              {tCommon('version', { version: DOWNLOAD_VERSION })}
+            </span>
+          </div>
+
+          <div className="mt-8 grid gap-6 md:grid-cols-2">
+            {downloads.map((item) => (
+              <DownloadCard
+                key={item.key}
+                icon={<item.Icon size={26} />}
+                title={t(`downloads.${item.key}.title`)}
+                meta={t(`downloads.${item.key}.meta`)}
+                description={t(`downloads.${item.key}.description`)}
+                href={item.href}
+                cta={tCommon('download')}
+                onClick={() =>
+                  trackMGWRDownload(item.platform, item.href, DOWNLOAD_VERSION)
+                }
+              />
+            ))}
+          </div>
+        </section>
 
         <div className="mt-14 grid gap-6 md:grid-cols-2">
-          <section className="glass-card px-8 py-8 text-gold-100">
-            <header className="panel-title text-gold-300">
+          <section className="glass-card flex h-full flex-col px-7 py-8 text-ink-900">
+            <header className="panel-title text-rose-500">
               <BookMarked size={18} />
               {t('documentation')}
             </header>
-            <ul className="mt-5 space-y-2 text-sm">
+            <p className="mt-4 text-sm text-ink-700">
+              {t('documentationHint')}
+            </p>
+            <ul className="mt-5 space-y-2.5">
               {documentationLinks.map((item) => (
                 <li key={item.label}>
                   <Link
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-gold-300 underline-offset-4 hover:text-gold-50 hover:underline"
+                    className="group flex items-center gap-3 rounded-2xl border border-silk-300/55 bg-surface/45 px-4 py-3 transition duration-300 hover:border-rose-200/70 hover:bg-rose-50/50 calcite-focus"
                   >
-                    {item.label}
-                    <ArrowUpRight size={14} />
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-silk-300/60 bg-silk-100/80 text-ink-900 transition duration-300 group-hover:border-rose-300/70 group-hover:text-rose-600">
+                      <item.Icon size={16} />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-sm font-medium text-ink-900">
+                        {item.label}
+                      </span>
+                      <span className="mt-0.5 block text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-ink-500">
+                        {item.kind}
+                      </span>
+                    </span>
+                    <ArrowUpRight
+                      size={16}
+                      className="shrink-0 text-rose-600 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    />
                   </Link>
                 </li>
               ))}
             </ul>
           </section>
 
-          <section className="glass-card px-8 py-8 text-gold-100">
-            <header className="panel-title text-gold-300">
+          <section className="glass-card flex h-full flex-col px-7 py-8 text-ink-900">
+            <header className="panel-title text-rose-500">
               <Database size={18} />
               {t('sampleDatasets')}
             </header>
-            <ul className="mt-5 space-y-2 text-sm">
+            <p className="mt-4 text-sm text-ink-700">
+              {t('sampleDatasetsHint')}
+            </p>
+            <ul className="mt-5 grid flex-1 auto-rows-fr gap-2.5 sm:grid-cols-2">
               {sampleDatasets.map((dataset) => (
                 <li key={dataset.href}>
                   <Link
                     href={dataset.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-gold-300 underline-offset-4 hover:text-gold-50 hover:underline"
+                    className="group flex h-full items-center gap-3 rounded-2xl border border-silk-300/55 bg-surface/45 px-4 py-3 transition duration-300 hover:border-rose-200/70 hover:bg-rose-50/50 calcite-focus"
                   >
-                    {dataset.name}
-                    <ArrowUpRight size={14} />
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-silk-300/60 bg-silk-100/80 text-ink-900 transition duration-300 group-hover:border-rose-300/70 group-hover:text-rose-600">
+                      <MapPin size={16} />
+                    </span>
+                    <span className="min-w-0 flex-1 truncate text-sm font-medium text-ink-900">
+                      {dataset.name}
+                    </span>
+                    <ArrowDownToLine
+                      size={16}
+                      className="shrink-0 text-rose-600 transition-transform duration-300 group-hover:translate-y-0.5"
+                    />
                   </Link>
                 </li>
               ))}
@@ -169,62 +240,70 @@ export default function MGWR() {
           </section>
         </div>
 
-        <section className="mt-14 glass-card px-8 py-8 text-gold-100">
-          <header className="panel-title text-gold-300">
+        <section className="mt-14 glass-card px-7 py-8 text-ink-900 md:px-9">
+          <header className="panel-title text-rose-500">
             <History size={18} />
             {t('bibliographyHistory.title')}
           </header>
-          <p className="mt-4 max-w-2xl text-sm text-gold-200/75">
+          <p className="mt-4 max-w-2xl text-sm text-ink-700">
             {t('bibliographyHistory.description')}
           </p>
-          <ul className="mt-6 divide-y divide-silk-200/80 border-t border-silk-200/80 text-sm">
+          <ul className="mt-6 space-y-2.5">
             {bibliographyVersions.map((edition, index) => (
-              <li
-                key={edition.version}
-                className="flex flex-wrap items-center gap-x-4 gap-y-2 py-3.5"
-              >
-                <span className="font-medium">{edition.releasedAt}</span>
-                {index === 0 ? (
-                  <span className="rounded-full border border-rose-200/70 px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-rose-600">
-                    {t('bibliographyHistory.current')}
-                  </span>
-                ) : null}
-                <span className="text-xs text-gold-200/60">
-                  PDF &middot; {edition.size}
-                </span>
+              <li key={edition.version}>
                 <Link
                   href={encodeURI(edition.href)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="ml-auto inline-flex items-center gap-1 text-gold-300 underline-offset-4 hover:text-gold-50 hover:underline"
+                  className="group flex flex-wrap items-center gap-x-4 gap-y-3 rounded-2xl border border-silk-300/55 bg-surface/45 px-4 py-3.5 transition duration-300 hover:border-rose-200/70 hover:bg-rose-50/50 calcite-focus"
                 >
-                  <Download size={14} />
-                  {t('bibliographyHistory.download')}
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-silk-300/60 bg-silk-100/80 text-ink-900 transition duration-300 group-hover:border-rose-300/70 group-hover:text-rose-600">
+                    <FileText size={16} />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="flex flex-wrap items-center gap-2">
+                      <span className="text-sm font-medium text-ink-900">
+                        {edition.releasedAt}
+                      </span>
+                      {index === 0 ? (
+                        <span className="rounded-full border border-rose-200/70 bg-rose-50/70 px-2.5 py-0.5 text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-rose-600">
+                          {t('bibliographyHistory.current')}
+                        </span>
+                      ) : null}
+                    </span>
+                    <span className="mt-0.5 block text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-ink-500">
+                      PDF &middot; {edition.size}
+                    </span>
+                  </span>
+                  <span className="ml-auto inline-flex items-center gap-2 rounded-full border border-rose-200/60 bg-rose-50/70 px-3.5 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-rose-600 transition duration-300 group-hover:border-rose-300/80 group-hover:bg-rose-100/70">
+                    <Download
+                      size={14}
+                      className="transition-transform duration-300 group-hover:translate-y-0.5"
+                    />
+                    {t('bibliographyHistory.download')}
+                  </span>
                 </Link>
               </li>
             ))}
           </ul>
         </section>
 
-        <section className="mt-14 glass-card px-8 py-8 text-gold-100">
-          <header className="panel-title text-gold-300">
+        <section className="mt-14 glass-card px-7 py-8 text-ink-900 md:px-9">
+          <header className="panel-title text-rose-500">
             <BookOpen size={18} />
             {t('citationReferences')}
           </header>
-          <ul className="mt-5 space-y-3 text-sm text-gold-200/85">
-            {citations.map((item) => (
-              <li key={item.href}>
-                {item.text}{' '}
-                <Link
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-gold-300 underline-offset-4 hover:text-gold-50 hover:underline"
-                >
-                  {t('access')}
-                  <ArrowUpRight size={14} />
-                </Link>
-              </li>
+          <ul className="mt-6 space-y-3">
+            {citations.map((item, index) => (
+              <CitationCard
+                key={item.href}
+                index={index + 1}
+                text={item.text}
+                href={item.href}
+                accessLabel={t('access')}
+                copyLabel={t('citationCopy')}
+                copiedLabel={t('citationCopied')}
+              />
             ))}
           </ul>
         </section>
