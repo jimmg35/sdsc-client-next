@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import HeroField from '../HeroField';
 
 const HERO_IMAGE = '/img/welcome-banner/mgwr-bg.png';
 
@@ -79,7 +78,6 @@ const HeroStage = ({ title, scrollLabel }: HeroStageProps) => {
       <div aria-hidden className="hero-weave absolute inset-0" />
       <div aria-hidden className="hero-sheen absolute inset-0" />
       <div aria-hidden className="hero-vignette absolute inset-0" />
-      <HeroField />
 
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col justify-center px-6 pt-24 pb-28 sm:px-8">
         <span aria-hidden className="hero-rule mb-6 flex items-center gap-3">
