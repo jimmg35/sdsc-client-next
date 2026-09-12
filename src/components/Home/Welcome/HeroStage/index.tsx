@@ -4,9 +4,9 @@ import { useEffect, useRef } from 'react';
 
 const HERO_IMAGE = '/img/welcome-banner/mgwr-bg.png';
 
-// How far the pointer is allowed to push the stage, in the unitless values the
-// hero's transforms multiply by. Small on purpose: the band should feel like it
-// is floating in front of the page, not swivelling.
+// How far the pointer is allowed to push the artwork, in the unitless values
+// the hero's transforms multiply by. Small on purpose: the image should drift
+// under the cursor, not slide around.
 const TILT_RANGE = 0.5;
 
 type HeroStageProps = {
@@ -66,57 +66,41 @@ const HeroStage = ({ title, scrollLabel }: HeroStageProps) => {
   return (
     <section
       ref={stageRef}
-      className="hero-stage relative isolate flex min-h-[100svh] w-full flex-col items-center justify-center overflow-hidden"
+      className="hero-stage relative isolate flex min-h-[86svh] w-full flex-col items-center justify-center overflow-hidden"
       style={{ '--hero-image': `url(${HERO_IMAGE})` } as React.CSSProperties}
     >
-      {/* Ambient wash: the same artwork, blurred past legibility, so the hero is
-          lit by the colours of the piece it is framing. */}
+      {/* The artwork runs to all four edges. A blurred, over-scaled copy sits
+          underneath it so the parts of the frame the 1300x450 crop cannot reach
+          are still its own colour rather than a flat fill. */}
       <div aria-hidden className="hero-ambient" />
-      <div aria-hidden className="hero-veil absolute inset-0" />
+      <div aria-hidden className="hero-plate" />
+      <div aria-hidden className="hero-scrim absolute inset-0" />
       <div aria-hidden className="hero-weave absolute inset-0" />
-      <div aria-hidden className="graticule-fade absolute inset-0 opacity-90" />
+      <div aria-hidden className="hero-sheen absolute inset-0" />
       <div aria-hidden className="hero-vignette absolute inset-0" />
 
-      {/* Top padding clears the fixed header; the matching bottom padding keeps
-          the band optically centred rather than shunted down by it. */}
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 py-28 sm:px-8">
-        <div className="hero-float relative">
-          {/* Halo that makes the band read as lifted off the page. */}
-          <div aria-hidden className="hero-halo" />
+      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col justify-center px-6 pt-24 pb-28 sm:px-8">
+        <span aria-hidden className="hero-rule mb-6 flex items-center gap-3">
+          <i className="hero-pip" />
+          <i className="hero-line" />
+        </span>
 
-          <div className="hero-band group relative overflow-hidden rounded-[28px] ring-1 ring-white/15">
-            <div aria-hidden className="hero-plate absolute inset-0" />
-            <div aria-hidden className="hero-scrim absolute inset-0" />
-            <div aria-hidden className="hero-sheen absolute inset-0" />
-
-            <div className="relative flex h-full flex-col justify-end p-7 sm:p-10 lg:justify-center lg:p-14">
+        <h1 className="max-w-[15ch] text-[2.15rem] leading-[1.08] font-semibold tracking-tight text-white sm:text-[3rem] lg:text-[3.9rem]">
+          {words.map((word, index) => (
+            <span key={`${word}-${index}`} className="hero-word">
               <span
-                aria-hidden
-                className="hero-rule mb-6 flex items-center gap-3"
+                className="hero-word-inner"
+                style={{ animationDelay: `${120 + index * 85}ms` }}
               >
-                <i className="hero-pip" />
-                <i className="hero-line" />
+                {word}
               </span>
-
-              <h1 className="max-w-[15ch] text-[2rem] leading-[1.08] font-semibold tracking-tight text-white sm:text-[2.75rem] lg:text-[3.35rem]">
-                {words.map((word, index) => (
-                  <span key={`${word}-${index}`} className="hero-word">
-                    <span
-                      className="hero-word-inner"
-                      style={{ animationDelay: `${120 + index * 85}ms` }}
-                    >
-                      {word}
-                    </span>
-                  </span>
-                ))}
-              </h1>
-            </div>
-          </div>
-        </div>
+            </span>
+          ))}
+        </h1>
       </div>
 
       <div className="hero-scroll absolute inset-x-0 bottom-7 z-10 flex flex-col items-center gap-3">
-        <span className="text-[0.6rem] font-semibold tracking-[0.42em] text-ink-900/80 uppercase">
+        <span className="text-[0.6rem] font-semibold tracking-[0.42em] text-white/85 uppercase">
           {scrollLabel}
         </span>
         <span aria-hidden className="hero-scroll-track">
