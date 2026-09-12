@@ -66,7 +66,7 @@ const HeroStage = ({ title, scrollLabel }: HeroStageProps) => {
   return (
     <section
       ref={stageRef}
-      className="hero-stage relative isolate flex min-h-[86svh] w-full flex-col items-center justify-center overflow-hidden"
+      className="hero-stage relative isolate flex min-h-[100dvh] w-full flex-col items-center justify-center overflow-hidden"
       style={{ '--hero-image': `url(${HERO_IMAGE})` } as React.CSSProperties}
     >
       {/* The artwork runs to all four edges. A blurred, over-scaled copy sits
