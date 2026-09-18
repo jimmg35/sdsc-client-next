@@ -15,6 +15,9 @@ interface DownloadCardProps {
   onClick?: MouseEventHandler<HTMLAnchorElement>;
 }
 
+/* The one panel on the page that keeps a border: downloading a build is what
+   the page is for, so these two stay framed while everything below them
+   drops to ruled lists. */
 const DownloadCard = ({
   icon,
   title,
@@ -29,36 +32,34 @@ const DownloadCard = ({
     target="_blank"
     rel="noopener noreferrer"
     onClick={onClick}
-    className="group block h-full rounded-[var(--radius-card)] calcite-focus"
+    className="group calcite-focus block h-full rounded-[1.75rem]"
   >
-    <article className="glass-card flex h-full flex-col px-7 py-7 text-ink-900 transition duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-hover)]">
-      <div className="relative flex items-center gap-4">
-        <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-silk-300/60 bg-gradient-to-br from-silk-100 to-silk-200/70 text-ink-900 shadow-[0_18px_40px_-28px_rgba(74,53,40,0.55)] transition duration-300 group-hover:border-rose-300/70 group-hover:text-rose-600">
+    <article className="flex h-full flex-col rounded-[1.75rem] border border-silk-600/25 bg-surface/55 px-7 py-8 transition duration-300 group-hover:border-rose-300/60 group-hover:bg-rose-50/40">
+      <div className="flex items-center gap-4">
+        <span className="shrink-0 text-ink-900 transition-colors duration-300 group-hover:text-rose-600">
           {icon}
         </span>
         <div className="min-w-0">
-          <h3 className="text-lg font-semibold text-ink-900 text-glow">
+          <h3 className="text-xl font-medium tracking-[-0.01em] text-ink-900">
             {title}
           </h3>
-          <p className="mt-1 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-rose-600">
+          <p className="mt-1.5 text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-rose-600">
             {meta}
           </p>
         </div>
       </div>
 
-      <p className="relative mt-5 flex-1 text-sm leading-6 text-ink-700">
+      <p className="mt-6 flex-1 text-sm leading-7 text-ink-700">
         {description}
       </p>
 
-      <div className="relative mt-7 flex items-center gap-3">
-        <span className="inline-flex items-center gap-2 rounded-full border border-rose-200/60 bg-rose-50/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-rose-600 transition duration-300 group-hover:border-rose-300/80 group-hover:bg-rose-100/70">
-          <ArrowDownToLine
-            size={16}
-            className="transition-transform duration-300 group-hover:translate-y-0.5"
-          />
-          {cta}
-        </span>
-      </div>
+      <span className="mt-8 inline-flex items-center gap-2 self-start rounded-full border border-rose-400/70 bg-rose-500/90 px-5 py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-white transition duration-300 group-hover:bg-rose-600">
+        <ArrowDownToLine
+          size={16}
+          className="transition-transform duration-300 group-hover:translate-y-0.5"
+        />
+        {cta}
+      </span>
     </article>
   </a>
 );

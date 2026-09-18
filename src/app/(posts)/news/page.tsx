@@ -1,9 +1,11 @@
-import NewsCard from '@/components/Utility/NewsCard';
+import NewsIndexRow from '@/components/News/NewsIndexRow';
 import { NewsData, getAllNews } from '@/lib/news';
 import { ArrowUpRight, RadioTower } from 'lucide-react';
 import { getFormatter, getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import Link from 'next/link';
+
+const RULE = 'border-silk-600/25';
 
 export default async function News() {
   const t = await getTranslations('news');
@@ -11,94 +13,155 @@ export default async function News() {
 
   const articles: NewsData[] = getAllNews();
   const [featured, ...stories] = articles;
+  const featuredDate = featured
+    ? featured.date instanceof Date
+      ? featured.date
+      : new Date(featured.date)
+    : null;
 
   return (
     <section className="page-shell">
-      <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 text-gold-100 md:pt-40">
-        <header className="text-center">
-          <span className="chip-gold">{t('page.chip')}</span>
-          <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
+      <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 md:pt-40">
+        <header className="max-w-3xl">
+          <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-silk-700 md:text-xs md:tracking-[0.42em]">
+            <span
+              aria-hidden
+              className="h-px w-10 bg-gradient-to-r from-transparent to-silk-600/55"
+            />
+            {t('page.chip')}
+          </p>
+          <h1 className="mt-5 text-[2.1rem] font-semibold leading-[1.12] tracking-[-0.025em] text-ink-900 md:text-[3rem] md:leading-[1.06]">
             {t('page.title')}
           </h1>
-          <p className="mx-auto mt-5 max-w-3xl text-sm text-gold-200/80 md:text-base">
+          <p className="mt-6 text-base leading-8 text-ink-700 md:text-lg md:leading-9">
             {t('page.intro')}
           </p>
         </header>
 
-        <section className="surface-fade mt-12 px-6 py-6 text-left text-ink-900 md:px-8">
-          <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-            <div className="max-w-3xl">
-              <p className="panel-title">{t('briefingCallout.eyebrow')}</p>
-              <h2 className="mt-4 text-2xl font-semibold text-rose-700">
-                {t('briefingCallout.title')}
-              </h2>
-              <p className="mt-3 text-sm leading-7 text-ink-700">
-                {t('briefingCallout.description')}
-              </p>
-            </div>
-            <Link
-              href="/news/briefing"
-              className="inline-flex items-center gap-2 self-start rounded-full border border-rose-200/80 bg-surface/90 px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-rose-600 transition hover:border-rose-300 hover:text-rose-700"
-            >
-              {t('briefingCallout.cta')}
+        {/* The briefing sits as a ruled band rather than a panel, the same
+            shape it takes at the foot of the home page list. */}
+        <Link
+          href="/news/briefing"
+          className={`group mt-16 flex flex-col gap-5 border-y ${RULE} py-7 md:flex-row md:items-center md:justify-between md:gap-10`}
+        >
+          <span className="flex items-start gap-5">
+            <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-rose-200/70 bg-rose-50/60 text-rose-600 transition duration-300 group-hover:border-rose-300 group-hover:bg-rose-100/70">
               <RadioTower size={18} />
-            </Link>
-          </div>
-        </section>
-
-        {featured ? (
-          <article className="mt-16 grid gap-6 overflow-hidden rounded-[32px] border border-garnet-600/35 bg-surface shadow-[0_32px_60px_-40px_rgba(9,4,24,0.85)] md:grid-cols-[1.1fr_1fr]">
-            <div className="relative h-64 w-full overflow-hidden md:h-auto">
-              <Image
-                src={featured.thumbnail}
-                alt={featured.title}
-                fill
-                sizes="(max-width: 768px) 100vw, 540px"
-                className="object-cover transition-transform duration-700 hover:scale-[1.08]"
-              />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#04010d]/85 via-transparent to-transparent" />
-              <span className="absolute bottom-4 left-4 rounded-full border border-gold-400/40 bg-[#160b29]/85 px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-gold-100 backdrop-blur">
-                {t('featured')}
+            </span>
+            <span className="min-w-0">
+              <span className="block text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-silk-700">
+                {t('briefingCallout.eyebrow')}
               </span>
-            </div>
-            <div className="flex flex-col justify-between gap-6 px-6 py-8 text-gold-100 md:px-10">
-              <div className="space-y-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-300/80">
-                  {format.dateTime(
-                    featured.date instanceof Date
-                      ? featured.date
-                      : new Date(featured.date),
-                    { year: 'numeric', month: 'long', day: 'numeric' }
-                  )}
-                </p>
-                <h2 className="text-3xl font-semibold text-gold-50 text-glow">
+              <span className="mt-2 block text-lg font-medium leading-snug tracking-[-0.01em] text-ink-900 transition-colors duration-300 group-hover:text-rose-600 md:text-xl">
+                {t('briefingCallout.title')}
+              </span>
+              <span className="mt-2 block max-w-2xl text-sm leading-7 text-ink-700">
+                {t('briefingCallout.description')}
+              </span>
+            </span>
+          </span>
+
+          <span className="inline-flex shrink-0 items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-rose-600 transition-colors group-hover:text-rose-700">
+            {t('briefingCallout.cta')}
+            <ArrowUpRight
+              size={16}
+              className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            />
+          </span>
+        </Link>
+
+        {featured && featuredDate ? (
+          <article className="mt-20">
+            <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-silk-700 md:tracking-[0.4em]">
+              <span
+                aria-hidden
+                className="h-px w-10 bg-gradient-to-r from-transparent to-silk-600/55"
+              />
+              {t('featured')}
+            </p>
+
+            <Link
+              href={`/news/${featured.slug}`}
+              className="group mt-8 grid gap-x-14 gap-y-8 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:items-center"
+            >
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-rose-600">
+                  <time dateTime={featuredDate.toISOString()}>
+                    {format.dateTime(featuredDate, {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </time>
+                  <span className="tracking-[0.18em] text-ink-500">
+                    {featured.author}
+                  </span>
+                </div>
+
+                <h2 className="mt-5 text-[1.8rem] font-semibold leading-[1.16] tracking-[-0.02em] text-ink-900 transition-colors duration-300 group-hover:text-rose-600 md:text-[2.4rem] md:leading-[1.1]">
                   {featured.title}
                 </h2>
-                <p className="text-sm leading-7 text-gold-200/80 md:text-base">
+                <p className="mt-5 text-base leading-8 text-ink-700">
                   {featured.description}
                 </p>
+                <span className="mt-7 inline-flex items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-rose-600">
+                  {t('readStory')}
+                  <ArrowUpRight
+                    size={16}
+                    className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  />
+                </span>
               </div>
-              <Link
-                href={`/news/${featured.slug}`}
-                className="inline-flex items-center gap-2 self-start rounded-full border border-gold-400/40 bg-gold-500/80 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#140a23] transition hover:bg-gold-400"
-              >
-                {t('readStory')}
-                <ArrowUpRight size={18} />
-              </Link>
-            </div>
+
+              {featured.thumbnail && (
+                <figure
+                  className={`relative order-first aspect-[16/10] w-full overflow-hidden rounded-2xl border ${RULE} bg-silk-200 md:order-last`}
+                >
+                  <Image
+                    src={featured.thumbnail}
+                    alt=""
+                    aria-hidden
+                    fill
+                    sizes="(max-width: 768px) 100vw, 28rem"
+                    className="scale-125 object-cover opacity-70 blur-2xl saturate-150"
+                  />
+                  <Image
+                    src={featured.thumbnail}
+                    alt=""
+                    fill
+                    sizes="(max-width: 768px) 100vw, 28rem"
+                    className="object-contain transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                    priority
+                  />
+                </figure>
+              )}
+            </Link>
           </article>
         ) : (
-          <p className="mt-16 text-center text-sm text-gold-200/80">
-            {t('empty')}
-          </p>
+          <p className="mt-20 text-sm text-ink-700">{t('empty')}</p>
         )}
 
         {stories.length > 0 && (
-          <div className="mt-20 grid gap-6 md:grid-cols-3">
-            {stories.map((item) => (
-              <NewsCard key={item.slug} data={item} />
-            ))}
-          </div>
+          <section className="mt-24">
+            <div className="flex items-baseline justify-between gap-4">
+              <h2 className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-silk-700 md:tracking-[0.4em]">
+                <span
+                  aria-hidden
+                  className="h-px w-10 bg-gradient-to-r from-transparent to-silk-600/55"
+                />
+                {t('allStories')}
+              </h2>
+              <span className="text-[0.7rem] font-semibold tabular-nums text-ink-500">
+                {stories.length}
+              </span>
+            </div>
+
+            <ol className={`mt-8 border-t ${RULE}`}>
+              {stories.map((item) => (
+                <NewsIndexRow key={item.slug} data={item} />
+              ))}
+            </ol>
+          </section>
         )}
       </div>
     </section>

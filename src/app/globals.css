@@ -163,6 +163,39 @@
   }
 }
 
+/* Article body. The typography plugin's palette is wired to the site's own
+   ink/rose/silk ramps, and those ramps already flip end-for-end under
+   `.dark`, so one declaration dresses both themes and `prose-invert` is not
+   needed.
+
+   It sits outside every @layer on purpose: the plugin's own `.prose` is
+   emitted into @layer utilities, which outranks @layer components whatever
+   the specificity, and unlayered rules outrank both. Code blocks are the exception: they stay dark either way. */
+.article-prose {
+  --tw-prose-body: var(--color-ink-700);
+  --tw-prose-headings: var(--color-ink-900);
+  --tw-prose-lead: var(--color-ink-700);
+  --tw-prose-links: var(--color-rose-600);
+  --tw-prose-bold: var(--color-ink-900);
+  --tw-prose-counters: var(--color-rose-500);
+  --tw-prose-bullets: var(--color-rose-300);
+  --tw-prose-hr: rgba(206, 184, 136, 0.3);
+  --tw-prose-quotes: var(--color-ink-900);
+  --tw-prose-quote-borders: var(--color-rose-400);
+  --tw-prose-captions: var(--color-ink-500);
+  --tw-prose-code: var(--color-ink-900);
+  --tw-prose-pre-code: #f2e8dc;
+  --tw-prose-pre-bg: #211a15;
+  --tw-prose-th-borders: rgba(206, 184, 136, 0.38);
+  --tw-prose-td-borders: rgba(206, 184, 136, 0.22);
+}
+
+/* The lede runs on into the body, so the first paragraph does not need the
+   plugin's top margin. */
+.article-prose > :first-child {
+  margin-top: 0;
+}
+
 .bg-welcome {
   background-image: var(--background-image);
   background-size: cover;
@@ -276,31 +309,29 @@
     pointer-events: none;
   }
 
+  /* The unread-story ring. Drawn from the site's own silk and rose ramps
+     rather than the borrowed orange-to-crimson sweep, which was the loudest
+     thing on the page; the ramps invert under `.dark`, so it re-tones itself.
+     Thinner than before so the face, not the ring, carries the item. */
   .story-ring {
     position: relative;
     display: inline-flex;
-    padding: 0.35rem;
+    padding: 3px;
     border-radius: 9999px;
     background: conic-gradient(
-      from 180deg at 50% 50%,
-      rgba(251, 113, 133, 1) 0deg,
-      rgba(249, 115, 22, 1) 130deg,
-      rgba(225, 29, 72, 1) 250deg,
-      rgba(251, 113, 133, 1) 360deg
+      from 210deg at 50% 50%,
+      var(--color-silk-500) 0deg,
+      var(--color-rose-500) 128deg,
+      var(--color-silk-600) 244deg,
+      var(--color-silk-500) 360deg
     );
-    box-shadow:
-      0 26px 48px -30px rgba(249, 115, 22, 0.72),
-      0 14px 30px -22px rgba(225, 29, 72, 0.68);
+    box-shadow: 0 22px 40px -28px rgba(168, 110, 161, 0.55);
+    transition: box-shadow 300ms ease;
   }
 
-  .story-ring::after {
-    content: '';
-    position: absolute;
-    inset: 3px;
-    border-radius: inherit;
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    pointer-events: none;
-  }
+  /* No inner highlight ring: the avatar it wraps already carries a light
+     border and a soft rose ring, and a third concentric line at this size
+     just reads as noise. */
 
   .glow-link {
     @apply transition-colors duration-200 text-rose-500 hover:text-rose-600;

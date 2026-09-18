@@ -22,7 +22,7 @@ export default async function Home() {
         description={t('description')}
         ctaHref="/member"
         ctaLabel={t('ctaLabel')}
-        panelClassName="surface-fade relative overflow-hidden rounded-none px-6 py-16 md:px-16"
+        panelClassName="surface-fade relative overflow-hidden rounded-none px-6 py-20 md:px-16 md:py-28"
         overlayClassName={null}
       />
       {/* <Announcement /> */}

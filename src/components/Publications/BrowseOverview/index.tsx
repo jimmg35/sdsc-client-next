@@ -1,5 +1,5 @@
 import Avatar from '@/components/Utility/Avatar';
-import { ArrowUpRight, CalendarDays } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 
@@ -29,6 +29,8 @@ type PublicationBrowseOverviewProps = {
   latestYear: number | null;
 };
 
+const RULE = 'border-silk-600/25';
+
 export default async function PublicationBrowseOverview({
   overview,
   latestPublications,
@@ -38,134 +40,125 @@ export default async function PublicationBrowseOverview({
   const t = await getTranslations('publications.browse');
 
   return (
-    <section className="surface-fade mb-16 mt-10 overflow-hidden px-6 py-8 md:mt-12 md:px-10">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_84%_-12%,_rgba(168,110,161,0.24),_transparent_55%),radial-gradient(110%_110%_at_12%_-16%,_rgba(194,156,106,0.22),_transparent_52%)]" />
+    <>
+      <div
+        className={`mt-16 grid gap-x-14 gap-y-10 border-y ${RULE} py-9 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:items-start`}
+      >
+        <div className="min-w-0">
+          <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-silk-700 md:tracking-[0.4em]">
+            <span
+              aria-hidden
+              className="h-px w-10 bg-gradient-to-r from-transparent to-silk-600/55"
+            />
+            {t('eyebrow')}
+          </p>
+          <h2 className="mt-5 text-2xl font-semibold tracking-[-0.02em] text-ink-900 md:text-[2rem] md:leading-[1.15]">
+            {t('title')}
+          </h2>
+          <p className="mt-4 max-w-2xl text-sm leading-7 text-ink-700 md:text-base md:leading-8">
+            {t('description', {
+              reach: latestYear
+                ? t('reachInto', { year: latestYear })
+                : t('reachLive'),
+              count: linkedContributorCount
+            })}
+          </p>
+        </div>
 
-      <div className="relative">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1.5fr)_minmax(19rem,1fr)] lg:items-end">
-          <div>
-            <p className="panel-title text-gold-300">{t('eyebrow')}</p>
-            <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
-              {t('title')}
+        {/* The headline figure reads as a figure, not as a boxed stat card. */}
+        <dl className="grid gap-8 sm:grid-cols-2 lg:grid-cols-1">
+          {overview.map((item) => (
+            <div key={item.label} className="flex flex-col-reverse">
+              <dt className="mt-3 text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-silk-700">
+                {item.label}
+              </dt>
+              <dd className="text-[2.4rem] font-semibold leading-none tracking-[-0.03em] tabular-nums text-ink-900">
+                {item.value}
+              </dd>
+              {item.detail && (
+                <p className="order-last mt-3 text-sm leading-6 text-ink-700">
+                  {item.detail}
+                </p>
+              )}
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      {latestPublications.length > 0 && (
+        <section className="mt-16">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+            <h2 className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-silk-700 md:tracking-[0.4em]">
+              <span
+                aria-hidden
+                className="h-px w-10 bg-gradient-to-r from-transparent to-silk-600/55"
+              />
+              {t('latestPublications')}
             </h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-gold-200/78 md:text-base">
-              {t('description', {
-                reach: latestYear
-                  ? t('reachInto', { year: latestYear })
-                  : t('reachLive'),
-                count: linkedContributorCount
-              })}
+            <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-ink-500">
+              {t('addedWithinMonth')}
             </p>
           </div>
 
-          <div className="grid gap-3">
-            {overview.map((item) => (
-              <div
-                key={item.label}
-                className="rounded-[24px] border border-rose-100/75 bg-surface/78 px-5 py-5 text-ink-900 shadow-[0_20px_44px_-34px_rgba(61,47,39,0.35)]"
-              >
-                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-rose-500">
-                  {item.label}
+          <ul className="mt-8">
+            {latestPublications.map((publication) => (
+              <li key={publication.id} className={`border-t ${RULE} py-7`}>
+                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-rose-600">
+                  {t('published', {
+                    label: t('ago', { count: publication.publishedDaysAgo })
+                  })}
                 </p>
-                <p className="mt-3 text-3xl font-semibold text-rose-700">
-                  {item.value}
-                </p>
-                {item.detail && (
-                  <p className="mt-2 text-sm leading-6 text-ink-600">
-                    {item.detail}
-                  </p>
+
+                {publication.doi ? (
+                  <a
+                    href={publication.doi}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="group/link mt-4 inline-flex max-w-4xl items-start gap-2 text-xl font-medium leading-snug tracking-[-0.015em] text-ink-900 transition-colors duration-300 hover:text-rose-600 md:text-2xl md:leading-[1.3]"
+                  >
+                    <span className="min-w-0 break-words">
+                      {publication.title}
+                    </span>
+                    <ArrowUpRight
+                      size={18}
+                      className="mt-1.5 shrink-0 transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
+                    />
+                  </a>
+                ) : (
+                  <h3 className="mt-4 max-w-4xl break-words text-xl font-medium leading-snug tracking-[-0.015em] text-ink-900 md:text-2xl md:leading-[1.3]">
+                    {publication.title}
+                  </h3>
                 )}
-              </div>
-            ))}
-          </div>
-        </div>
 
-        {latestPublications.length > 0 && (
-          <div className="mt-8 rounded-[28px] border border-rose-100/75 bg-surface/78 px-5 py-5 text-ink-900 shadow-[0_24px_56px_-38px_rgba(61,47,39,0.32)] md:px-6">
-            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-              <div>
-                <p className="inline-flex items-center gap-2 text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-rose-500">
-                  <CalendarDays size={14} />
-                  {t('latestPublications')}
+                <p className="mt-3 max-w-3xl text-sm leading-7 text-ink-700">
+                  {publication.author}
                 </p>
-                <p className="mt-2 text-sm text-ink-500">
-                  {t('addedWithinMonth')}
-                </p>
-              </div>
-              <span className="inline-flex self-start rounded-full border border-silk-200/80 bg-surface/88 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-ink-500">
-                {t('updates', { count: latestPublications.length })}
-              </span>
-            </div>
 
-            <div className="mt-5 grid gap-3">
-              {latestPublications.map((publication) => (
-                <article
-                  key={publication.id}
-                  className="rounded-[22px] border border-black/6 bg-[linear-gradient(160deg,rgba(255,255,255,0.92),rgba(253,247,241,0.82))] dark:bg-[linear-gradient(160deg,rgba(48,40,31,0.92),rgba(36,30,24,0.82))] px-4 py-4 md:px-5"
-                >
-                  <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
-                    <div className="min-w-0">
-                      {publication.doi ? (
-                        <a
-                          href={publication.doi}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="group/link inline-flex max-w-full items-start gap-2 text-base font-semibold leading-6 text-ink-900 transition hover:text-rose-700 md:text-lg"
-                        >
-                          <span className="min-w-0 break-words">
-                            {publication.title}
-                          </span>
-                          <ArrowUpRight
-                            size={16}
-                            className="mt-1 shrink-0 transition-transform duration-200 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
-                          />
-                        </a>
-                      ) : (
-                        <h3 className="break-words text-base font-semibold leading-6 text-ink-900 md:text-lg">
-                          {publication.title}
-                        </h3>
-                      )}
-                      <p className="mt-2 text-sm leading-6 text-ink-600">
-                        {publication.author}
-                      </p>
-                    </div>
-
-                    <div className="flex flex-col gap-3 lg:items-end">
-                      <span className="inline-flex self-start rounded-full border border-rose-200/70 bg-rose-50/82 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-rose-600 lg:self-end">
-                        {t('published', {
-                          label: t('ago', {
-                            count: publication.publishedDaysAgo
-                          })
-                        })}
-                      </span>
-
-                      {publication.members.length > 0 && (
-                        <div className="flex flex-wrap gap-2 lg:justify-end">
-                          {publication.members.map((member) => (
-                            <Link
-                              key={member.id}
-                              href={`/member/${member.id}`}
-                              className="inline-flex items-center gap-2 rounded-full border border-silk-200/80 bg-surface/90 px-2.5 py-1.5 text-sm font-medium text-ink-700 transition hover:border-rose-200/70 hover:bg-rose-50/70 hover:text-ink-900"
-                            >
-                              <Avatar
-                                src={member.thumbnail}
-                                size={32}
-                                alt={`${member.name} portrait`}
-                                variant="soft"
-                              />
-                              <span>{member.name}</span>
-                            </Link>
-                          ))}
-                        </div>
-                      )}
-                    </div>
+                {publication.members.length > 0 && (
+                  <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
+                    {publication.members.map((member) => (
+                      <Link
+                        key={member.id}
+                        href={`/member/${member.id}`}
+                        className="group/member inline-flex items-center gap-2.5 text-sm font-medium text-ink-900 transition-colors duration-300 hover:text-rose-600"
+                      >
+                        <Avatar
+                          src={member.thumbnail}
+                          size={32}
+                          alt={`${member.name} portrait`}
+                          variant="soft"
+                          className="group-hover/member:scale-[1.06]"
+                        />
+                        <span>{member.name}</span>
+                      </Link>
+                    ))}
                   </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-    </section>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </>
   );
 }

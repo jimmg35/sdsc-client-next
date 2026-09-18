@@ -83,35 +83,37 @@ export default async function Member() {
   const overview = [
     {
       value: `${1 + coreMembers.length + affiliatedMembers.length + graduateStudents.length + staffMembers.length}`,
-      label: t('overview.directory.label'),
-      detail: t('overview.directory.detail')
+      label: t('overview.directory.label')
     },
     {
       value: `${coreMembers.length}`,
-      label: t('overview.coreFaculty.label'),
-      detail: t('overview.coreFaculty.detail')
+      label: t('overview.coreFaculty.label')
     },
     {
       value: `${affiliatedMembers.length}`,
-      label: t('overview.affiliates.label'),
-      detail: t('overview.affiliates.detail')
+      label: t('overview.affiliates.label')
     },
     {
       value: `${graduateStudents.length}`,
-      label: t('overview.graduate.label'),
-      detail: t('overview.graduate.detail')
+      label: t('overview.graduate.label')
     }
   ];
 
   return (
     <section className="page-shell">
-      <div className="mx-auto max-w-6xl px-6 pb-24 pt-36 text-gold-100 md:pt-40">
-        <header className="mb-16 text-center">
-          <span className="chip-gold">{t('page.chip')}</span>
-          <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
+      <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 md:pt-40">
+        <header className="max-w-3xl">
+          <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-silk-700 md:text-xs md:tracking-[0.42em]">
+            <span
+              aria-hidden
+              className="h-px w-10 bg-gradient-to-r from-transparent to-silk-600/55"
+            />
+            {t('page.chip')}
+          </p>
+          <h1 className="mt-5 text-[2.1rem] font-semibold leading-[1.12] tracking-[-0.025em] text-ink-900 md:text-[3rem] md:leading-[1.06]">
             {t('page.title')}
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/75 md:text-base">
+          <p className="mt-6 text-base leading-8 text-ink-700 md:text-lg md:leading-9">
             {t('page.intro')}
           </p>
         </header>

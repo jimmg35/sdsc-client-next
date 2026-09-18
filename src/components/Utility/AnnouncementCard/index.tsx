@@ -13,29 +13,38 @@ const AnnouncementCard = async ({ data }: { data: AnnouncementData }) => {
     { year: 'numeric', month: 'short', day: 'numeric' }
   );
 
+  /* Announcements without artwork show no image at all rather than a
+     placeholder, so the date and author head the card body instead. */
+  const meta = (
+    <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-rose-600">
+      <span className="rounded-full border border-rose-200/60 bg-surface/90 px-3 py-1 shadow-sm">
+        {publishDate}
+      </span>
+      <span className="rounded-full border border-rose-200/60 bg-rose-50/90 px-3 py-1 text-rose-600">
+        {data.author}
+      </span>
+    </div>
+  );
+
   return (
     <article className="group glass-card flex h-full w-full max-w-[24rem] flex-col overflow-hidden text-ink-900 transition duration-300 hover:-translate-y-2">
-      <div className="relative h-56 w-full overflow-hidden">
-        <Image
-          src={data.thumbnail}
-          alt={data.title}
-          fill
-          sizes="(max-width: 768px) 100vw, 384px"
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.08]"
-        />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/15 via-white/60 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-95" />
-        <div className="absolute bottom-4 left-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-rose-600">
-          <span className="rounded-full border border-rose-200/60 bg-surface/90 px-3 py-1 shadow-sm">
-            {publishDate}
-          </span>
-          <span className="rounded-full border border-rose-200/60 bg-rose-50/90 px-3 py-1 text-rose-600">
-            {data.author}
-          </span>
+      {data.thumbnail && (
+        <div className="relative h-56 w-full overflow-hidden">
+          <Image
+            src={data.thumbnail}
+            alt={data.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 384px"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.08]"
+          />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/15 via-white/60 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-95" />
+          <div className="absolute bottom-4 left-4">{meta}</div>
         </div>
-      </div>
+      )}
 
       <div className="flex flex-1 flex-col gap-6 px-6 py-6">
         <div className="space-y-3">
+          {!data.thumbnail && meta}
           <h3 className="text-lg font-semibold text-rose-700 text-glow">
             {data.title}
           </h3>
@@ -43,7 +52,7 @@ const AnnouncementCard = async ({ data }: { data: AnnouncementData }) => {
         </div>
         <Link
           href={`/announcements/${data.slug}`}
-          className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-rose-600 transition hover:text-rose-700"
+          className="mt-auto inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-rose-600 transition hover:text-rose-700"
         >
           <span>{t('viewUpdate')}</span>
           <ArrowUpRight

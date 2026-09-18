@@ -8,21 +8,19 @@ import { trackMGWRDownload } from '@/lib/ga';
 import {
   ArrowDownToLine,
   ArrowUpRight,
-  BookMarked,
   BookOpen,
-  Database,
-  Download,
-  FileText,
   Github,
-  History,
-  Library,
-  MapPin
+  Library
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+import type { ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const DOWNLOAD_VERSION = '2.2.1';
+
+const RULE = 'border-silk-600/25';
 
 const downloads = [
   {
@@ -39,7 +37,12 @@ const downloads = [
   }
 ] as const;
 
-const documentationLinks = [
+const documentationLinks: {
+  label: string;
+  kind: string;
+  Icon: LucideIcon;
+  href: string;
+}[] = [
   {
     label: 'MGWR User Manual',
     kind: 'PDF',
@@ -100,55 +103,43 @@ export default function MGWR() {
 
   return (
     <section className="page-shell">
-      <div className="mx-auto max-w-6xl px-6 pb-24 pt-32 text-gold-100 md:pt-40">
-        <header className="text-center">
-          <span className="chip-gold">{t('chip')}</span>
-          <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
+      <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 md:pt-40">
+        <header className="max-w-3xl">
+          <Eyebrow>{t('chip')}</Eyebrow>
+          <h1 className="mt-5 text-[2.1rem] font-semibold leading-[1.12] tracking-[-0.025em] text-ink-900 md:text-[3rem] md:leading-[1.06]">
             {t('title')}
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/75 md:text-base">
+          <p className="mt-6 text-base leading-8 text-ink-700 md:text-lg md:leading-9">
             {t('intro')}
           </p>
         </header>
 
-        {/*<section className="mt-12 glass-card px-8 py-8 text-gold-100 md:px-10">
-          <p className="text-sm text-gold-200/85">
-            MGWR extends the original geographically weighted regression
-            framework by allowing each explanatory variable to vary at its own
-            spatial scale. The software is open source and free to use; please
-            cite the references below in published work that relies on MGWR.
-          </p>
-        </section>*/}
+        {/* The release itself: mark, name, and the version being served. */}
+        <div
+          className={`mt-16 flex flex-wrap items-center gap-x-6 gap-y-5 border-y ${RULE} py-7`}
+        >
+          <Image
+            src="/img/software/mgwr.png"
+            alt={t('downloads.productName')}
+            width={56}
+            height={56}
+            className={`shrink-0 rounded-2xl border ${RULE}`}
+          />
+          <div className="min-w-0">
+            <h2 className="text-xl font-semibold tracking-[-0.01em] text-ink-900 md:text-2xl">
+              {t('downloads.productName')}
+            </h2>
+            <p className="mt-1.5 text-sm leading-6 text-ink-700">
+              {t('downloads.tagline')}
+            </p>
+          </div>
+          <span className="ml-auto shrink-0 text-[0.68rem] font-semibold uppercase tabular-nums tracking-[0.24em] text-rose-600">
+            {tCommon('version', { version: DOWNLOAD_VERSION })}
+          </span>
+        </div>
 
         <section className="mt-14">
-          <header className="panel-title text-rose-500">
-            <Download size={18} />
-            {t('downloads.heading')}
-          </header>
-
-          <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-4">
-            <div className="halo">
-              <Image
-                src="/img/software/mgwr.png"
-                alt={t('downloads.productName')}
-                width={64}
-                height={64}
-                className="rounded-xl"
-              />
-            </div>
-            <div className="min-w-0">
-              <h2 className="text-2xl font-semibold text-ink-900 text-glow">
-                {t('downloads.productName')}
-              </h2>
-              <p className="mt-1 text-sm text-ink-700">
-                {t('downloads.tagline')}
-              </p>
-            </div>
-            <span className="chip-gold ml-auto">
-              {tCommon('version', { version: DOWNLOAD_VERSION })}
-            </span>
-          </div>
-
+          <Eyebrow>{t('downloads.heading')}</Eyebrow>
           <div className="mt-8 grid gap-6 md:grid-cols-2">
             {downloads.map((item) => (
               <DownloadCard
@@ -167,133 +158,105 @@ export default function MGWR() {
           </div>
         </section>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
-          <section className="glass-card flex h-full flex-col px-7 py-8 text-ink-900">
-            <header className="panel-title text-rose-500">
-              <BookMarked size={18} />
-              {t('documentation')}
-            </header>
-            <p className="mt-4 text-sm text-ink-700">
+        <div className="mt-20 grid gap-16 md:grid-cols-2 md:gap-14">
+          <section>
+            <Eyebrow>{t('documentation')}</Eyebrow>
+            <p className="mt-4 text-sm leading-7 text-ink-700">
               {t('documentationHint')}
             </p>
-            <ul className="mt-5 space-y-2.5">
+            <ul className="mt-7">
               {documentationLinks.map((item) => (
-                <li key={item.label}>
-                  <Link
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center gap-3 rounded-2xl border border-silk-300/55 bg-surface/45 px-4 py-3 transition duration-300 hover:border-rose-200/70 hover:bg-rose-50/50 calcite-focus"
-                  >
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-silk-300/60 bg-silk-100/80 text-ink-900 transition duration-300 group-hover:border-rose-300/70 group-hover:text-rose-600">
-                      <item.Icon size={16} />
-                    </span>
+                <li key={item.label} className={`border-t ${RULE}`}>
+                  <ResourceRow href={item.href}>
+                    <item.Icon
+                      size={17}
+                      aria-hidden
+                      className="mt-0.5 shrink-0 text-ink-500 transition-colors duration-300 group-hover:text-rose-600"
+                    />
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-sm font-medium text-ink-900">
+                      <span className="block truncate text-sm font-medium text-ink-900 transition-colors duration-300 group-hover:text-rose-600">
                         {item.label}
                       </span>
-                      <span className="mt-0.5 block text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-ink-500">
+                      <span className="mt-1 block text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-ink-500">
                         {item.kind}
                       </span>
                     </span>
                     <ArrowUpRight
                       size={16}
-                      className="shrink-0 text-rose-600 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                      aria-hidden
+                      className="mt-0.5 shrink-0 text-ink-500 transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-rose-600"
                     />
-                  </Link>
+                  </ResourceRow>
                 </li>
               ))}
             </ul>
           </section>
 
-          <section className="glass-card flex h-full flex-col px-7 py-8 text-ink-900">
-            <header className="panel-title text-rose-500">
-              <Database size={18} />
-              {t('sampleDatasets')}
-            </header>
-            <p className="mt-4 text-sm text-ink-700">
+          <section>
+            <Eyebrow>{t('sampleDatasets')}</Eyebrow>
+            <p className="mt-4 text-sm leading-7 text-ink-700">
               {t('sampleDatasetsHint')}
             </p>
-            <ul className="mt-5 grid flex-1 auto-rows-fr gap-2.5 sm:grid-cols-2">
+            <ul className="mt-7 grid gap-x-10 sm:grid-cols-2">
               {sampleDatasets.map((dataset) => (
-                <li key={dataset.href}>
-                  <Link
-                    href={dataset.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex h-full items-center gap-3 rounded-2xl border border-silk-300/55 bg-surface/45 px-4 py-3 transition duration-300 hover:border-rose-200/70 hover:bg-rose-50/50 calcite-focus"
-                  >
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-silk-300/60 bg-silk-100/80 text-ink-900 transition duration-300 group-hover:border-rose-300/70 group-hover:text-rose-600">
-                      <MapPin size={16} />
-                    </span>
-                    <span className="min-w-0 flex-1 truncate text-sm font-medium text-ink-900">
+                <li key={dataset.href} className={`border-t ${RULE}`}>
+                  <ResourceRow href={dataset.href}>
+                    <span className="min-w-0 flex-1 truncate text-sm font-medium text-ink-900 transition-colors duration-300 group-hover:text-rose-600">
                       {dataset.name}
                     </span>
                     <ArrowDownToLine
                       size={16}
-                      className="shrink-0 text-rose-600 transition-transform duration-300 group-hover:translate-y-0.5"
+                      aria-hidden
+                      className="shrink-0 text-ink-500 transition duration-300 group-hover:translate-y-0.5 group-hover:text-rose-600"
                     />
-                  </Link>
+                  </ResourceRow>
                 </li>
               ))}
             </ul>
           </section>
         </div>
 
-        <section className="mt-14 glass-card px-7 py-8 text-ink-900 md:px-9">
-          <header className="panel-title text-rose-500">
-            <History size={18} />
-            {t('bibliographyHistory.title')}
-          </header>
-          <p className="mt-4 max-w-2xl text-sm text-ink-700">
+        <section className="mt-20">
+          <Eyebrow>{t('bibliographyHistory.title')}</Eyebrow>
+          <p className="mt-4 max-w-2xl text-sm leading-7 text-ink-700">
             {t('bibliographyHistory.description')}
           </p>
-          <ul className="mt-6 space-y-2.5">
+          <ul className="mt-8">
             {bibliographyVersions.map((edition, index) => (
-              <li key={edition.version}>
-                <Link
-                  href={encodeURI(edition.href)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex flex-wrap items-center gap-x-4 gap-y-3 rounded-2xl border border-silk-300/55 bg-surface/45 px-4 py-3.5 transition duration-300 hover:border-rose-200/70 hover:bg-rose-50/50 calcite-focus"
-                >
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-silk-300/60 bg-silk-100/80 text-ink-900 transition duration-300 group-hover:border-rose-300/70 group-hover:text-rose-600">
-                    <FileText size={16} />
-                  </span>
-                  <span className="min-w-0">
-                    <span className="flex flex-wrap items-center gap-2">
-                      <span className="text-sm font-medium text-ink-900">
+              <li key={edition.version} className={`border-t ${RULE}`}>
+                <ResourceRow href={encodeURI(edition.href)}>
+                  <span className="min-w-0 flex-1">
+                    <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                      <span className="text-sm font-medium text-ink-900 transition-colors duration-300 group-hover:text-rose-600">
                         {edition.releasedAt}
                       </span>
-                      {index === 0 ? (
-                        <span className="rounded-full border border-rose-200/70 bg-rose-50/70 px-2.5 py-0.5 text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-rose-600">
+                      {index === 0 && (
+                        <span className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-rose-600">
                           {t('bibliographyHistory.current')}
                         </span>
-                      ) : null}
+                      )}
                     </span>
-                    <span className="mt-0.5 block text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-ink-500">
+                    <span className="mt-1 block text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-ink-500">
                       PDF &middot; {edition.size}
                     </span>
                   </span>
-                  <span className="ml-auto inline-flex items-center gap-2 rounded-full border border-rose-200/60 bg-rose-50/70 px-3.5 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-rose-600 transition duration-300 group-hover:border-rose-300/80 group-hover:bg-rose-100/70">
-                    <Download
-                      size={14}
+                  <span className="inline-flex shrink-0 items-center gap-2 text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-ink-500 transition-colors duration-300 group-hover:text-rose-600">
+                    {t('bibliographyHistory.download')}
+                    <ArrowDownToLine
+                      size={15}
+                      aria-hidden
                       className="transition-transform duration-300 group-hover:translate-y-0.5"
                     />
-                    {t('bibliographyHistory.download')}
                   </span>
-                </Link>
+                </ResourceRow>
               </li>
             ))}
           </ul>
         </section>
 
-        <section className="mt-14 glass-card px-7 py-8 text-ink-900 md:px-9">
-          <header className="panel-title text-rose-500">
-            <BookOpen size={18} />
-            {t('citationReferences')}
-          </header>
-          <ul className="mt-6 space-y-3">
+        <section className="mt-20">
+          <Eyebrow>{t('citationReferences')}</Eyebrow>
+          <ul className="mt-8">
             {citations.map((item, index) => (
               <CitationCard
                 key={item.href}
@@ -309,5 +272,38 @@ export default function MGWR() {
         </section>
       </div>
     </section>
+  );
+}
+
+function Eyebrow({ children }: { children: ReactNode }) {
+  return (
+    <h2 className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-silk-700 md:tracking-[0.4em]">
+      <span
+        aria-hidden
+        className="h-px w-10 bg-gradient-to-r from-transparent to-silk-600/55"
+      />
+      {children}
+    </h2>
+  );
+}
+
+/* Every resource on the page — manual, dataset, bibliography edition — is the
+   same ruled row that tints on hover, so the three lists read alike. */
+function ResourceRow({
+  href,
+  children
+}: {
+  href: string;
+  children: ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group calcite-focus -mx-3 flex items-start gap-4 rounded-2xl px-3 py-4 transition-colors duration-300 hover:bg-rose-50/50"
+    >
+      {children}
+    </Link>
   );
 }

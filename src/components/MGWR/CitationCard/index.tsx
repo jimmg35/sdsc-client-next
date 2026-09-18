@@ -48,32 +48,36 @@ const CitationCard = ({
   };
 
   return (
-    <li className="flex gap-4 rounded-2xl border border-silk-300/55 bg-surface/45 px-5 py-5 transition duration-300 hover:border-rose-200/70 hover:bg-rose-50/40">
+    /* A numbered reference in a ruled list rather than a bordered box. */
+    <li className="grid gap-x-6 gap-y-3 border-t border-silk-600/25 py-6 sm:grid-cols-[2.5rem_1fr]">
       <span
         aria-hidden="true"
-        className="mt-0.5 hidden h-8 w-8 shrink-0 items-center justify-center rounded-full border border-silk-300/60 bg-silk-100/80 text-[0.7rem] font-semibold text-rose-600 sm:flex"
+        className="hidden text-[0.7rem] font-semibold tabular-nums tracking-[0.18em] text-rose-600 sm:block"
       >
         {String(index).padStart(2, '0')}
       </span>
 
-      <div className="min-w-0 flex-1">
-        <p className="text-sm leading-6 text-ink-700">{text}</p>
+      <div className="min-w-0">
+        <p className="text-sm leading-7 text-ink-900">{text}</p>
 
-        <div className="mt-3.5 flex flex-wrap items-center gap-2">
+        <div className="mt-4 flex flex-wrap items-center gap-x-7 gap-y-3">
           <Link
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-full border border-rose-200/60 bg-rose-50/70 px-3.5 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-rose-600 transition duration-300 hover:border-rose-300/80 hover:bg-rose-100/70 calcite-focus"
+            className="calcite-focus group/access inline-flex items-center gap-2 text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-rose-600 transition-colors hover:text-rose-700"
           >
             {accessLabel}
-            <ArrowUpRight size={14} />
+            <ArrowUpRight
+              size={14}
+              className="transition-transform duration-300 group-hover/access:-translate-y-0.5 group-hover/access:translate-x-0.5"
+            />
           </Link>
 
           <button
             type="button"
             onClick={handleCopy}
-            className="inline-flex items-center gap-1.5 rounded-full border border-silk-300/60 px-3.5 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-ink-500 transition duration-300 hover:border-rose-200/70 hover:text-rose-600 calcite-focus"
+            className="calcite-focus inline-flex items-center gap-2 text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-ink-500 transition-colors hover:text-rose-600"
           >
             {copied ? <Check size={14} /> : <Copy size={14} />}
             <span aria-live="polite">{copied ? copiedLabel : copyLabel}</span>

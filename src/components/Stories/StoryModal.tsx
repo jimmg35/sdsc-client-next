@@ -223,13 +223,19 @@ export default function StoryModal({
           onPointerLeave={() => setIsProgressPaused(false)}
           onPointerCancel={() => setIsProgressPaused(false)}
         >
-          <Image
-            src={currentStory.thumbnail}
-            alt={currentStory.title}
-            fill
-            sizes="(max-width: 768px) 100vw, 60vw"
-            className="object-cover"
-          />
+          {/* A story without artwork keeps the dark ground the caption is set
+              on; the two tinted washes below already carry the panel. */}
+          {currentStory.thumbnail ? (
+            <Image
+              src={currentStory.thumbnail}
+              alt={currentStory.title}
+              fill
+              sizes="(max-width: 768px) 100vw, 60vw"
+              className="object-cover"
+            />
+          ) : (
+            <div className="absolute inset-0 bg-[#120810]" />
+          )}
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,4,14,0.18),rgba(9,4,14,0.6)_55%,rgba(9,4,14,0.9))]" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(250,204,21,0.2),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(249,115,22,0.24),transparent_35%)]" />
 

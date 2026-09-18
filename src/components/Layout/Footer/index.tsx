@@ -1,11 +1,5 @@
-import {
-  ArrowUpRight,
-  Github,
-  Linkedin,
-  Mail,
-  MapPin,
-  Twitter
-} from 'lucide-react';
+import { CONTACT_ADDRESS_LINES, CONTACT_EMAIL } from '@/lib/contact';
+import { ArrowUpRight, Mail, MapPin } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -19,132 +13,113 @@ const quickLinks = [
   { key: 'news', href: '/news' }
 ];
 
-const socialLinks = [
-  { label: 'Twitter', href: '#', icon: Twitter },
-  { label: 'LinkedIn', href: '#', icon: Linkedin },
-  { label: 'GitHub', href: '#', icon: Github }
-];
+/** Build marker shown in the footer bar, bumped with each release. */
+const BUILD_VERSION = 'b0.20260119.283';
+
+const RULE = 'border-silk-600/25';
 
 const Footer = async () => {
   const t = await getTranslations('footer');
   const tNav = await getTranslations('nav');
 
   return (
-    <footer className="relative border-t border-silk-200/80 bg-surface/90 text-ink-700 dark:bg-silk-50/90">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_15%_-10%,_rgba(198,164,215,0.28),_transparent_55%),_radial-gradient(105%_105%_at_80%_-15%,_rgba(194,156,106,0.24),_transparent_60%)]" />
-
-      <div className="relative mx-auto max-w-6xl px-6 py-16">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-          <div className="space-y-5">
+    <footer
+      className={`relative border-t ${RULE} bg-surface/90 text-ink-700 dark:bg-silk-50/90`}
+    >
+      <div className="mx-auto max-w-6xl px-6 py-16">
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-14">
+          <div>
             <Image
               width={145}
               height={46}
               src="/img/sdsc-logo.png"
               alt="SDSC logo"
-              className="rounded-full object-cover dark:invert"
+              /* Matches the navbar: a wordmark, so it keeps a small radius
+                 rather than the pill that was clipping its ends. */
+              className="rounded-md object-cover dark:invert"
             />
-            <p className="max-w-xs text-sm leading-6 text-ink-700/80">
+            <p className="mt-6 max-w-sm text-sm leading-7 text-ink-700">
               {t('tagline')}
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-full border border-silk-300 bg-silk-200/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-silk-800 transition hover:bg-silk-200"
+              className="group mt-7 inline-flex items-center gap-2 rounded-full border border-rose-200/70 bg-surface/85 px-5 py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-rose-600 transition hover:border-rose-300 hover:text-rose-700"
             >
               {t('partnerWithUs')}
-              <ArrowUpRight size={16} />
+              <ArrowUpRight
+                size={15}
+                className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
             </Link>
           </div>
 
-          <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.34em] text-rose-500/80">
-              {t('navigate')}
-            </h3>
-            <ul className="mt-5 space-y-3 text-sm">
+          <nav aria-label={t('navigate')}>
+            <FooterHeading>{t('navigate')}</FooterHeading>
+            <ul className="mt-6 space-y-3.5">
               {quickLinks.map((item) => (
                 <li key={item.key}>
                   <Link
                     href={item.href}
-                    className="flex items-center gap-2 text-ink-700/80 transition hover:text-rose-600"
+                    className="text-sm text-ink-700 transition-colors duration-300 hover:text-rose-600"
                   >
-                    <span className="h-px w-6 bg-rose-200/70" />
                     {tNav(item.key)}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          <div className="space-y-4 text-sm">
-            <h3 className="text-xs font-semibold uppercase tracking-[0.34em] text-rose-500/80">
-              {t('visit')}
-            </h3>
-            <p className="flex items-start gap-3 text-ink-700/80">
-              <MapPin size={18} className="text-rose-500" />
-              <span>
-                Spatial Data Science Center
-                <br />
-                Florida State University
-                <br />
-                Tallahassee, FL 32306
-              </span>
-            </p>
-            <p className="flex items-center gap-3 text-ink-700/80">
-              <Mail size={18} className="text-rose-500" />
-              <span>admin@sdsc.edu</span>
-            </p>
-          </div>
-
-          <div className="space-y-5" hidden>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.34em] text-rose-500/80">
-              Stay connected
-            </h3>
-            <p className="text-sm text-ink-700/80">
-              Join our newsletter for research updates, event invites, and MGWR
-              release notes.
-            </p>
-            <form className="flex flex-col gap-3 sm:flex-row">
-              <input
-                type="email"
-                name="email"
-                aria-label="Email"
-                placeholder="Email address"
-                className="flex-1 rounded-full border border-rose-200/80 bg-surface px-4 py-2 text-sm text-ink-700 placeholder:text-ink-500/70 focus:outline-none focus:ring-2 focus:ring-rose-200"
-              />
-              <button
-                type="submit"
-                className="inline-flex items-center justify-center rounded-full border border-silk-300 bg-silk-200/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-silk-800 transition hover:bg-silk-200"
-              >
-                Join
-              </button>
-            </form>
-            <div className="flex gap-3">
-              {socialLinks.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-rose-200/60 bg-surface text-rose-600 transition hover:bg-rose-50 hover:text-rose-700"
-                    aria-label={item.label}
-                  >
-                    <Icon size={18} />
-                  </a>
-                );
-              })}
-            </div>
+          <div>
+            <FooterHeading>{t('visit')}</FooterHeading>
+            <address className="mt-6 space-y-5 text-sm not-italic leading-7 text-ink-700">
+              <p className="flex items-start gap-3">
+                <MapPin
+                  size={17}
+                  aria-hidden
+                  className="mt-1 shrink-0 text-rose-600"
+                />
+                <span>
+                  {CONTACT_ADDRESS_LINES.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </span>
+              </p>
+              <p className="flex items-center gap-3">
+                <Mail
+                  size={17}
+                  aria-hidden
+                  className="shrink-0 text-rose-600"
+                />
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="transition-colors duration-300 hover:text-rose-600"
+                >
+                  {CONTACT_EMAIL}
+                </a>
+              </p>
+            </address>
           </div>
         </div>
       </div>
 
-      <div className="relative border-t border-silk-200/80 bg-surface/80 dark:bg-silk-100/80">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-4 text-[0.7rem] uppercase tracking-[0.3em] text-ink-500 md:flex-row">
-          <span>SDSC - Florida State University</span>
+      <div className={`border-t ${RULE}`}>
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 py-5 text-[0.68rem] uppercase tracking-[0.26em] text-ink-500 md:flex-row">
           <span>{t('copyright', { year: new Date().getFullYear() })}</span>
-          <span>Version b0.20260119.283</span>
+          <span className="tabular-nums">{BUILD_VERSION}</span>
         </div>
       </div>
     </footer>
   );
 };
+
+function FooterHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <h3 className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-silk-700">
+      {children}
+    </h3>
+  );
+}
 
 export default Footer;

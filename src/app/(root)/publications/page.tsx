@@ -54,13 +54,19 @@ export default async function Publications() {
 
   return (
     <section className="page-shell">
-      <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 text-gold-100 md:pt-40">
-        <header className="text-center">
-          <span className="chip-gold">{t('page.chip')}</span>
-          <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
+      <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 md:pt-40">
+        <header className="max-w-3xl">
+          <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-silk-700 md:text-xs md:tracking-[0.42em]">
+            <span
+              aria-hidden
+              className="h-px w-10 bg-gradient-to-r from-transparent to-silk-600/55"
+            />
+            {t('page.chip')}
+          </p>
+          <h1 className="mt-5 text-[2.1rem] font-semibold leading-[1.12] tracking-[-0.025em] text-ink-900 md:text-[3rem] md:leading-[1.06]">
             {t('page.title')}
           </h1>
-          <p className="mx-auto mt-5 max-w-3xl text-sm text-gold-200/80 md:text-base">
+          <p className="mt-6 text-base leading-8 text-ink-700 md:text-lg md:leading-9">
             {t('page.intro')}
           </p>
         </header>
@@ -74,7 +80,7 @@ export default async function Publications() {
 
         <Suspense
           fallback={
-            <div className="mt-16 rounded-3xl border border-black/5 bg-surface/70 p-8 text-center text-sm text-ink-500">
+            <div className="mt-16 border-t border-silk-600/25 py-10 text-sm text-ink-500">
               {t('page.loading')}
             </div>
           }

@@ -12,7 +12,7 @@ export interface StoryEvent {
   date: string;
   description: string;
   summary: string;
-  thumbnail: string;
+  thumbnail?: string;
   url: string;
   kind: 'single' | 'group';
   memberIds: string[];

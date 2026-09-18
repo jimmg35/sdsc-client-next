@@ -11,26 +11,26 @@ const SelectedPublicationCard = ({
   const doiUrl = doi?.trim();
 
   return (
-    <li className="group py-5 first:pt-0 last:pb-0">
+    /* A ruled entry rather than a card: the profile's publication list reads
+       as one column of references. */
+    <li className="group border-t border-silk-600/25 py-6">
       <article className="grid gap-4 md:grid-cols-[1fr_auto] md:items-start">
-        <div className="min-w-0 space-y-3 text-ink-800">
-          <div className="flex flex-wrap items-center gap-2">
-            {journal && (
-              <span className="rounded-full border border-rose-200/80 bg-rose-50/80 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-rose-600">
-                {journal}
-              </span>
-            )}
-            {catalog && (
-              <span className="text-[0.7rem] font-medium uppercase tracking-[0.18em] text-ink-500">
-                {catalog}
-              </span>
-            )}
-          </div>
+        <div className="min-w-0">
+          {(journal || catalog) && (
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[0.66rem] font-semibold uppercase tracking-[0.22em]">
+              {journal && <span className="text-rose-600">{journal}</span>}
+              {catalog && (
+                <span className="font-medium tracking-[0.18em] text-ink-500">
+                  {catalog}
+                </span>
+              )}
+            </div>
+          )}
 
-          <h3 className="text-lg font-semibold leading-7 text-ink-900">
+          <h3 className="mt-3 text-base font-medium leading-7 tracking-[-0.01em] text-ink-900 md:text-lg">
             {title}
           </h3>
-          <p className="text-sm leading-6 text-ink-600">{author}</p>
+          <p className="mt-2 text-sm leading-6 text-ink-700">{author}</p>
         </div>
 
         {doiUrl && (
@@ -38,11 +38,11 @@ const SelectedPublicationCard = ({
             href={doiUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-full border border-rose-200/80 bg-surface/80 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-rose-600 transition hover:border-rose-300 hover:bg-rose-50"
+            className="inline-flex shrink-0 items-center gap-2 self-start text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-rose-600 transition-colors hover:text-rose-700 md:mt-1"
           >
             DOI
             <ArrowUpRight
-              size={14}
+              size={15}
               className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
             />
           </a>

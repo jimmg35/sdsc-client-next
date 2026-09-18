@@ -26,22 +26,33 @@ export default async function Announcements() {
         </header>
 
         {featured ? (
-          <article className="mt-16 grid gap-6 overflow-hidden rounded-[32px] border border-garnet-600/35 bg-surface shadow-[0_32px_60px_-40px_rgba(9,4,24,0.85)] md:grid-cols-[1.1fr_1fr]">
-            <div className="relative h-64 w-full overflow-hidden md:h-auto">
-              <Image
-                src={featured.thumbnail}
-                alt={featured.title}
-                fill
-                sizes="(max-width: 768px) 100vw, 540px"
-                className="object-cover transition-transform duration-700 hover:scale-[1.08]"
-              />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#04010d]/85 via-transparent to-transparent" />
-              <span className="absolute bottom-4 left-4 rounded-full border border-gold-400/40 bg-[#160b29]/85 px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-gold-100 backdrop-blur">
-                {t('featured')}
-              </span>
-            </div>
+          <article
+            className={`mt-16 grid gap-6 overflow-hidden rounded-[32px] border border-garnet-600/35 bg-surface shadow-[0_32px_60px_-40px_rgba(9,4,24,0.85)] ${
+              featured.thumbnail ? 'md:grid-cols-[1.1fr_1fr]' : ''
+            }`}
+          >
+            {featured.thumbnail && (
+              <div className="relative h-64 w-full overflow-hidden md:h-auto">
+                <Image
+                  src={featured.thumbnail}
+                  alt={featured.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 540px"
+                  className="object-cover transition-transform duration-700 hover:scale-[1.08]"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#04010d]/85 via-transparent to-transparent" />
+                <span className="absolute bottom-4 left-4 rounded-full border border-gold-400/40 bg-[#160b29]/85 px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-gold-100 backdrop-blur">
+                  {t('featured')}
+                </span>
+              </div>
+            )}
             <div className="flex flex-col justify-between gap-6 px-6 py-8 text-gold-100 md:px-10">
               <div className="space-y-4">
+                {!featured.thumbnail && (
+                  <span className="inline-flex rounded-full border border-rose-200/70 bg-rose-50/80 px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-rose-600">
+                    {t('featured')}
+                  </span>
+                )}
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-300/80">
                   {format.dateTime(
                     featured.date instanceof Date

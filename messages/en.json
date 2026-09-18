@@ -56,6 +56,7 @@
   },
   "research": {
     "chip": "Research",
+    "areasEyebrow": "Focus Areas",
     "title": "Advancing spatial knowledge and practice",
     "intro": "The Spatial Data Science Center (SDSC) is committed to developing solutions to some of society's most pressing problems in areas such as health, transportation, crime, poverty and the environment through the power of spatial data analytics.",
     "areas": {
@@ -299,6 +300,7 @@
       "cta": "Read briefing"
     },
     "featured": "Featured",
+    "allStories": "All stories",
     "readStory": "Read the story",
     "empty": "Stay tuned--stories from SDSC are on the way.",
     "card": {
@@ -306,7 +308,8 @@
     },
     "detail": {
       "back": "Back to Newsroom",
-      "chip": "SDSC Insight"
+      "inThisStory": "In This Story",
+      "viewSource": "Read the original announcement"
     }
   },
   "briefing": {
@@ -388,6 +391,8 @@
     "spotlight": "Spotlight",
     "featuredMembers": "Featured Members",
     "readFullStory": "Read Full Story",
-    "voices": "{count} Voices"
+    "voices": "{count} Voices",
+    "scrollPrev": "Show previous stories",
+    "scrollNext": "Show more stories"
   }
 }

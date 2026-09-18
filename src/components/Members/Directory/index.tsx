@@ -1,7 +1,8 @@
 import Avatar from '@/components/Utility/Avatar';
 import { MemberData } from '@/lib/members';
-import { ArrowUpRight, GraduationCap, Mail, UsersRound } from 'lucide-react';
+import { ArrowUpRight, GraduationCap, Mail } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export type MemberDirectorySection = {
@@ -15,7 +16,6 @@ export type MemberDirectorySection = {
 type OverviewMetric = {
   value: string;
   label: string;
-  detail: string;
 };
 
 type MembersDirectoryProps = {
@@ -26,6 +26,8 @@ type MembersDirectoryProps = {
 
 type ActionVariant = 'profile' | 'scholar' | 'email';
 
+const RULE = 'border-silk-600/25';
+
 export default async function MembersDirectory({
   director,
   sections,
@@ -35,55 +37,39 @@ export default async function MembersDirectory({
 
   return (
     <>
-      <section className="surface-fade mb-16 overflow-hidden px-6 py-8 md:px-10">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_84%_-12%,_rgba(168,110,161,0.24),_transparent_55%),radial-gradient(110%_110%_at_12%_-16%,_rgba(194,156,106,0.22),_transparent_52%)]" />
-
-        <div className="relative">
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,1.5fr)_minmax(19rem,1fr)] lg:items-end">
-            <div>
-              <p className="panel-title text-gold-300">{t('browseEyebrow')}</p>
-              <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
-                {t('browseTitle')}
-              </h2>
-              <p className="mt-4 max-w-3xl text-sm leading-7 text-gold-200/78 md:text-base">
-                {t('browseDescription')}
-              </p>
-
-              <div className="mt-6 flex flex-wrap gap-3">
-                {director && (
-                  <AnchorLink href="#director" label={t('centerDirector')} />
-                )}
-                {sections.map((section) => (
-                  <AnchorLink
-                    key={section.id}
-                    href={`#${section.id}`}
-                    label={section.title}
-                  />
-                ))}
-              </div>
-            </div>
-
-            <div className="grid gap-3 sm:grid-cols-2">
-              {overview.map((item) => (
-                <div
-                  key={item.label}
-                  className="rounded-[24px] border border-rose-100/75 bg-surface/78 px-5 py-5 text-ink-900 shadow-[0_20px_44px_-34px_rgba(61,47,39,0.35)]"
-                >
-                  <p className="text-3xl font-semibold text-rose-700">
-                    {item.value}
-                  </p>
-                  <p className="mt-2 text-xs font-semibold uppercase tracking-[0.28em] text-rose-500">
-                    {item.label}
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-ink-600">
-                    {item.detail}
-                  </p>
-                </div>
-              ))}
-            </div>
+      {/* Headline figures, read as one line rather than four boxed cards. */}
+      <dl
+        className={`mt-16 grid grid-cols-2 gap-x-8 gap-y-8 border-y ${RULE} py-8 sm:grid-cols-4`}
+      >
+        {overview.map((item) => (
+          /* Column-reverse so the term stays before its value in the markup
+             while the figure still reads first. */
+          <div key={item.label} className="flex flex-col-reverse">
+            <dt className="mt-3 text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-silk-700">
+              {item.label}
+            </dt>
+            <dd className="text-[2.4rem] font-semibold leading-none tracking-[-0.03em] text-ink-900 tabular-nums">
+              {item.value}
+            </dd>
           </div>
-        </div>
-      </section>
+        ))}
+      </dl>
+
+      <nav
+        aria-label={t('browseEyebrow')}
+        className={`flex flex-wrap items-center gap-x-8 gap-y-3 border-b ${RULE} py-5`}
+      >
+        {director && (
+          <AnchorLink href="#director" label={t('centerDirector')} />
+        )}
+        {sections.map((section) => (
+          <AnchorLink
+            key={section.id}
+            href={`#${section.id}`}
+            label={section.title}
+          />
+        ))}
+      </nav>
 
       {director && <DirectorSpotlight member={director} />}
 
@@ -91,27 +77,31 @@ export default async function MembersDirectory({
         <section
           key={section.id}
           id={section.id}
-          className="surface-fade mb-12 scroll-mt-36 px-6 py-10 md:px-10 md:scroll-mt-44"
+          className="mt-24 scroll-mt-32 md:scroll-mt-40"
         >
-          <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-3xl">
-              <p className="panel-title text-gold-300">{section.eyebrow}</p>
-              <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-2xl">
+              <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-silk-700 md:tracking-[0.4em]">
+                <span
+                  aria-hidden
+                  className="h-px w-10 bg-gradient-to-r from-transparent to-silk-600/55"
+                />
+                {section.eyebrow}
+              </p>
+              <h2 className="mt-5 text-3xl font-semibold tracking-[-0.02em] text-ink-900 md:text-[2.3rem] md:leading-[1.1]">
                 {section.title}
               </h2>
+              <p className="mt-4 text-sm leading-7 text-ink-700 md:text-base">
+                {section.description}
+              </p>
             </div>
-            <div className="flex flex-wrap items-center gap-2 self-start">
-              <div className="inline-flex items-center gap-2 rounded-full border border-rose-200/70 bg-surface/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-rose-600">
-                <UsersRound size={14} />
-                {t('memberCount', { count: section.members.length })}
-              </div>
-              <div className="inline-flex items-center rounded-full border border-gold-400/35 bg-gold-500/15 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-gold-100">
-                {t('sortedAZ')}
-              </div>
-            </div>
+
+            <p className="shrink-0 text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-ink-500 md:self-end">
+              {t('memberCount', { count: section.members.length })}
+            </p>
           </div>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-10 grid gap-x-10 md:grid-cols-2 xl:grid-cols-3">
             {section.members.map((member) => (
               <MemberCard key={member.id} member={member} />
             ))}
@@ -126,58 +116,49 @@ async function DirectorSpotlight({ member }: { member: MemberData }) {
   const t = await getTranslations('members.directory');
 
   return (
-    <section
-      id="director"
-      className="surface-fade mb-16 scroll-mt-36 px-6 py-10 md:px-10 md:scroll-mt-44"
-    >
-      <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-        <div className="max-w-3xl">
-          <p className="panel-title text-gold-300">{t('centerDirector')}</p>
-          <h2 className="mt-4 text-3xl font-semibold text-gold-50 text-glow">
-            {t('spotlightTitle')}
-          </h2>
-        </div>
-        <div className="inline-flex items-center self-start whitespace-nowrap rounded-full border border-rose-200/70 bg-surface/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-rose-600">
-          {t('spotlightBadge')}
-        </div>
-      </div>
+    <section id="director" className="mt-20 scroll-mt-32 md:scroll-mt-40">
+      <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-silk-700 md:tracking-[0.4em]">
+        <span
+          aria-hidden
+          className="h-px w-10 bg-gradient-to-r from-transparent to-silk-600/55"
+        />
+        {t('centerDirector')}
+      </p>
 
-      <div className="mt-10 grid gap-6 lg:grid-cols-[19rem_minmax(0,1fr)]">
-        <div className="glass-card px-6 py-8 text-center">
-          <div className="flex justify-center">
-            <span className="halo">
-              <Avatar
+      <div className="mt-10 flex flex-col gap-12 md:flex-row md:items-start md:gap-16">
+        {/* Squared and framed like the director's letter on the home page,
+            rather than a circle inside a halo. No caption: `centerRole` reads
+            "Center Director" here, which the section eyebrow already says. */}
+        <div className="w-full max-w-[17rem] shrink-0">
+          <div className="relative w-full rounded-[2.25rem] border border-silk-600/40 bg-gradient-to-b from-silk-500/25 via-transparent to-rose-400/15 p-[0.6rem] shadow-[0_55px_95px_-58px_rgba(56,43,28,0.9)]">
+            <div className="relative aspect-square w-full overflow-hidden rounded-[1.7rem] border border-silk-600/30 bg-silk-200">
+              <Image
                 src={member.thumbnail}
-                size={220}
                 alt={`${member.name} portrait`}
+                fill
+                sizes="(max-width: 768px) 17rem, 17rem"
+                className="object-cover"
               />
-            </span>
+            </div>
           </div>
-          <span className="chip-gold mt-6">
-            {member.centerRole || t('directorRoleFallback')}
-          </span>
-          <p className="mt-4 text-xs font-semibold uppercase tracking-[0.26em] text-gold-300/75">
-            {t('spatialDataScienceCenter')}
-          </p>
         </div>
 
-        <div className="glass-card px-6 py-8 md:px-8">
-          <div className="max-w-3xl">
-            <h3 className="text-3xl font-semibold text-gold-50 text-glow">
-              {member.name}
-            </h3>
-            {member.title && (
-              <p className="mt-3 text-base leading-7 text-gold-200/82">
-                {member.title}
-              </p>
-            )}
-          </div>
+        <div className="min-w-0 flex-1">
+          <h3 className="text-3xl font-semibold tracking-[-0.02em] text-ink-900 md:text-[2.5rem] md:leading-[1.1]">
+            {member.name}
+          </h3>
+          {member.title && (
+            <p className="mt-5 text-base leading-8 text-ink-700 md:text-lg md:leading-9">
+              {member.title}
+            </p>
+          )}
 
           <div className="mt-8 flex flex-wrap gap-3">
             <ActionLink
               href={`/member/${member.id}`}
               label={t('viewProfile')}
               variant="profile"
+              primary
             />
             {member.googleScholar && (
               <ActionLink
@@ -197,23 +178,25 @@ async function DirectorSpotlight({ member }: { member: MemberData }) {
           </div>
 
           {member.honor.length > 0 && (
-            <div className="mt-8">
-              <p className="text-xs font-semibold uppercase tracking-[0.26em] text-gold-300/70">
+            <div className={`mt-10 border-t ${RULE} pt-8`}>
+              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-silk-700">
                 {t('selectRecognition')}
               </p>
-              <div className="mt-4 grid gap-3 md:grid-cols-2">
+              <ul className="mt-5 grid gap-x-10 sm:grid-cols-2">
                 {member.honor.slice(0, 4).map((honor) => (
-                  <div
+                  <li
                     key={`${honor.title}-${honor.year}`}
-                    className="rounded-[20px] border border-rose-100/70 bg-surface/70 px-4 py-4 text-sm leading-6 text-ink-700"
+                    className={`border-t ${RULE} py-4`}
                   >
-                    <p className="font-semibold text-ink-900">{honor.title}</p>
-                    <p className="mt-1 text-xs font-semibold uppercase tracking-[0.24em] text-rose-500">
+                    <p className="text-sm font-medium leading-6 text-ink-900">
+                      {honor.title}
+                    </p>
+                    <p className="mt-1 text-[0.68rem] font-semibold uppercase tracking-[0.24em] tabular-nums text-rose-600">
                       {honor.year}
                     </p>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
           )}
         </div>
@@ -226,44 +209,47 @@ async function MemberCard({ member }: { member: MemberData }) {
   const t = await getTranslations('members.directory');
 
   return (
+    /* No card chrome: a ruled cell that tints on hover, so twenty-two people
+       read as one directory instead of twenty-two floating boxes. */
     <Link
       href={`/member/${member.id}`}
-      className="group glass-card flex h-full flex-col px-5 py-5 text-gold-100 transition duration-300 hover:-translate-y-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400/80"
+      className={`group -mx-4 flex h-full gap-5 border-t ${RULE} px-4 py-6 transition-colors duration-300 hover:bg-rose-50/55 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300/70`}
     >
-      <div className="flex items-start gap-4">
-        <span className="halo shrink-0">
-          <Avatar
-            src={member.thumbnail}
-            size={88}
-            alt={`${member.name} portrait`}
-            variant="soft"
-          />
-        </span>
-        <div className="min-w-0">
-          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-rose-500">
-            {member.centerRole || t('memberRoleFallback')}
-          </p>
-          <h3 className="mt-2 text-xl font-semibold text-gold-50 text-glow">
-            {member.name}
-          </h3>
-          {member.title && (
-            <p className="mt-2 line-clamp-3 text-sm leading-6 text-gold-200/80">
-              {member.title}
-            </p>
-          )}
-        </div>
-      </div>
+      <Avatar
+        src={member.thumbnail}
+        size={72}
+        alt={`${member.name} portrait`}
+        variant="soft"
+        className="shrink-0 self-start group-hover:scale-[1.04]"
+      />
 
-      {member.advisor && (
-        <div className="mt-3 w-full border-t border-white/10 pt-3">
-          <p className="text-sm leading-6 text-gold-200/78">
-            <span className="font-semibold text-gold-300/82">
+      <div className="min-w-0 flex-1">
+        <p className="text-[0.66rem] font-semibold uppercase tracking-[0.24em] text-rose-600">
+          {member.centerRole || t('memberRoleFallback')}
+        </p>
+        <h3 className="mt-2 text-lg font-medium leading-snug tracking-[-0.01em] text-ink-900 transition-colors duration-300 group-hover:text-rose-600">
+          {member.name}
+        </h3>
+        {member.title && (
+          <p className="mt-2 line-clamp-3 text-sm leading-6 text-ink-700">
+            {member.title}
+          </p>
+        )}
+        {member.advisor && (
+          <p className="mt-3 text-xs leading-5 text-ink-500">
+            <span className="font-semibold uppercase tracking-[0.18em] text-silk-700">
               {t('advisor')}
             </span>{' '}
             {member.advisor}
           </p>
-        </div>
-      )}
+        )}
+      </div>
+
+      <ArrowUpRight
+        size={16}
+        aria-hidden
+        className="mt-1 shrink-0 text-ink-500 opacity-0 transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-rose-600 group-hover:opacity-100"
+      />
     </Link>
   );
 }
@@ -272,13 +258,19 @@ function ActionLink({
   href,
   label,
   variant,
-  external = false
+  external = false,
+  primary = false
 }: {
   href: string;
   label: string;
   variant: ActionVariant;
   external?: boolean;
+  primary?: boolean;
 }) {
+  const tone = primary
+    ? 'border-rose-400/70 bg-rose-500/90 text-white hover:bg-rose-600'
+    : 'border-rose-200/70 bg-surface/85 text-rose-600 hover:border-rose-300 hover:text-rose-700';
+
   return (
     <Link
       href={href}
@@ -288,7 +280,7 @@ function ActionLink({
             rel: 'noreferrer noopener'
           }
         : {})}
-      className="inline-flex items-center gap-2 rounded-full border border-gold-400/35 bg-gold-500/15 px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-gold-100 transition hover:bg-gold-500/28"
+      className={`inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.24em] transition ${tone}`}
     >
       {variant === 'scholar' ? (
         <GraduationCap size={15} />
@@ -306,7 +298,7 @@ function AnchorLink({ href, label }: { href: string; label: string }) {
   return (
     <Link
       href={href}
-      className="inline-flex items-center rounded-full border border-rose-200/70 bg-surface/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.26em] text-rose-600 transition hover:border-rose-300 hover:text-rose-700"
+      className="text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-ink-500 transition-colors hover:text-rose-600"
     >
       {label}
     </Link>

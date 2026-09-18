@@ -2,7 +2,7 @@
 
 import Avatar from '@/components/Utility/Avatar';
 import { PublicationData } from '@/lib/publications';
-import { ArrowUpRight, Users } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
@@ -16,6 +16,9 @@ type PublicationPostProps = PublicationData & {
   centerMembers: PublicationCardMember[];
 };
 
+/* A ruled reference rather than a card. The archive runs to hundreds of
+   entries, so every gradient, inset shadow and nested panel it used to carry
+   was repeated that many times down the page. */
 const PublicationPost = ({
   title,
   journal,
@@ -32,90 +35,74 @@ const PublicationPost = ({
   const publicationYear = year ? String(year) : t('undated');
 
   return (
-    <article className="group calcite-box relative overflow-hidden px-6 py-6 md:px-7 md:py-7">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_100%_0%,_rgba(214,167,208,0.22),_transparent_58%)] opacity-80" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent" />
+    <article className="border-t border-silk-600/25 py-7">
+      <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+        <span className="text-[0.68rem] font-semibold uppercase tabular-nums tracking-[0.24em] text-rose-600">
+          {publicationYear}
+        </span>
+        {journal && (
+          <span className="text-[0.68rem] font-medium uppercase tracking-[0.2em] text-ink-500">
+            {journal}
+          </span>
+        )}
+      </div>
 
-      <div className="relative flex flex-col gap-6">
-        <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-          <div className="flex flex-wrap items-center gap-2.5">
-            <span className="inline-flex items-center rounded-full border border-rose-200/60 bg-rose-50/90 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-rose-600">
-              {publicationYear}
+      <h3 className="mt-4 max-w-4xl text-xl font-medium leading-snug tracking-[-0.015em] text-ink-900 md:text-2xl md:leading-[1.3]">
+        {title}
+      </h3>
+
+      {catalog && (
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-ink-700">
+          {catalog}
+        </p>
+      )}
+
+      <div className="mt-5 flex flex-wrap items-center gap-x-8 gap-y-4">
+        {centerMembers.length > 0 ? (
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+            <span className="text-[0.64rem] font-semibold uppercase tracking-[0.22em] text-silk-700">
+              {t('contributors')}
             </span>
-            {journal && (
-              <span className="inline-flex items-center rounded-full border border-silk-300/70 bg-surface/85 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-ink-700">
-                {journal}
-              </span>
-            )}
-          </div>
-
-          {doiUrl && (
-            <a
-              href={doiUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 self-start rounded-full border border-black/10 bg-surface/85 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-ink-700 transition duration-300 hover:border-black/20 hover:bg-surface"
-            >
-              DOI
-              <span className="max-w-[14rem] truncate">{doiLabel}</span>
-              <ArrowUpRight size={14} />
-            </a>
-          )}
-        </div>
-
-        <div className="space-y-3">
-          <h3 className="max-w-4xl text-2xl font-semibold leading-tight text-ink-900 md:text-[2rem]">
-            {title}
-          </h3>
-          {catalog && (
-            <p className="max-w-3xl text-sm leading-6 text-ink-600 md:text-[0.96rem]">
-              {catalog}
-            </p>
-          )}
-        </div>
-
-        <div className="rounded-[26px] border border-black/6 bg-[linear-gradient(160deg,rgba(255,255,255,0.92),rgba(253,247,241,0.82))] dark:bg-[linear-gradient(160deg,rgba(48,40,31,0.92),rgba(36,30,24,0.82))] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)] md:p-5">
-          <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-            <div className="space-y-2">
-              <p className="inline-flex items-center gap-2 text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-rose-500">
-                <Users size={14} />
-                {t('contributors')}
-              </p>
-              <p className="text-sm text-ink-500">{t('contributorsHint')}</p>
-            </div>
-
-            {centerMembers.length > 0 && (
-              <span className="inline-flex self-start rounded-full border border-silk-200/80 bg-surface/85 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-ink-500">
-                {t('memberCount', { count: centerMembers.length })}
-              </span>
-            )}
-          </div>
-
-          {centerMembers.length > 0 ? (
-            <div className="mt-4 flex flex-wrap gap-3">
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
               {centerMembers.map((member) => (
                 <Link
                   key={member.id}
                   href={`/member/${member.id}`}
-                  className="group/member inline-flex items-center gap-3 rounded-full border border-silk-200/80 bg-surface/90 px-3 py-2 text-sm font-medium text-ink-700 transition duration-200 hover:border-rose-200/70 hover:bg-rose-50/70 hover:text-ink-900"
+                  className="group/member inline-flex items-center gap-2.5 text-sm font-medium text-ink-900 transition-colors duration-300 hover:text-rose-600"
                 >
                   <Avatar
                     src={member.thumbnail}
-                    size={40}
+                    size={32}
                     alt={`${member.name} portrait`}
                     variant="soft"
-                    className="group-hover/member:scale-[1.04]"
+                    className="group-hover/member:scale-[1.06]"
                   />
                   <span>{member.name}</span>
                 </Link>
               ))}
             </div>
-          ) : (
-            <div className="mt-4 rounded-2xl border border-dashed border-silk-300/90 bg-surface/75 px-4 py-3 text-sm text-ink-500">
-              {t('noMetadata')}
-            </div>
-          )}
-        </div>
+          </div>
+        ) : (
+          <span className="text-sm text-ink-500">{t('noMetadata')}</span>
+        )}
+
+        {doiUrl && (
+          <a
+            href={doiUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="group/doi ml-auto inline-flex min-w-0 items-center gap-2 text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-rose-600 transition-colors hover:text-rose-700"
+          >
+            DOI
+            <span className="max-w-[14rem] truncate normal-case tracking-normal text-ink-500">
+              {doiLabel}
+            </span>
+            <ArrowUpRight
+              size={14}
+              className="shrink-0 transition-transform duration-300 group-hover/doi:-translate-y-0.5 group-hover/doi:translate-x-0.5"
+            />
+          </a>
+        )}
       </div>
     </article>
   );
