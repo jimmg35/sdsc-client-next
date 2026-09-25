@@ -18,7 +18,25 @@ export default async function NewsBriefingPage() {
   const format = await getFormatter();
 
   const briefing = getCurrentBriefing();
-  const { months, windowStart, windowEnd, posts } = getRecentNewsWindow(3);
+
+  /* The window is the one the briefing was written for, not one rolling off
+     the build date. The site is a static export, so every rebuild used to
+     move the window on while the text stayed put: the header announced one
+     range, the narrative covered another, and the story list came up empty.
+     Ending on the day the briefing was updated keeps all three in step. */
+  const updatedAt = briefing.updatedAt;
+  const { months, windowStart, windowEnd, posts } = getRecentNewsWindow(
+    3,
+    new Date(
+      updatedAt.getFullYear(),
+      updatedAt.getMonth(),
+      updatedAt.getDate(),
+      23,
+      59,
+      59
+    )
+  );
+
   const briefingSegments = parseBriefingSegments(briefing.content);
   const renderedSegments = await Promise.all(
     briefingSegments.map(async (segment: BriefingSegment) => ({
@@ -31,64 +49,80 @@ export default async function NewsBriefingPage() {
       .map((segment) => segment.anchorSlug)
       .filter((slug): slug is string => Boolean(slug))
   );
-  const stories = posts
-    .filter((story) => anchoredSlugs.has(story.slug))
-    .map((story) => ({
-      slug: story.slug,
-      title: story.title,
-      dateLabel: format.dateTime(story.date, SHORT_DATE)
-    }));
+
+  /* Every story in the window is listed, not only the ones the narrative
+     discusses; those jump to their passage, the rest open the story. */
+  const stories = posts.map((story) => ({
+    slug: story.slug,
+    title: story.title,
+    dateLabel: format.dateTime(story.date, SHORT_DATE),
+    anchored: anchoredSlugs.has(story.slug)
+  }));
 
   return (
     <section className="page-shell briefing-page-shell">
       <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 md:pt-40">
-        <div className="flex flex-wrap items-center gap-3">
-          <Link
-            href="/news"
-            className="inline-flex items-center gap-2 rounded-full border border-rose-200/80 bg-surface/90 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-rose-600 shadow-[0_18px_42px_-30px_rgba(168,110,161,0.2)] transition hover:border-rose-300 hover:bg-surface hover:text-rose-700"
-          >
-            <ArrowLeft size={16} />
-            {t('back')}
-          </Link>
-        </div>
+        <Link
+          href="/news"
+          className="group inline-flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-primary-600 transition-colors hover:text-primary-700"
+        >
+          <ArrowLeft
+            size={16}
+            className="transition-transform duration-300 group-hover:-translate-x-0.5"
+          />
+          {t('back')}
+        </Link>
 
-        <header className="mt-10 text-gold-100">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-gold-100/90 backdrop-blur">
-              <Bot size={14} aria-hidden="true" />
-              {t('aiBroadcaster')}
-            </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-amber-300/80 bg-amber-100 px-4 py-2 text-[0.78rem] font-semibold text-amber-950 shadow-[0_18px_42px_-32px_rgba(217,119,6,0.55)]">
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-amber-400 text-[0.78rem] font-black leading-none text-amber-950">
-                !
-              </span>
-              {t('aiWarning')}
-            </span>
-          </div>
-          <h1 className="mt-6 max-w-4xl text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
+        <header className="mt-12 max-w-3xl">
+          <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-accent-700 md:text-xs md:tracking-[0.42em]">
+            <span
+              aria-hidden
+              className="h-px w-10 bg-gradient-to-r from-transparent to-accent-600/55"
+            />
+            {briefing.eyebrow}
+          </p>
+          <h1 className="mt-5 text-[2.1rem] font-semibold leading-[1.12] tracking-[-0.025em] text-ink-900 md:text-[3rem] md:leading-[1.06]">
             {briefing.title}
           </h1>
-          <p className="mt-5 max-w-3xl text-sm text-gold-200/80 md:text-base">
+          <p className="mt-6 text-base leading-8 text-ink-700 md:text-lg md:leading-9">
             {briefing.description}
           </p>
-          <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-rose-500">
-            <span>
+
+          <p className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-primary-600">
+            <span className="tabular-nums">
               {t('range', {
                 start: format.dateTime(windowStart, LONG_DATE),
                 end: format.dateTime(windowEnd, LONG_DATE)
               })}
             </span>
-            <span className="h-1 w-1 rounded-full bg-rose-300" />
-            <span>
+            <span aria-hidden className="h-px w-6 bg-accent-600/45" />
+            <span className="tracking-[0.18em] text-ink-500">
               {t('updated', {
-                date: format.dateTime(briefing.updatedAt, LONG_DATE)
+                date: format.dateTime(updatedAt, LONG_DATE)
               })}
             </span>
-          </div>
+            <span aria-hidden className="h-px w-6 bg-accent-600/45" />
+            <span className="tracking-[0.18em] text-ink-500">
+              {briefing.readTime}
+            </span>
+          </p>
         </header>
 
+        {/* Said once, plainly, where it will be read before the narrative —
+            not as a warning badge competing with the headline. */}
+        <p className="mt-10 flex items-start gap-4 border-y border-accent-600/25 py-5 text-sm leading-6 text-ink-700">
+          <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-primary-200/70 bg-primary-50/60 text-primary-600">
+            <Bot size={15} aria-hidden />
+          </span>
+          <span>
+            <span className="block text-[0.66rem] font-semibold uppercase tracking-[0.24em] text-accent-700">
+              {t('aiBroadcaster')}
+            </span>
+            <span className="mt-1 block">{t('aiWarning')}</span>
+          </span>
+        </p>
+
         <BriefingCoverage
-          readTime={briefing.readTime}
           segments={renderedSegments}
           months={months}
           stories={stories}

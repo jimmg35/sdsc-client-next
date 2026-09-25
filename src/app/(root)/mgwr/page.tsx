@@ -20,7 +20,7 @@ import Link from 'next/link';
 
 const DOWNLOAD_VERSION = '2.2.1';
 
-const RULE = 'border-silk-600/25';
+const RULE = 'border-accent-600/25';
 
 const downloads = [
   {
@@ -133,7 +133,7 @@ export default function MGWR() {
               {t('downloads.tagline')}
             </p>
           </div>
-          <span className="ml-auto shrink-0 text-[0.68rem] font-semibold uppercase tabular-nums tracking-[0.24em] text-rose-600">
+          <span className="ml-auto shrink-0 text-[0.68rem] font-semibold uppercase tabular-nums tracking-[0.24em] text-primary-600">
             {tCommon('version', { version: DOWNLOAD_VERSION })}
           </span>
         </div>
@@ -171,10 +171,10 @@ export default function MGWR() {
                     <item.Icon
                       size={17}
                       aria-hidden
-                      className="mt-0.5 shrink-0 text-ink-500 transition-colors duration-300 group-hover:text-rose-600"
+                      className="mt-0.5 shrink-0 text-ink-500 transition-colors duration-300 group-hover:text-primary-600"
                     />
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-sm font-medium text-ink-900 transition-colors duration-300 group-hover:text-rose-600">
+                      <span className="block truncate text-sm font-medium text-ink-900 transition-colors duration-300 group-hover:text-primary-600">
                         {item.label}
                       </span>
                       <span className="mt-1 block text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-ink-500">
@@ -184,7 +184,7 @@ export default function MGWR() {
                     <ArrowUpRight
                       size={16}
                       aria-hidden
-                      className="mt-0.5 shrink-0 text-ink-500 transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-rose-600"
+                      className="mt-0.5 shrink-0 text-ink-500 transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary-600"
                     />
                   </ResourceRow>
                 </li>
@@ -201,13 +201,13 @@ export default function MGWR() {
               {sampleDatasets.map((dataset) => (
                 <li key={dataset.href} className={`border-t ${RULE}`}>
                   <ResourceRow href={dataset.href}>
-                    <span className="min-w-0 flex-1 truncate text-sm font-medium text-ink-900 transition-colors duration-300 group-hover:text-rose-600">
+                    <span className="min-w-0 flex-1 truncate text-sm font-medium text-ink-900 transition-colors duration-300 group-hover:text-primary-600">
                       {dataset.name}
                     </span>
                     <ArrowDownToLine
                       size={16}
                       aria-hidden
-                      className="shrink-0 text-ink-500 transition duration-300 group-hover:translate-y-0.5 group-hover:text-rose-600"
+                      className="shrink-0 text-ink-500 transition duration-300 group-hover:translate-y-0.5 group-hover:text-primary-600"
                     />
                   </ResourceRow>
                 </li>
@@ -227,11 +227,11 @@ export default function MGWR() {
                 <ResourceRow href={encodeURI(edition.href)}>
                   <span className="min-w-0 flex-1">
                     <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                      <span className="text-sm font-medium text-ink-900 transition-colors duration-300 group-hover:text-rose-600">
+                      <span className="text-sm font-medium text-ink-900 transition-colors duration-300 group-hover:text-primary-600">
                         {edition.releasedAt}
                       </span>
                       {index === 0 && (
-                        <span className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-rose-600">
+                        <span className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-primary-600">
                           {t('bibliographyHistory.current')}
                         </span>
                       )}
@@ -240,7 +240,7 @@ export default function MGWR() {
                       PDF &middot; {edition.size}
                     </span>
                   </span>
-                  <span className="inline-flex shrink-0 items-center gap-2 text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-ink-500 transition-colors duration-300 group-hover:text-rose-600">
+                  <span className="inline-flex shrink-0 items-center gap-2 text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-ink-500 transition-colors duration-300 group-hover:text-primary-600">
                     {t('bibliographyHistory.download')}
                     <ArrowDownToLine
                       size={15}
@@ -277,10 +277,10 @@ export default function MGWR() {
 
 function Eyebrow({ children }: { children: ReactNode }) {
   return (
-    <h2 className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-silk-700 md:tracking-[0.4em]">
+    <h2 className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-accent-700 md:tracking-[0.4em]">
       <span
         aria-hidden
-        className="h-px w-10 bg-gradient-to-r from-transparent to-silk-600/55"
+        className="h-px w-10 bg-gradient-to-r from-transparent to-accent-600/55"
       />
       {children}
     </h2>
@@ -301,7 +301,7 @@ function ResourceRow({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group calcite-focus -mx-3 flex items-start gap-4 rounded-2xl px-3 py-4 transition-colors duration-300 hover:bg-rose-50/50"
+      className="group calcite-focus -mx-3 flex items-start gap-4 rounded-2xl px-3 py-4 transition-colors duration-300 hover:bg-primary-50/50"
     >
       {children}
     </Link>

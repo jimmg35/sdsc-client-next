@@ -1,8 +1,9 @@
 'use client';
 
-import { RadioTower } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { ArrowDownRight, ArrowUpRight } from 'lucide-react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 
 type BriefingRenderedSegment = {
   anchorSlug?: string;
@@ -13,206 +14,257 @@ type BriefingStory = {
   slug: string;
   title: string;
   dateLabel: string;
+  /* Whether the narrative has a passage on this story to jump to. */
+  anchored: boolean;
 };
 
 type Props = {
-  readTime: string;
   segments: BriefingRenderedSegment[];
   months: number;
   stories: BriefingStory[];
 };
 
-const flareDurationMs = 2200;
-const fontSizeOptions = {
-  s: {
-    label: 'S',
-    proseClass: 'text-[0.98rem] prose-p:text-[0.98rem] prose-li:text-[0.98rem]'
-  },
-  m: {
-    label: 'M',
-    proseClass: 'text-[1.06rem] prose-p:text-[1.06rem] prose-li:text-[1.06rem]'
-  },
-  l: {
-    label: 'L',
-    proseClass: 'text-[1.16rem] prose-p:text-[1.16rem] prose-li:text-[1.16rem]'
-  }
-} as const;
+const RULE = 'border-accent-600/25';
 
-type FontSizeOption = keyof typeof fontSizeOptions;
+/* How long a passage stays lit after the list jumps to it. */
+const HIGHLIGHT_MS = 2200;
 
-const BriefingCoverage = ({ readTime, segments, months, stories }: Props) => {
+/* The typography plugin's own size steps, so line height and paragraph
+   spacing scale with the text instead of only the glyphs growing. */
+const TEXT_SIZES = [
+  { id: 's', label: 'S', className: 'prose-base' },
+  { id: 'm', label: 'M', className: 'prose-lg' },
+  { id: 'l', label: 'L', className: 'prose-xl' }
+] as const;
+
+type TextSize = (typeof TEXT_SIZES)[number]['id'];
+
+const passageId = (slug: string) => `briefing-story-${slug}`;
+
+const BriefingCoverage = ({ segments, months, stories }: Props) => {
   const t = useTranslations('briefing');
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
-  const [fontSize, setFontSize] = useState<FontSizeOption>('m');
-  const clearHighlightTimeoutRef = useRef<number | null>(null);
+  const [textSize, setTextSize] = useState<TextSize>('m');
+  const clearHighlightRef = useRef<number | null>(null);
 
-  const focusStory = (slug: string) => {
-    const targetId = `briefing-story-${slug}`;
-    const targetElement = document.getElementById(targetId);
+  const focusStory = useCallback((slug: string) => {
+    const target = document.getElementById(passageId(slug));
 
-    if (!targetElement) {
+    if (!target) {
       return;
     }
 
-    if (clearHighlightTimeoutRef.current) {
-      window.clearTimeout(clearHighlightTimeoutRef.current);
+    if (clearHighlightRef.current) {
+      window.clearTimeout(clearHighlightRef.current);
     }
 
-    setActiveSlug(null);
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
 
-    requestAnimationFrame(() => {
-      setActiveSlug(slug);
-      targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      window.history.replaceState(null, '', `#${targetId}`);
-
-      clearHighlightTimeoutRef.current = window.setTimeout(() => {
-        setActiveSlug((current) => (current === slug ? null : current));
-      }, flareDurationMs);
+    setActiveSlug(slug);
+    target.scrollIntoView({
+      behavior: reduceMotion ? 'auto' : 'smooth',
+      block: 'start'
     });
-  };
+    window.history.replaceState(null, '', `#${passageId(slug)}`);
 
+    clearHighlightRef.current = window.setTimeout(() => {
+      setActiveSlug((current) => (current === slug ? null : current));
+    }, HIGHLIGHT_MS);
+  }, []);
+
+  // A shared link to a passage lands on it, lit, rather than at the top.
   useEffect(() => {
+    const prefix = `#${passageId('')}`;
     const hash = window.location.hash;
 
-    if (!hash.startsWith('#briefing-story-')) {
+    if (!hash.startsWith(prefix) || hash.length === prefix.length) {
       return;
     }
 
-    const slug = hash.replace('#briefing-story-', '');
-
-    if (!slug) {
-      return;
-    }
-
-    const timer = window.setTimeout(() => {
-      focusStory(slug);
-    }, 120);
+    const timer = window.setTimeout(
+      () => focusStory(hash.slice(prefix.length)),
+      120
+    );
 
     return () => window.clearTimeout(timer);
-  }, []);
+  }, [focusStory]);
 
-  useEffect(() => {
-    return () => {
-      if (clearHighlightTimeoutRef.current) {
-        window.clearTimeout(clearHighlightTimeoutRef.current);
+  useEffect(
+    () => () => {
+      if (clearHighlightRef.current) {
+        window.clearTimeout(clearHighlightRef.current);
       }
-    };
-  }, []);
+    },
+    []
+  );
+
+  const sizeClass =
+    TEXT_SIZES.find((size) => size.id === textSize)?.className ?? '';
 
   return (
-    <div className="mt-12 grid gap-6 lg:items-start lg:grid-cols-[minmax(0,1fr)_22rem] xl:grid-cols-[minmax(0,1fr)_24rem]">
-      <article className="surface-fade px-6 py-8 md:px-10">
-        <div className="mb-6 flex flex-wrap items-center justify-end gap-3">
-          <div className="inline-flex rounded-full border border-rose-200/80 bg-surface/90 p-1 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-rose-500 shadow-[0_16px_38px_-30px_rgba(168,110,161,0.22)]">
-            {(Object.keys(fontSizeOptions) as FontSizeOption[]).map(
-              (option) => (
-                <button
-                  key={option}
-                  type="button"
-                  onClick={() => setFontSize(option)}
-                  className={`rounded-full px-3 py-1 text-[0.72rem] font-semibold uppercase tracking-[0.18em] transition ${
-                    fontSize === option
-                      ? 'bg-rose-50 text-rose-700 shadow-sm'
-                      : 'text-rose-500 hover:text-rose-700'
-                  }`}
-                  aria-label={t('textSizeAria', {
-                    size: fontSizeOptions[option].label
-                  })}
-                  aria-pressed={fontSize === option}
-                >
-                  {fontSizeOptions[option].label}
-                </button>
-              )
-            )}
-          </div>
-          <div className="inline-flex items-center rounded-full border border-rose-200/80 bg-surface/90 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-rose-500 shadow-[0_16px_38px_-30px_rgba(168,110,161,0.18)]">
-            {readTime}
+    <div className="mt-14 grid gap-x-16 gap-y-16 lg:grid-cols-[minmax(0,1fr)_19rem] xl:grid-cols-[minmax(0,1fr)_21rem]">
+      <article className="min-w-0 max-w-3xl">
+        <div className="mb-8 flex items-center justify-end gap-3">
+          <span
+            id="briefing-text-size"
+            className="text-[0.66rem] font-semibold uppercase tracking-[0.24em] text-ink-500"
+          >
+            {t('textSize')}
+          </span>
+          <div
+            role="group"
+            aria-labelledby="briefing-text-size"
+            className="flex items-center gap-1"
+          >
+            {TEXT_SIZES.map((size) => (
+              <button
+                key={size.id}
+                type="button"
+                onClick={() => setTextSize(size.id)}
+                aria-pressed={textSize === size.id}
+                aria-label={t('textSizeAria', { size: size.label })}
+                className={`h-7 w-7 cursor-pointer rounded-full text-[0.7rem] font-semibold transition-colors ${
+                  textSize === size.id
+                    ? 'bg-primary-50 text-primary-700 ring-1 ring-primary-200'
+                    : 'text-ink-500 hover:text-primary-600'
+                }`}
+              >
+                {size.label}
+              </button>
+            ))}
           </div>
         </div>
 
-        <div
-          className={`prose dark:prose-invert max-w-none text-justify text-ink-700 prose-headings:text-rose-700 prose-a:text-rose-600 prose-strong:text-ink-900 prose-p:text-justify prose-p:leading-8 prose-li:text-ink-700 ${fontSizeOptions[fontSize].proseClass}`}
-        >
+        <div className={`article-prose prose max-w-none ${sizeClass}`}>
           {segments.map((segment, index) => {
-            if (segment.anchorSlug) {
+            const slug = segment.anchorSlug;
+
+            if (!slug) {
               return (
-                <section
-                  id={`briefing-story-${segment.anchorSlug}`}
-                  key={`${segment.anchorSlug}-${index}`}
-                  className={`briefing-story-card scroll-mt-36 rounded-[28px] px-4 py-2 transition duration-300 md:scroll-mt-44 ${
-                    activeSlug === segment.anchorSlug
-                      ? 'briefing-story-active'
-                      : ''
-                  }`}
-                >
-                  <div dangerouslySetInnerHTML={{ __html: segment.html }} />
-                </section>
+                <div
+                  key={`segment-${index}`}
+                  dangerouslySetInnerHTML={{ __html: segment.html }}
+                />
               );
             }
 
+            /* A passage tied to a story hangs off a hairline in the margin,
+               which lights up when the list jumps to it. Its own margins are
+               zeroed inside so the tint sits evenly around the text and the
+               gaps between passages match the gaps between paragraphs. */
             return (
-              <div
-                key={`briefing-segment-${index}`}
-                dangerouslySetInnerHTML={{ __html: segment.html }}
-              />
+              <section
+                key={`${slug}-${index}`}
+                id={passageId(slug)}
+                className={`-ml-4 my-[1.4em] scroll-mt-36 rounded-r-xl border-l-2 py-1 pl-4 pr-3 transition-colors duration-700 md:-ml-6 md:scroll-mt-44 md:pl-6 [&>div>:first-child]:mt-0 [&>div>:last-child]:mb-0 ${
+                  activeSlug === slug
+                    ? 'border-primary-500 bg-primary-50/70'
+                    : `${RULE} bg-transparent`
+                }`}
+              >
+                <div dangerouslySetInnerHTML={{ __html: segment.html }} />
+                <Link
+                  href={`/news/${slug}`}
+                  className="not-prose group mt-4 inline-flex items-center gap-2 text-[0.66rem] font-semibold uppercase tracking-[0.24em] text-primary-600 no-underline transition-colors hover:text-primary-700"
+                >
+                  {t('readStory')}
+                  <ArrowUpRight
+                    size={14}
+                    aria-hidden
+                    className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  />
+                </Link>
+              </section>
             );
           })}
         </div>
       </article>
 
-      <aside className="lg:sticky lg:top-28 lg:self-start xl:top-32">
-        <section className="glass-card briefing-window-card px-6 py-6 text-ink-900 lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto">
-          <p className="panel-title">{t('window.title')}</p>
-          <div className="mt-4 rounded-3xl border border-rose-100 bg-surface/85 px-5 py-5">
-            <p className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-rose-500">
-              {t('window.storiesInScope')}
-            </p>
-            <div className="mt-4 flex items-end justify-between gap-4">
-              <p className="text-4xl font-semibold text-rose-700">
-                {stories.length}
-              </p>
-              <span className="rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-rose-500">
-                {t('window.rolling', { months })}
-              </span>
-            </div>
-          </div>
+      <aside className="lg:sticky lg:top-32 lg:self-start">
+        <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-accent-700">
+          <span
+            aria-hidden
+            className="h-px w-10 bg-gradient-to-r from-transparent to-accent-600/55"
+          />
+          {t('window.title')}
+        </p>
 
-          {stories.length > 0 ? (
-            <div className="mt-5 space-y-3">
-              {stories.map((story, index) => (
-                <button
-                  key={story.slug}
-                  type="button"
-                  onClick={() => focusStory(story.slug)}
-                  className="group flex w-full cursor-pointer items-start gap-4 rounded-[24px] border border-rose-100 bg-surface/88 px-4 py-4 text-left transition duration-300 hover:-translate-y-0.5 hover:border-rose-300 hover:shadow-[0_22px_48px_-32px_rgba(168,110,161,0.3)]"
-                >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-rose-200 bg-rose-50 text-xs font-semibold text-rose-600">
-                    {index + 1}
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-rose-500">
+        <div
+          className={`mt-6 flex items-end justify-between gap-4 border-y ${RULE} py-5`}
+        >
+          <p className="flex flex-col">
+            <span className="text-[2.4rem] font-semibold leading-none tracking-[-0.03em] text-ink-900 tabular-nums">
+              {stories.length}
+            </span>
+            <span className="mt-2 text-[0.66rem] font-semibold uppercase tracking-[0.24em] text-ink-500">
+              {t('window.storiesInScope', { count: stories.length })}
+            </span>
+          </p>
+          <span className="text-[0.66rem] font-semibold uppercase tracking-[0.24em] text-primary-600">
+            {t('window.rolling', { months })}
+          </span>
+        </div>
+
+        {stories.length > 0 ? (
+          <ol>
+            {stories.map((story) => {
+              const active = activeSlug === story.slug;
+              const Icon = story.anchored ? ArrowDownRight : ArrowUpRight;
+              const body = (
+                <>
+                  <span className="min-w-0">
+                    <span className="block text-[0.66rem] font-semibold uppercase tabular-nums tracking-[0.22em] text-primary-600">
                       {story.dateLabel}
-                    </p>
-                    <p className="mt-2 text-sm font-semibold leading-6 text-ink-900 transition group-hover:text-rose-700">
+                    </span>
+                    <span
+                      className={`mt-2 block text-sm font-medium leading-6 transition-colors duration-300 group-hover:text-primary-600 ${
+                        active ? 'text-primary-600' : 'text-ink-900'
+                      }`}
+                    >
                       {story.title}
-                    </p>
-                  </div>
-                </button>
-              ))}
-            </div>
-          ) : (
-            <div className="mt-5 rounded-[24px] border border-dashed border-rose-200 bg-surface/80 px-5 py-5 text-sm leading-7 text-ink-700">
-              {t('window.empty')}
-            </div>
-          )}
+                    </span>
+                  </span>
+                  <Icon
+                    size={15}
+                    aria-hidden
+                    className="mt-0.5 shrink-0 text-ink-500 transition duration-300 group-hover:text-primary-600"
+                  />
+                </>
+              );
+              const rowClass =
+                'group flex w-full cursor-pointer items-start justify-between gap-4 py-5 text-left';
 
-          <div className="mt-5 rounded-[24px] border border-rose-100 bg-rose-50/70 px-5 py-4">
-            <p className="inline-flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-rose-500">
-              <RadioTower size={14} />
-              {t('window.ordered')}
-            </p>
-          </div>
-        </section>
+              return (
+                <li key={story.slug} className={`border-b ${RULE}`}>
+                  {story.anchored ? (
+                    <button
+                      type="button"
+                      onClick={() => focusStory(story.slug)}
+                      aria-label={t('window.jump', { title: story.title })}
+                      className={rowClass}
+                    >
+                      {body}
+                    </button>
+                  ) : (
+                    <Link href={`/news/${story.slug}`} className={rowClass}>
+                      {body}
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        ) : (
+          <p className={`border-b ${RULE} py-5 text-sm leading-7 text-ink-700`}>
+            {t('window.empty')}
+          </p>
+        )}
+
+        <p className="mt-4 text-[0.66rem] font-semibold uppercase tracking-[0.24em] text-ink-500">
+          {t('window.ordered')}
+        </p>
       </aside>
     </div>
   );

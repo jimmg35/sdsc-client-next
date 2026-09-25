@@ -21,11 +21,54 @@ export interface PublicationData {
 }
 
 export function getAllPublications(): PublicationData[] {
+  return mergePublications(readPublicationRecords());
+}
+
+export function getPublicationById(id: string): PublicationData | null {
+  const publications = getAllPublications();
+  const publication = publications.find((pub) => pub.id === id);
+  return publication || null;
+}
+
+/* Hand-picked publications, each as its own meta.json describes it rather
+   than as the archive merges it. When a Google Scholar duplicate wins the
+   merge it brings its generated id and a venue padded with volume and pages,
+   so the record a curator named is the one to show. Credits still come from
+   the merged entry, so everyone the archive links to a paper stays linked to
+   it here. Ids that no longer exist are skipped. */
+export function getPublicationsByIds(ids: string[]): PublicationData[] {
+  const records = readPublicationRecords();
+  const recordsById = new Map(records.map((record) => [record.id, record]));
+  const creditsByKey = new Map(
+    mergePublications(records).map((publication) => [
+      buildPublicationKey(publication),
+      publication.memberIds
+    ])
+  );
+
+  return ids.flatMap((id) => {
+    const record = recordsById.get(id);
+
+    if (!record) {
+      return [];
+    }
+
+    return [
+      {
+        ...record,
+        memberIds:
+          creditsByKey.get(buildPublicationKey(record)) ?? record.memberIds
+      }
+    ];
+  });
+}
+
+function readPublicationRecords(): PublicationData[] {
   const publicationEntries = fs.readdirSync(publicationDirectory, {
     withFileTypes: true
   });
 
-  const publications = publicationEntries
+  return publicationEntries
     .filter((entry) => entry.isDirectory())
     .map((publicationEntry) => {
       const filePath = path.join(
@@ -71,14 +114,6 @@ export function getAllPublications(): PublicationData[] {
       (publication): publication is PublicationData =>
         publication !== null && Boolean(publication.id && publication.title)
     );
-
-  return mergePublications(publications);
-}
-
-export function getPublicationById(id: string): PublicationData | null {
-  const publications = getAllPublications();
-  const publication = publications.find((pub) => pub.id === id);
-  return publication || null;
 }
 
 function mergePublications(publications: PublicationData[]): PublicationData[] {

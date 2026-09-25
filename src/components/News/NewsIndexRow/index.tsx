@@ -16,7 +16,7 @@ const NewsIndexRow = async ({ data }: { data: NewsData }) => {
     data.date instanceof Date ? data.date : new Date(data.date);
 
   return (
-    <li className="border-b border-silk-600/25">
+    <li className="border-b border-accent-600/25">
       <Link
         href={`/news/${data.slug}`}
         className="group relative grid gap-x-10 gap-y-5 py-8 md:grid-cols-[9.5rem_1fr_11rem] md:items-start md:py-9"
@@ -24,13 +24,13 @@ const NewsIndexRow = async ({ data }: { data: NewsData }) => {
         {/* Echoes the rule beside the director's pull quote. */}
         <span
           aria-hidden
-          className="pointer-events-none absolute -left-4 top-0 hidden h-full w-px origin-top scale-y-0 bg-gradient-to-b from-silk-600 via-rose-500/70 to-transparent transition-transform duration-500 ease-out group-hover:scale-y-100 md:-left-8 md:block"
+          className="pointer-events-none absolute -left-4 top-0 hidden h-full w-px origin-top scale-y-0 bg-gradient-to-b from-accent-600 via-primary-500/70 to-transparent transition-transform duration-500 ease-out group-hover:scale-y-100 md:-left-8 md:block"
         />
 
         <div className="flex items-baseline gap-3 md:flex-col md:gap-2">
           <time
             dateTime={publishedAt.toISOString()}
-            className="text-[0.7rem] font-semibold uppercase tabular-nums tracking-[0.22em] text-rose-600"
+            className="text-[0.7rem] font-semibold uppercase tabular-nums tracking-[0.22em] text-primary-600"
           >
             {format.dateTime(publishedAt, {
               year: 'numeric',
@@ -44,7 +44,7 @@ const NewsIndexRow = async ({ data }: { data: NewsData }) => {
         </div>
 
         <div>
-          <h3 className="text-lg font-medium leading-snug tracking-[-0.01em] text-ink-900 transition-colors duration-300 group-hover:text-rose-600 md:text-2xl md:leading-[1.3]">
+          <h3 className="text-lg font-medium leading-snug tracking-[-0.01em] text-ink-900 transition-colors duration-300 group-hover:text-primary-600 md:text-2xl md:leading-[1.3]">
             {data.title}
           </h3>
           <p className="mt-3 line-clamp-2 text-sm leading-7 text-ink-700">
@@ -61,7 +61,7 @@ const NewsIndexRow = async ({ data }: { data: NewsData }) => {
             borrowing a placeholder, so the headlines stay on one measure
             down the list either way. */}
         {data.thumbnail && (
-          <figure className="relative order-first aspect-[16/9] w-full overflow-hidden rounded-xl border border-silk-600/25 bg-silk-200 md:order-last md:mt-1 md:aspect-[16/10]">
+          <figure className="relative order-first aspect-[16/9] w-full overflow-hidden rounded-xl border border-accent-600/25 bg-accent-200 md:order-last md:mt-1 md:aspect-[16/10]">
             <Image
               src={data.thumbnail}
               alt=""
@@ -80,7 +80,7 @@ const NewsIndexRow = async ({ data }: { data: NewsData }) => {
             />
             <span
               aria-hidden
-              className="absolute inset-0 flex items-center justify-center bg-[#160f12]/55 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              className="absolute inset-0 flex items-center justify-center bg-night/55 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100"
             >
               <ArrowUpRight size={22} />
             </span>

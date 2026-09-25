@@ -21,7 +21,7 @@ type Props = Promise<{
   slug: string;
 }>;
 
-const RULE = 'border-silk-600/25';
+const RULE = 'border-accent-600/25';
 
 export async function generateStaticParams() {
   const members = getAllMembers();
@@ -59,7 +59,7 @@ export default async function ProfilePage(props: { params: Props }) {
       <div className="mx-auto w-full max-w-6xl px-6 pb-28 pt-36 md:pt-40">
         <Link
           href="/member"
-          className="group inline-flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-rose-600 transition-colors hover:text-rose-700"
+          className="group inline-flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-primary-600 transition-colors hover:text-primary-700"
         >
           <ArrowLeft
             size={16}
@@ -73,8 +73,8 @@ export default async function ProfilePage(props: { params: Props }) {
               The old circle sat in a `halo` and used Avatar's default variant,
               whose ring colours no longer exist in the theme. */}
           <div className="w-full max-w-[15rem] shrink-0">
-            <div className="relative w-full rounded-[2.25rem] border border-silk-600/40 bg-gradient-to-b from-silk-500/25 via-transparent to-rose-400/15 p-[0.6rem] shadow-[0_55px_95px_-58px_rgba(56,43,28,0.9)]">
-              <div className="relative aspect-square w-full overflow-hidden rounded-[1.7rem] border border-silk-600/30 bg-silk-200">
+            <div className="relative w-full rounded-[2.25rem] border border-accent-600/40 bg-gradient-to-b from-accent-500/25 via-transparent to-primary-400/15 p-[0.6rem] shadow-portrait">
+              <div className="relative aspect-square w-full overflow-hidden rounded-[1.7rem] border border-accent-600/30 bg-accent-200">
                 <Image
                   src={member.thumbnail}
                   alt={`${member.name} portrait`}
@@ -88,10 +88,10 @@ export default async function ProfilePage(props: { params: Props }) {
           </div>
 
           <div className="min-w-0 flex-1">
-            <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-silk-700 md:tracking-[0.36em]">
+            <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-accent-700 md:tracking-[0.36em]">
               <span
                 aria-hidden
-                className="h-px w-8 bg-gradient-to-r from-transparent to-silk-600/55"
+                className="h-px w-8 bg-gradient-to-r from-transparent to-accent-600/55"
               />
               {member.centerRole || t('roleFallback')}
             </p>
@@ -140,7 +140,7 @@ export default async function ProfilePage(props: { params: Props }) {
           >
             {member.department && (
               <div>
-                <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-silk-700">
+                <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-accent-700">
                   {t('department')}
                 </dt>
                 <dd className="mt-3 text-sm leading-6 text-ink-900">
@@ -151,7 +151,7 @@ export default async function ProfilePage(props: { params: Props }) {
 
             {advisorName && (
               <div>
-                <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-silk-700">
+                <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-accent-700">
                   {t('advisor')}
                 </dt>
                 <dd className="mt-3">
@@ -159,7 +159,7 @@ export default async function ProfilePage(props: { params: Props }) {
                     <Link
                       href={`/member/${advisorMember.id}`}
                       aria-label={t('viewProfileAria', { name: advisorName })}
-                      className="group -mx-3 inline-flex items-center gap-4 rounded-2xl px-3 py-2 transition-colors duration-300 hover:bg-rose-50/55"
+                      className="group -mx-3 inline-flex items-center gap-4 rounded-2xl px-3 py-2 transition-colors duration-300 hover:bg-primary-50/55"
                     >
                       <Avatar
                         src={advisorMember.thumbnail}
@@ -169,7 +169,7 @@ export default async function ProfilePage(props: { params: Props }) {
                         className="shrink-0 group-hover:scale-[1.04]"
                       />
                       <span className="min-w-0">
-                        <span className="block text-sm font-medium text-ink-900 transition-colors duration-300 group-hover:text-rose-600">
+                        <span className="block text-sm font-medium text-ink-900 transition-colors duration-300 group-hover:text-primary-600">
                           {advisorName}
                         </span>
                         {advisorTitle && (
@@ -258,7 +258,7 @@ export default async function ProfilePage(props: { params: Props }) {
                   <ul className="mt-6">
                     {member.honor.map((honor, idx) => (
                       <li key={idx} className={`border-t ${RULE} py-5`}>
-                        <p className="text-[0.68rem] font-semibold uppercase tabular-nums tracking-[0.24em] text-rose-600">
+                        <p className="text-[0.68rem] font-semibold uppercase tabular-nums tracking-[0.24em] text-primary-600">
                           {honor.year}
                         </p>
                         <p className="mt-2 text-sm leading-6 text-ink-900">
@@ -280,7 +280,7 @@ export default async function ProfilePage(props: { params: Props }) {
                           {member.aoi.map((area, idx) => (
                             <li
                               key={idx}
-                              className="rounded-full border border-silk-600/30 bg-surface/70 px-3.5 py-1.5 text-xs font-medium text-ink-700"
+                              className="rounded-full border border-accent-600/30 bg-surface/70 px-3.5 py-1.5 text-xs font-medium text-ink-700"
                             >
                               {area}
                             </li>
@@ -317,10 +317,10 @@ export default async function ProfilePage(props: { params: Props }) {
 function SectionHeading({ title, count }: { title: string; count?: number }) {
   return (
     <div className="flex items-baseline justify-between gap-4">
-      <h2 className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.32em] text-silk-700">
+      <h2 className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.32em] text-accent-700">
         <span
           aria-hidden
-          className="h-px w-8 bg-gradient-to-r from-transparent to-silk-600/55"
+          className="h-px w-8 bg-gradient-to-r from-transparent to-accent-600/55"
         />
         {title}
       </h2>
@@ -345,7 +345,7 @@ function ProfileActionLink({
   external?: boolean;
 }) {
   const className =
-    'inline-flex items-center justify-center gap-2 rounded-full border border-rose-200/70 bg-surface/85 px-5 py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-rose-600 transition hover:border-rose-300 hover:text-rose-700';
+    'inline-flex items-center justify-center gap-2 rounded-full border border-primary-200/70 bg-surface/85 px-5 py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-primary-600 transition hover:border-primary-300 hover:text-primary-700';
 
   // External targets (Scholar) and static assets (CV files under /cv) are not
   // app routes, so they use a plain anchor rather than next/link.
@@ -380,7 +380,7 @@ function DetailGroup({
 }) {
   return (
     <div>
-      <h3 className="text-[0.66rem] font-semibold uppercase tracking-[0.24em] text-rose-600">
+      <h3 className="text-[0.66rem] font-semibold uppercase tracking-[0.24em] text-primary-600">
         {title}
       </h3>
       <div className="mt-4">{children}</div>

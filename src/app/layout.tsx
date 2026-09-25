@@ -1,7 +1,8 @@
 ﻿import GAPageView from '@/components/Analytics/GAPageView';
+import DevTools from '@/components/DevTools';
 import easternEgg from '@/lib/easterneggs';
 import { GA_ID, gaInitScript } from '@/lib/ga';
-import { themeInitScript } from '@/lib/theme';
+import { SITE_PALETTE, themeInitScript } from '@/lib/theme';
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
@@ -42,7 +43,7 @@ export default function RootLayout({
     // The theme script mutates <html> before React hydrates, which is the point
     // of it — suppressHydrationWarning stops React objecting to its own markup
     // not matching.
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-palette={SITE_PALETTE} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         {/* Plain inline script rather than next/script: this has to run before
@@ -62,6 +63,7 @@ export default function RootLayout({
         <div hidden dangerouslySetInnerHTML={{ __html: easternEgg }} />
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
         <Analytics />
+        <DevTools />
       </body>
     </html>
   );

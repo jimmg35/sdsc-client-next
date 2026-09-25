@@ -57,6 +57,8 @@
   "research": {
     "chip": "Research",
     "areasEyebrow": "Focus Areas",
+    "areasNav": "Jump to a focus area",
+    "publicationsEyebrow": "Selected Publications",
     "title": "Advancing spatial knowledge and practice",
     "intro": "The Spatial Data Science Center (SDSC) is committed to developing solutions to some of society's most pressing problems in areas such as health, transportation, crime, poverty and the environment through the power of spatial data analytics.",
     "areas": {
@@ -315,16 +317,19 @@
   "briefing": {
     "back": "Back to Newsroom",
     "aiBroadcaster": "SDSC AI Broadcaster",
-    "aiWarning": "AI briefing may contain errors. Review carefully.",
+    "aiWarning": "This briefing is drafted by AI from the newsroom posts it links to, so it can get details wrong. Check the stories themselves before citing it.",
     "range": "{start} to {end}",
     "updated": "Updated {date}",
+    "textSize": "Text size",
     "textSizeAria": "Set briefing text size to {size}",
+    "readStory": "Read the full story",
     "window": {
-      "title": "Briefing Window",
-      "storiesInScope": "Stories in scope",
-      "rolling": "Rolling {months} months",
-      "empty": "No stories are currently inside the rolling briefing window yet.",
-      "ordered": "Ordered newest to oldest"
+      "title": "In This Briefing",
+      "storiesInScope": "{count, plural, one {Story} other {Stories}}",
+      "rolling": "{months}-month window",
+      "empty": "No newsroom stories fall inside this briefing's window.",
+      "ordered": "Ordered newest to oldest",
+      "jump": "Jump to the passage on {title}"
     }
   },
   "announcements": {
@@ -384,6 +389,9 @@
   },
   "stories": {
     "close": "Close story viewer",
+    "pause": "Pause stories",
+    "play": "Play stories",
+    "navigation": "Story navigation",
     "counter": "Story {current} / {total}",
     "memberStory": "Member Story",
     "groupStory": "Group Story",

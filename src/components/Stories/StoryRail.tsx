@@ -31,6 +31,7 @@ export default function StoryRail({
 }: StoryRailProps) {
   const t = useTranslations('stories');
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const closeStory = useCallback(() => setActiveIndex(null), []);
   const railRef = useRef<HTMLDivElement>(null);
   /* Eight stories always overrun the panel, and the scrollbar is hidden, so
      the arrows are the only affordance saying the row continues. They disable
@@ -94,10 +95,10 @@ export default function StoryRail({
         <div className="relative mx-auto w-full max-w-5xl">
           <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <div className="max-w-2xl">
-              <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-silk-700 md:text-xs md:tracking-[0.42em]">
+              <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-accent-700 md:text-xs md:tracking-[0.42em]">
                 <span
                   aria-hidden
-                  className="h-px w-10 bg-gradient-to-r from-transparent to-silk-600/55"
+                  className="h-px w-10 bg-gradient-to-r from-transparent to-accent-600/55"
                 />
                 {eyebrow}
               </p>
@@ -113,7 +114,7 @@ export default function StoryRail({
               {ctaHref && ctaLabel && (
                 <Link
                   href={ctaHref}
-                  className="group inline-flex shrink-0 items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-rose-600 transition-colors hover:text-rose-700"
+                  className="group inline-flex shrink-0 items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-primary-600 transition-colors hover:text-primary-700"
                 >
                   {ctaLabel}
                   <ArrowUpRight
@@ -130,7 +131,7 @@ export default function StoryRail({
                     aria-label={t('scrollPrev')}
                     disabled={!overflow.left}
                     onClick={() => scrollByStep(-1)}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-silk-600/30 text-ink-500 transition duration-300 hover:border-rose-400/60 hover:bg-rose-50 hover:text-rose-600 disabled:pointer-events-none disabled:opacity-30"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-accent-600/30 text-ink-500 transition duration-300 hover:border-primary-400/60 hover:bg-primary-50 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-30"
                   >
                     <ArrowLeft size={16} />
                   </button>
@@ -139,7 +140,7 @@ export default function StoryRail({
                     aria-label={t('scrollNext')}
                     disabled={!overflow.right}
                     onClick={() => scrollByStep(1)}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-silk-600/30 text-ink-500 transition duration-300 hover:border-rose-400/60 hover:bg-rose-50 hover:text-rose-600 disabled:pointer-events-none disabled:opacity-30"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-accent-600/30 text-ink-500 transition duration-300 hover:border-primary-400/60 hover:bg-primary-50 hover:text-primary-600 disabled:pointer-events-none disabled:opacity-30"
                   >
                     <ArrowRight size={16} />
                   </button>
@@ -179,7 +180,7 @@ export default function StoryRail({
                     </span>
 
                     {isGroup && (
-                      <span className="absolute -bottom-1 -right-1 inline-flex rounded-full bg-surface p-[2px] shadow-[0_10px_20px_-14px_rgba(44,36,32,0.5)]">
+                      <span className="absolute -bottom-1 -right-1 inline-flex rounded-full bg-surface p-[2px] shadow-lift-sm">
                         <Avatar
                           src={second.thumbnail}
                           size={30}
@@ -194,12 +195,12 @@ export default function StoryRail({
                       two lines rather than truncating someone mid-surname,
                       and holds that height either way to keep the titles
                       below on one baseline across the row. */}
-                  <p className="mt-5 line-clamp-2 min-h-8 text-[0.68rem] font-semibold uppercase leading-4 tracking-[0.2em] text-rose-600">
+                  <p className="mt-5 line-clamp-2 min-h-8 text-[0.68rem] font-semibold uppercase leading-4 tracking-[0.2em] text-primary-600">
                     {story.kind === 'single'
                       ? primary.name
                       : t('voices', { count: story.members.length })}
                   </p>
-                  <p className="mt-2 line-clamp-3 text-sm leading-6 text-ink-900 transition-colors duration-300 group-hover/story:text-rose-600">
+                  <p className="mt-2 line-clamp-3 text-sm leading-6 text-ink-900 transition-colors duration-300 group-hover/story:text-primary-600">
                     {story.title}
                   </p>
                 </button>
@@ -209,12 +210,14 @@ export default function StoryRail({
         </div>
       </section>
 
-      <StoryModal
-        stories={stories}
-        isOpen={activeIndex !== null}
-        initialIndex={activeIndex ?? 0}
-        onClose={() => setActiveIndex(null)}
-      />
+      {/* Mounted only while open, so each opening starts fresh. */}
+      {activeIndex !== null && (
+        <StoryModal
+          stories={stories}
+          initialIndex={activeIndex}
+          onClose={closeStory}
+        />
+      )}
     </>
   );
 }

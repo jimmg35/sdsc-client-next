@@ -54,7 +54,7 @@ export default function About() {
     <section className="page-shell">
       <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 text-gold-100 md:pt-40">
         <header className="text-center">
-          <span className="chip-gold">About SDSC</span>
+          <span className="chip-accent">About SDSC</span>
           <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
             Spatial intelligence for real-world change
           </h1>

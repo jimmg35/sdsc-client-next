@@ -49,10 +49,10 @@ const CitationCard = ({
 
   return (
     /* A numbered reference in a ruled list rather than a bordered box. */
-    <li className="grid gap-x-6 gap-y-3 border-t border-silk-600/25 py-6 sm:grid-cols-[2.5rem_1fr]">
+    <li className="grid gap-x-6 gap-y-3 border-t border-accent-600/25 py-6 sm:grid-cols-[2.5rem_1fr]">
       <span
         aria-hidden="true"
-        className="hidden text-[0.7rem] font-semibold tabular-nums tracking-[0.18em] text-rose-600 sm:block"
+        className="hidden text-[0.7rem] font-semibold tabular-nums tracking-[0.18em] text-primary-600 sm:block"
       >
         {String(index).padStart(2, '0')}
       </span>
@@ -65,7 +65,7 @@ const CitationCard = ({
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="calcite-focus group/access inline-flex items-center gap-2 text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-rose-600 transition-colors hover:text-rose-700"
+            className="calcite-focus group/access inline-flex items-center gap-2 text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-primary-600 transition-colors hover:text-primary-700"
           >
             {accessLabel}
             <ArrowUpRight
@@ -77,7 +77,7 @@ const CitationCard = ({
           <button
             type="button"
             onClick={handleCopy}
-            className="calcite-focus inline-flex items-center gap-2 text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-ink-500 transition-colors hover:text-rose-600"
+            className="calcite-focus inline-flex items-center gap-2 text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-ink-500 transition-colors hover:text-primary-600"
           >
             {copied ? <Check size={14} /> : <Copy size={14} />}
             <span aria-live="polite">{copied ? copiedLabel : copyLabel}</span>

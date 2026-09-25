@@ -16,7 +16,7 @@ const quickLinks = [
 /** Build marker shown in the footer bar, bumped with each release. */
 const BUILD_VERSION = 'b0.20260119.283';
 
-const RULE = 'border-silk-600/25';
+const RULE = 'border-accent-600/25';
 
 const Footer = async () => {
   const t = await getTranslations('footer');
@@ -24,7 +24,7 @@ const Footer = async () => {
 
   return (
     <footer
-      className={`relative border-t ${RULE} bg-surface/90 text-ink-700 dark:bg-silk-50/90`}
+      className={`relative border-t ${RULE} bg-surface/90 text-ink-700 dark:bg-accent-50/90`}
     >
       <div className="mx-auto max-w-6xl px-6 py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-14">
@@ -43,7 +43,7 @@ const Footer = async () => {
             </p>
             <Link
               href="/contact"
-              className="group mt-7 inline-flex items-center gap-2 rounded-full border border-rose-200/70 bg-surface/85 px-5 py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-rose-600 transition hover:border-rose-300 hover:text-rose-700"
+              className="group mt-7 inline-flex items-center gap-2 rounded-full border border-primary-200/70 bg-surface/85 px-5 py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-primary-600 transition hover:border-primary-300 hover:text-primary-700"
             >
               {t('partnerWithUs')}
               <ArrowUpRight
@@ -60,7 +60,7 @@ const Footer = async () => {
                 <li key={item.key}>
                   <Link
                     href={item.href}
-                    className="text-sm text-ink-700 transition-colors duration-300 hover:text-rose-600"
+                    className="text-sm text-ink-700 transition-colors duration-300 hover:text-primary-600"
                   >
                     {tNav(item.key)}
                   </Link>
@@ -76,7 +76,7 @@ const Footer = async () => {
                 <MapPin
                   size={17}
                   aria-hidden
-                  className="mt-1 shrink-0 text-rose-600"
+                  className="mt-1 shrink-0 text-primary-600"
                 />
                 <span>
                   {CONTACT_ADDRESS_LINES.map((line) => (
@@ -90,11 +90,11 @@ const Footer = async () => {
                 <Mail
                   size={17}
                   aria-hidden
-                  className="shrink-0 text-rose-600"
+                  className="shrink-0 text-primary-600"
                 />
                 <a
                   href={`mailto:${CONTACT_EMAIL}`}
-                  className="transition-colors duration-300 hover:text-rose-600"
+                  className="transition-colors duration-300 hover:text-primary-600"
                 >
                   {CONTACT_EMAIL}
                 </a>
@@ -116,7 +116,7 @@ const Footer = async () => {
 
 function FooterHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h3 className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-silk-700">
+    <h3 className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-accent-700">
       {children}
     </h3>
   );

@@ -26,7 +26,7 @@ type MembersDirectoryProps = {
 
 type ActionVariant = 'profile' | 'scholar' | 'email';
 
-const RULE = 'border-silk-600/25';
+const RULE = 'border-accent-600/25';
 
 export default async function MembersDirectory({
   director,
@@ -45,7 +45,7 @@ export default async function MembersDirectory({
           /* Column-reverse so the term stays before its value in the markup
              while the figure still reads first. */
           <div key={item.label} className="flex flex-col-reverse">
-            <dt className="mt-3 text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-silk-700">
+            <dt className="mt-3 text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-accent-700">
               {item.label}
             </dt>
             <dd className="text-[2.4rem] font-semibold leading-none tracking-[-0.03em] text-ink-900 tabular-nums">
@@ -81,10 +81,10 @@ export default async function MembersDirectory({
         >
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div className="max-w-2xl">
-              <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-silk-700 md:tracking-[0.4em]">
+              <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-accent-700 md:tracking-[0.4em]">
                 <span
                   aria-hidden
-                  className="h-px w-10 bg-gradient-to-r from-transparent to-silk-600/55"
+                  className="h-px w-10 bg-gradient-to-r from-transparent to-accent-600/55"
                 />
                 {section.eyebrow}
               </p>
@@ -117,10 +117,10 @@ async function DirectorSpotlight({ member }: { member: MemberData }) {
 
   return (
     <section id="director" className="mt-20 scroll-mt-32 md:scroll-mt-40">
-      <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-silk-700 md:tracking-[0.4em]">
+      <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-accent-700 md:tracking-[0.4em]">
         <span
           aria-hidden
-          className="h-px w-10 bg-gradient-to-r from-transparent to-silk-600/55"
+          className="h-px w-10 bg-gradient-to-r from-transparent to-accent-600/55"
         />
         {t('centerDirector')}
       </p>
@@ -130,8 +130,8 @@ async function DirectorSpotlight({ member }: { member: MemberData }) {
             rather than a circle inside a halo. No caption: `centerRole` reads
             "Center Director" here, which the section eyebrow already says. */}
         <div className="w-full max-w-[17rem] shrink-0">
-          <div className="relative w-full rounded-[2.25rem] border border-silk-600/40 bg-gradient-to-b from-silk-500/25 via-transparent to-rose-400/15 p-[0.6rem] shadow-[0_55px_95px_-58px_rgba(56,43,28,0.9)]">
-            <div className="relative aspect-square w-full overflow-hidden rounded-[1.7rem] border border-silk-600/30 bg-silk-200">
+          <div className="relative w-full rounded-[2.25rem] border border-accent-600/40 bg-gradient-to-b from-accent-500/25 via-transparent to-primary-400/15 p-[0.6rem] shadow-portrait">
+            <div className="relative aspect-square w-full overflow-hidden rounded-[1.7rem] border border-accent-600/30 bg-accent-200">
               <Image
                 src={member.thumbnail}
                 alt={`${member.name} portrait`}
@@ -179,7 +179,7 @@ async function DirectorSpotlight({ member }: { member: MemberData }) {
 
           {member.honor.length > 0 && (
             <div className={`mt-10 border-t ${RULE} pt-8`}>
-              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-silk-700">
+              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-accent-700">
                 {t('selectRecognition')}
               </p>
               <ul className="mt-5 grid gap-x-10 sm:grid-cols-2">
@@ -191,7 +191,7 @@ async function DirectorSpotlight({ member }: { member: MemberData }) {
                     <p className="text-sm font-medium leading-6 text-ink-900">
                       {honor.title}
                     </p>
-                    <p className="mt-1 text-[0.68rem] font-semibold uppercase tracking-[0.24em] tabular-nums text-rose-600">
+                    <p className="mt-1 text-[0.68rem] font-semibold uppercase tracking-[0.24em] tabular-nums text-primary-600">
                       {honor.year}
                     </p>
                   </li>
@@ -213,7 +213,7 @@ async function MemberCard({ member }: { member: MemberData }) {
        read as one directory instead of twenty-two floating boxes. */
     <Link
       href={`/member/${member.id}`}
-      className={`group -mx-4 flex h-full gap-5 border-t ${RULE} px-4 py-6 transition-colors duration-300 hover:bg-rose-50/55 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300/70`}
+      className={`group -mx-4 flex h-full gap-5 border-t ${RULE} px-4 py-6 transition-colors duration-300 hover:bg-primary-50/55 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-300/70`}
     >
       <Avatar
         src={member.thumbnail}
@@ -224,10 +224,10 @@ async function MemberCard({ member }: { member: MemberData }) {
       />
 
       <div className="min-w-0 flex-1">
-        <p className="text-[0.66rem] font-semibold uppercase tracking-[0.24em] text-rose-600">
+        <p className="text-[0.66rem] font-semibold uppercase tracking-[0.24em] text-primary-600">
           {member.centerRole || t('memberRoleFallback')}
         </p>
-        <h3 className="mt-2 text-lg font-medium leading-snug tracking-[-0.01em] text-ink-900 transition-colors duration-300 group-hover:text-rose-600">
+        <h3 className="mt-2 text-lg font-medium leading-snug tracking-[-0.01em] text-ink-900 transition-colors duration-300 group-hover:text-primary-600">
           {member.name}
         </h3>
         {member.title && (
@@ -237,7 +237,7 @@ async function MemberCard({ member }: { member: MemberData }) {
         )}
         {member.advisor && (
           <p className="mt-3 text-xs leading-5 text-ink-500">
-            <span className="font-semibold uppercase tracking-[0.18em] text-silk-700">
+            <span className="font-semibold uppercase tracking-[0.18em] text-accent-700">
               {t('advisor')}
             </span>{' '}
             {member.advisor}
@@ -248,7 +248,7 @@ async function MemberCard({ member }: { member: MemberData }) {
       <ArrowUpRight
         size={16}
         aria-hidden
-        className="mt-1 shrink-0 text-ink-500 opacity-0 transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-rose-600 group-hover:opacity-100"
+        className="mt-1 shrink-0 text-ink-500 opacity-0 transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary-600 group-hover:opacity-100"
       />
     </Link>
   );
@@ -268,8 +268,8 @@ function ActionLink({
   primary?: boolean;
 }) {
   const tone = primary
-    ? 'border-rose-400/70 bg-rose-500/90 text-white hover:bg-rose-600'
-    : 'border-rose-200/70 bg-surface/85 text-rose-600 hover:border-rose-300 hover:text-rose-700';
+    ? 'border-primary-400/70 bg-primary-500/90 text-white hover:bg-primary-600'
+    : 'border-primary-200/70 bg-surface/85 text-primary-600 hover:border-primary-300 hover:text-primary-700';
 
   return (
     <Link
@@ -298,7 +298,7 @@ function AnchorLink({ href, label }: { href: string; label: string }) {
   return (
     <Link
       href={href}
-      className="text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-ink-500 transition-colors hover:text-rose-600"
+      className="text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-ink-500 transition-colors hover:text-primary-600"
     >
       {label}
     </Link>

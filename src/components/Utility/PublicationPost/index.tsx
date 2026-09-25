@@ -35,9 +35,9 @@ const PublicationPost = ({
   const publicationYear = year ? String(year) : t('undated');
 
   return (
-    <article className="border-t border-silk-600/25 py-7">
+    <article className="border-t border-accent-600/25 py-7">
       <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
-        <span className="text-[0.68rem] font-semibold uppercase tabular-nums tracking-[0.24em] text-rose-600">
+        <span className="text-[0.68rem] font-semibold uppercase tabular-nums tracking-[0.24em] text-primary-600">
           {publicationYear}
         </span>
         {journal && (
@@ -60,7 +60,7 @@ const PublicationPost = ({
       <div className="mt-5 flex flex-wrap items-center gap-x-8 gap-y-4">
         {centerMembers.length > 0 ? (
           <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-            <span className="text-[0.64rem] font-semibold uppercase tracking-[0.22em] text-silk-700">
+            <span className="text-[0.64rem] font-semibold uppercase tracking-[0.22em] text-accent-700">
               {t('contributors')}
             </span>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
@@ -68,7 +68,7 @@ const PublicationPost = ({
                 <Link
                   key={member.id}
                   href={`/member/${member.id}`}
-                  className="group/member inline-flex items-center gap-2.5 text-sm font-medium text-ink-900 transition-colors duration-300 hover:text-rose-600"
+                  className="group/member inline-flex items-center gap-2.5 text-sm font-medium text-ink-900 transition-colors duration-300 hover:text-primary-600"
                 >
                   <Avatar
                     src={member.thumbnail}
@@ -91,7 +91,7 @@ const PublicationPost = ({
             href={doiUrl}
             target="_blank"
             rel="noreferrer"
-            className="group/doi ml-auto inline-flex min-w-0 items-center gap-2 text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-rose-600 transition-colors hover:text-rose-700"
+            className="group/doi ml-auto inline-flex min-w-0 items-center gap-2 text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-primary-600 transition-colors hover:text-primary-700"
           >
             DOI
             <span className="max-w-[14rem] truncate normal-case tracking-normal text-ink-500">

@@ -43,7 +43,7 @@ export default async function PostPage(props: { params: Props }) {
       <div className="mx-auto max-w-3xl px-6 pb-28 pt-36 md:pt-40">
         <Link
           href="/news"
-          className="group inline-flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-rose-600 transition-colors hover:text-rose-700"
+          className="group inline-flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-primary-600 transition-colors hover:text-primary-700"
         >
           <ArrowLeft
             size={16}
@@ -54,7 +54,7 @@ export default async function PostPage(props: { params: Props }) {
 
         <article className="mt-12">
           <header>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-rose-600">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-primary-600">
               <time
                 dateTime={publishedAt.toISOString()}
                 className="tabular-nums"
@@ -65,7 +65,7 @@ export default async function PostPage(props: { params: Props }) {
                   day: 'numeric'
                 })}
               </time>
-              <span aria-hidden className="h-px w-8 bg-silk-600/45" />
+              <span aria-hidden className="h-px w-8 bg-accent-600/45" />
               <span className="tracking-[0.18em] text-ink-500">
                 {post.author}
               </span>
@@ -77,13 +77,13 @@ export default async function PostPage(props: { params: Props }) {
 
             {/* Standfirst. Set larger than the body so the eye lands here
                 first, and ruled off from it. */}
-            <p className="mt-7 border-b border-silk-600/25 pb-9 text-lg leading-8 text-ink-700 md:text-xl md:leading-9">
+            <p className="mt-7 border-b border-accent-600/25 pb-9 text-lg leading-8 text-ink-700 md:text-xl md:leading-9">
               {post.description}
             </p>
           </header>
 
           {post.thumbnail && (
-            <figure className="relative mt-10 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-silk-600/25 bg-silk-200">
+            <figure className="relative mt-10 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-accent-600/25 bg-accent-200">
               {/* Artwork ranges from wide photographs to transparent agency
                   logos, so an over-scaled blurred copy fills the frame and the
                   real image is contained on top of it — the same treatment the
@@ -117,7 +117,7 @@ export default async function PostPage(props: { params: Props }) {
               href={post.sourceUrl}
               target="_blank"
               rel="noreferrer noopener"
-              className="group mt-12 flex items-center justify-between gap-6 border-y border-silk-600/25 py-6 text-[0.7rem] font-semibold uppercase tracking-[0.26em] text-rose-600 transition-colors hover:text-rose-700"
+              className="group mt-12 flex items-center justify-between gap-6 border-y border-accent-600/25 py-6 text-[0.7rem] font-semibold uppercase tracking-[0.26em] text-primary-600 transition-colors hover:text-primary-700"
             >
               {t('viewSource')}
               <ArrowUpRight
@@ -130,10 +130,10 @@ export default async function PostPage(props: { params: Props }) {
 
         {people.length > 0 && (
           <section className="mt-16">
-            <h2 className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-silk-700">
+            <h2 className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-accent-700">
               <span
                 aria-hidden
-                className="h-px w-10 bg-gradient-to-r from-transparent to-silk-600/55"
+                className="h-px w-10 bg-gradient-to-r from-transparent to-accent-600/55"
               />
               {t('inThisStory')}
             </h2>
@@ -143,7 +143,7 @@ export default async function PostPage(props: { params: Props }) {
                 <li key={member.id}>
                   <Link
                     href={`/member/${member.id}`}
-                    className="group -mx-3 flex items-center gap-4 rounded-2xl px-3 py-3 transition-colors duration-300 hover:bg-rose-50/60"
+                    className="group -mx-3 flex items-center gap-4 rounded-2xl px-3 py-3 transition-colors duration-300 hover:bg-primary-50/60"
                   >
                     <Avatar
                       src={member.thumbnail}
@@ -153,7 +153,7 @@ export default async function PostPage(props: { params: Props }) {
                       className="shrink-0 group-hover:scale-[1.04]"
                     />
                     <span className="min-w-0">
-                      <span className="block truncate text-sm font-medium text-ink-900 transition-colors duration-300 group-hover:text-rose-600">
+                      <span className="block truncate text-sm font-medium text-ink-900 transition-colors duration-300 group-hover:text-primary-600">
                         {member.name}
                       </span>
                       <span className="mt-0.5 block truncate text-xs leading-5 text-ink-500">
@@ -169,7 +169,7 @@ export default async function PostPage(props: { params: Props }) {
 
         <Link
           href="/news"
-          className="group mt-16 flex items-center gap-2 border-t border-silk-600/25 pt-7 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-rose-600 transition-colors hover:text-rose-700"
+          className="group mt-16 flex items-center gap-2 border-t border-accent-600/25 pt-7 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-primary-600 transition-colors hover:text-primary-700"
         >
           <ArrowLeft
             size={16}

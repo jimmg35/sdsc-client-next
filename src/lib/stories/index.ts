@@ -9,7 +9,9 @@ import type {
 export const DEFAULT_STORY_WINDOW_MONTHS = 6;
 
 const SUMMARY_LIMIT = 190;
-const HIGHLIGHT_LIMIT = 150;
+/* The viewer gives the spotlight its own column, so a highlight can run to a
+   full sentence before it needs trimming. */
+const HIGHLIGHT_LIMIT = 220;
 
 const normalizeText = (value: string) =>
   value
@@ -26,7 +28,22 @@ const trimText = (value: string, limit: number) => {
     return normalized;
   }
 
-  return `${normalized.slice(0, limit - 3).trimEnd()}...`;
+  // Back off to the last whole word, so a name is never cut off mid-way.
+  const cut = normalized.slice(0, limit - 1);
+  const lastSpace = cut.lastIndexOf(' ');
+  const wholeWords = lastSpace > limit * 0.6 ? cut.slice(0, lastSpace) : cut;
+
+  return `${wholeWords.replace(/[\s,;:]+$/, '')}…`;
+};
+
+/* Share of `candidate`'s words already in `reference`. The summary uses it to
+   skip a sentence that only restates the description in other words. */
+const wordOverlap = (reference: string, candidate: string) => {
+  const referenceWords = new Set(normalizeText(reference).split(' '));
+  const candidateWords = normalizeText(candidate).split(' ').filter(Boolean);
+  const shared = candidateWords.filter((word) => referenceWords.has(word));
+
+  return shared.length / Math.max(candidateWords.length, 1);
 };
 
 const stripMarkdown = (value: string) =>
@@ -42,6 +59,13 @@ const stripMarkdown = (value: string) =>
     .replace(/\r/g, '')
     .trim();
 
+/* A sentence ends at . ! or ? before a capital, but not after an initial
+   ("A. Stewart", "Mark W. Horner", "Ph.D.", "U.S.") or a title such as
+   "Dr." — splitting there cut names in half, so highlights came out as
+   "alongside co-PIs A." and members could not be matched to a sentence. */
+const SENTENCE_BREAK =
+  /(?<=[.!?])(?<!\b[A-Z]\.)(?<!\b(?:Dr|Prof|Mr|Mrs|Ms|St|Jr|Sr|vs|No)\.)\s+(?=["“‘(]?[A-Z0-9])/;
+
 const getContentSegments = (value: string) => {
   const lines = stripMarkdown(value)
     .split('\n')
@@ -50,7 +74,7 @@ const getContentSegments = (value: string) => {
 
   return lines.flatMap((line) =>
     line
-      .split(/(?<=[.!?])\s+/)
+      .split(SENTENCE_BREAK)
       .map((segment) => segment.trim())
       .filter(Boolean)
   );
@@ -77,7 +101,8 @@ const buildStorySummary = (
     return (
       normalizedSegment &&
       normalizedSegment !== normalizeText(descriptionText) &&
-      !normalizeText(descriptionText).includes(normalizedSegment)
+      !normalizeText(descriptionText).includes(normalizedSegment) &&
+      wordOverlap(descriptionText, segment) < 0.6
     );
   });
 
@@ -120,11 +145,18 @@ const memberMatchesSegment = (member: MemberData, segment: string) => {
 const buildMemberHighlight = (
   member: MemberData,
   content: string,
+  title: string,
   summary: string,
   participantCount: number
 ) => {
-  const matchingSegment = getContentSegments(content).find((segment) =>
-    memberMatchesSegment(member, segment)
+  /* Posts open with their headline as a `#` heading, which usually names the
+     member too; without skipping it the highlight just repeated the title
+     the viewer shows directly above it. */
+  const normalizedTitle = normalizeText(title);
+  const matchingSegment = getContentSegments(content).find(
+    (segment) =>
+      normalizeText(segment) !== normalizedTitle &&
+      memberMatchesSegment(member, segment)
   );
 
   if (matchingSegment) {
@@ -201,6 +233,7 @@ export function getRecentStoryCollection(
             highlight: buildMemberHighlight(
               member,
               article.content,
+              article.title,
               summary,
               memberIds.length
             )

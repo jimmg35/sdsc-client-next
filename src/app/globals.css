@@ -1,140 +1,16 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 @import './modal.css';
+@import './theme.css';
 
-/* Theme is user-chosen, not OS-derived, so `dark:` keys off a class the theme
-   script puts on <html> rather than Tailwind v4's default prefers-color-scheme. */
+/* Theme follows the OS until the reader picks one, so `dark:` keys off a class
+   the theme script puts on <html>; Tailwind v4's default prefers-color-scheme
+   media query could not honour that pick. */
 @custom-variant dark (&:where(.dark, .dark *));
 
-@theme {
-  --color-silk-50: #fdfaf4;
-  --color-silk-100: #f7f0e2;
-  --color-silk-200: #efe0c7;
-  --color-silk-300: #e2caa7;
-  --color-silk-400: #d3b287;
-  --color-silk-500: #c29c6a;
-  --color-silk-600: #a07c4f;
-  --color-silk-700: #7b5d3a;
-  --color-silk-800: #56422a;
-  --color-silk-900: #382b1c;
-
-  --color-rose-50: #fcf6fa;
-  --color-rose-100: #f3e5f1;
-  --color-rose-200: #e5c7e2;
-  --color-rose-300: #d6a7d0;
-  --color-rose-400: #c189b9;
-  --color-rose-500: #a86ea1;
-  --color-rose-600: #875380;
-  --color-rose-700: #663d60;
-  --color-rose-800: #462a42;
-  --color-rose-900: #2f1b2c;
-
-  /* Card/panel background. Distinct from `white`, which several places use
-     deliberately as a scrim over a photo and must stay white in both themes. */
-  --color-surface: #ffffff;
-
-  --color-ink-100: #f9f6f0;
-  --color-ink-200: #eee6d7;
-  --color-ink-300: #d6cdbf;
-  --color-ink-500: #ab9c8f;
-  --color-ink-700: #5d4f47;
-  --color-ink-900: #2c2420;
-
-  --shadow-surface:
-    0 50px 90px -50px rgba(44, 36, 32, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  --shadow-hover: 0 45px 80px -48px rgba(168, 110, 161, 0.35);
-  --shadow-soft: 0 36px 70px -46px rgba(74, 53, 40, 0.35);
-
-  --radius-card: 26px;
-  --radius-pill: 999px;
-  --backdrop-glass: blur(22px);
-
-  --background-gradient:
-    radial-gradient(
-      120% 120% at 15% -20%,
-      rgba(210, 169, 120, 0.32) 0%,
-      rgba(253, 250, 244, 0) 55%
-    ),
-    radial-gradient(
-      110% 110% at 85% -10%,
-      rgba(198, 164, 215, 0.32) 0%,
-      rgba(253, 250, 244, 0) 60%
-    ),
-    linear-gradient(165deg, #fdfbf7 0%, #f7efe3 40%, #f1e4d7 100%);
-
-  --background-image: url('/img/welcome.jpg');
-}
-
-/* Dark theme.
-   The ramps are inverted rather than replaced: the codebase consistently uses
-   the low end for surfaces (bg-rose-50, bg-silk-200) and the high end for text
-   (text-ink-900, text-silk-800), so flipping each ramp end-for-end keeps every
-   existing utility meaningful without touching call sites. Hues are carried
-   over from the light theme, so the dark side stays warm rather than going
-   neutral grey. */
-.dark {
-  color-scheme: dark;
-
-  /* Lifted just above the page ground so cards still read as raised. */
-  --color-surface: #2b241c;
-
-  --color-silk-50: #171310;
-  --color-silk-100: #1f1a15;
-  --color-silk-200: #2b241c;
-  --color-silk-300: #3f3427;
-  --color-silk-400: #5c4b35;
-  --color-silk-500: #86694a;
-  --color-silk-600: #a5815c;
-  --color-silk-700: #c29c6a;
-  --color-silk-800: #dcbd8f;
-  --color-silk-900: #f2e2c8;
-
-  --color-rose-50: #2b1b28;
-  --color-rose-100: #3a2436;
-  --color-rose-200: #4d3247;
-  --color-rose-300: #66445e;
-  --color-rose-400: #855a7c;
-  --color-rose-500: #a86ea1;
-  --color-rose-600: #c08fb8;
-  --color-rose-700: #d6afd0;
-  --color-rose-800: #e8cfe4;
-  --color-rose-900: #f7edf4;
-
-  --color-ink-100: #201b17;
-  --color-ink-200: #2b2521;
-  --color-ink-300: #5f544c;
-  --color-ink-500: #9b8f84;
-  --color-ink-700: #cdc3b7;
-  --color-ink-900: #f5f0e8;
-
-  --shadow-surface:
-    0 50px 90px -50px rgba(0, 0, 0, 0.8),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  --shadow-hover: 0 45px 80px -48px rgba(0, 0, 0, 0.75);
-  --shadow-soft: 0 36px 70px -46px rgba(0, 0, 0, 0.7);
-
-  --background-gradient:
-    radial-gradient(
-      120% 120% at 15% -20%,
-      rgba(134, 105, 74, 0.22) 0%,
-      rgba(23, 19, 16, 0) 55%
-    ),
-    radial-gradient(
-      110% 110% at 85% -10%,
-      rgba(168, 110, 161, 0.22) 0%,
-      rgba(23, 19, 16, 0) 60%
-    ),
-    linear-gradient(165deg, #17130f 0%, #1b1611 40%, #201a14 100%);
-}
-
 @layer base {
-  :root {
-    color-scheme: light;
-  }
-
   body {
-    background-color: var(--color-silk-50);
+    background-color: var(--color-accent-50);
     background-image: var(--background-gradient);
     background-attachment: fixed;
     background-size: cover;
@@ -158,8 +34,8 @@
   }
 
   ::selection {
-    background: rgba(194, 156, 106, 0.35);
-    color: #2c2420;
+    background: color-mix(in oklab, var(--color-accent-500) 35%, transparent);
+    color: var(--color-ink-900);
   }
 }
 
@@ -175,19 +51,27 @@
   --tw-prose-body: var(--color-ink-700);
   --tw-prose-headings: var(--color-ink-900);
   --tw-prose-lead: var(--color-ink-700);
-  --tw-prose-links: var(--color-rose-600);
+  --tw-prose-links: var(--color-primary-600);
   --tw-prose-bold: var(--color-ink-900);
-  --tw-prose-counters: var(--color-rose-500);
-  --tw-prose-bullets: var(--color-rose-300);
-  --tw-prose-hr: rgba(206, 184, 136, 0.3);
+  --tw-prose-counters: var(--color-primary-500);
+  --tw-prose-bullets: var(--color-primary-300);
+  --tw-prose-hr: color-mix(in oklab, var(--color-accent-400) 30%, transparent);
   --tw-prose-quotes: var(--color-ink-900);
-  --tw-prose-quote-borders: var(--color-rose-400);
+  --tw-prose-quote-borders: var(--color-primary-400);
   --tw-prose-captions: var(--color-ink-500);
   --tw-prose-code: var(--color-ink-900);
-  --tw-prose-pre-code: #f2e8dc;
-  --tw-prose-pre-bg: #211a15;
-  --tw-prose-th-borders: rgba(206, 184, 136, 0.38);
-  --tw-prose-td-borders: rgba(206, 184, 136, 0.22);
+  --tw-prose-pre-code: var(--color-night-ink);
+  --tw-prose-pre-bg: var(--color-night);
+  --tw-prose-th-borders: color-mix(
+    in oklab,
+    var(--color-accent-400) 38%,
+    transparent
+  );
+  --tw-prose-td-borders: color-mix(
+    in oklab,
+    var(--color-accent-400) 22%,
+    transparent
+  );
 }
 
 /* The lede runs on into the body, so the first paragraph does not need the
@@ -209,39 +93,32 @@
     backdrop-filter: var(--backdrop-glass);
     background: linear-gradient(
       165deg,
-      rgba(255, 255, 255, 0.92),
-      rgba(255, 255, 255, 0.75)
+      color-mix(in oklab, var(--color-surface) 92%, transparent),
+      color-mix(in oklab, var(--color-surface) 75%, transparent)
     );
-    border: 1px solid rgba(168, 110, 161, 0.14);
+    border: 1px solid
+      color-mix(in oklab, var(--color-primary-500) 14%, transparent);
     border-radius: var(--radius-card);
     box-shadow: var(--shadow-surface);
   }
 
-  .dark .calcite-box {
-    background: linear-gradient(
-      165deg,
-      rgba(43, 36, 28, 0.92),
-      rgba(31, 26, 21, 0.78)
-    );
-    border-color: rgba(214, 175, 208, 0.14);
-  }
-
   .calcite-focus {
-    @apply focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-rose-200/50 focus-visible:border-rose-400/60;
+    @apply focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary-200/50 focus-visible:border-primary-400/60;
   }
 
   .calcite-hover {
-    @apply transition-all duration-300 border border-transparent hover:border-rose-200/60 hover:bg-rose-100/50 hover:shadow-[0_34px_70px_-46px_rgba(168,110,161,0.35)];
+    @apply transition-all duration-300 border border-transparent hover:border-primary-200/60 hover:bg-primary-100/50 hover:shadow-hover;
   }
 
   .glass-card {
     position: relative;
     border-radius: var(--radius-card);
-    border: 1px solid rgba(194, 156, 106, 0.18);
+    border: 1px solid
+      color-mix(in oklab, var(--color-accent-500) 18%, transparent);
     background: linear-gradient(
       178deg,
-      rgba(255, 255, 255, 0.88),
-      rgba(255, 255, 255, 0.72)
+      color-mix(in oklab, var(--color-surface) 88%, transparent),
+      color-mix(in oklab, var(--color-surface) 72%, transparent)
     );
     box-shadow: var(--shadow-surface);
     backdrop-filter: var(--backdrop-glass);
@@ -256,12 +133,12 @@
     background:
       radial-gradient(
         circle at 18% -12%,
-        rgba(198, 164, 215, 0.35),
+        color-mix(in oklab, var(--color-primary-300) 35%, transparent),
         transparent 55%
       ),
       radial-gradient(
         circle at 82% 0%,
-        rgba(194, 156, 106, 0.28),
+        color-mix(in oklab, var(--color-accent-500) 28%, transparent),
         transparent 65%
       );
     transition: opacity 250ms ease;
@@ -272,18 +149,10 @@
     opacity: 1;
   }
 
-  .dark .glass-card {
-    border-color: rgba(194, 156, 106, 0.16);
-    background: linear-gradient(
-      178deg,
-      rgba(43, 36, 28, 0.88),
-      rgba(31, 26, 21, 0.72)
-    );
-  }
-
-  .chip-gold {
-    @apply inline-flex items-center gap-2 rounded-full border border-rose-200/60 bg-rose-50/80 px-4 py-1 text-xs font-semibold uppercase tracking-[0.26em] text-rose-600;
-    text-shadow: 0 2px 10px rgba(206, 184, 136, 0.4);
+  .chip-accent {
+    @apply inline-flex items-center gap-2 rounded-full border border-primary-200/60 bg-primary-50/80 px-4 py-1 text-xs font-semibold uppercase tracking-[0.26em] text-primary-600;
+    text-shadow: 0 2px 10px
+      color-mix(in oklab, var(--color-accent-400) 40%, transparent);
   }
 
   .halo {
@@ -293,8 +162,8 @@
     border-radius: 50%;
     background: radial-gradient(
       circle,
-      rgba(206, 184, 136, 0.4) 0%,
-      rgba(168, 110, 161, 0.32) 48%,
+      color-mix(in oklab, var(--color-accent-400) 40%, transparent) 0%,
+      color-mix(in oklab, var(--color-primary-500) 32%, transparent) 48%,
       transparent 70%
     );
   }
@@ -304,8 +173,10 @@
     position: absolute;
     inset: 8%;
     border-radius: 50%;
-    border: 1px solid rgba(206, 184, 136, 0.3);
-    box-shadow: 0 18px 50px -30px rgba(206, 184, 136, 0.65);
+    border: 1px solid
+      color-mix(in oklab, var(--color-accent-400) 30%, transparent);
+    box-shadow: 0 18px 50px -30px
+      color-mix(in oklab, var(--color-accent-400) 65%, transparent);
     pointer-events: none;
   }
 
@@ -320,13 +191,67 @@
     border-radius: 9999px;
     background: conic-gradient(
       from 210deg at 50% 50%,
-      var(--color-silk-500) 0deg,
-      var(--color-rose-500) 128deg,
-      var(--color-silk-600) 244deg,
-      var(--color-silk-500) 360deg
+      var(--color-accent-500) 0deg,
+      var(--color-primary-500) 128deg,
+      var(--color-accent-600) 244deg,
+      var(--color-accent-500) 360deg
     );
-    box-shadow: 0 22px 40px -28px rgba(168, 110, 161, 0.55);
+    box-shadow: 0 22px 40px -28px
+      color-mix(in oklab, var(--color-primary-500) 55%, transparent);
     transition: box-shadow 300ms ease;
+  }
+
+  /* The story viewer's two corner glows, in the brand colours at full
+     strength since the viewer is always on the night ground. */
+  .story-glow {
+    background:
+      radial-gradient(
+        circle at top right,
+        color-mix(in oklab, var(--color-brand-accent) 22%, transparent),
+        transparent 30%
+      ),
+      radial-gradient(
+        circle at bottom left,
+        color-mix(in oklab, var(--color-brand-primary) 40%, transparent),
+        transparent 35%
+      );
+  }
+
+  /* The ground for a story with no artwork of its own: the contour rings the
+     hero lays over its heatmap, centred on the portraits that stand in for
+     the missing picture, instead of a flat black panel. */
+  .story-contours {
+    background-image: repeating-radial-gradient(
+      circle at 50% 42%,
+      rgba(255, 255, 255, 0.07) 0 1px,
+      transparent 1px 44px
+    );
+    -webkit-mask-image: radial-gradient(
+      70% 64% at 50% 42%,
+      #000 18%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(70% 64% at 50% 42%, #000 18%, transparent 100%);
+  }
+
+  /* The active progress segment fills on the compositor rather than through
+     a React state update every 50ms; pausing is `animation-play-state`, and
+     the viewer moves on at `animationend`. */
+  .story-progress {
+    transform-origin: left center;
+    animation: story-progress var(--story-duration, 9s) linear forwards;
+  }
+
+  .story-enter {
+    animation: story-enter 360ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .story-dialog-enter {
+    animation: story-dialog-enter 300ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .story-backdrop-enter {
+    animation: story-fade 240ms ease both;
   }
 
   /* No inner highlight ring: the avatar it wraps already carries a light
@@ -334,11 +259,11 @@
      just reads as noise. */
 
   .glow-link {
-    @apply transition-colors duration-200 text-rose-500 hover:text-rose-600;
+    @apply transition-colors duration-200 text-primary-500 hover:text-primary-600;
   }
 
   .panel-title {
-    @apply flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.32em] text-rose-500;
+    @apply flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.32em] text-primary-500;
   }
 
   .panel-title::before {
@@ -348,8 +273,8 @@
     width: 3.5rem;
     background: linear-gradient(
       90deg,
-      rgba(168, 110, 161, 0),
-      rgba(97, 61, 96, 0.45)
+      color-mix(in oklab, var(--color-primary-500) 0%, transparent),
+      color-mix(in oklab, var(--color-primary-700) 45%, transparent)
     );
   }
 
@@ -358,77 +283,12 @@
     border-radius: var(--radius-card);
     background: linear-gradient(
       182deg,
-      rgba(255, 255, 255, 0.94),
-      rgba(253, 248, 242, 0.88)
+      color-mix(in oklab, var(--color-surface) 94%, transparent),
+      color-mix(in oklab, var(--color-accent-50) 88%, transparent)
     );
-    border: 1px solid rgba(206, 184, 136, 0.16);
+    border: 1px solid
+      color-mix(in oklab, var(--color-accent-400) 16%, transparent);
     box-shadow: var(--shadow-soft);
-  }
-
-  .dark .surface-fade {
-    background: linear-gradient(
-      182deg,
-      rgba(38, 31, 25, 0.94),
-      rgba(28, 23, 19, 0.9)
-    );
-    border-color: rgba(206, 184, 136, 0.14);
-  }
-
-  .briefing-story-card {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .briefing-story-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0;
-    background: linear-gradient(
-      115deg,
-      rgba(244, 234, 255, 0) 0%,
-      rgba(231, 214, 255, 0.82) 34%,
-      rgba(249, 241, 255, 0.96) 50%,
-      rgba(222, 201, 255, 0.72) 66%,
-      rgba(244, 234, 255, 0) 100%
-    );
-  }
-
-  .glass-card.briefing-window-card:hover::before {
-    opacity: 0;
-  }
-
-  .briefing-window-card {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(168, 110, 161, 0.4) rgba(255, 255, 255, 0.55);
-  }
-
-  .briefing-window-card::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  .briefing-window-card::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 999px;
-  }
-
-  .briefing-window-card::-webkit-scrollbar-thumb {
-    background: rgba(168, 110, 161, 0.4);
-    border-radius: 999px;
-    border: 2px solid rgba(255, 255, 255, 0.72);
-  }
-
-  .briefing-story-active {
-    border-color: rgba(168, 110, 161, 0.38);
-    box-shadow:
-      0 30px 72px -42px rgba(168, 110, 161, 0.52),
-      0 0 0 1px rgba(214, 167, 208, 0.24);
-    animation: briefing-story-pulse 2.2s ease;
-  }
-
-  .briefing-story-active::after {
-    animation: briefing-story-sheen 1.7s ease;
   }
 
   /* --- Home hero -------------------------------------------------------
@@ -483,13 +343,13 @@
     background:
       linear-gradient(
         to top,
-        rgba(6, 10, 34, 0.9) 0%,
-        rgba(6, 10, 34, 0.42) 46%,
-        rgba(6, 10, 34, 0.18) 100%
+        color-mix(in oklab, var(--color-scrim) 90%, transparent) 0%,
+        color-mix(in oklab, var(--color-scrim) 42%, transparent) 46%,
+        color-mix(in oklab, var(--color-scrim) 18%, transparent) 100%
       ),
       radial-gradient(
         90% 80% at 10% 50%,
-        rgba(6, 10, 34, 0.72),
+        color-mix(in oklab, var(--color-scrim) 72%, transparent),
         transparent 72%
       );
   }
@@ -499,13 +359,32 @@
       background:
         linear-gradient(
           100deg,
-          rgba(6, 10, 34, 0.92) 0%,
-          rgba(6, 10, 34, 0.74) 34%,
-          rgba(6, 10, 34, 0.24) 64%,
-          rgba(6, 10, 34, 0.06) 100%
+          color-mix(in oklab, var(--color-scrim) 92%, transparent) 0%,
+          color-mix(in oklab, var(--color-scrim) 74%, transparent) 34%,
+          color-mix(in oklab, var(--color-scrim) 24%, transparent) 64%,
+          color-mix(in oklab, var(--color-scrim) 6%, transparent) 100%
         ),
-        linear-gradient(to top, rgba(6, 10, 34, 0.55) 0%, transparent 34%);
+        linear-gradient(
+          to top,
+          color-mix(in oklab, var(--color-scrim) 55%, transparent) 0%,
+          transparent 34%
+        );
     }
+  }
+
+  /* The artwork is lit for a light page. On a dark one the heatmap becomes
+     the brightest thing in view, brighter than the headline over it, so dark
+     mode lays one flat shade across the whole frame and takes the edge off
+     the saturation underneath. */
+  .dark .hero-scrim::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: color-mix(in oklab, var(--color-scrim) 52%, transparent);
+  }
+
+  .dark .hero-plate {
+    filter: saturate(0.8);
   }
 
   /* Faint contour rings over the photograph — cartographic texture that gives
@@ -540,7 +419,7 @@
     background: radial-gradient(
       112% 96% at 50% 46%,
       transparent 38%,
-      rgba(2, 5, 20, 0.58) 100%
+      color-mix(in oklab, var(--color-scrim) 58%, transparent) 100%
     );
   }
 
@@ -554,10 +433,10 @@
     height: 9px;
     width: 9px;
     border-radius: 999px;
-    background: #4ade80;
+    background: var(--color-live);
     box-shadow:
-      0 0 12px rgba(74, 222, 128, 0.9),
-      0 0 0 0 rgba(74, 222, 128, 0.6);
+      0 0 12px color-mix(in oklab, var(--color-live) 90%, transparent),
+      0 0 0 0 color-mix(in oklab, var(--color-live) 60%, transparent);
     animation: hero-pip-pulse 2.8s ease-out infinite;
   }
 
@@ -566,8 +445,8 @@
     width: 4.5rem;
     background: linear-gradient(
       90deg,
-      rgba(211, 178, 135, 0.9),
-      rgba(211, 178, 135, 0)
+      color-mix(in oklab, var(--color-brand-accent) 90%, transparent),
+      color-mix(in oklab, var(--color-brand-accent) 0%, transparent)
     );
   }
 
@@ -583,19 +462,29 @@
     margin-left: 0.28em;
   }
 
+  /* `background-image`, not the `background` shorthand: the build re-emits
+     color-mix() declarations in an @supports block after this rule, and a
+     shorthand there would reset background-clip back to border-box. */
   .hero-word-inner {
     display: inline-block;
-    background: linear-gradient(180deg, #ffffff 20%, #efe0c7 135%);
+    background-image: linear-gradient(
+      180deg,
+      #ffffff 20%,
+      color-mix(in srgb, var(--color-brand-accent) 55%, #ffffff) 135%
+    );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    filter: drop-shadow(0 18px 34px rgba(4, 8, 28, 0.55));
+    filter: drop-shadow(
+      0 18px 34px color-mix(in oklab, var(--color-scrim) 55%, transparent)
+    );
     animation: hero-word-rise 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
   .hero-scroll {
     animation: hero-fade-in 800ms ease 900ms both;
-    text-shadow: 0 2px 14px rgba(4, 8, 28, 0.65);
+    text-shadow: 0 2px 14px
+      color-mix(in oklab, var(--color-scrim) 65%, transparent);
   }
 
   .hero-scroll-track {
@@ -627,8 +516,15 @@
      hard edge, and re-tinted in dark mode where the light ink would vanish. */
   .graticule-fade {
     background-image:
-      linear-gradient(rgba(97, 61, 96, 0.09) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(97, 61, 96, 0.09) 1px, transparent 1px);
+      linear-gradient(
+        color-mix(in oklab, var(--color-primary-700) 9%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        color-mix(in oklab, var(--color-primary-700) 9%, transparent) 1px,
+        transparent 1px
+      );
     background-size: 56px 56px;
     -webkit-mask-image: radial-gradient(
       72% 62% at 50% 40%,
@@ -638,17 +534,12 @@
     mask-image: radial-gradient(72% 62% at 50% 40%, #000 0%, transparent 100%);
   }
 
-  .dark .graticule-fade {
-    background-image:
-      linear-gradient(rgba(214, 175, 208, 0.11) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(214, 175, 208, 0.11) 1px, transparent 1px);
-  }
-
   .custom-li {
     position: relative;
     padding-left: 1.6rem;
-    border-left: 1px solid rgba(168, 110, 161, 0.25);
-    color: rgba(44, 36, 32, 0.8);
+    border-left: 1px solid
+      color-mix(in oklab, var(--color-primary-500) 25%, transparent);
+    color: color-mix(in oklab, var(--color-ink-900) 80%, transparent);
     transition:
       border-color 200ms ease,
       color 200ms ease,
@@ -665,43 +556,27 @@
     border-radius: 999px;
     background: radial-gradient(
       circle at 30% 30%,
-      rgba(168, 110, 161, 0.9),
-      rgba(206, 184, 136, 0.65)
+      color-mix(in oklab, var(--color-primary-500) 90%, transparent),
+      color-mix(in oklab, var(--color-accent-400) 65%, transparent)
     );
-    box-shadow: 0 0 16px rgba(168, 110, 161, 0.4);
+    box-shadow: 0 0 16px
+      color-mix(in oklab, var(--color-primary-500) 40%, transparent);
     opacity: 0.85;
     transition: opacity 200ms ease;
   }
 
   .custom-li:hover {
-    border-color: rgba(168, 110, 161, 0.45);
-    color: rgba(44, 36, 32, 0.95);
+    border-color: color-mix(
+      in oklab,
+      var(--color-primary-500) 45%,
+      transparent
+    );
+    color: color-mix(in oklab, var(--color-ink-900) 95%, transparent);
     transform: translateX(6px);
   }
 
   .custom-li:hover::before {
     opacity: 1;
-  }
-
-  .dark .custom-li {
-    color: rgba(245, 240, 232, 0.8);
-  }
-
-  .dark .custom-li:hover {
-    color: rgba(245, 240, 232, 0.95);
-  }
-
-  .dark .briefing-window-card {
-    scrollbar-color: rgba(214, 175, 208, 0.4) rgba(43, 36, 28, 0.55);
-  }
-
-  .dark .briefing-window-card::-webkit-scrollbar-track {
-    background: rgba(43, 36, 28, 0.5);
-  }
-
-  .dark .briefing-window-card::-webkit-scrollbar-thumb {
-    background: rgba(214, 175, 208, 0.4);
-    border-color: rgba(31, 26, 21, 0.72);
   }
 }
 
@@ -723,12 +598,21 @@
     z-index: -2;
     pointer-events: none;
     background-image:
-      linear-gradient(rgba(97, 61, 96, 0.08) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(97, 61, 96, 0.08) 1px, transparent 1px);
+      linear-gradient(
+        color-mix(in oklab, var(--color-primary-700) 8%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        color-mix(in oklab, var(--color-primary-700) 8%, transparent) 1px,
+        transparent 1px
+      );
     background-size: 40px 40px;
     opacity: 0.18;
   }
 
+  /* The same two light-leaks as the page background, laid again inside the
+     shell so they read over the fixed body gradient as the page scrolls. */
   .page-shell::after {
     content: '';
     position: absolute;
@@ -738,52 +622,54 @@
     background:
       radial-gradient(
         130% 130% at 18% -20%,
-        rgba(206, 184, 136, 0.26) 0%,
+        var(--wash-accent) 0%,
         transparent 60%
       ),
       radial-gradient(
         128% 128% at 82% -10%,
-        rgba(198, 164, 215, 0.26) 0%,
+        var(--wash-primary) 0%,
         transparent 62%
+      );
+  }
+
+  /* A section's own pair of light-leaks, mirrored from the page's so the
+     primary sits top right and the accent top left. */
+  .section-wash {
+    background:
+      radial-gradient(
+        120% 120% at 80% -10%,
+        var(--wash-primary) 0%,
+        transparent 62%
+      ),
+      radial-gradient(
+        110% 110% at 20% -20%,
+        var(--wash-accent) 0%,
+        transparent 58%
       );
   }
 
   .dark .page-shell::before {
-    background-image:
-      linear-gradient(rgba(214, 175, 208, 0.1) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(214, 175, 208, 0.1) 1px, transparent 1px);
     opacity: 0.14;
   }
 
-  .dark .page-shell::after {
-    background:
-      radial-gradient(
-        130% 130% at 18% -20%,
-        rgba(134, 105, 74, 0.22) 0%,
-        transparent 60%
-      ),
-      radial-gradient(
-        128% 128% at 82% -10%,
-        rgba(168, 110, 161, 0.2) 0%,
-        transparent 62%
-      );
-  }
-
-  .dark .chip-gold {
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  .dark .chip-accent {
+    text-shadow: 0 2px 10px
+      color-mix(in oklab, var(--color-shade) 50%, transparent);
   }
 
   .dark .text-glow {
-    text-shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
+    text-shadow: 0 18px 44px
+      color-mix(in oklab, var(--color-shade) 55%, transparent);
   }
 
   .text-glow {
-    text-shadow: 0 18px 44px rgba(206, 184, 136, 0.28);
+    text-shadow: 0 18px 44px
+      color-mix(in oklab, var(--color-accent-400) 28%, transparent);
   }
 
-  .backdrop-garnet {
+  .backdrop-primary {
     backdrop-filter: var(--backdrop-glass);
-    background: rgba(168, 110, 161, 0.25);
+    background: color-mix(in oklab, var(--color-primary-500) 25%, transparent);
   }
 
   .inner-border {
@@ -795,14 +681,22 @@
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    border: 1px solid rgba(206, 184, 136, 0.18);
+    border: 1px solid
+      color-mix(in oklab, var(--color-accent-400) 18%, transparent);
     pointer-events: none;
   }
 
   .gridlines {
     background-image:
-      linear-gradient(rgba(97, 61, 96, 0.08) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(97, 61, 96, 0.08) 1px, transparent 1px);
+      linear-gradient(
+        color-mix(in oklab, var(--color-primary-700) 8%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        color-mix(in oklab, var(--color-primary-700) 8%, transparent) 1px,
+        transparent 1px
+      );
     background-size: 40px 40px;
   }
 
@@ -816,50 +710,11 @@
     inset: -18%;
     background: radial-gradient(
       circle,
-      rgba(206, 184, 136, 0.18) 0%,
+      color-mix(in oklab, var(--color-accent-400) 18%, transparent) 0%,
       transparent 60%
     );
     filter: blur(28px);
     z-index: -1;
-  }
-}
-
-@keyframes briefing-story-pulse {
-  0% {
-    transform: translateY(0);
-    background: rgba(255, 255, 255, 0.88);
-  }
-  18% {
-    transform: translateY(-2px);
-    background: rgba(248, 240, 255, 0.98);
-  }
-  44% {
-    transform: translateY(0);
-    background: rgba(255, 255, 255, 0.94);
-  }
-  64% {
-    background: rgba(244, 235, 255, 0.96);
-  }
-  100% {
-    transform: translateY(0);
-    background: rgba(255, 255, 255, 0.88);
-  }
-}
-
-@keyframes briefing-story-sheen {
-  0% {
-    opacity: 0;
-    transform: translateX(-24%);
-  }
-  18% {
-    opacity: 1;
-  }
-  62% {
-    opacity: 0.95;
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(22%);
   }
 }
 
@@ -912,14 +767,14 @@
 @keyframes hero-pip-pulse {
   0% {
     box-shadow:
-      0 0 12px rgba(74, 222, 128, 0.9),
-      0 0 0 0 rgba(74, 222, 128, 0.6);
+      0 0 12px color-mix(in oklab, var(--color-live) 90%, transparent),
+      0 0 0 0 color-mix(in oklab, var(--color-live) 60%, transparent);
   }
   70%,
   100% {
     box-shadow:
-      0 0 12px rgba(74, 222, 128, 0.9),
-      0 0 0 13px rgba(74, 222, 128, 0);
+      0 0 12px color-mix(in oklab, var(--color-live) 90%, transparent),
+      0 0 0 13px color-mix(in oklab, var(--color-live) 0%, transparent);
   }
 }
 
@@ -951,6 +806,46 @@
   }
 }
 
+@keyframes story-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes story-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes story-dialog-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes story-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* The hero leans on motion for its entrance; everything it animates is legible
    in its final state, so honouring the preference just skips to that. */
 @media (prefers-reduced-motion: reduce) {
@@ -968,5 +863,16 @@
 
   .hero-sheen {
     opacity: 0;
+  }
+}
+
+/* The story viewer's entrances are decoration and go the same way. Its
+   progress bar is not — it is the timer — but the viewer opens paused under
+   this preference, so the bar only moves once the reader presses play. */
+@media (prefers-reduced-motion: reduce) {
+  .story-enter,
+  .story-dialog-enter,
+  .story-backdrop-enter {
+    animation: none !important;
   }
 }

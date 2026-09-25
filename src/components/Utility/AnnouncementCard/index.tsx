@@ -16,11 +16,11 @@ const AnnouncementCard = async ({ data }: { data: AnnouncementData }) => {
   /* Announcements without artwork show no image at all rather than a
      placeholder, so the date and author head the card body instead. */
   const meta = (
-    <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-rose-600">
-      <span className="rounded-full border border-rose-200/60 bg-surface/90 px-3 py-1 shadow-sm">
+    <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-primary-600">
+      <span className="rounded-full border border-primary-200/60 bg-surface/90 px-3 py-1 shadow-sm">
         {publishDate}
       </span>
-      <span className="rounded-full border border-rose-200/60 bg-rose-50/90 px-3 py-1 text-rose-600">
+      <span className="rounded-full border border-primary-200/60 bg-primary-50/90 px-3 py-1 text-primary-600">
         {data.author}
       </span>
     </div>
@@ -45,14 +45,14 @@ const AnnouncementCard = async ({ data }: { data: AnnouncementData }) => {
       <div className="flex flex-1 flex-col gap-6 px-6 py-6">
         <div className="space-y-3">
           {!data.thumbnail && meta}
-          <h3 className="text-lg font-semibold text-rose-700 text-glow">
+          <h3 className="text-lg font-semibold text-primary-700 text-glow">
             {data.title}
           </h3>
-          <p className="text-sm leading-6 text-ink-600">{data.description}</p>
+          <p className="text-sm leading-6 text-ink-700">{data.description}</p>
         </div>
         <Link
           href={`/announcements/${data.slug}`}
-          className="mt-auto inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-rose-600 transition hover:text-rose-700"
+          className="mt-auto inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-primary-600 transition hover:text-primary-700"
         >
           <span>{t('viewUpdate')}</span>
           <ArrowUpRight

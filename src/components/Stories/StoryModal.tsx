@@ -5,30 +5,56 @@ import type { StoryEvent, StoryMember } from '@/lib/stories/types';
 import {
   ArrowLeft,
   ArrowRight,
-  CalendarDays,
-  Sparkles,
-  Users,
+  ArrowUpRight,
+  Pause,
+  Play,
   X
 } from 'lucide-react';
-import { useCallback, useEffect, useState } from 'react';
+import {
+  type CSSProperties,
+  type PointerEvent as ReactPointerEvent,
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState
+} from 'react';
 import { createPortal } from 'react-dom';
 import { useFormatter, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const AUTO_ADVANCE_MS = 7000;
+/* Long enough to take in a title and its summary. The spotlight beside it
+   can take longer, which is what the pause button — and resting the pointer
+   on that column — is for. */
+const AUTO_ADVANCE_MS = 9000;
+
+/* A press on the picture shorter than this is a tap that turns the page;
+   held longer, it only holds the story still. */
+const TAP_MS = 220;
+
+const FOCUSABLE =
+  'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+const ARTWORK_SIZES = '(max-width: 768px) 100vw, 40rem';
+
+const CONTROL =
+  'inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-night/45 text-white backdrop-blur transition hover:bg-white/10';
+
+const STEP =
+  'inline-flex cursor-pointer items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-white/80 transition hover:text-white disabled:pointer-events-none disabled:opacity-30';
 
 type StoryModalProps = {
   stories: StoryEvent[];
-  isOpen: boolean;
   initialIndex: number;
   requestedFocusMemberId?: string | null;
   onClose: () => void;
 };
 
+/* Mounted only while open (see StoryRail), so every opening starts from a
+   clean slate and closing is simply unmounting. */
 export default function StoryModal({
   stories,
-  isOpen,
   initialIndex,
   requestedFocusMemberId = null,
   onClose
@@ -36,336 +62,520 @@ export default function StoryModal({
   const t = useTranslations('stories');
   const tCommon = useTranslations('common');
   const format = useFormatter();
-  const [isMounted, setIsMounted] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(initialIndex);
-  const [currentProgressMs, setCurrentProgressMs] = useState(0);
-  const [isProgressPaused, setIsProgressPaused] = useState(false);
+  const titleId = useId();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const pressRef = useRef<{ time: number; x: number } | null>(null);
+
+  const lastIndex = stories.length - 1;
+  const [currentIndex, setCurrentIndex] = useState(() =>
+    Math.min(Math.max(initialIndex, 0), Math.max(lastIndex, 0))
+  );
   const [focusedMemberId, setFocusedMemberId] = useState<string | null>(null);
 
-  useEffect(() => {
-    setIsMounted(true);
-    return () => setIsMounted(false);
-  }, []);
-
-  useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
-
-    setCurrentIndex(Math.min(initialIndex, Math.max(stories.length - 1, 0)));
-  }, [initialIndex, isOpen, stories.length]);
-
-  useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
-
-    setCurrentProgressMs(0);
-    setIsProgressPaused(false);
-  }, [currentIndex, isOpen]);
+  /* Four separate reasons to hold a story still; it plays only when none of
+     them apply. Under reduced motion the viewer opens paused. */
+  const [userPaused, setUserPaused] = useState(
+    () =>
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
+  const [isHeld, setIsHeld] = useState(false);
+  const [isReading, setIsReading] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const paused = userPaused || isHeld || isReading || isHidden;
 
   const currentStory = stories[currentIndex];
 
   useEffect(() => {
     if (!currentStory) {
-      setFocusedMemberId(null);
       return;
     }
 
-    const nextFocusedMemberId =
+    setFocusedMemberId(
       requestedFocusMemberId &&
-      currentStory.memberIds.includes(requestedFocusMemberId)
+        currentStory.memberIds.includes(requestedFocusMemberId)
         ? requestedFocusMemberId
-        : currentStory.memberIds[0] || null;
-
-    setFocusedMemberId(nextFocusedMemberId);
-  }, [currentIndex, currentStory, requestedFocusMemberId]);
-
-  const focusedMember =
-    currentStory?.members.find((member) => member.id === focusedMemberId) ||
-    currentStory?.members[0] ||
-    null;
-
-  const handleClose = useCallback(() => {
-    onClose();
-  }, [onClose]);
+        : (currentStory.memberIds[0] ?? null)
+    );
+  }, [currentStory, requestedFocusMemberId]);
 
   const goPrevious = useCallback(() => {
-    setCurrentIndex((prev) => Math.max(prev - 1, 0));
+    setCurrentIndex((index) => Math.max(index - 1, 0));
   }, []);
 
   const goNext = useCallback(() => {
-    setCurrentIndex((prev) => Math.min(prev + 1, stories.length - 1));
-  }, [stories.length]);
+    setCurrentIndex((index) => Math.min(index + 1, lastIndex));
+  }, [lastIndex]);
 
+  // Lock the page, take focus, and hand both back on close.
   useEffect(() => {
-    if (!isOpen || isProgressPaused) {
-      return;
+    const root = document.documentElement;
+    const opener =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+    const previous = {
+      overflow: root.style.overflow,
+      gutter: root.style.scrollbarGutter
+    };
+
+    /* Keep the scrollbar's width reserved while the page is locked, or
+       everything behind the viewer jumps sideways as it opens and back as it
+       closes. */
+    if (window.innerWidth > root.clientWidth) {
+      root.style.scrollbarGutter = 'stable';
     }
-
-    const stepMs = 50;
-    const timer = window.setInterval(() => {
-      setCurrentProgressMs((prev) => {
-        const next = Math.min(prev + stepMs, AUTO_ADVANCE_MS);
-
-        if (next >= AUTO_ADVANCE_MS) {
-          window.clearInterval(timer);
-
-          if (currentIndex < stories.length - 1) {
-            goNext();
-            return 0;
-          }
-        }
-
-        return next;
-      });
-    }, stepMs);
-
-    return () => window.clearInterval(timer);
-  }, [currentIndex, goNext, isOpen, isProgressPaused, stories.length]);
-
-  useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
-
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    root.style.overflow = 'hidden';
+    dialogRef.current?.focus({ preventScroll: true });
 
     return () => {
-      document.body.style.overflow = originalOverflow;
+      root.style.overflow = previous.overflow;
+      root.style.scrollbarGutter = previous.gutter;
+      opener?.focus({ preventScroll: true });
     };
-  }, [isOpen]);
+  }, []);
 
   useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
-
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        handleClose();
+        onClose();
+        return;
       }
 
       if (event.key === 'ArrowLeft') {
         goPrevious();
+        return;
       }
 
       if (event.key === 'ArrowRight') {
         goNext();
+        return;
+      }
+
+      if (event.key !== 'Tab') {
+        return;
+      }
+
+      // Keep Tab inside the viewer while it is open.
+      const dialog = dialogRef.current;
+      const focusables = dialog
+        ? Array.from(dialog.querySelectorAll<HTMLElement>(FOCUSABLE))
+        : [];
+
+      if (!focusables.length) {
+        return;
+      }
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement;
+
+      if (event.shiftKey && (active === first || active === dialog)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [goNext, goPrevious, handleClose, isOpen]);
+  }, [goNext, goPrevious, onClose]);
 
-  if (!isMounted || !isOpen || !currentStory) {
+  // A background tab should not run the stories on without anyone watching.
+  useEffect(() => {
+    const sync = () => setIsHidden(document.hidden);
+
+    document.addEventListener('visibilitychange', sync);
+    return () => document.removeEventListener('visibilitychange', sync);
+  }, []);
+
+  // Fetch the neighbours' artwork ahead, so turning the page never waits on it.
+  useEffect(() => {
+    [stories[currentIndex + 1], stories[currentIndex - 1]].forEach((story) => {
+      if (story?.thumbnail) {
+        const image = new window.Image();
+        image.src = story.thumbnail;
+      }
+    });
+  }, [currentIndex, stories]);
+
+  const handleProgressEnd = () => {
+    if (currentIndex < lastIndex) {
+      goNext();
+    }
+  };
+
+  const handlePressStart = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.button !== 0) {
+      return;
+    }
+
+    pressRef.current = { time: event.timeStamp, x: event.clientX };
+    setIsHeld(true);
+  };
+
+  const handlePressEnd = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const press = pressRef.current;
+    pressRef.current = null;
+    setIsHeld(false);
+
+    if (!press || event.timeStamp - press.time > TAP_MS) {
+      return;
+    }
+
+    // Like a book: the left third goes back, the rest goes on.
+    const bounds = event.currentTarget.getBoundingClientRect();
+
+    if (press.x - bounds.left < bounds.width / 3) {
+      goPrevious();
+    } else {
+      goNext();
+    }
+  };
+
+  const handlePressCancel = () => {
+    pressRef.current = null;
+    setIsHeld(false);
+  };
+
+  /* Resting a mouse on the text column holds the story while it is read. A
+     touch has no hover, so taps there leave the timer alone. */
+  const handleReading =
+    (reading: boolean) => (event: ReactPointerEvent<HTMLDivElement>) => {
+      if (event.pointerType === 'mouse') {
+        setIsReading(reading);
+      }
+    };
+
+  if (!currentStory || typeof document === 'undefined') {
     return null;
   }
 
+  const members = currentStory.members;
+  const [leadMember] = members;
+  const focusedMember =
+    members.find((member) => member.id === focusedMemberId) ??
+    leadMember ??
+    null;
+
   return createPortal(
-    <div className="fixed inset-0 z-[90] flex items-center justify-center p-3 sm:p-6">
+    <div className="fixed inset-0 z-[90] flex items-center justify-center md:p-6">
       <button
         type="button"
+        tabIndex={-1}
         aria-label={t('close')}
-        className="absolute inset-0 bg-[#100818]/82 backdrop-blur-md"
-        onClick={handleClose}
+        onClick={onClose}
+        className="story-backdrop-enter absolute inset-0 cursor-default bg-night/80 backdrop-blur-md"
       />
 
       <div
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
-        className="relative flex h-full max-h-[52rem] w-full max-w-6xl flex-col overflow-hidden rounded-[32px] border border-white/10 bg-[#100817] text-white shadow-[0_45px_120px_-42px_rgba(7,2,15,0.95)] md:flex-row"
+        aria-labelledby={titleId}
+        tabIndex={-1}
+        className="story-dialog-enter relative flex h-[100dvh] w-full flex-col overflow-hidden bg-night text-white shadow-night outline-none md:h-[min(46rem,calc(100dvh_-_3rem))] md:max-w-5xl md:flex-row md:rounded-[28px] md:border md:border-white/10"
       >
-        <div className="absolute inset-x-4 top-4 z-20 flex gap-2">
-          {stories.map((story, index) => {
-            const isCompleted = index < currentIndex;
-            const isActive = index === currentIndex;
-            const progressWidth = `${Math.min(
-              100,
-              (currentProgressMs / AUTO_ADVANCE_MS) * 100
-            )}%`;
-
-            return (
-              <span
-                key={story.slug}
-                className="h-1 flex-1 overflow-hidden rounded-full bg-white/20"
-              >
-                {isCompleted ? (
-                  <span className="block h-full w-full bg-surface" />
-                ) : isActive ? (
-                  <span
-                    className="block h-full bg-surface transition-[width] duration-75 ease-linear"
-                    style={{
-                      width: progressWidth
-                    }}
-                  />
-                ) : null}
-              </span>
-            );
-          })}
+        {/* The active segment is a CSS animation; the others are either full
+            or empty, so nothing here re-renders while a story plays. */}
+        <div className="pointer-events-none absolute inset-x-4 top-3 z-30 flex gap-1.5 md:top-4">
+          {stories.map((story, index) => (
+            <span
+              key={story.slug}
+              className="h-[3px] flex-1 overflow-hidden rounded-full bg-white/20"
+            >
+              {index < currentIndex && (
+                <span className="block h-full w-full bg-white" />
+              )}
+              {index === currentIndex && (
+                <span
+                  className="story-progress block h-full w-full bg-white"
+                  style={
+                    {
+                      '--story-duration': `${AUTO_ADVANCE_MS}ms`,
+                      animationPlayState: paused ? 'paused' : 'running'
+                    } as CSSProperties
+                  }
+                  onAnimationEnd={handleProgressEnd}
+                />
+              )}
+            </span>
+          ))}
         </div>
 
-        <button
-          type="button"
-          aria-label={t('close')}
-          className="absolute right-4 top-5 z-20 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/25 text-white transition hover:bg-black/40"
-          onClick={handleClose}
-        >
-          <X size={18} />
-        </button>
+        <div className="absolute right-3 top-6 z-30 flex items-center gap-2 md:right-4 md:top-7">
+          <button
+            type="button"
+            onClick={() => setUserPaused((value) => !value)}
+            aria-label={userPaused ? t('play') : t('pause')}
+            className={CONTROL}
+          >
+            {userPaused ? <Play size={15} /> : <Pause size={15} />}
+          </button>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label={t('close')}
+            className={CONTROL}
+          >
+            <X size={17} />
+          </button>
+        </div>
 
+        {/* The picture. Tap to turn the page, hold to stop the clock; the
+            buttons and arrow keys do the same for anyone not pointing. */}
         <div
-          className="relative min-h-[19rem] flex-1 md:min-h-0"
-          onPointerDown={() => setIsProgressPaused(true)}
-          onPointerUp={() => setIsProgressPaused(false)}
-          onPointerLeave={() => setIsProgressPaused(false)}
-          onPointerCancel={() => setIsProgressPaused(false)}
+          className="relative flex h-[46dvh] min-h-[19rem] shrink-0 cursor-pointer select-none flex-col overflow-hidden md:h-auto md:min-h-0 md:flex-1"
+          onPointerDown={handlePressStart}
+          onPointerUp={handlePressEnd}
+          onPointerLeave={handlePressCancel}
+          onPointerCancel={handlePressCancel}
         >
-          {/* A story without artwork keeps the dark ground the caption is set
-              on; the two tinted washes below already carry the panel. */}
-          {currentStory.thumbnail ? (
-            <Image
-              src={currentStory.thumbnail}
-              alt={currentStory.title}
-              fill
-              sizes="(max-width: 768px) 100vw, 60vw"
-              className="object-cover"
-            />
-          ) : (
-            <div className="absolute inset-0 bg-[#120810]" />
-          )}
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,4,14,0.18),rgba(9,4,14,0.6)_55%,rgba(9,4,14,0.9))]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(250,204,21,0.2),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(249,115,22,0.24),transparent_35%)]" />
+          {/* The ground: the artwork itself blurred out to fill the frame, or,
+              when a story has none, the lead member's portrait treated the
+              same way under the hero's contour rings. Either way the panel
+              carries the story's own colour instead of going black. */}
+          <div
+            key={`${currentStory.slug}-ground`}
+            className="story-enter absolute inset-0"
+          >
+            {currentStory.thumbnail ? (
+              <Image
+                src={currentStory.thumbnail}
+                alt=""
+                fill
+                sizes={ARTWORK_SIZES}
+                className="scale-125 object-cover opacity-55 blur-2xl saturate-150"
+              />
+            ) : (
+              <>
+                {leadMember && (
+                  <Image
+                    src={leadMember.thumbnail}
+                    alt=""
+                    fill
+                    sizes={ARTWORK_SIZES}
+                    className="scale-150 object-cover opacity-35 blur-3xl saturate-150"
+                  />
+                )}
+                <div className="story-contours absolute inset-0" />
+              </>
+            )}
+          </div>
+          <div className="story-glow pointer-events-none absolute inset-0" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-night/30 via-transparent via-45% to-night/90" />
 
-          <div className="absolute inset-x-6 bottom-6 z-10 space-y-4 md:inset-x-8 md:bottom-8">
-            <div className="flex flex-wrap items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-white/80">
-              <span className="rounded-full border border-white/20 bg-black/20 px-3 py-1 backdrop-blur">
+          {/* Artwork runs from wide photographs to transparent logos, so it
+              is contained, never cropped, and sits above the caption rather
+              than under it. */}
+          <div
+            key={`${currentStory.slug}-art`}
+            className="story-enter relative flex min-h-0 flex-1 items-center justify-center px-6 pb-2 pt-14 md:px-10 md:pt-16"
+          >
+            {currentStory.thumbnail ? (
+              <div className="relative h-full w-full">
+                <Image
+                  src={currentStory.thumbnail}
+                  alt=""
+                  fill
+                  sizes={ARTWORK_SIZES}
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            ) : (
+              <StoryFaces members={members} />
+            )}
+          </div>
+
+          <div
+            key={`${currentStory.slug}-caption`}
+            className="story-enter relative z-10 px-6 pb-6 md:px-9 md:pb-9"
+          >
+            <p className="flex items-center gap-3 text-[0.66rem] font-semibold uppercase tracking-[0.26em] text-white/70">
+              <span className="tabular-nums">
                 {t('counter', {
                   current: currentIndex + 1,
                   total: stories.length
                 })}
               </span>
-              <span className="rounded-full border border-white/20 bg-black/20 px-3 py-1 backdrop-blur">
+              <span aria-hidden className="h-px w-6 bg-white/30" />
+              <span>
                 {currentStory.kind === 'single'
                   ? t('memberStory')
                   : t('groupStory')}
               </span>
-            </div>
-
-            <div className="max-w-2xl">
-              <h2 className="text-3xl font-semibold leading-tight text-white md:text-4xl">
-                {currentStory.title}
-              </h2>
-              <p className="mt-4 max-w-xl text-sm leading-7 text-white/78 md:text-base">
-                {currentStory.summary}
-              </p>
-            </div>
+            </p>
+            <h2
+              id={titleId}
+              className="mt-3 line-clamp-4 text-[1.45rem] font-semibold leading-[1.2] tracking-[-0.015em] text-white md:line-clamp-none md:text-[2rem] md:leading-[1.15]"
+            >
+              {currentStory.title}
+            </h2>
+            <p className="mt-4 hidden max-w-xl text-[0.95rem] leading-7 text-white/80 md:block">
+              {currentStory.summary}
+            </p>
           </div>
         </div>
 
-        <div className="flex w-full flex-col gap-6 bg-[linear-gradient(180deg,rgba(19,11,29,0.96),rgba(14,8,22,0.98))] px-6 pb-6 pt-16 md:w-[30rem]">
-          <div className="flex flex-wrap items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-white/72">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/6 px-3 py-1.5">
-              <CalendarDays size={14} />
-              {format.dateTime(new Date(currentStory.date), {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
-              })}
-            </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/6 px-3 py-1.5">
-              {currentStory.kind === 'single' ? (
-                <Sparkles size={14} />
-              ) : (
-                <Users size={14} />
-              )}
-              {t('memberCount', { count: currentStory.members.length })}
-            </span>
+        <div
+          className="flex min-h-0 flex-1 flex-col overflow-y-auto border-white/10 md:w-[23rem] md:flex-none md:border-l"
+          onPointerEnter={handleReading(true)}
+          onPointerLeave={handleReading(false)}
+        >
+          <div
+            key={`${currentStory.slug}-details`}
+            className="story-enter flex-1 px-6 pt-6 md:px-7 md:pt-20"
+          >
+            {/* On a phone the picture has no room for the summary, so it
+                leads the text column instead. */}
+            <p className="mb-6 text-sm leading-6 text-white/80 md:hidden">
+              {currentStory.summary}
+            </p>
+
+            <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.66rem] font-semibold uppercase tracking-[0.24em] text-white/60">
+              <time dateTime={currentStory.date} className="tabular-nums">
+                {format.dateTime(new Date(currentStory.date), {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric'
+                })}
+              </time>
+              <span aria-hidden className="h-px w-6 bg-white/25" />
+              <span>{t('memberCount', { count: members.length })}</span>
+            </p>
+
+            {focusedMember && (
+              <section className="mt-6 border-t border-white/10 pt-6">
+                <div className="flex items-center gap-4">
+                  <span className="story-ring shrink-0">
+                    <Avatar
+                      src={focusedMember.thumbnail}
+                      size={56}
+                      alt=""
+                      variant="soft"
+                    />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-[0.64rem] font-semibold uppercase tracking-[0.24em] text-brand-accent">
+                      {t('spotlight')}
+                    </p>
+                    <Link
+                      href={`/member/${focusedMember.id}`}
+                      className="mt-1 block truncate text-base font-semibold text-white transition-colors hover:text-brand-accent"
+                    >
+                      {focusedMember.name}
+                    </Link>
+                    {focusedMember.title && (
+                      <p className="mt-0.5 line-clamp-2 text-xs leading-5 text-white/55">
+                        {focusedMember.title}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <p className="mt-4 text-sm leading-7 text-white/80">
+                  {focusedMember.highlight}
+                </p>
+              </section>
+            )}
+
+            {members.length > 1 && (
+              <section className="mt-6 border-t border-white/10 pt-6">
+                <p className="text-[0.64rem] font-semibold uppercase tracking-[0.24em] text-white/50">
+                  {t('featuredMembers')}
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {members.map((member) => (
+                    <ParticipantChip
+                      key={member.id}
+                      member={member}
+                      isActive={member.id === focusedMember?.id}
+                      onClick={() => setFocusedMemberId(member.id)}
+                    />
+                  ))}
+                </div>
+              </section>
+            )}
+
+            <Link
+              href={currentStory.url}
+              className="mt-8 flex items-center justify-center gap-2 rounded-full bg-brand-accent px-5 py-3 text-[0.7rem] font-semibold uppercase tracking-[0.26em] text-night transition hover:brightness-110"
+            >
+              {t('readFullStory')}
+              <ArrowUpRight size={15} aria-hidden />
+            </Link>
           </div>
 
-          {focusedMember && (
-            <section className="rounded-[28px] border border-white/10 bg-white/6 p-5 shadow-[0_28px_60px_-48px_rgba(0,0,0,0.7)]">
-              <div className="flex items-center gap-4">
-                <span className="story-ring shrink-0">
-                  <Avatar
-                    src={focusedMember.thumbnail}
-                    size={68}
-                    alt={`${focusedMember.name} portrait`}
-                    variant="soft"
-                  />
-                </span>
-                <div className="min-w-0">
-                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/55">
-                    {t('spotlight')}
-                  </p>
-                  <p className="truncate text-lg font-semibold text-white">
-                    {focusedMember.name}
-                  </p>
-                  {focusedMember.title && (
-                    <p className="line-clamp-2 text-sm text-white/62">
-                      {focusedMember.title}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <p className="mt-4 text-sm leading-7 text-white/78">
-                {focusedMember.highlight}
-              </p>
-            </section>
-          )}
-
-          {currentStory.members.length > 1 && (
-            <section>
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/48">
-                {t('featuredMembers')}
-              </p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {currentStory.members.map((member) => (
-                  <ParticipantChip
-                    key={member.id}
-                    member={member}
-                    isActive={member.id === focusedMember?.id}
-                    onClick={() => setFocusedMemberId(member.id)}
-                  />
-                ))}
-              </div>
-            </section>
-          )}
-
-          <Link
-            href={currentStory.url}
-            className="inline-flex items-center justify-center rounded-full border border-rose-300/35 bg-rose-100/90 px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-rose-900 transition hover:bg-rose-100"
+          {/* Pinned to the bottom of the column, so on a phone the way on is
+              always in reach however long the spotlight runs. */}
+          <nav
+            aria-label={t('navigation')}
+            className="sticky bottom-0 mt-6 flex items-center justify-between gap-3 border-t border-white/10 bg-night px-6 py-4 md:px-7"
           >
-            {t('readFullStory')}
-          </Link>
-
-          <div className="mt-auto flex items-center justify-between gap-3 pt-4">
             <button
               type="button"
               onClick={goPrevious}
               disabled={currentIndex === 0}
-              className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/6 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-45"
+              className={STEP}
             >
-              <ArrowLeft size={16} />
+              <ArrowLeft size={15} aria-hidden />
               {tCommon('previous')}
             </button>
+            <span className="text-[0.66rem] font-semibold tabular-nums tracking-[0.2em] text-white/45">
+              {currentIndex + 1} / {stories.length}
+            </span>
             <button
               type="button"
               onClick={goNext}
-              disabled={currentIndex === stories.length - 1}
-              className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/6 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-45"
+              disabled={currentIndex === lastIndex}
+              className={STEP}
             >
               {tCommon('next')}
-              <ArrowRight size={16} />
+              <ArrowRight size={15} aria-hidden />
             </button>
-          </div>
+          </nav>
         </div>
       </div>
     </div>,
     document.body
+  );
+}
+
+/* Stands in for the picture when a story has none: the people in it, the
+   first in front, with a count for anyone past the third. */
+function StoryFaces({ members }: { members: StoryMember[] }) {
+  const faces = members.slice(0, 3);
+  const extra = members.length - faces.length;
+  const size =
+    faces.length > 1
+      ? 'h-20 w-20 md:h-28 md:w-28'
+      : 'h-28 w-28 md:h-40 md:w-40';
+
+  return (
+    <div aria-hidden className="flex items-center">
+      {faces.map((member, index) => (
+        <span
+          key={member.id}
+          className={`story-ring ${index ? '-ml-5 md:-ml-7' : ''}`}
+          style={{ zIndex: faces.length - index }}
+        >
+          <Avatar
+            src={member.thumbnail}
+            size={160}
+            alt=""
+            variant="soft"
+            className={size}
+          />
+        </span>
+      ))}
+      {extra > 0 && (
+        <span className="relative -ml-3 flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-night/80 text-sm font-semibold tabular-nums text-white backdrop-blur md:h-14 md:w-14">
+          +{extra}
+        </span>
+      )}
+    </div>
   );
 }
 
@@ -380,19 +590,15 @@ function ParticipantChip({ member, isActive, onClick }: ParticipantChipProps) {
     <button
       type="button"
       onClick={onClick}
-      className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-left text-xs font-semibold transition ${
+      aria-pressed={isActive}
+      className={`inline-flex cursor-pointer items-center gap-2 rounded-full border py-1 pl-1 pr-3 text-xs font-medium transition ${
         isActive
-          ? 'border-rose-200/80 bg-rose-100 text-rose-950 shadow-[0_18px_30px_-26px_rgba(251,113,133,0.95)]'
-          : 'border-white/10 bg-white/6 text-white/78 hover:bg-white/10'
+          ? 'border-brand-accent/70 bg-white/10 text-white'
+          : 'border-white/10 text-white/70 hover:border-white/25 hover:text-white'
       }`}
     >
-      <Avatar
-        src={member.thumbnail}
-        size={28}
-        alt={`${member.name} portrait`}
-        variant="soft"
-      />
-      <span className="max-w-[11rem] truncate">{member.name}</span>
+      <Avatar src={member.thumbnail} size={26} alt="" variant="soft" />
+      <span className="max-w-[10rem] truncate">{member.name}</span>
     </button>
   );
 }

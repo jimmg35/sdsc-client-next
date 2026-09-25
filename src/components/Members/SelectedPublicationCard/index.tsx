@@ -13,12 +13,12 @@ const SelectedPublicationCard = ({
   return (
     /* A ruled entry rather than a card: the profile's publication list reads
        as one column of references. */
-    <li className="group border-t border-silk-600/25 py-6">
+    <li className="group border-t border-accent-600/25 py-6">
       <article className="grid gap-4 md:grid-cols-[1fr_auto] md:items-start">
         <div className="min-w-0">
           {(journal || catalog) && (
             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[0.66rem] font-semibold uppercase tracking-[0.22em]">
-              {journal && <span className="text-rose-600">{journal}</span>}
+              {journal && <span className="text-primary-600">{journal}</span>}
               {catalog && (
                 <span className="font-medium tracking-[0.18em] text-ink-500">
                   {catalog}
@@ -38,7 +38,7 @@ const SelectedPublicationCard = ({
             href={doiUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex shrink-0 items-center gap-2 self-start text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-rose-600 transition-colors hover:text-rose-700 md:mt-1"
+            className="inline-flex shrink-0 items-center gap-2 self-start text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-primary-600 transition-colors hover:text-primary-700 md:mt-1"
           >
             DOI
             <ArrowUpRight

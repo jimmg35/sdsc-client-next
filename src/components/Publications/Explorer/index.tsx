@@ -347,22 +347,22 @@ const PublicationExplorer = ({
     <div className="mt-16 space-y-8">
       <section
         id="publication-finder"
-        className="relative scroll-mt-36 border-y border-silk-600/25 py-7 md:scroll-mt-44"
+        className="relative scroll-mt-36 border-y border-accent-600/25 py-7 md:scroll-mt-44"
       >
         <div className="relative flex flex-col gap-4">
           <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
             <div className="flex flex-wrap items-center gap-3">
-              <span className="flex items-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.3em] text-silk-700">
+              <span className="flex items-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.3em] text-accent-700">
                 <Sparkles size={14} aria-hidden />
                 {t('finder.chip')}
               </span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-silk-200/80 bg-surface/82 px-3 py-1 text-[0.72rem] font-medium uppercase tracking-[0.24em] text-ink-500">
+              <span className="inline-flex items-center gap-2 rounded-full border border-accent-200/80 bg-surface/82 px-3 py-1 text-[0.72rem] font-medium uppercase tracking-[0.24em] text-ink-500">
                 <Filter size={14} />
                 {activeFiltersCount
                   ? t('finder.filtersActive', { count: activeFiltersCount })
                   : t('finder.browseArchive')}
               </span>
-              <span className="inline-flex items-center rounded-full border border-silk-600/25 bg-surface/80 px-3 py-1 text-[0.72rem] font-medium uppercase tracking-[0.22em] text-ink-500">
+              <span className="inline-flex items-center rounded-full border border-accent-600/25 bg-surface/80 px-3 py-1 text-[0.72rem] font-medium uppercase tracking-[0.22em] text-ink-500">
                 {t('finder.results', { count: sortedRecords.length })}
               </span>
             </div>
@@ -381,7 +381,7 @@ const PublicationExplorer = ({
                 onChange={(event) =>
                   handleSortChange(event.target.value as SortValue)
                 }
-                className="calcite-focus rounded-full border border-silk-600/30 bg-surface/80 px-4 py-2.5 text-sm font-medium text-ink-900"
+                className="calcite-focus rounded-full border border-accent-600/30 bg-surface/80 px-4 py-2.5 text-sm font-medium text-ink-900"
               >
                 {SORT_OPTIONS.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -393,7 +393,7 @@ const PublicationExplorer = ({
               <button
                 type="button"
                 onClick={resetFilters}
-                className="inline-flex items-center gap-2 rounded-full border border-silk-600/30 bg-surface/80 px-4 py-2.5 text-sm font-semibold text-ink-700 transition duration-200 hover:border-rose-300/60 hover:text-rose-600"
+                className="inline-flex items-center gap-2 rounded-full border border-accent-600/30 bg-surface/80 px-4 py-2.5 text-sm font-semibold text-ink-700 transition duration-200 hover:border-primary-300/60 hover:text-primary-600"
               >
                 <RotateCcw size={15} />
                 {t('finder.reset')}
@@ -412,7 +412,7 @@ const PublicationExplorer = ({
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
                 placeholder={t('search.placeholder')}
-                className="calcite-focus w-full rounded-full border border-silk-600/30 bg-surface/80 py-3.5 pl-13 pr-5 text-[0.97rem] text-ink-900 transition-colors duration-300 hover:border-silk-600/45 placeholder:text-ink-500"
+                className="calcite-focus w-full rounded-full border border-accent-600/30 bg-surface/80 py-3.5 pl-13 pr-5 text-[0.97rem] text-ink-900 transition-colors duration-300 hover:border-accent-600/45 placeholder:text-ink-500"
               />
             </div>
           </div>
@@ -457,11 +457,11 @@ const PublicationExplorer = ({
         <aside className="space-y-6 xl:sticky xl:top-28 xl:self-start">
           <div
             id="publication-years"
-            className="scroll-mt-36 border-t border-silk-600/25 pt-6 md:scroll-mt-44"
+            className="scroll-mt-36 border-t border-accent-600/25 pt-6 md:scroll-mt-44"
           >
             <div className="space-y-4">
               <div>
-                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-rose-500">
+                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-primary-500">
                   {t('filters.byYear')}
                 </p>
                 <p className="mt-2 text-sm text-ink-500">
@@ -489,11 +489,11 @@ const PublicationExplorer = ({
 
           <div
             id="publication-members"
-            className="scroll-mt-36 border-t border-silk-600/25 pt-6 md:scroll-mt-44"
+            className="scroll-mt-36 border-t border-accent-600/25 pt-6 md:scroll-mt-44"
           >
             <div className="space-y-4">
               <div>
-                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-rose-500">
+                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-primary-500">
                   {t('filters.byMember')}
                 </p>
                 <p className="mt-2 text-sm text-ink-500">
@@ -515,11 +515,11 @@ const PublicationExplorer = ({
                     disabled={!member.hasPublication}
                     className={`flex items-center gap-3 rounded-[22px] border px-3 py-3 text-left transition duration-200 ${
                       selectedAuthorId === member.id
-                        ? 'border-rose-300/70 bg-rose-50/75 text-ink-900 shadow-[0_20px_40px_-34px_rgba(168,110,161,0.45)]'
-                        : 'border-silk-600/25 bg-surface/80 text-ink-700 hover:border-silk-600/45 hover:bg-surface'
+                        ? 'border-primary-300/70 bg-primary-50/75 text-ink-900 shadow-glow'
+                        : 'border-accent-600/25 bg-surface/80 text-ink-700 hover:border-accent-600/45 hover:bg-surface'
                     } ${
                       !member.hasPublication
-                        ? 'cursor-not-allowed opacity-45 hover:border-silk-600/25 hover:bg-surface/80'
+                        ? 'cursor-not-allowed opacity-45 hover:border-accent-600/25 hover:bg-surface/80'
                         : ''
                     }`}
                   >
@@ -550,7 +550,7 @@ const PublicationExplorer = ({
           id="publication-results"
           className="space-y-6 scroll-mt-36 md:scroll-mt-44"
         >
-          <div className="flex flex-col gap-3 border-b border-silk-600/25 pb-5 md:flex-row md:items-end md:justify-between">
+          <div className="flex flex-col gap-3 border-b border-accent-600/25 pb-5 md:flex-row md:items-end md:justify-between">
             <div className="space-y-1">
               <p className="text-sm font-semibold text-ink-900">
                 {sortedRecords.length
@@ -583,7 +583,7 @@ const PublicationExplorer = ({
                 />
               ))
             ) : (
-              <div className="border-t border-silk-600/25 py-12 text-sm text-ink-500">
+              <div className="border-t border-accent-600/25 py-12 text-sm text-ink-500">
                 {t('results.empty')}
               </div>
             )}
@@ -592,7 +592,7 @@ const PublicationExplorer = ({
           {totalPages > 1 && (
             <nav
               aria-label={t('pagination.aria')}
-              className="flex flex-col gap-4 border-t border-silk-600/25 pt-7"
+              className="flex flex-col gap-4 border-t border-accent-600/25 pt-7"
             >
               <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                 <div>
@@ -631,8 +631,8 @@ const PublicationExplorer = ({
                         aria-current={item === currentPage ? 'page' : undefined}
                         className={`min-w-11 cursor-pointer rounded-[20px] border px-4 py-3 text-sm font-semibold transition duration-200 ${
                           item === currentPage
-                            ? 'border-rose-400/70 bg-rose-500 text-white shadow-[0_24px_40px_-30px_rgba(168,110,161,0.6)]'
-                            : 'border-silk-600/25 bg-surface/85 text-ink-700 hover:border-silk-600/45 hover:bg-surface'
+                            ? 'border-primary-400/70 bg-primary-500 text-white shadow-glow-lg'
+                            : 'border-accent-600/25 bg-surface/85 text-ink-700 hover:border-accent-600/45 hover:bg-surface'
                         }`}
                       >
                         {item}
@@ -664,12 +664,12 @@ type FilterChipProps = {
 };
 
 const FilterChip = ({ label, removeLabel, onClear }: FilterChipProps) => (
-  <span className="inline-flex items-center gap-2 rounded-full border border-rose-200/60 bg-rose-50/80 px-3 py-2 text-xs font-medium text-ink-700">
+  <span className="inline-flex items-center gap-2 rounded-full border border-primary-200/60 bg-primary-50/80 px-3 py-2 text-xs font-medium text-ink-700">
     {label}
     <button
       type="button"
       onClick={onClear}
-      className="rounded-full border border-rose-200/70 p-1 text-rose-500 transition duration-200 hover:border-rose-300 hover:text-rose-600"
+      className="rounded-full border border-primary-200/70 p-1 text-primary-500 transition duration-200 hover:border-primary-300 hover:text-primary-600"
       aria-label={removeLabel}
     >
       <X size={12} />
@@ -693,8 +693,8 @@ const YearFilterButton = ({
     onClick={onClick}
     className={`rounded-full border px-3.5 py-2 text-sm font-medium transition duration-200 ${
       active
-        ? 'border-rose-300/70 bg-rose-50 text-rose-700 shadow-[0_16px_30px_-24px_rgba(168,110,161,0.4)]'
-        : 'border-silk-600/25 bg-surface/82 text-ink-700 hover:border-rose-300/60 hover:bg-surface'
+        ? 'border-primary-300/70 bg-primary-50 text-primary-700 shadow-glow'
+        : 'border-accent-600/25 bg-surface/82 text-ink-700 hover:border-primary-300/60 hover:bg-surface'
     }`}
   >
     {label}
@@ -717,8 +717,8 @@ const AuthorFilterButton = ({
     onClick={onClick}
     className={`rounded-[22px] border px-4 py-3 text-left text-sm font-semibold transition duration-200 ${
       active
-        ? 'border-rose-300/70 bg-rose-50/78 text-ink-900 shadow-[0_20px_36px_-30px_rgba(168,110,161,0.45)]'
-        : 'border-silk-600/25 bg-surface/84 text-ink-700 hover:border-rose-300/60 hover:bg-surface'
+        ? 'border-primary-300/70 bg-primary-50/78 text-ink-900 shadow-glow'
+        : 'border-accent-600/25 bg-surface/84 text-ink-700 hover:border-primary-300/60 hover:bg-surface'
     }`}
   >
     {label}
@@ -746,8 +746,8 @@ const PaginationButton = ({
     disabled={disabled}
     className={`inline-flex items-center gap-2 rounded-[20px] border px-4 py-3 text-sm font-semibold transition duration-200 ${
       disabled
-        ? 'cursor-not-allowed border-silk-600/25 bg-surface/70 text-ink-300'
-        : 'cursor-pointer border-silk-600/25 bg-surface/85 text-ink-700 hover:border-silk-600/45 hover:bg-surface'
+        ? 'cursor-not-allowed border-accent-600/25 bg-surface/70 text-ink-300'
+        : 'cursor-pointer border-accent-600/25 bg-surface/85 text-ink-700 hover:border-accent-600/45 hover:bg-surface'
     }`}
   >
     {iconPosition === 'left' && icon}

@@ -56,10 +56,10 @@ export default async function Publications() {
     <section className="page-shell">
       <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 md:pt-40">
         <header className="max-w-3xl">
-          <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-silk-700 md:text-xs md:tracking-[0.42em]">
+          <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-accent-700 md:text-xs md:tracking-[0.42em]">
             <span
               aria-hidden
-              className="h-px w-10 bg-gradient-to-r from-transparent to-silk-600/55"
+              className="h-px w-10 bg-gradient-to-r from-transparent to-accent-600/55"
             />
             {t('page.chip')}
           </p>
@@ -80,7 +80,7 @@ export default async function Publications() {
 
         <Suspense
           fallback={
-            <div className="mt-16 border-t border-silk-600/25 py-10 text-sm text-ink-500">
+            <div className="mt-16 border-t border-accent-600/25 py-10 text-sm text-ink-500">
               {t('page.loading')}
             </div>
           }
