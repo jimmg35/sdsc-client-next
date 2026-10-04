@@ -18,9 +18,15 @@ export type BibliographyVersion = {
  */
 export const bibliographyVersions: BibliographyVersion[] = [
   {
+    version: '10-2026',
+    releasedAt: 'October 2026',
+    href: '/contents/(M)GWR-Bibliography.pdf',
+    size: '5.6 MB'
+  },
+  {
     version: '09-2026',
     releasedAt: 'September 2026',
-    href: '/contents/(M)GWR-Bibliography.pdf',
+    href: '/contents/(M)GWR-Bibliography-09-2026.pdf',
     size: '5.5 MB'
   },
   {
