@@ -1,12 +1,29 @@
 import { type MemberData, getAllMembers } from '@/lib/members';
-import { getAllNews } from '@/lib/news';
+import { getAllNews, parseContentDate } from '@/lib/news';
 import type {
   RecentStoryCollection,
   StoryEvent,
   StoryMember
 } from '@/lib/stories/types';
+import fs from 'fs';
+import path from 'path';
 
 export const DEFAULT_STORY_WINDOW_MONTHS = 6;
+
+const labStoriesDirectory = path.join(
+  process.cwd(),
+  'src',
+  'contents',
+  'lab-stories'
+);
+
+type LabStoryFile = Pick<
+  StoryEvent,
+  'title' | 'summary' | 'thumbnail' | 'cover' | 'coverVideo' | 'video' | 'url'
+> & {
+  date: string;
+  members: { id: string; highlight: string }[];
+};
 
 const SUMMARY_LIMIT = 190;
 /* The viewer gives the spotlight its own column, so a highlight can run to a
@@ -173,6 +190,54 @@ const buildMemberHighlight = (
   return `${member.name} is featured in this SDSC update alongside ${peerLabel}.`;
 };
 
+/* Stories that are not news: something in the lab worth a look. Each one is
+   written out in full in its JSON file, so nothing is derived the way a news
+   story's summary and highlights are; the members it names are looked up only
+   for their portrait and title. */
+const getLabStories = (membersById: Record<string, MemberData>): StoryEvent[] =>
+  fs
+    .readdirSync(labStoriesDirectory)
+    .filter((fileName) => fileName.endsWith('.json'))
+    .map((fileName) => {
+      const data: LabStoryFile = JSON.parse(
+        fs.readFileSync(path.join(labStoriesDirectory, fileName), 'utf8')
+      );
+
+      const members = data.members.flatMap<StoryMember>(({ id, highlight }) => {
+        const member = membersById[id];
+
+        return member
+          ? [
+              {
+                id,
+                name: member.name,
+                title: member.title,
+                thumbnail: member.thumbnail,
+                highlight
+              }
+            ]
+          : [];
+      });
+
+      return {
+        slug: fileName.replace(/\.json$/, ''),
+        title: data.title,
+        date: parseContentDate(data.date).toISOString(),
+        description: data.summary,
+        summary: data.summary,
+        // The clip's poster doubles as the artwork, so the viewer's blurred
+        // ground and its look-ahead preload work as they do for news.
+        thumbnail: data.thumbnail ?? data.video?.poster,
+        url: data.url,
+        kind: 'lab',
+        cover: data.cover,
+        coverVideo: data.coverVideo,
+        video: data.video,
+        memberIds: members.map((member) => member.id),
+        members
+      };
+    });
+
 export function getRecentStoryCollection(
   months = DEFAULT_STORY_WINDOW_MONTHS,
   referenceDate = new Date()
@@ -192,15 +257,15 @@ export function getRecentStoryCollection(
     1
   );
 
-  const stories = getAllNews()
+  const isInWindow = (publishedAt: Date) =>
+    publishedAt.getTime() >= windowStart.getTime() &&
+    publishedAt.getTime() <= referenceDate.getTime();
+
+  const newsStories = getAllNews()
     .filter((article) => {
       const publishedAt =
         article.date instanceof Date ? article.date : new Date(article.date);
-      return (
-        article.memberIds.length > 0 &&
-        publishedAt.getTime() >= windowStart.getTime() &&
-        publishedAt.getTime() <= referenceDate.getTime()
-      );
+      return article.memberIds.length > 0 && isInWindow(publishedAt);
     })
     .map<StoryEvent | null>((article) => {
       const memberIds = Array.from(new Set(article.memberIds)).filter(
@@ -255,6 +320,19 @@ export function getRecentStoryCollection(
       };
     })
     .filter((story): story is StoryEvent => Boolean(story));
+
+  // Lab stories age out on the same window and take their place by date.
+  const labStories = getLabStories(membersById).filter((story) =>
+    isInWindow(new Date(story.date))
+  );
+  // A lab story that links to a news post stands in for that post in the
+  // rail, rather than the post turning up a second time as a story of faces.
+  const claimedUrls = new Set(labStories.map((story) => story.url));
+
+  const stories = [
+    ...newsStories.filter((story) => !claimedUrls.has(story.url)),
+    ...labStories
+  ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   const storiesByMemberId = stories.reduce<Record<string, StoryEvent[]>>(
     (acc, story) => {

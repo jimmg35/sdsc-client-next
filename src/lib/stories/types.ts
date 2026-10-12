@@ -6,6 +6,12 @@ export interface StoryMember {
   highlight: string;
 }
 
+export interface StoryVideo {
+  src: string;
+  poster: string;
+  alt: string;
+}
+
 export interface StoryEvent {
   slug: string;
   title: string;
@@ -14,7 +20,14 @@ export interface StoryEvent {
   summary: string;
   thumbnail?: string;
   url: string;
-  kind: 'single' | 'group';
+  /** `lab` stories come from `src/contents/lab-stories`, not a news post. */
+  kind: 'single' | 'group' | 'lab';
+  /** Square artwork for the rail's ring, shown in place of a face. */
+  cover?: string;
+  /** A short muted loop the ring plays over `cover`, its first frame. */
+  coverVideo?: string;
+  /** A muted clip the viewer plays in place of the artwork. */
+  video?: StoryVideo;
   memberIds: string[];
   members: StoryMember[];
 }

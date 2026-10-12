@@ -83,7 +83,13 @@ export default async function PostPage(props: { params: Props }) {
           </header>
 
           {post.thumbnail && (
-            <figure className="relative mt-10 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-accent-600/25 bg-accent-200">
+            /* A clip is portrait phone footage, so its frame stands upright on
+               a phone, where a 16:9 box would leave it a sliver. */
+            <figure
+              className={`relative mt-10 w-full overflow-hidden rounded-2xl border border-accent-600/25 bg-accent-200 ${
+                post.video ? 'aspect-[3/4] sm:aspect-[16/10]' : 'aspect-[16/9]'
+              }`}
+            >
               {/* Artwork ranges from wide photographs to transparent agency
                   logos, so an over-scaled blurred copy fills the frame and the
                   real image is contained on top of it — the same treatment the
@@ -96,14 +102,30 @@ export default async function PostPage(props: { params: Props }) {
                 sizes="(max-width: 768px) 100vw, 48rem"
                 className="scale-125 object-cover opacity-70 blur-2xl saturate-150"
               />
-              <Image
-                src={post.thumbnail}
-                alt={post.title}
-                fill
-                sizes="(max-width: 768px) 100vw, 48rem"
-                className="object-contain object-center"
-                priority
-              />
+              {post.video ? (
+                /* Sized to the clip rather than the frame, so the controls
+                   span the picture, not the blurred margins beside it. Not
+                   autoplayed: it plays when the reader asks. */
+                <video
+                  className="absolute inset-y-0 left-1/2 aspect-[3/4] h-full -translate-x-1/2 bg-black object-contain"
+                  poster={post.thumbnail}
+                  aria-label={post.title}
+                  controls
+                  playsInline
+                  preload="none"
+                >
+                  <source src={post.video} type="video/mp4" />
+                </video>
+              ) : (
+                <Image
+                  src={post.thumbnail}
+                  alt={post.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 48rem"
+                  className="object-contain object-center"
+                  priority
+                />
+              )}
             </figure>
           )}
 

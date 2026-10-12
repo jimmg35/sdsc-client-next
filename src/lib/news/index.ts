@@ -13,6 +13,8 @@ export interface NewsData {
   memberIds: string[];
   description: string;
   thumbnail?: string;
+  /** A clip shown in place of the thumbnail on the post, which is its poster. */
+  video?: string;
   sourceUrl?: string;
   content: string;
 }
@@ -25,11 +27,12 @@ export interface RecentNewsWindow {
 }
 
 /* No placeholder image: a post without artwork simply has no thumbnail, and
-   every surface that shows one checks for it first. */
-const parseThumbnail = (value: unknown) =>
+   every surface that shows one checks for it first. A clip is optional the
+   same way. */
+const parseMediaPath = (value: unknown) =>
   typeof value === 'string' && value.trim() ? value.trim() : undefined;
 
-const parseContentDate = (value: string | Date) => {
+export const parseContentDate = (value: string | Date) => {
   if (value instanceof Date) {
     return value;
   }
@@ -61,7 +64,8 @@ export function getAllNews(): NewsData[] {
           )
         : [],
       description: data.description,
-      thumbnail: parseThumbnail(data.thumbnail),
+      thumbnail: parseMediaPath(data.thumbnail),
+      video: parseMediaPath(data.video),
       sourceUrl: data.sourceUrl || undefined,
       content
     };
@@ -88,7 +92,8 @@ export function getNewsBySlug(slug: string): NewsData {
         )
       : [],
     description: data.description,
-    thumbnail: parseThumbnail(data.thumbnail),
+    thumbnail: parseMediaPath(data.thumbnail),
+    video: parseMediaPath(data.video),
     sourceUrl: data.sourceUrl || undefined,
     content
   };

@@ -201,6 +201,111 @@
     transition: box-shadow 300ms ease;
   }
 
+  /* The live ring, for a story that brings its own footage. Deliberately not
+     the site's ramps: it wears the sandbox's elevation colours, water through
+     lowland to high ground, and turns, so it is the one ring in the row that
+     moves. The ramp is on a pseudo-element so only it rotates, not the clip. */
+  .story-ring-live,
+  .story-ripple,
+  .notice-dot {
+    --live-water: #2563eb;
+  }
+
+  /* That blue all but disappears on the night ground; a lighter one keeps
+     the ripples in view. */
+  .dark .story-ring-live,
+  .dark .story-ripple,
+  .dark .notice-dot {
+    --live-water: #60a5fa;
+  }
+
+  /* The turning ramp, shared with the navbar notice's dot so the notice and
+     the story it points to read as the same thing. */
+  .story-ring-live::before,
+  .notice-dot {
+    background: conic-gradient(
+      var(--live-water),
+      #22c55e,
+      #facc15,
+      #f97316,
+      #ef4444,
+      var(--live-water)
+    );
+    animation: story-ring-turn 6s linear infinite;
+  }
+
+  .story-ring-live {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    padding: 3px;
+    border-radius: 9999px;
+    box-shadow: 0 18px 36px -18px
+      color-mix(in oklab, var(--live-water) 70%, transparent);
+  }
+
+  .story-ring-live::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+  }
+
+  /* Contour lines spreading out from the live ring, two at a time. The rail
+     leaves padding around itself so they are not clipped. */
+  .story-ripple {
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    border: 1.5px solid color-mix(in oklab, var(--live-water) 80%, transparent);
+    pointer-events: none;
+    animation: story-ripple 2.6s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+  }
+
+  /* The navbar notice. Frosted like the docked bar, it drops in once, and a
+     sheen crosses the glass every few seconds: enough to be noticed at the
+     top of the page, too slow to nag. */
+  .notice-glass {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    animation: notice-enter 700ms 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .notice-glass::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(
+      105deg,
+      transparent 30%,
+      color-mix(in oklab, white 60%, transparent) 50%,
+      transparent 70%
+    );
+    transform: translateX(-110%);
+    animation: notice-sheen 7s 1.2s ease-in-out infinite;
+  }
+
+  .dark .notice-glass::after {
+    background: linear-gradient(
+      105deg,
+      transparent 30%,
+      color-mix(in oklab, white 14%, transparent) 50%,
+      transparent 70%
+    );
+  }
+
+  .notice-dot {
+    width: 0.6rem;
+    height: 0.6rem;
+    flex-shrink: 0;
+    border-radius: 9999px;
+    box-shadow: 0 0 10px color-mix(in oklab, var(--live-water) 60%, transparent);
+  }
+
   /* The story viewer's two corner glows, in the brand colours at full
      strength since the viewer is always on the night ground. */
   .story-glow {
@@ -815,6 +920,44 @@
   }
 }
 
+@keyframes story-ring-turn {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes story-ripple {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.45);
+    opacity: 0;
+  }
+}
+
+@keyframes notice-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes notice-sheen {
+  0% {
+    transform: translateX(-110%);
+  }
+  22%,
+  100% {
+    transform: translateX(110%);
+  }
+}
+
 @keyframes story-enter {
   from {
     opacity: 0;
@@ -872,7 +1015,15 @@
 @media (prefers-reduced-motion: reduce) {
   .story-enter,
   .story-dialog-enter,
-  .story-backdrop-enter {
+  .story-backdrop-enter,
+  .story-ring-live::before,
+  .notice-glass,
+  .notice-dot {
     animation: none !important;
+  }
+
+  .story-ripple,
+  .notice-glass::after {
+    display: none;
   }
 }

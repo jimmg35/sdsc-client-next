@@ -1,0 +1,19 @@
+{
+  "title": "Topography you can touch",
+  "date": "2026-10-12",
+  "summary": "Our augmented-reality sandbox projects elevation bands and contour lines onto the sand as you shape it, and rains wherever you hold a hand. Not research, just the quickest way we know to explain a contour line.",
+  "cover": "/img/sandbox/ring.jpg",
+  "coverVideo": "/vid/sandbox-ring.mp4",
+  "video": {
+    "src": "/vid/sandbox-loop.mp4",
+    "poster": "/img/sandbox/loop-poster.jpg",
+    "alt": "Hands held over the SDSC augmented-reality sandbox while projected rain runs down the contoured sand and fills a basin."
+  },
+  "members": [
+    {
+      "id": "chenlun-kao",
+      "highlight": "Chen-Lun Kao set the sandbox up and got it running properly."
+    }
+  ],
+  "url": "/news/sdsc-augmented-reality-sandbox"
+}

@@ -44,6 +44,12 @@ const CONTROL =
 const STEP =
   'inline-flex cursor-pointer items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-white/80 transition hover:text-white disabled:pointer-events-none disabled:opacity-30';
 
+const KIND_LABEL = {
+  single: 'memberStory',
+  group: 'groupStory',
+  lab: 'labStory'
+} as const;
+
 type StoryModalProps = {
   stories: StoryEvent[];
   initialIndex: number;
@@ -82,7 +88,15 @@ export default function StoryModal({
   const [isHeld, setIsHeld] = useState(false);
   const [isReading, setIsReading] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
-  const paused = userPaused || isHeld || isReading || isHidden;
+  const held = userPaused || isHeld || isReading || isHidden;
+
+  /* A story with a clip times its bar by the clip: the bar lasts as long as
+     the clip and waits while it is still loading. The clip itself answers only
+     to the four reasons above; waiting on its own loading would stall it. */
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isBuffering, setIsBuffering] = useState(false);
+  const [clipMs, setClipMs] = useState<number | null>(null);
+  const paused = held || isBuffering;
 
   const currentStory = stories[currentIndex];
 
@@ -98,6 +112,25 @@ export default function StoryModal({
         : (currentStory.memberIds[0] ?? null)
     );
   }, [currentStory, requestedFocusMemberId]);
+
+  useEffect(() => {
+    setIsBuffering(Boolean(currentStory?.video));
+    setClipMs(null);
+  }, [currentStory]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+
+    if (!video) {
+      return;
+    }
+
+    if (held) {
+      video.pause();
+    } else {
+      video.play().catch(() => {});
+    }
+  }, [held, currentStory]);
 
   const goPrevious = useCallback(() => {
     setCurrentIndex((index) => Math.max(index - 1, 0));
@@ -253,6 +286,7 @@ export default function StoryModal({
     return null;
   }
 
+  const storyMs = currentStory.video && clipMs ? clipMs : AUTO_ADVANCE_MS;
   const members = currentStory.members;
   const [leadMember] = members;
   const focusedMember =
@@ -294,7 +328,7 @@ export default function StoryModal({
                   className="story-progress block h-full w-full bg-white"
                   style={
                     {
-                      '--story-duration': `${AUTO_ADVANCE_MS}ms`,
+                      '--story-duration': `${storyMs}ms`,
                       animationPlayState: paused ? 'paused' : 'running'
                     } as CSSProperties
                   }
@@ -369,12 +403,33 @@ export default function StoryModal({
 
           {/* Artwork runs from wide photographs to transparent logos, so it
               is contained, never cropped, and sits above the caption rather
-              than under it. */}
+              than under it. A clip is framed the same way, and since it sits
+              under the same press handlers, holding it holds the clip too. */}
           <div
             key={`${currentStory.slug}-art`}
             className="story-enter relative flex min-h-0 flex-1 items-center justify-center px-6 pb-2 pt-14 md:px-10 md:pt-16"
           >
-            {currentStory.thumbnail ? (
+            {currentStory.video ? (
+              <div className="relative h-full w-full">
+                <video
+                  ref={videoRef}
+                  className="absolute inset-0 h-full w-full object-contain"
+                  poster={currentStory.video.poster}
+                  aria-label={currentStory.video.alt}
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  onLoadedMetadata={(event) =>
+                    setClipMs(event.currentTarget.duration * 1000)
+                  }
+                  onWaiting={() => setIsBuffering(true)}
+                  onPlaying={() => setIsBuffering(false)}
+                >
+                  <source src={currentStory.video.src} type="video/mp4" />
+                </video>
+              </div>
+            ) : currentStory.thumbnail ? (
               <div className="relative h-full w-full">
                 <Image
                   src={currentStory.thumbnail}
@@ -402,11 +457,7 @@ export default function StoryModal({
                 })}
               </span>
               <span aria-hidden className="h-px w-6 bg-white/30" />
-              <span>
-                {currentStory.kind === 'single'
-                  ? t('memberStory')
-                  : t('groupStory')}
-              </span>
+              <span>{t(KIND_LABEL[currentStory.kind])}</span>
             </p>
             <h2
               id={titleId}
@@ -443,8 +494,14 @@ export default function StoryModal({
                   day: 'numeric'
                 })}
               </time>
-              <span aria-hidden className="h-px w-6 bg-white/25" />
-              <span>{t('memberCount', { count: members.length })}</span>
+              {/* A headcount describes a news story; for something in the
+                  lab it would only read "1 member". */}
+              {currentStory.kind !== 'lab' && (
+                <>
+                  <span aria-hidden className="h-px w-6 bg-white/25" />
+                  <span>{t('memberCount', { count: members.length })}</span>
+                </>
+              )}
             </p>
 
             {focusedMember && (

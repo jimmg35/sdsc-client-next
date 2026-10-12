@@ -1,6 +1,7 @@
 'use client';
 
 // import NotificationBanner from '@/components/Layout/NotificationBanner';
+import NavNotice from '@/components/Layout/NavNotice';
 import OfficialSiteBar from '@/components/Layout/OfficialSiteBar';
 import ThemeToggle from '@/components/Layout/ThemeToggle';
 import easternEgg from '@/lib/easterneggs';
@@ -347,6 +348,20 @@ const Navbar = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Floats under the bar while it sits at the top of the page and leaves
+          with the official bar once it docks, so it never rides over what the
+          reader scrolled down to read. Out of the way of the open menu too. */}
+      <div
+        className={`pointer-events-none transition-[opacity,translate] ${MORPH} ${
+          hasScrolled || isOpen
+            ? '-translate-y-2 opacity-0'
+            : 'translate-y-0 opacity-100'
+        }`}
+        inert={hasScrolled || isOpen}
+      >
+        <NavNotice />
       </div>
     </header>
   );

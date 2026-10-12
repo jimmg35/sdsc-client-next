@@ -14,6 +14,11 @@
     "fullLabel": "Official website of the Spatial Data Science Center",
     "university": "Florida State University"
   },
+  "navNotice": {
+    "eyebrow": "New in the Lab",
+    "message": "We've got an AR sandbox — come check it out",
+    "dismiss": "Dismiss this notice"
+  },
   "nav": {
     "home": "Home",
     "members": "Members",
@@ -395,6 +400,7 @@
     "counter": "Story {current} / {total}",
     "memberStory": "Member Story",
     "groupStory": "Group Story",
+    "labStory": "In the Lab",
     "memberCount": "{count, plural, one {# member} other {# members}}",
     "spotlight": "Spotlight",
     "featuredMembers": "Featured Members",
