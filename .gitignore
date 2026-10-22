@@ -34,6 +34,9 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# WebDAV login saved by scripts/deploy-webdav.mjs
+/.webdav-credentials.json
+
 # vercel
 .vercel
 

@@ -4,11 +4,15 @@
 //   npm run deploy:webdav -- --dry-run   # list what would be deleted
 //   npm run deploy:webdav                # delete everything, then upload out/
 //
-// Credentials come from WEBDAV_USER / WEBDAV_PASSWORD, or are prompted for.
-// WEBDAV_URL overrides the target folder. --yes skips the confirmation.
-// deploy.mjs in the repo root imports this to commit, build and publish.
+// Credentials come from WEBDAV_USER / WEBDAV_PASSWORD, else from
+// .webdav-credentials.json (gitignored, password encrypted with Windows DPAPI,
+// offered after a typed sign-in), else are prompted for. Delete that file to
+// forget them. WEBDAV_URL overrides the target folder. --yes skips the
+// confirmation. deploy.mjs in the repo root imports this to commit, build and
+// publish.
 //
 // The site is down from the first delete until the upload finishes.
+import { spawnSync } from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import readline from 'node:readline/promises';
@@ -16,6 +20,10 @@ import { pathToFileURL } from 'node:url';
 
 const ROOT_DIR = process.cwd();
 const OUT_DIR = path.join(ROOT_DIR, 'out');
+const CREDENTIALS_FILE = path.join(ROOT_DIR, '.webdav-credentials.json');
+// DPAPI is reached through PowerShell, so saving only works on Windows;
+// elsewhere the password is asked for every time.
+const CAN_SAVE_CREDENTIALS = process.platform === 'win32';
 const WEBDAV_URL = withTrailingSlash(
   process.env.WEBDAV_URL ?? 'https://webdav.fsu.edu/sdsc/production/'
 );
@@ -39,7 +47,7 @@ if (
 ) {
   const args = new Set(process.argv.slice(2));
   try {
-    await signIn(await askCredentials());
+    await connect();
     await wipeAndUpload({
       dryRun: args.has('--dry-run'),
       skipConfirm: args.has('--yes')
@@ -52,18 +60,109 @@ if (
   }
 }
 
-export async function askCredentials() {
-  const user = process.env.WEBDAV_USER || (await ask('WebDAV username: '));
-  const password =
-    process.env.WEBDAV_PASSWORD || (await askHidden('WebDAV password: '));
-  return { user, password };
+// Signs in with WEBDAV_USER / WEBDAV_PASSWORD, else the saved credentials,
+// else typed ones, which it then offers to save.
+export async function connect() {
+  const { WEBDAV_USER, WEBDAV_PASSWORD } = process.env;
+  if (WEBDAV_USER && WEBDAV_PASSWORD) {
+    return signIn({ user: WEBDAV_USER, password: WEBDAV_PASSWORD });
+  }
+
+  const fileName = path.basename(CREDENTIALS_FILE);
+  const saved = await loadCredentials();
+  if (saved) {
+    try {
+      await signIn(saved);
+      console.log(`Used the credentials saved in ${fileName}.`);
+      return;
+    } catch (error) {
+      if (error.code !== 'EAUTH') throw error;
+      console.log('The saved credentials were rejected. Sign in again.');
+    }
+  }
+
+  const user = WEBDAV_USER || (await ask('WebDAV username: '));
+  const password = WEBDAV_PASSWORD || (await askHidden('WebDAV password: '));
+  await signIn({ user, password });
+
+  if (CAN_SAVE_CREDENTIALS) {
+    const answer = await ask(
+      `Save them in ${fileName}, encrypted for your Windows account? (y/N) `
+    );
+    if (/^y(es)?$/i.test(answer)) {
+      await saveCredentials({ user, password });
+      console.log(`Saved. Delete ${fileName} to forget them.`);
+    }
+  }
 }
 
 // Lists the share once so a wrong password fails before anything changes.
-export async function signIn({ user, password }) {
+async function signIn({ user, password }) {
   authorization = `Basic ${Buffer.from(`${user}:${password}`).toString('base64')}`;
   await listRemote();
   console.log(`Signed in to ${WEBDAV_URL} as ${user}.`);
+}
+
+async function loadCredentials() {
+  if (!CAN_SAVE_CREDENTIALS) return null;
+  try {
+    const saved = JSON.parse(await fs.readFile(CREDENTIALS_FILE, 'utf8'));
+    return { user: saved.user, password: unprotect(saved.password) };
+  } catch (error) {
+    if (error.code !== 'ENOENT') {
+      console.log(
+        `Could not read the saved credentials in ${path.basename(CREDENTIALS_FILE)}. Sign in again.`
+      );
+    }
+    return null;
+  }
+}
+
+async function saveCredentials({ user, password }) {
+  const data = { user, password: protect(password) };
+  await fs.writeFile(CREDENTIALS_FILE, `${JSON.stringify(data, null, 2)}\n`, {
+    mode: 0o600
+  });
+}
+
+// DPAPI through PowerShell's SecureString cmdlets: only the same Windows
+// account on the same machine can decrypt. Text crosses the pipe as base64 so
+// the console code page cannot mangle it.
+function protect(secret) {
+  return powershell(
+    '$plain = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String([Console]::In.ReadToEnd()));' +
+      '[Console]::Out.Write((ConvertTo-SecureString -String $plain -AsPlainText -Force | ConvertFrom-SecureString))',
+    Buffer.from(secret, 'utf8').toString('base64')
+  );
+}
+
+function unprotect(encrypted) {
+  const base64 = powershell(
+    '$secure = ConvertTo-SecureString -String ([Console]::In.ReadToEnd().Trim());' +
+      "$plain = (New-Object System.Net.NetworkCredential('', $secure)).Password;" +
+      '[Console]::Out.Write([Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($plain)))',
+    encrypted
+  );
+  return Buffer.from(base64, 'base64').toString('utf8');
+}
+
+function powershell(script, input) {
+  const result = spawnSync(
+    'powershell.exe',
+    [
+      '-NoProfile',
+      '-NonInteractive',
+      '-Command',
+      `$ErrorActionPreference = 'Stop'; ${script}`
+    ],
+    { input, encoding: 'utf8' }
+  );
+  if (result.error) throw result.error;
+  // stderr is in the console code page, so only the exit code is reported.
+  if (result.status !== 0) {
+    throw new Error(`PowerShell exited with code ${result.status}`);
+  }
+  return result.stdout.trim();
 }
 
 export function closePrompts() {
@@ -308,7 +407,10 @@ async function request(method, url, { body, headers = {}, okStatuses }) {
 
     if (okStatuses.includes(response.status)) return response;
     if (response.status === 401) {
-      throw new Error('WebDAV rejected the username or password (401).');
+      throw Object.assign(
+        new Error('WebDAV rejected the username or password (401).'),
+        { code: 'EAUTH' }
+      );
     }
     if (response.status >= 500 && attempt < MAX_ATTEMPTS) {
       await delay(attempt * 1000);

@@ -1,5 +1,5 @@
 // Publishes the site in one go:
-//   1. sign in to the WebDAV share (asks for the account and password)
+//   1. sign in to the WebDAV share (saved credentials, or asks for them)
 //   2. commit every change and push the current branch
 //   3. yarn build
 //   4. wipe the WebDAV share and upload out/
@@ -13,9 +13,8 @@
 import { execFileSync, spawnSync } from 'node:child_process';
 import {
   ask,
-  askCredentials,
   closePrompts,
-  signIn,
+  connect,
   wipeAndUpload
 } from './scripts/deploy-webdav.mjs';
 
@@ -33,7 +32,7 @@ try {
 
 async function main() {
   step(1, 'Sign in to WebDAV');
-  await signIn(await askCredentials());
+  await connect();
 
   step(2, 'Commit and push');
   await commitAndPush();
