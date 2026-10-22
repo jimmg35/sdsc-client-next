@@ -121,6 +121,16 @@
       "downloadFor": "Download for {platform}",
       "previousLink": "Looking for MGWR {version}? It is still available"
     },
+    "whatsNew": {
+      "title": "New in MGWR {version}",
+      "headline": "The MGWR software now supports <strong>Poisson and Binomial models</strong>, extending its capabilities for modeling count and binary outcome data.",
+      "minorTitle": "Also in this release",
+      "items": {
+        "minBandwidth": "A user-defined minimum bandwidth for the golden section search",
+        "devTeam": "An updated development team",
+        "binaryMask": "A binary mask option for masking significant and non-significant estimates in the output"
+      }
+    },
     "downloads": {
       "heading": "Get MGWR 3.0",
       "productName": "MGWR GUI",

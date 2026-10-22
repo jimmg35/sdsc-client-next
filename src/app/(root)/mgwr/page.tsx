@@ -24,6 +24,8 @@ const PREVIOUS_VERSION = '2.2.1';
 
 const RULE = 'border-accent-600/25';
 
+const whatsNewItems = ['minBandwidth', 'devTeam', 'binaryMask'] as const;
+
 const downloads = [
   {
     key: 'windows',
@@ -205,7 +207,35 @@ export default function MGWR() {
           </div>
         </header>
 
+        {/* What 3.0 adds: the headline feature reads as a statement, the
+            smaller changes as ruled rows like the lists further down. */}
         <section className="mt-16">
+          <Eyebrow>
+            {t('whatsNew.title', { version: DOWNLOAD_VERSION })}
+          </Eyebrow>
+          <p className="mt-5 max-w-3xl text-lg font-semibold leading-8 tracking-[-0.01em] text-ink-900 md:text-xl">
+            {t.rich('whatsNew.headline', {
+              strong: (chunks) => (
+                <span className="text-primary-600">{chunks}</span>
+              )
+            })}
+          </p>
+          <p className="mt-8 text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-ink-500">
+            {t('whatsNew.minorTitle')}
+          </p>
+          <ul className="mt-3 grid gap-x-10 sm:grid-cols-3">
+            {whatsNewItems.map((key) => (
+              <li
+                key={key}
+                className={`border-t ${RULE} py-4 text-sm leading-7 text-ink-700`}
+              >
+                {t(`whatsNew.items.${key}`)}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="mt-20">
           <Eyebrow>{t('downloads.heading')}</Eyebrow>
           <p className="mt-4 text-sm leading-7 text-ink-700">
             {t('downloads.tagline')}
