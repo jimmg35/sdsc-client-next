@@ -39,6 +39,10 @@ const focusAreas: FocusArea[] = [
     key: 'healthWellbeing',
     icon: HeartPlus,
     publications: [
+      'hidden-covid-19-deaths-excess-death-rates-2025',
+      'teen-birth-rates-spatial-context-2024',
+      'colorectal-cancer-screening-mgwr-2021',
+      'obesity-determinants-mgwr-2020',
       'mobility-ict-and-health',
       'rational-agent-access-model',
       'evaluating-small-area-differential-privacy-life-expectancy'
@@ -48,6 +52,8 @@ const focusAreas: FocusArea[] = [
     key: 'environment',
     icon: Earth,
     publications: [
+      'air-quality-china-cities-mgwr-2019',
+      'desert-tortoise-local-niche-differences-2019',
       'extreme-heat-adaptation-older-in-migrants',
       'new-mexico-wildfires-air-quality-health-2024',
       'voad-resource-exchange-patterns'
@@ -57,7 +63,9 @@ const focusAreas: FocusArea[] = [
     key: 'voting',
     icon: Vote,
     publications: [
+      'ohio-abortion-ballot-context-voting-2026',
       'place-and-voting-behavior-prop-207',
+      'scale-context-heterogeneity-2016-election-2021',
       'twitter-psychological-traits-voter-realignment'
     ]
   },
@@ -65,6 +73,7 @@ const focusAreas: FocusArea[] = [
     key: 'urban',
     icon: Building2,
     publications: [
+      'intrinsic-value-housing-neighborhoods-mgwr-2022',
       'transit-investment-unbuilt-alignments-2026',
       'england-cities-building-footprints-2025',
       'single-family-home-spaciousness-covid-2025'
@@ -74,8 +83,8 @@ const focusAreas: FocusArea[] = [
     key: 'transportation',
     icon: Bus,
     publications: [
-      'bike-sharing-divvy-explainable-ml-2026',
       'mgtwr-ev-market-adoption-2026',
+      'bike-sharing-divvy-explainable-ml-2026',
       'mode-choice-accessibility-model'
     ]
   },

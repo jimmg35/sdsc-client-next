@@ -1,14 +1,16 @@
 {
   "id": "google-scholar-a-comprehensive-dataset-of-residential-air-conditioning-prevalen-2025-59e32d9a",
   "author": "Y Ahn, CK Uejio",
-  "title": "A Comprehensive Dataset of Residential Air Conditioning Prevalence in the Continental United States",
+  "title": "A comprehensive dataset of residential air conditioning prevalence in the continental United States",
   "journal": "Scientific Data 12 (1), 1717",
   "catalog": "2025",
   "doi": "",
-  "memberIds": ["christopher-uejio"],
+  "memberIds": [
+    "christopher-uejio"
+  ],
   "source": "google-scholar",
-  "generatedAt": "2026-07-05T22:09:56.518Z",
-  "lookbackYears": 2,
-  "windowStartDate": "2024-07-05",
-  "windowEndDate": "2026-07-05"
+  "generatedAt": "2026-10-22T17:35:09.960Z",
+  "lookbackYears": 3,
+  "windowStartDate": "2023-10-22",
+  "windowEndDate": "2026-10-22"
 }

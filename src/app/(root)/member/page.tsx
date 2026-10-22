@@ -23,7 +23,8 @@ export default async function Member() {
     getMemberById('mark-horner'),
     getMemberById('mason-mathews'),
     getMemberById('mehak-sachdeva'),
-    getMemberById('christopher-uejio')
+    getMemberById('christopher-uejio'),
+    getMemberById('huanping-huang')
   ]);
 
   const graduateStudents = collectMembers([
@@ -86,7 +87,7 @@ export default async function Member() {
       label: t('overview.directory.label')
     },
     {
-      value: `${coreMembers.length}`,
+      value: `${1 + coreMembers.length}`,
       label: t('overview.coreFaculty.label')
     },
     {
@@ -96,6 +97,10 @@ export default async function Member() {
     {
       value: `${graduateStudents.length}`,
       label: t('overview.graduate.label')
+    },
+    {
+      value: `${staffMembers.length}`,
+      label: t('overview.staff.label')
     }
   ];
 

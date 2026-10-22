@@ -8,8 +8,8 @@ import { usePathname } from 'next/navigation';
 
 // Retiring the notice is taking it out of the navbar. A new one gets a new id,
 // so a reader who closed this one still sees the next.
-const NOTICE_ID = 'ar-sandbox';
-const NOTICE_HREF = '/news/sdsc-augmented-reality-sandbox';
+const NOTICE_ID = 'mgwr-3-0';
+const NOTICE_HREF = '/mgwr';
 const DISMISSED_KEY = `sdsc:notice-dismissed:${NOTICE_ID}`;
 
 export default function NavNotice() {

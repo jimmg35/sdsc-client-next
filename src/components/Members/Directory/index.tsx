@@ -37,9 +37,9 @@ export default async function MembersDirectory({
 
   return (
     <>
-      {/* Headline figures, read as one line rather than four boxed cards. */}
+      {/* Headline figures, read as one line rather than five boxed cards. */}
       <dl
-        className={`mt-16 grid grid-cols-2 gap-x-8 gap-y-8 border-y ${RULE} py-8 sm:grid-cols-4`}
+        className={`mt-16 grid grid-cols-2 gap-x-8 gap-y-8 border-y ${RULE} py-8 sm:grid-cols-5`}
       >
         {overview.map((item) => (
           /* Column-reverse so the term stays before its value in the markup

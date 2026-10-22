@@ -100,7 +100,7 @@ export function getNewsBySlug(slug: string): NewsData {
 }
 
 export function getRecentNewsWindow(
-  months = 3,
+  months = 12,
   referenceDate = new Date()
 ): RecentNewsWindow {
   const windowEnd = new Date(referenceDate);

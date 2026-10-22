@@ -6,6 +6,7 @@ import { AppleIcon, WindowsIcon } from '@/components/Utility/PlatformIcon';
 import { bibliographyVersions, currentBibliography } from '@/lib/bibliography';
 import { trackMGWRDownload } from '@/lib/ga';
 import {
+  ArrowDown,
   ArrowDownToLine,
   ArrowUpRight,
   BookOpen,
@@ -18,11 +19,29 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const DOWNLOAD_VERSION = '2.2.1';
+const DOWNLOAD_VERSION = '3.0';
+const PREVIOUS_VERSION = '2.2.1';
 
 const RULE = 'border-accent-600/25';
 
 const downloads = [
+  {
+    key: 'windows',
+    Icon: WindowsIcon,
+    href: 'https://fsu-my.sharepoint.com/:u:/g/personal/zl23l_fsu_edu/IQCKEtprrtCfTporzZdhHuInAf0zIOUvm_2KTl-GjkuWjGM?download=1',
+    platform: 'windows'
+  },
+  {
+    key: 'macos',
+    Icon: AppleIcon,
+    href: 'https://fsu-my.sharepoint.com/:u:/g/personal/zl23l_fsu_edu/IQDeW9kGS09iTI7jj_wbsTD1Ad_QwQz-BC4tzqMYs1CwC0E?download=1',
+    platform: 'macos'
+  }
+] as const;
+
+/* 2.2.1 stays downloadable after 3.0 ships, for anyone reproducing earlier
+   analyses. */
+const previousDownloads = [
   {
     key: 'windows',
     Icon: WindowsIcon,
@@ -104,42 +123,93 @@ export default function MGWR() {
   return (
     <section className="page-shell">
       <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 md:pt-40">
-        <header className="max-w-3xl">
-          <Eyebrow>{t('chip')}</Eyebrow>
-          <h1 className="mt-5 text-[2.1rem] font-semibold leading-[1.12] tracking-[-0.025em] text-ink-900 md:text-[3rem] md:leading-[1.06]">
-            {t('title')}
-          </h1>
-          <p className="mt-6 text-base leading-8 text-ink-700 md:text-lg md:leading-9">
-            {t('intro')}
-          </p>
+        {/* The 3.0 launch: the release leads the page, with both builds one
+            click away and the previous version signposted for those who
+            need it. */}
+        <header
+          className={`mgwr-launch relative isolate overflow-hidden rounded-[2rem] border ${RULE} bg-surface/55 px-7 py-12 md:px-14 md:py-16`}
+        >
+          <div
+            aria-hidden
+            className="mgwr-launch-glow pointer-events-none absolute -right-24 -top-24 -z-10 h-[26rem] w-[26rem] rounded-full opacity-60 blur-3xl"
+          />
+
+          <div className="grid items-center gap-12 md:grid-cols-[minmax(0,1fr)_auto]">
+            <div className="min-w-0">
+              <p className="mgwr-launch-rise flex items-center gap-3 text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-accent-700">
+                <span aria-hidden className="notice-dot" />
+                {t('release.eyebrow')}
+              </p>
+
+              <h1 className="mgwr-launch-rise mt-6 text-[3.6rem] font-semibold leading-none tracking-[-0.04em] text-ink-900 md:text-[6rem]">
+                MGWR{' '}
+                <span className="mgwr-launch-version">{DOWNLOAD_VERSION}</span>
+              </h1>
+              <p className="mgwr-launch-rise mt-5 text-lg font-medium leading-8 text-ink-900 md:text-xl">
+                {t('title')}
+              </p>
+              <p className="mgwr-launch-rise mt-4 max-w-2xl text-base leading-8 text-ink-700 md:text-lg md:leading-9">
+                {t('release.lede')}
+              </p>
+
+              <div className="mgwr-launch-rise mt-9 flex flex-wrap gap-3">
+                {downloads.map((item) => (
+                  <a
+                    key={item.key}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() =>
+                      trackMGWRDownload(
+                        item.platform,
+                        item.href,
+                        DOWNLOAD_VERSION
+                      )
+                    }
+                    className="group calcite-focus inline-flex items-center gap-3 rounded-full border border-primary-400/70 bg-primary-500 px-6 py-3.5 text-sm font-semibold text-white shadow-glow transition duration-300 hover:bg-primary-600"
+                  >
+                    <item.Icon size={18} />
+                    {t('release.downloadFor', {
+                      platform: t(`downloads.${item.key}.title`)
+                    })}
+                    <ArrowDownToLine
+                      size={16}
+                      aria-hidden
+                      className="transition-transform duration-300 group-hover:translate-y-0.5"
+                    />
+                  </a>
+                ))}
+              </div>
+
+              <a
+                href="#previous-version"
+                className="mgwr-launch-rise mt-6 inline-flex items-center gap-2 text-sm font-medium text-ink-700 transition-colors hover:text-primary-600"
+              >
+                {t('release.previousLink', { version: PREVIOUS_VERSION })}
+                <ArrowDown size={15} aria-hidden />
+              </a>
+            </div>
+
+            <div className="mgwr-launch-rise hidden justify-center md:flex">
+              <span className="mgwr-launch-ring relative inline-flex rounded-[2.25rem] p-[3px]">
+                <Image
+                  src="/img/software/mgwr.png"
+                  alt={t('downloads.productName')}
+                  width={176}
+                  height={176}
+                  priority
+                  className="relative rounded-[2.1rem] bg-surface"
+                />
+              </span>
+            </div>
+          </div>
         </header>
 
-        {/* The release itself: mark, name, and the version being served. */}
-        <div
-          className={`mt-16 flex flex-wrap items-center gap-x-6 gap-y-5 border-y ${RULE} py-7`}
-        >
-          <Image
-            src="/img/software/mgwr.png"
-            alt={t('downloads.productName')}
-            width={56}
-            height={56}
-            className={`shrink-0 rounded-2xl border ${RULE}`}
-          />
-          <div className="min-w-0">
-            <h2 className="text-xl font-semibold tracking-[-0.01em] text-ink-900 md:text-2xl">
-              {t('downloads.productName')}
-            </h2>
-            <p className="mt-1.5 text-sm leading-6 text-ink-700">
-              {t('downloads.tagline')}
-            </p>
-          </div>
-          <span className="ml-auto shrink-0 text-[0.68rem] font-semibold uppercase tabular-nums tracking-[0.24em] text-primary-600">
-            {tCommon('version', { version: DOWNLOAD_VERSION })}
-          </span>
-        </div>
-
-        <section className="mt-14">
+        <section className="mt-16">
           <Eyebrow>{t('downloads.heading')}</Eyebrow>
+          <p className="mt-4 text-sm leading-7 text-ink-700">
+            {t('downloads.tagline')}
+          </p>
           <div className="mt-8 grid gap-6 md:grid-cols-2">
             {downloads.map((item) => (
               <DownloadCard
@@ -156,6 +226,53 @@ export default function MGWR() {
               />
             ))}
           </div>
+        </section>
+
+        <section
+          id="previous-version"
+          className="mt-20 scroll-mt-36 md:scroll-mt-44"
+        >
+          <Eyebrow>{t('previous.title')}</Eyebrow>
+          <p className="mt-4 max-w-2xl text-sm leading-7 text-ink-700">
+            {t('previous.description', { version: PREVIOUS_VERSION })}
+          </p>
+          <ul className="mt-7 grid gap-x-10 sm:grid-cols-2">
+            {previousDownloads.map((item) => (
+              <li key={item.key} className={`border-t ${RULE}`}>
+                <ResourceRow
+                  href={item.href}
+                  onClick={() =>
+                    trackMGWRDownload(
+                      item.platform,
+                      item.href,
+                      PREVIOUS_VERSION
+                    )
+                  }
+                >
+                  <item.Icon
+                    size={17}
+                    className="mt-0.5 shrink-0 text-ink-500 transition-colors duration-300 group-hover:text-primary-600"
+                  />
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate text-sm font-medium text-ink-900 transition-colors duration-300 group-hover:text-primary-600">
+                      {t('previous.item', {
+                        version: PREVIOUS_VERSION,
+                        platform: t(`downloads.${item.key}.title`)
+                      })}
+                    </span>
+                    <span className="mt-1 block text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-ink-500">
+                      {tCommon('version', { version: PREVIOUS_VERSION })}
+                    </span>
+                  </span>
+                  <ArrowDownToLine
+                    size={16}
+                    aria-hidden
+                    className="mt-0.5 shrink-0 text-ink-500 transition duration-300 group-hover:translate-y-0.5 group-hover:text-primary-600"
+                  />
+                </ResourceRow>
+              </li>
+            ))}
+          </ul>
         </section>
 
         <div className="mt-20 grid gap-16 md:grid-cols-2 md:gap-14">
@@ -254,8 +371,14 @@ export default function MGWR() {
           </ul>
         </section>
 
-        <section className="mt-20">
+        <section
+          id="citation-references"
+          className="mt-20 scroll-mt-36 md:scroll-mt-44"
+        >
           <Eyebrow>{t('citationReferences')}</Eyebrow>
+          <p className="mt-5 max-w-3xl text-lg font-semibold leading-8 tracking-[-0.01em] text-ink-900 md:text-xl">
+            {t('citationDescription')}
+          </p>
           <ul className="mt-8">
             {citations.map((item, index) => (
               <CitationCard
@@ -291,9 +414,11 @@ function Eyebrow({ children }: { children: ReactNode }) {
    same ruled row that tints on hover, so the three lists read alike. */
 function ResourceRow({
   href,
+  onClick,
   children
 }: {
   href: string;
+  onClick?: () => void;
   children: ReactNode;
 }) {
   return (
@@ -301,6 +426,7 @@ function ResourceRow({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={onClick}
       className="group calcite-focus -mx-3 flex items-start gap-4 rounded-2xl px-3 py-4 transition-colors duration-300 hover:bg-primary-50/50"
     >
       {children}

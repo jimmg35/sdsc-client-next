@@ -2,6 +2,7 @@
 import DevTools from '@/components/DevTools';
 import easternEgg from '@/lib/easterneggs';
 import { GA_ID, gaInitScript } from '@/lib/ga';
+import { textSizeInitScript } from '@/lib/textSize';
 import { SITE_PALETTE, themeInitScript } from '@/lib/theme';
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
@@ -46,6 +47,7 @@ export default function RootLayout({
     <html lang="en" data-palette={SITE_PALETTE} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <script dangerouslySetInnerHTML={{ __html: textSizeInitScript }} />
         {/* Plain inline script rather than next/script: this has to run before
             hydration so window.gtag already exists when GAPageView and the
             MGWR download handler call it. gtag.js itself can load late. */}

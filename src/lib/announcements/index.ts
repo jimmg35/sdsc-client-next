@@ -1,6 +1,7 @@
 import matter from 'gray-matter';
 import fs from 'fs';
 import path from 'path';
+import { parseContentDate } from '@/lib/news';
 
 const announcementsDirectory = path.join(
   process.cwd(),
@@ -38,7 +39,7 @@ export function getAllAnnouncements(): AnnouncementData[] {
     return {
       slug: fileName.replace(/\.mdx?$/, ''),
       title: data.title,
-      date: new Date(data.date),
+      date: parseContentDate(data.date),
       author: data.author,
       description: data.description,
       thumbnail: parseThumbnail(data.thumbnail),
@@ -63,7 +64,7 @@ export function getAnnouncementBySlug(slug: string): AnnouncementData {
   return {
     slug,
     title: data.title,
-    date: new Date(data.date),
+    date: parseContentDate(data.date),
     author: data.author,
     description: data.description,
     thumbnail: parseThumbnail(data.thumbnail),

@@ -1,0 +1,16 @@
+{
+  "id": "google-scholar-high-resolution-model-intercomparison-project-phase-2-highresmip-2025-c1f73576",
+  "author": "MJ Roberts, KA Reed, Q Bao, JJ Barsugli, SJ Camargo, LP Caron, ...",
+  "title": "High-resolution model intercomparison project phase 2 (HighResMIP2) towards CMIP7",
+  "journal": "Geoscientific Model Development 18 (4), 1307-1332",
+  "catalog": "2025",
+  "doi": "",
+  "memberIds": [
+    "huanping-huang"
+  ],
+  "source": "google-scholar",
+  "generatedAt": "2026-10-22T17:35:09.960Z",
+  "lookbackYears": 3,
+  "windowStartDate": "2023-10-22",
+  "windowEndDate": "2026-10-22"
+}

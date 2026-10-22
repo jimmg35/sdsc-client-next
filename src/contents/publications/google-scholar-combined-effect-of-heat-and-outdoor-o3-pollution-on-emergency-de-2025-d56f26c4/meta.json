@@ -1,14 +1,16 @@
 {
   "id": "google-scholar-combined-effect-of-heat-and-outdoor-o3-pollution-on-emergency-de-2025-d56f26c4",
   "author": "X Zhao, B Melix, E Powell, EW Harville, CK Uejio",
-  "title": "Combined Effect of Heat and Outdoor O3 Pollution on Emergency Department visits in Florida",
+  "title": "Combined effect of heat and outdoor O3 pollution on emergency department visits in Florida",
   "journal": "Environmental Research, 123561",
   "catalog": "2025",
   "doi": "",
-  "memberIds": ["christopher-uejio"],
+  "memberIds": [
+    "christopher-uejio"
+  ],
   "source": "google-scholar",
-  "generatedAt": "2026-07-05T22:09:56.518Z",
-  "lookbackYears": 2,
-  "windowStartDate": "2024-07-05",
-  "windowEndDate": "2026-07-05"
+  "generatedAt": "2026-10-22T17:35:09.960Z",
+  "lookbackYears": 3,
+  "windowStartDate": "2023-10-22",
+  "windowEndDate": "2026-10-22"
 }

@@ -1,6 +1,11 @@
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 
+const CONTACTS = [
+  { key: 'academic', email: 'stewart.fotheringham@fsu.edu' },
+  { key: 'administrative', email: 'clgoodwin@fsu.edu' }
+] as const;
+
 const DirectorMessage = async () => {
   const t = await getTranslations('home.director');
 
@@ -72,6 +77,20 @@ const DirectorMessage = async () => {
             <p className="mt-9 text-left text-base leading-8 text-ink-700 md:text-justify md:text-lg md:leading-9">
               {t('p2')}
             </p>
+
+            <ul className="mt-4 text-left text-base leading-8 text-ink-700 md:text-lg md:leading-9">
+              {CONTACTS.map(({ key, email }) => (
+                <li key={key}>
+                  {t(`contacts.${key}`)}{' '}
+                  <a
+                    href={`mailto:${email}`}
+                    className="font-medium text-ink-900 transition-colors duration-300 hover:text-primary-600"
+                  >
+                    {email}
+                  </a>
+                </li>
+              ))}
+            </ul>
 
             <div className="mt-10 flex items-center justify-end border-t border-accent-600/25 pt-7">
               <Image

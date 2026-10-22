@@ -2,13 +2,15 @@
   "id": "google-scholar-climate-change-is-beyond-any-one-of-us-the-work-of-public-health-2025-2ec695e6",
   "author": "ZJ Lange, FA Hoover, TJ Holmes, CK Uejio",
   "title": "Climate change is beyond any one of us-The work of public health practitioners in building resilience against climate effects (BRACE) programs",
-  "journal": "Sustainable Environment 11 (1), 2493997",
+  "journal": "Sustainable environment 11 (1), 2493997",
   "catalog": "2025",
   "doi": "",
-  "memberIds": ["christopher-uejio"],
+  "memberIds": [
+    "christopher-uejio"
+  ],
   "source": "google-scholar",
-  "generatedAt": "2026-07-05T22:09:56.518Z",
-  "lookbackYears": 2,
-  "windowStartDate": "2024-07-05",
-  "windowEndDate": "2026-07-05"
+  "generatedAt": "2026-10-22T17:35:09.960Z",
+  "lookbackYears": 3,
+  "windowStartDate": "2023-10-22",
+  "windowEndDate": "2026-10-22"
 }

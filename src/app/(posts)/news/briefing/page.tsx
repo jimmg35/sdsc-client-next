@@ -26,7 +26,7 @@ export default async function NewsBriefingPage() {
      Ending on the day the briefing was updated keeps all three in step. */
   const updatedAt = briefing.updatedAt;
   const { months, windowStart, windowEnd, posts } = getRecentNewsWindow(
-    3,
+    12,
     new Date(
       updatedAt.getFullYear(),
       updatedAt.getMonth(),

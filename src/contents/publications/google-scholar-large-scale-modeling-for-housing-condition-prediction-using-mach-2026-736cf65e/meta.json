@@ -2,13 +2,15 @@
   "id": "google-scholar-large-scale-modeling-for-housing-condition-prediction-using-mach-2026-736cf65e",
   "author": "K Kim, T Holmes, E Powell, CK Uejio",
   "title": "Large-scale modeling for housing condition prediction using machine learning algorithms",
-  "journal": "Scientific Data",
+  "journal": "Scientific Data 13 (1), 647",
   "catalog": "2026",
   "doi": "",
-  "memberIds": ["christopher-uejio"],
+  "memberIds": [
+    "christopher-uejio"
+  ],
   "source": "google-scholar",
-  "generatedAt": "2026-07-05T22:09:56.518Z",
-  "lookbackYears": 2,
-  "windowStartDate": "2024-07-05",
-  "windowEndDate": "2026-07-05"
+  "generatedAt": "2026-10-22T17:35:09.960Z",
+  "lookbackYears": 3,
+  "windowStartDate": "2023-10-22",
+  "windowEndDate": "2026-10-22"
 }

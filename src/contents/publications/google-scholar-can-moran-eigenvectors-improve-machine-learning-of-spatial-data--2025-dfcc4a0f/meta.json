@@ -1,14 +1,16 @@
 {
   "id": "google-scholar-can-moran-eigenvectors-improve-machine-learning-of-spatial-data--2025-dfcc4a0f",
   "author": "Z Li, Z Peng",
-  "title": "Can Moran Eigenvectors Improve Machine Learning of Spatial Data? Insights From Synthetic Data Validation",
+  "title": "Can Moran eigenvectors improve machine learning of spatial data? Insights from synthetic data validation",
   "journal": "Geographical Analysis 57 (4), 602-615",
   "catalog": "2025",
   "doi": "",
-  "memberIds": ["ziqi-li"],
+  "memberIds": [
+    "ziqi-li"
+  ],
   "source": "google-scholar",
-  "generatedAt": "2026-07-05T22:09:56.518Z",
-  "lookbackYears": 2,
-  "windowStartDate": "2024-07-05",
-  "windowEndDate": "2026-07-05"
+  "generatedAt": "2026-10-22T17:35:09.960Z",
+  "lookbackYears": 3,
+  "windowStartDate": "2023-10-22",
+  "windowEndDate": "2026-10-22"
 }

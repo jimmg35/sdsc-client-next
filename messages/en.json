@@ -3,6 +3,16 @@
     "title": "Spatial Data Science Center",
     "description": "Welcome to the SDSC!"
   },
+  "accessibility": {
+    "skipToContent": "Skip to main content"
+  },
+  "textSize": {
+    "label": "Text size",
+    "aria": "Set text size to {size}",
+    "small": "Small",
+    "medium": "Medium",
+    "large": "Large"
+  },
   "common": {
     "download": "Download",
     "version": "Version {version}",
@@ -15,8 +25,8 @@
     "university": "Florida State University"
   },
   "navNotice": {
-    "eyebrow": "New in the Lab",
-    "message": "We've got an AR sandbox — come check it out",
+    "eyebrow": "New Release",
+    "message": "MGWR 3.0 is here — download it now",
     "dismiss": "Dismiss this notice"
   },
   "nav": {
@@ -48,7 +58,11 @@
     "director": {
       "eyebrow": "Message from the Director",
       "p1": "Welcome to the Spatial Data Science Center (SDSC) where solutions to many of the World's most pressing problems are being forged through the development of sophisticated statistical methods and the application of new approaches such as GeoAI and machine learning. Our expertise extends to all types of domain areas including health, transportation, voting, crime, housing, retailing, and the environment. <strong>Our work is built on the fundamental principle that understanding where these challenges occur is the key to understanding why they occur and how to solve them.</strong>",
-      "p2": "The SDSC aims to be a focal point for all the great work that is taking place in spatial data science across many departments at FSU. Whether you're a faculty member wanting to pursue joint research or a funding application, or are interested in becoming an affiliate, or a representative of a government department or private firm needing consulting assistance, or a student interested in being involved in SDSC activities, contact us at stewart.fotheringham@fsu.edu.",
+      "p2": "The SDSC aims to be a focal point for all the great work that is taking place in spatial data science across many departments at FSU. Whether you're a faculty member wanting to pursue joint research or a funding application, or are interested in becoming an affiliate, or a representative of a government department or private firm needing consulting assistance, or a student interested in being involved in SDSC activities, contact us at the following:",
+      "contacts": {
+        "academic": "For academic issues:",
+        "administrative": "For administrative issues:"
+      },
       "role": "Founding Director"
     },
     "news": {
@@ -101,26 +115,38 @@
     "chip": "MGWR Tools",
     "title": "Multiscale Geographically Weighted Regression (MGWR)",
     "intro": "MGWR provides a Windows and macOS interface for calibrating multiscale geographically weighted regression models so you can explore how multi-scale relationships vary across space.",
+    "release": {
+      "eyebrow": "New release · October 2026",
+      "lede": "The next major version of our free desktop software for multiscale geographically weighted regression is here, for Windows and macOS.",
+      "downloadFor": "Download for {platform}",
+      "previousLink": "Looking for MGWR {version}? It is still available"
+    },
     "downloads": {
-      "heading": "Get the software",
+      "heading": "Get MGWR 3.0",
       "productName": "MGWR GUI",
-      "tagline": "Free and open source. Pick the build that matches your machine.",
+      "tagline": "Free to use. Pick the build that matches your machine.",
       "windows": {
         "title": "Windows",
-        "meta": "Windows 10 / 11 · 64-bit",
-        "description": "Installer package with the latest stable build, examples, and documentation."
+        "meta": "MGWR 3.0 · .rar archive",
+        "description": "Extract the archive with a tool such as 7-Zip or WinRAR, then run the setup program to install MGWR 3.0."
       },
       "macos": {
         "title": "macOS",
-        "meta": "Universal · Apple Silicon & Intel",
-        "description": "Notarized universal binary for Apple Silicon and Intel Macs, bundled with starter projects."
+        "meta": "MGWR 3.0 · .zip archive",
+        "description": "Double-click the archive to extract it, then open the MGWR 3.0 app."
       }
+    },
+    "previous": {
+      "title": "Previous version",
+      "description": "MGWR {version} remains available for anyone reproducing earlier analyses or not yet ready to move to 3.0.",
+      "item": "MGWR {version} for {platform}"
     },
     "documentation": "Documentation",
     "documentationHint": "Manuals, references, and the open-source Python package.",
     "sampleDatasets": "Sample datasets",
     "sampleDatasetsHint": "Example datasets to try the software on.",
     "citationReferences": "Citation references",
+    "citationDescription": "Please cite these articles when using the above software",
     "citationCopy": "Copy",
     "citationCopied": "Copied",
     "bibliographyHistory": {
@@ -173,8 +199,12 @@
         "detail": "Interdisciplinary collaborators extending SDSC across domains."
       },
       "graduate": {
-        "label": "Graduate",
+        "label": "Graduate Students",
         "detail": "Emerging scholars advancing the next generation of SDSC work."
+      },
+      "staff": {
+        "label": "Staff",
+        "detail": "Staff supporting the center's day-to-day operations."
       }
     },
     "directory": {
@@ -226,7 +256,7 @@
     },
     "overview": {
       "label": "Publications",
-      "detail": "Output from all SDSC members over the past two years."
+      "detail": "Output from all SDSC members, January 1, 2024 to present."
     },
     "browse": {
       "eyebrow": "Browse The Archive",
@@ -277,7 +307,7 @@
     "results": {
       "showing": "Showing {start}-{end} of {total} publications",
       "noMatch": "No publications match the current query",
-      "eachCard": "Each card highlights only SDSC contributors",
+      "eachCard": "January 1, 2024 to present",
       "queryParams": "Query params: <b>page</b>, <b>sort</b>",
       "empty": "No publications match your current search and filter combination. Try clearing a filter or broadening the keyword."
     },
@@ -303,7 +333,7 @@
     "briefingCallout": {
       "eyebrow": "Need The Short Version?",
       "title": "Read the rolling SDSC briefing",
-      "description": "The briefing page turns the latest three months of SDSC news into one running narrative, then anchors it to the underlying story feed.",
+      "description": "The briefing page turns the past year of SDSC news into one running narrative, then anchors it to the underlying story feed.",
       "cta": "Read briefing"
     },
     "featured": "Featured",
@@ -331,7 +361,7 @@
     "window": {
       "title": "In This Briefing",
       "storiesInScope": "{count, plural, one {Story} other {Stories}}",
-      "rolling": "{months}-month window",
+      "rolling": "{months, plural, =12 {One-year window} other {#-month window}}",
       "empty": "No newsroom stories fall inside this briefing's window.",
       "ordered": "Ordered newest to oldest",
       "jump": "Jump to the passage on {title}"

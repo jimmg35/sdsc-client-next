@@ -1,9 +1,8 @@
 'use client';
 
+import SelectedPublicationCard from '@/components/Members/SelectedPublicationCard';
 import Avatar from '@/components/Utility/Avatar';
-import PublicationPost, {
-  PublicationCardMember
-} from '@/components/Utility/PublicationPost';
+import { PublicationCardMember } from '@/components/Utility/PublicationPost';
 import { PublicationData } from '@/lib/publications';
 import {
   ArrowLeft,
@@ -550,7 +549,7 @@ const PublicationExplorer = ({
           id="publication-results"
           className="space-y-6 scroll-mt-36 md:scroll-mt-44"
         >
-          <div className="flex flex-col gap-3 border-b border-accent-600/25 pb-5 md:flex-row md:items-end md:justify-between">
+          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div className="space-y-1">
               <p className="text-sm font-semibold text-ink-900">
                 {sortedRecords.length
@@ -573,21 +572,20 @@ const PublicationExplorer = ({
             </div>
           </div>
 
-          <div className="grid gap-6">
-            {paginatedRecords.length > 0 ? (
-              paginatedRecords.map(({ publication, centerMembers }) => (
-                <PublicationPost
+          {paginatedRecords.length > 0 ? (
+            <ul>
+              {paginatedRecords.map(({ publication }) => (
+                <SelectedPublicationCard
                   key={publication.id}
                   {...publication}
-                  centerMembers={centerMembers}
                 />
-              ))
-            ) : (
-              <div className="border-t border-accent-600/25 py-12 text-sm text-ink-500">
-                {t('results.empty')}
-              </div>
-            )}
-          </div>
+              ))}
+            </ul>
+          ) : (
+            <div className="border-t border-accent-600/25 py-12 text-sm text-ink-500">
+              {t('results.empty')}
+            </div>
+          )}
 
           {totalPages > 1 && (
             <nav

@@ -9,6 +9,29 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
+  /* Larger type for readability. Every size on the site is in rem, so the
+     root size scales all of it together; percentages keep the reader's own
+     browser setting in play. 112.5% is the default (medium); the text-size
+     control in the top bar moves it via data-text-size (see src/lib/textSize). */
+  html {
+    font-size: 112.5%;
+  }
+
+  html[data-text-size='small'] {
+    font-size: 100%;
+  }
+
+  html[data-text-size='large'] {
+    font-size: 137.5%;
+  }
+
+  /* A visible focus ring for keyboard users wherever a component has not
+     drawn its own. */
+  :focus-visible {
+    outline: 3px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+
   body {
     background-color: var(--color-accent-50);
     background-image: var(--background-gradient);
@@ -1025,5 +1048,102 @@
   .story-ripple,
   .notice-glass::after {
     display: none;
+  }
+}
+
+/* MGWR 3.0 launch hero on /mgwr. The ring around the app mark turns on the
+   same ramp as the navbar notice's dot, so the notice and the release it
+   points to read as one thing. */
+.mgwr-launch-version {
+  background: linear-gradient(
+    100deg,
+    var(--color-primary-500),
+    var(--color-accent-500),
+    var(--color-primary-600)
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: mgwr-launch-sheen 6s ease-in-out infinite alternate;
+}
+
+.mgwr-launch-glow {
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--color-primary-400) 55%, transparent),
+    color-mix(in oklab, var(--color-accent-400) 30%, transparent) 55%,
+    transparent 75%
+  );
+}
+
+.mgwr-launch-ring {
+  isolation: isolate;
+  overflow: hidden;
+  box-shadow: 0 30px 60px -30px
+    color-mix(in oklab, var(--color-primary-600) 55%, transparent);
+}
+
+.mgwr-launch-ring::before {
+  content: '';
+  position: absolute;
+  /* Oversized so the turning square always covers the frame; the frame's
+     overflow clips it to a rounded border. */
+  inset: -50%;
+  z-index: -1;
+  background: conic-gradient(
+    #2563eb,
+    #22c55e,
+    #facc15,
+    #f97316,
+    #ef4444,
+    #2563eb
+  );
+  animation: story-ring-turn 6s linear infinite;
+}
+
+/* Opening-night entrance: each line of the hero rises in turn, once. */
+.mgwr-launch-rise {
+  animation: mgwr-launch-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.mgwr-launch .mgwr-launch-rise:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.mgwr-launch .mgwr-launch-rise:nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+.mgwr-launch .mgwr-launch-rise:nth-child(4) {
+  animation-delay: 0.24s;
+}
+
+.mgwr-launch .mgwr-launch-rise:nth-child(5) {
+  animation-delay: 0.32s;
+}
+
+.mgwr-launch .mgwr-launch-rise:nth-child(6) {
+  animation-delay: 0.4s;
+}
+
+@keyframes mgwr-launch-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+@keyframes mgwr-launch-sheen {
+  to {
+    background-position: 100% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mgwr-launch-rise,
+  .mgwr-launch-version,
+  .mgwr-launch-ring::before {
+    animation: none;
   }
 }

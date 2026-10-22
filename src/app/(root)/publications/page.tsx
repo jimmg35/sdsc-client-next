@@ -11,7 +11,8 @@ import { getTranslations } from 'next-intl/server';
 export default async function Publications() {
   const t = await getTranslations('publications');
 
-  const publications: PublicationData[] = getAllPublications();
+  const publications: PublicationData[] =
+    getAllPublications().filter(isWithinArchiveWindow);
   const members: Pick<MemberData, 'id' | 'name' | 'title' | 'thumbnail'>[] =
     getAllMembers()
       .filter((member) => member.id && member.name && member.thumbnail)
@@ -27,13 +28,6 @@ export default async function Publications() {
   const latestYear = publicationYears.length
     ? Math.max(...publicationYears)
     : null;
-  const recentPublicationCount = latestYear
-    ? publications.filter(
-        (publication) =>
-          typeof publication.year === 'number' &&
-          publication.year >= latestYear - 1
-      ).length
-    : publications.length;
   const linkedMemberIds = new Set(
     publications.flatMap((publication) => publication.memberIds)
   );
@@ -42,7 +36,7 @@ export default async function Publications() {
   ).length;
   const overview: PublicationOverviewMetric[] = [
     {
-      value: formatCount(recentPublicationCount),
+      value: formatCount(publications.length),
       label: t('overview.label'),
       detail: t('overview.detail')
     }
@@ -89,6 +83,22 @@ export default async function Publications() {
         </Suspense>
       </div>
     </section>
+  );
+}
+
+/* The archive runs from January 1, 2024 to the present. Most records carry
+   only a year, so the exact date decides when there is one. */
+const ARCHIVE_START_DATE = '2024-01-01';
+const ARCHIVE_START_YEAR = 2024;
+
+function isWithinArchiveWindow(publication: PublicationData) {
+  if (publication.publishedAt) {
+    return publication.publishedAt >= ARCHIVE_START_DATE;
+  }
+
+  return (
+    typeof publication.year === 'number' &&
+    publication.year >= ARCHIVE_START_YEAR
   );
 }
 

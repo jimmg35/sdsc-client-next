@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "sync:scholar-publications": "node scripts/update-google-scholar-publications.mjs",
+    "deploy": "node deploy.mjs",
+    "deploy:webdav": "node scripts/deploy-webdav.mjs",
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore ."
   },

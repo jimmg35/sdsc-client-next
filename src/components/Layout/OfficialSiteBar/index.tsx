@@ -1,5 +1,6 @@
 'use client';
 
+import TextSizeControl from '@/components/Layout/TextSizeControl';
 import { FloridaFlagIcon, UsFlagIcon } from '@/components/Utility/FlagIcon';
 import { ShieldCheck } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -21,6 +22,8 @@ export default function OfficialSiteBar() {
           <span className="hidden truncate sm:inline">{t('fullLabel')}</span>
         </p>
         <span className="flex shrink-0 items-center gap-2.5">
+          <TextSizeControl />
+          <span aria-hidden className="h-4 w-px bg-primary-200/80" />
           <span className="flex items-center gap-1.5">
             <UsFlagIcon height={13} className={FLAG_CLASS} />
             <FloridaFlagIcon height={13} className={FLAG_CLASS} />

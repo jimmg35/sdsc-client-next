@@ -1,14 +1,16 @@
 {
   "id": "google-scholar-policy-selection-and-schedules-for-exclusive-bus-lane-and-high-o-2025-825dbc3b",
   "author": "J Lu, Q Guo, P Schonfeld",
-  "title": "Policy Selection and Schedules for Exclusive Bus Lane and High Occupancy Vehicle Lane in a Bi-modal Transportation Corridor",
-  "journal": "arXiv e-prints, arXiv: 2502.08729",
+  "title": "Policy Selection and Schedules for Exclusive Bus Lane and High Occupancy Vehicle Lane in a Bi-modal Transportation Corridor.",
+  "journal": "Transportation Research Record 2532, 45-60",
   "catalog": "2025",
   "doi": "",
-  "memberIds": ["qianwen-guo"],
+  "memberIds": [
+    "qianwen-guo"
+  ],
   "source": "google-scholar",
-  "generatedAt": "2026-07-05T22:09:56.518Z",
-  "lookbackYears": 2,
-  "windowStartDate": "2024-07-05",
-  "windowEndDate": "2026-07-05"
+  "generatedAt": "2026-10-22T17:35:09.960Z",
+  "lookbackYears": 3,
+  "windowStartDate": "2023-10-22",
+  "windowEndDate": "2026-10-22"
 }
