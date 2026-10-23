@@ -11,8 +11,16 @@
   },
   "members": [
     {
+      "id": "stewart-fotheringham",
+      "highlight": "Stewart Fotheringham funded the sandbox."
+    },
+    {
+      "id": "jiajun-chang",
+      "highlight": "Jia-Jun Chang did the woodwork and assembled the sandbox."
+    },
+    {
       "id": "chenlun-kao",
-      "highlight": "Chen-Lun Kao set the sandbox up and got it running properly."
+      "highlight": "Chen-Lun Kao tested the software and poured in the sand."
     }
   ],
   "url": "/news/sdsc-augmented-reality-sandbox"

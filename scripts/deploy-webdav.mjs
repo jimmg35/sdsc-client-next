@@ -463,7 +463,7 @@ function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export async function ask(question) {
+async function ask(question) {
   if (!process.stdin.isTTY) {
     process.stdout.write(question);
     pipedInput ??= readline.createInterface({ input: process.stdin });

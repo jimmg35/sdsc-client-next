@@ -1,6 +1,7 @@
 // Publishes the site in one go:
 //   1. sign in to the WebDAV share (saved credentials, or asks for them)
-//   2. commit every change and push the current branch
+//   2. commit every change, with a message generated from what changed
+//      (scripts/commit-message.mjs), and push the current branch
 //   3. yarn build
 //   4. wipe the WebDAV share and upload out/
 //
@@ -11,8 +12,8 @@
 // It stops at the first step that fails, so a failed push or build never
 // touches the live site.
 import { execFileSync, spawnSync } from 'node:child_process';
+import { commitMessage, pendingChanges } from './scripts/commit-message.mjs';
 import {
-  ask,
   closePrompts,
   connect,
   wipeAndUpload
@@ -35,7 +36,7 @@ async function main() {
   await connect();
 
   step(2, 'Commit and push');
-  await commitAndPush();
+  commitAndPush();
 
   step(3, 'yarn build');
   // yarn is a .cmd shim on Windows, which only starts through a shell.
@@ -48,26 +49,31 @@ async function main() {
   await wipeAndUpload({ dryRun, skipConfirm: true });
 }
 
-async function commitAndPush() {
+function commitAndPush() {
   const branch = git('rev-parse', '--abbrev-ref', 'HEAD');
-  const changes = git('status', '--porcelain').split('\n').filter(Boolean);
+  const changes = pendingChanges();
 
   if (changes.length === 0) {
     console.log('Nothing to commit.');
   } else {
-    console.log(`${changes.length} changed paths on ${branch}:`);
-    changes.slice(0, SHOWN_CHANGES).forEach((line) => console.log(`  ${line}`));
+    console.log(`${changes.length} changed files on ${branch}:`);
+    changes
+      .slice(0, SHOWN_CHANGES)
+      .forEach(({ status, path }) => console.log(`  ${status} ${path}`));
     if (changes.length > SHOWN_CHANGES) {
       console.log(`  ... and ${changes.length - SHOWN_CHANGES} more`);
     }
+
+    const { subject, body } = commitMessage(changes);
+    console.log(`\nCommit message:\n  ${subject}\n`);
+    body.split('\n').forEach((line) => console.log(`  ${line}`));
+    console.log();
+
     if (dryRun) {
       console.log('Dry run: not committing.');
     } else {
-      const fallback = `chore(site): publish ${timestamp()}`;
-      const message =
-        (await ask(`Commit message (Enter for "${fallback}"): `)) || fallback;
       run('git', ['add', '-A']);
-      run('git', ['commit', '-m', message]);
+      run('git', ['commit', '-m', subject, '-m', body]);
     }
   }
 
@@ -104,14 +110,5 @@ function step(number, title) {
   const heading = `[${number}/4] ${title}`;
   console.log(
     process.stdout.isTTY ? `\n\x1b[1;36m${heading}\x1b[0m` : `\n${heading}`
-  );
-}
-
-function timestamp() {
-  const now = new Date();
-  const pad = (n) => String(n).padStart(2, '0');
-  return (
-    `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ` +
-    `${pad(now.getHours())}:${pad(now.getMinutes())}`
   );
 }
