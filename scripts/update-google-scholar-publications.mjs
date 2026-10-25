@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { load } from 'cheerio';
+import { findDoi, loadMemberSurnames } from './publication-dois.mjs';
 
 const ROOT_DIR = process.cwd();
 const MEMBERS_DIR = path.join(ROOT_DIR, 'src', 'contents', 'members');
@@ -75,22 +76,29 @@ async function main() {
     }
   }
 
-  const publications = mergePublications(publicationsByMember).map(
-    (publication) => ({
+  // Scholar has no DOIs: keep the ones earlier runs found, look up the rest.
+  const knownDois = await loadGeneratedDois();
+  const surnamesById = await loadMemberSurnames();
+  const publications = [];
+  for (const publication of mergePublications(publicationsByMember)) {
+    publications.push({
       id: publication.id,
       author: publication.author,
       title: publication.title,
       journal: publication.journal,
       catalog: publication.catalog,
-      doi: publication.doi,
+      doi:
+        publication.doi ||
+        knownDois.get(publication.id) ||
+        (await lookUpDoi(publication, surnamesById, warnings)),
       memberIds: publication.memberIds,
       source: 'google-scholar',
       generatedAt,
       lookbackYears: LOOKBACK_YEARS,
       windowStartDate: formatDate(windowStartDate),
       windowEndDate: formatDate(windowEndDate)
-    })
-  );
+    });
+  }
 
   await removeGeneratedPublicationDirectories();
   await writeGeneratedPublicationDirectories(publications);
@@ -449,6 +457,55 @@ function formatDate(value) {
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function loadGeneratedDois() {
+  const dois = new Map();
+  const entries = await fs.readdir(PUBLICATIONS_DIR, { withFileTypes: true });
+
+  for (const entry of entries) {
+    if (
+      !entry.isDirectory() ||
+      !entry.name.startsWith(GENERATED_PUBLICATION_PREFIX)
+    ) {
+      continue;
+    }
+
+    try {
+      const meta = JSON.parse(
+        await fs.readFile(
+          path.join(PUBLICATIONS_DIR, entry.name, 'meta.json'),
+          'utf8'
+        )
+      );
+      if (meta.doi) {
+        dois.set(meta.id, meta.doi);
+      }
+    } catch {
+      // A folder without a readable meta.json just has no DOI to keep.
+    }
+  }
+
+  return dois;
+}
+
+async function lookUpDoi(publication, surnamesById, warnings) {
+  try {
+    return await findDoi({
+      title: publication.title,
+      author: publication.author,
+      year: publication.year,
+      journal: publication.journal,
+      memberSurnames: publication.memberIds
+        .map((id) => surnamesById.get(id))
+        .filter(Boolean)
+    });
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : 'Unknown Crossref error';
+    warnings.push(`${publication.id}: DOI lookup failed (${message})`);
+    return '';
+  }
 }
 
 async function removeGeneratedPublicationDirectories() {

@@ -719,6 +719,50 @@
     overflow: visible;
   }
 
+  /* Lists that scroll inside a panel, like the publications member filter:
+     vertical only, with a thin accent-tinted thumb on a clear track instead
+     of the platform's grey bar and arrow buttons. */
+  .scroll-quiet {
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+  }
+
+  .scroll-quiet::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scroll-quiet::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  .scroll-quiet::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scroll-quiet::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    background: color-mix(in oklab, var(--color-accent-600) 35%, transparent);
+  }
+
+  .scroll-quiet:hover::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--color-accent-600) 60%, transparent);
+  }
+
+  /* Firefox has no ::-webkit-scrollbar; the standard properties are the
+     closest it gets. */
+  @supports (-moz-appearance: none) {
+    .scroll-quiet {
+      scrollbar-width: thin;
+      scrollbar-color: color-mix(
+          in oklab,
+          var(--color-accent-600) 45%,
+          transparent
+        )
+        transparent;
+    }
+  }
+
   .page-shell::before {
     content: '';
     position: absolute;

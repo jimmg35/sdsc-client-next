@@ -4,7 +4,7 @@
   "title": "An Embarrassingly Simple Detector for Model Extraction Attacks in Large Language Model API Traffic",
   "journal": "arXiv preprint arXiv:2606.05725",
   "catalog": "2026",
-  "doi": "",
+  "doi": "https://doi.org/10.48550/arXiv.2606.05725",
   "memberIds": [
     "qianwen-guo"
   ],

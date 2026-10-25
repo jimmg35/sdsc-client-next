@@ -500,7 +500,9 @@ const PublicationExplorer = ({
                 </p>
               </div>
 
-              <div className="grid max-h-[28rem] gap-2 overflow-y-auto pr-1">
+              {/* One minmax(0, 1fr) column, so a long title truncates instead
+                  of widening the list into a horizontal scroll. */}
+              <div className="scroll-quiet grid max-h-[28rem] grid-cols-1 gap-2 pr-1">
                 <AuthorFilterButton
                   label={t('filters.allMembers')}
                   active={selectedAuthorId === DEFAULT_FILTER_VALUE}
