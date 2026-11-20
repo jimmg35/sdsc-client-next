@@ -8,6 +8,13 @@
   "centerRole": "Center Director",
   "cvPath": "/cv/CV Jun 2026 with ribbons.doc",
   "googleScholar": "https://scholar.google.com/citations?user=AIcXcUIAAAAJ&hl=en",
+  "badge": {
+    "image": "/img/badges/hcr-2026-researcher.png",
+    "label": "Clarivate Highly Cited Researcher 2026",
+    "width": 215,
+    "height": 335,
+    "href": "/news/stewart-fotheringham-highly-cited-researcher-2026/"
+  },
   "education": [
     {
       "degree": "Ph.D.",

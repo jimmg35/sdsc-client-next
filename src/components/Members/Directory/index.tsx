@@ -1,3 +1,4 @@
+import PortraitRibbon from '@/components/Members/PortraitRibbon';
 import Avatar from '@/components/Utility/Avatar';
 import { MemberData } from '@/lib/members';
 import { ArrowUpRight, GraduationCap, Mail } from 'lucide-react';
@@ -140,6 +141,7 @@ async function DirectorSpotlight({ member }: { member: MemberData }) {
                 className="object-cover"
               />
             </div>
+            {member.badge && <PortraitRibbon badge={member.badge} />}
           </div>
         </div>
 

@@ -1,3 +1,4 @@
+import PortraitRibbon from '@/components/Members/PortraitRibbon';
 import SelectedPublicationCard from '@/components/Members/SelectedPublicationCard';
 import Avatar from '@/components/Utility/Avatar';
 import { markdownToHTML } from '@/lib/md';
@@ -84,6 +85,7 @@ export default async function ProfilePage(props: { params: Props }) {
                   priority
                 />
               </div>
+              {member.badge && <PortraitRibbon badge={member.badge} />}
             </div>
           </div>
 
