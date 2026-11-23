@@ -1,7 +1,13 @@
-﻿import easternEgg from '@/lib/easterneggs';
-import { themeInitScript } from '@/lib/theme';
+﻿import GAPageView from '@/components/Analytics/GAPageView';
+import DevTools from '@/components/DevTools';
+import easternEgg from '@/lib/easterneggs';
+import { GA_ID, gaInitScript } from '@/lib/ga';
+import { textSizeInitScript } from '@/lib/textSize';
+import { SITE_PALETTE, themeInitScript } from '@/lib/theme';
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
+import { NextIntlClientProvider } from 'next-intl';
 import { IBM_Plex_Sans } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
@@ -10,14 +16,10 @@ const inter = IBM_Plex_Sans({
   subsets: ['latin'],
   weight: ['100', '200', '300', '400', '500', '600', '700'],
   // Exposed so the per-script stacks in globals.css can keep Latin text on
-  // this face; those rules override body's font-family outright, so without
-  // the variable the Latin runs inside Chinese pages fall through to the CJK
-  // font's own Latin glyphs. Deliberately not --font-sans, which Tailwind v4
-  // already defines in its theme.
+  // this face. Deliberately not --font-sans, which Tailwind v4 already defines
+  // in its theme.
   variable: '--font-latin'
 });
-
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 export const metadata: Metadata = {
   title: 'Spatial Data Science Center',
@@ -42,34 +44,28 @@ export default function RootLayout({
     // The theme script mutates <html> before React hydrates, which is the point
     // of it — suppressHydrationWarning stops React objecting to its own markup
     // not matching.
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-palette={SITE_PALETTE} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <script dangerouslySetInnerHTML={{ __html: textSizeInitScript }} />
+        {/* Plain inline script rather than next/script: this has to run before
+            hydration so window.gtag already exists when GAPageView and the
+            MGWR download handler call it. gtag.js itself can load late. */}
+        <script dangerouslySetInnerHTML={{ __html: gaInitScript }} />
       </head>
       <body className={`${inter.className} ${inter.variable} antialiased`}>
-        {GA_ID ? (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-              strategy="afterInteractive"
-            />
-            <Script
-              id="gtag-init"
-              strategy="afterInteractive"
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${GA_ID}', { anonymize_ip: true });
-                `
-              }}
-            />
-          </>
-        ) : null}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
+        {/* useSearchParams needs a suspense boundary under output: 'export'. */}
+        <Suspense fallback={null}>
+          <GAPageView />
+        </Suspense>
         <div hidden dangerouslySetInnerHTML={{ __html: easternEgg }} />
-        {children}
+        <NextIntlClientProvider>{children}</NextIntlClientProvider>
         <Analytics />
+        <DevTools />
       </body>
     </html>
   );

@@ -4,11 +4,13 @@
   "title": "Investigating wildfire smoke-related emergency department visits and syndromic surveillance in New Mexico 2019–2022",
   "journal": "Air Quality, Atmosphere & Health 19 (5), 109",
   "catalog": "2026",
-  "doi": "",
-  "memberIds": ["christopher-uejio"],
+  "doi": "https://doi.org/10.1007/s11869-026-01988-5",
+  "memberIds": [
+    "christopher-uejio"
+  ],
   "source": "google-scholar",
-  "generatedAt": "2026-07-05T22:09:56.518Z",
-  "lookbackYears": 2,
-  "windowStartDate": "2024-07-05",
-  "windowEndDate": "2026-07-05"
+  "generatedAt": "2026-10-22T17:35:09.960Z",
+  "lookbackYears": 3,
+  "windowStartDate": "2023-10-22",
+  "windowEndDate": "2026-10-22"
 }

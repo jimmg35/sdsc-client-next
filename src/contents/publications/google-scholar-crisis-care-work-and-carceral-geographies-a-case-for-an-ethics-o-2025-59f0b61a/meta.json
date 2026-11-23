@@ -4,11 +4,13 @@
   "title": "Crisis, care work, and carceral geographies: A case for an Ethics of Crisis Care",
   "journal": "Environment and Planning D: Society and Space, 02637758251406076",
   "catalog": "2025",
-  "doi": "",
-  "memberIds": ["amber-dejohn"],
+  "doi": "https://doi.org/10.1177/02637758251406076",
+  "memberIds": [
+    "amber-dejohn"
+  ],
   "source": "google-scholar",
-  "generatedAt": "2026-07-05T22:09:56.518Z",
-  "lookbackYears": 2,
-  "windowStartDate": "2024-07-05",
-  "windowEndDate": "2026-07-05"
+  "generatedAt": "2026-10-22T17:35:09.960Z",
+  "lookbackYears": 3,
+  "windowStartDate": "2023-10-22",
+  "windowEndDate": "2026-10-22"
 }

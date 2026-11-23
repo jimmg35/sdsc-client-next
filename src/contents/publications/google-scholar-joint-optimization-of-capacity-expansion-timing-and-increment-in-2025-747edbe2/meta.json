@@ -4,11 +4,13 @@
   "title": "Joint optimization of capacity expansion timing and increment in airport terminals: addressing stochastic demand and logistic growth",
   "journal": "Transportation Research Part C: Emerging Technologies 180, 105347",
   "catalog": "2025",
-  "doi": "",
-  "memberIds": ["qianwen-guo"],
+  "doi": "https://doi.org/10.1016/j.trc.2025.105347",
+  "memberIds": [
+    "qianwen-guo"
+  ],
   "source": "google-scholar",
-  "generatedAt": "2026-07-05T22:09:56.518Z",
-  "lookbackYears": 2,
-  "windowStartDate": "2024-07-05",
-  "windowEndDate": "2026-07-05"
+  "generatedAt": "2026-10-22T17:35:09.960Z",
+  "lookbackYears": 3,
+  "windowStartDate": "2023-10-22",
+  "windowEndDate": "2026-10-22"
 }

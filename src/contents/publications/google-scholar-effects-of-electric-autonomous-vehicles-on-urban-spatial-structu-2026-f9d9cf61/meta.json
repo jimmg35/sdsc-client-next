@@ -4,11 +4,13 @@
   "title": "Effects of electric autonomous vehicles on urban spatial structure considering environmental pollution",
   "journal": "Management System Engineering 5 (1), 1",
   "catalog": "2026",
-  "doi": "",
-  "memberIds": ["qianwen-guo"],
+  "doi": "https://doi.org/10.1007/s44176-025-00059-w",
+  "memberIds": [
+    "qianwen-guo"
+  ],
   "source": "google-scholar",
-  "generatedAt": "2026-07-05T22:09:56.518Z",
-  "lookbackYears": 2,
-  "windowStartDate": "2024-07-05",
-  "windowEndDate": "2026-07-05"
+  "generatedAt": "2026-10-22T17:35:09.960Z",
+  "lookbackYears": 3,
+  "windowStartDate": "2023-10-22",
+  "windowEndDate": "2026-10-22"
 }

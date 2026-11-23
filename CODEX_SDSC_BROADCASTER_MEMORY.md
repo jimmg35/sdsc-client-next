@@ -16,12 +16,10 @@ understand the pattern behind recent news, not just read a stack of headlines.
 
 ## Files To Update
 
-- Briefing narrative (English, source of truth):
+- Briefing narrative (English, the only version):
   `src/contents/briefings/recent-briefing.mdx`
-- Briefing translations: `src/contents/briefings/recent-briefing.<locale>.mdx`
-  for `zh-TW`, `zh-CN`, `es`, `fr`
 - Source news posts: `src/contents/news/*.mdx`
-- Briefing page UI: `src/app/[locale]/(posts)/news/briefing/page.tsx`
+- Briefing page UI: `src/app/(posts)/news/briefing/page.tsx`
 
 ## Editorial Voice
 
@@ -53,28 +51,16 @@ understand the pattern behind recent news, not just read a stack of headlines.
 5. If only a few stories fall in the window, write a tighter briefing instead
    of padding it.
 6. Update the `updatedAt` field whenever the briefing text changes.
-7. Re-translate the briefing into every locale (see Translations below)
-   whenever the English text changes.
 
 ## Translations
 
-The English file is the source of truth. Each locale has a sibling file,
-`recent-briefing.<locale>.mdx`, for `zh-TW`, `zh-CN`, `es`, and `fr`.
+Translations are switched off. The site ships English only — there is no locale
+routing segment and no `recent-briefing.<locale>.mdx` sibling files. Write the
+English briefing and stop there.
 
-- A translation carries `sourceUpdatedAt` instead of `updatedAt`, set to the
-  English `updatedAt` it was translated from.
-- The page only shows a translation when its `sourceUpdatedAt` matches the
-  current English `updatedAt`. Otherwise it falls back to the English original,
-  so a stale translation never presents months-old grants and dates under a
-  fresh timestamp. This means an out-of-date translation degrades safely — but
-  it also means a locale silently reverts to English until it is re-translated.
-- Translate `title`, `eyebrow`, `description`, and `readTime` in the
-  frontmatter too.
-- Keep every `[anchor:news-slug]` line byte-identical to the English file and in
-  the same order. The right-side navigator matches on these slugs; a changed or
-  missing anchor drops the story from the list.
-- Do not translate names, journal titles, paper titles, institutions, grant
-  names, figures, or dates.
+If the other locales (`zh-TW`, `zh-CN`, `es`, `fr`) are restored, the
+translation workflow that went with them is recoverable from git history: see
+the commit that removed `src/i18n/routing.ts`.
 
 ## Anchor Syntax
 

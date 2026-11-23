@@ -1,6 +1,7 @@
 import matter from 'gray-matter';
 import fs from 'fs';
 import path from 'path';
+import { parseContentDate } from '@/lib/news';
 
 const announcementsDirectory = path.join(
   process.cwd(),
@@ -15,9 +16,13 @@ export interface AnnouncementData {
   date: Date;
   author: string;
   description: string;
-  thumbnail: string;
+  thumbnail?: string;
   content: string;
 }
+
+/* Mirrors the news lib: no placeholder artwork, just an absent thumbnail. */
+const parseThumbnail = (value: unknown) =>
+  typeof value === 'string' && value.trim() ? value.trim() : undefined;
 
 export function getAllAnnouncements(): AnnouncementData[] {
   if (!fs.existsSync(announcementsDirectory)) {
@@ -34,10 +39,10 @@ export function getAllAnnouncements(): AnnouncementData[] {
     return {
       slug: fileName.replace(/\.mdx?$/, ''),
       title: data.title,
-      date: new Date(data.date),
+      date: parseContentDate(data.date),
       author: data.author,
       description: data.description,
-      thumbnail: data.thumbnail || '/img/news-demo/default-news-thumbnail.jpg',
+      thumbnail: parseThumbnail(data.thumbnail),
       content
     };
   });
@@ -59,10 +64,10 @@ export function getAnnouncementBySlug(slug: string): AnnouncementData {
   return {
     slug,
     title: data.title,
-    date: new Date(data.date),
+    date: parseContentDate(data.date),
     author: data.author,
     description: data.description,
-    thumbnail: data.thumbnail || '/img/news-demo/default-news-thumbnail.jpg',
+    thumbnail: parseThumbnail(data.thumbnail),
     content
   };
 }

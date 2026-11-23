@@ -4,11 +4,13 @@
   "title": "Models and human geography",
   "journal": "The encyclopedia of human geography, 836-849",
   "catalog": "2026",
-  "doi": "",
-  "memberIds": ["mehak-sachdeva"],
+  "doi": "https://doi.org/10.1007/978-3-031-25900-5_226-1",
+  "memberIds": [
+    "mehak-sachdeva"
+  ],
   "source": "google-scholar",
-  "generatedAt": "2026-07-05T22:09:56.518Z",
-  "lookbackYears": 2,
-  "windowStartDate": "2024-07-05",
-  "windowEndDate": "2026-07-05"
+  "generatedAt": "2026-10-22T17:35:09.960Z",
+  "lookbackYears": 3,
+  "windowStartDate": "2023-10-22",
+  "windowEndDate": "2026-10-22"
 }

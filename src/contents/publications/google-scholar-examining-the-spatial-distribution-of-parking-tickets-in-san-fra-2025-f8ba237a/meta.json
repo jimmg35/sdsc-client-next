@@ -4,11 +4,13 @@
   "title": "Examining the spatial distribution of parking tickets in San Francisco neighborhoods: An overlooked form of urban inequality?",
   "journal": "Journal of Urban Affairs 47 (5), 1709-1740",
   "catalog": "2025",
-  "doi": "",
-  "memberIds": ["young-an-kim"],
+  "doi": "https://doi.org/10.1080/07352166.2023.2239956",
+  "memberIds": [
+    "young-an-kim"
+  ],
   "source": "google-scholar",
-  "generatedAt": "2026-07-05T22:09:56.518Z",
-  "lookbackYears": 2,
-  "windowStartDate": "2024-07-05",
-  "windowEndDate": "2026-07-05"
+  "generatedAt": "2026-10-22T17:35:09.960Z",
+  "lookbackYears": 3,
+  "windowStartDate": "2023-10-22",
+  "windowEndDate": "2026-10-22"
 }

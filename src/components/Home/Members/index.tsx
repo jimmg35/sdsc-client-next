@@ -20,7 +20,7 @@ const Members = () => {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(110%_110%_at_20%_-20%,_rgba(189,156,99,0.32),_transparent_60%)]" />
 
       <div className="relative flex flex-col items-center gap-6 text-center text-gold-100">
-        <span className="chip-gold">People</span>
+        <span className="chip-accent">People</span>
         <Heading title="The SDSC Collective" />
         <p className="max-w-2xl text-sm text-gold-200/75 md:text-base">
           A multidisciplinary team of faculty and graduate innovators shaping
