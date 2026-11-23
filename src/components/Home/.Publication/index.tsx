@@ -11,7 +11,7 @@ const Publication = () => {
   const oti = getPublicationById('on-the-importance-of-thinking-locally');
 
   return (
-    <div className=" bg-white relative w-full h-fit overflow-hidden px-12 py-12 flex flex-col items-center">
+    <div className=" bg-surface relative w-full h-fit overflow-hidden px-12 py-12 flex flex-col items-center">
       <div className="flex flex-col items-center gap-4">
         <Fade direction="down" cascade triggerOnce>
           <Heading

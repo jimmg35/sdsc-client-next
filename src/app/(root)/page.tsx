@@ -6,8 +6,10 @@ import News from '@/components/Home/News';
 import Welcome from '@/components/Home/Welcome';
 import StoryRail from '@/components/Stories/StoryRail';
 import { getRecentStoryCollection } from '@/lib/stories';
+import { getTranslations } from 'next-intl/server';
 
-export default function Home() {
+export default async function Home() {
+  const t = await getTranslations('home.storyRail');
   const { stories } = getRecentStoryCollection();
 
   return (
@@ -15,12 +17,12 @@ export default function Home() {
       <Welcome />
       <StoryRail
         stories={stories}
-        eyebrow="Now Trending"
-        title="Fresh SDSC stories"
-        description="Each ring maps to one recent SDSC story."
+        eyebrow={t('eyebrow')}
+        title={t('title')}
+        description={t('description')}
         ctaHref="/member"
-        ctaLabel="Meet the storytellers"
-        panelClassName="surface-fade relative overflow-hidden rounded-none px-6 py-16 md:px-16"
+        ctaLabel={t('ctaLabel')}
+        panelClassName="surface-fade relative overflow-hidden rounded-none px-6 py-20 md:px-16 md:py-28"
         overlayClassName={null}
       />
       {/* <Announcement /> */}

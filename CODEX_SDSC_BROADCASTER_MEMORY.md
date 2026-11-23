@@ -16,7 +16,8 @@ understand the pattern behind recent news, not just read a stack of headlines.
 
 ## Files To Update
 
-- Briefing narrative: `src/contents/briefings/recent-briefing.mdx`
+- Briefing narrative (English, the only version):
+  `src/contents/briefings/recent-briefing.mdx`
 - Source news posts: `src/contents/news/*.mdx`
 - Briefing page UI: `src/app/(posts)/news/briefing/page.tsx`
 
@@ -50,6 +51,16 @@ understand the pattern behind recent news, not just read a stack of headlines.
 5. If only a few stories fall in the window, write a tighter briefing instead
    of padding it.
 6. Update the `updatedAt` field whenever the briefing text changes.
+
+## Translations
+
+Translations are switched off. The site ships English only — there is no locale
+routing segment and no `recent-briefing.<locale>.mdx` sibling files. Write the
+English briefing and stop there.
+
+If the other locales (`zh-TW`, `zh-CN`, `es`, `fr`) are restored, the
+translation workflow that went with them is recoverable from git history: see
+the commit that removed `src/i18n/routing.ts`.
 
 ## Anchor Syntax
 

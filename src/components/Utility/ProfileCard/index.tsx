@@ -16,7 +16,7 @@ const ProfileCard = ({
       className="group glass-card flex w-[19.5rem] flex-col items-center overflow-hidden text-gold-100 transition duration-300 ease-out hover:-translate-y-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400"
     >
       <div className="relative flex w-full flex-col items-center gap-6 px-6 pb-10 pt-10 text-center">
-        <span className="chip-gold">
+        <span className="chip-accent">
           {centerRole ? centerRole : 'SDSC Member'}
         </span>
         <div className="halo transition-transform duration-300 ease-out group-hover:scale-[1.04]">

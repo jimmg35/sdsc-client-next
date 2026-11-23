@@ -1,4 +1,6 @@
+import { PublicationData, getPublicationsByIds } from '@/lib/publications';
 import {
+  ArrowUpRight,
   Building2,
   Bus,
   Earth,
@@ -7,172 +9,280 @@ import {
   SquaresExclude,
   Vote
 } from 'lucide-react';
-import Image from 'next/image';
+import type { LucideIcon } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
+import Link from 'next/link';
 
-const focusAreas = [
+type FocusArea = {
+  key: string;
+  icon: LucideIcon;
+  /* Ids from src/contents/publications, in reading order. */
+  publications: string[];
+};
+
+type ResolvedFocusArea = Omit<FocusArea, 'publications'> & {
+  publications: PublicationData[];
+};
+
+const focusAreas: FocusArea[] = [
   {
-    title: 'Spatial Analytics',
-    description:
-      'Advance spatial statistical and AI methods to better understand spatial processes and enable accurate prediction.',
-    icon: SquaresExclude
+    key: 'spatialAnalytics',
+    icon: SquaresExclude,
+    publications: [
+      'multiscale-geographically-weighted-regression-theory-and-practice-2024',
+      'uncovering-local-spatial-context-mgwbr-2026',
+      'spatial-context-time-invariant-confounder-mgwr-2026',
+      'geo-shapley'
+    ]
   },
   {
-    title: 'Health & Wellbeing',
-    description:
-      'Analyze geographic patterns in health outcomes, risks, and healthcare access for better decision-making and prediction.',
-    icon: HeartPlus
+    key: 'healthWellbeing',
+    icon: HeartPlus,
+    publications: [
+      'hidden-covid-19-deaths-excess-death-rates-2025',
+      'teen-birth-rates-spatial-context-2024',
+      'colorectal-cancer-screening-mgwr-2021',
+      'obesity-determinants-mgwr-2020',
+      'mobility-ict-and-health',
+      'rational-agent-access-model',
+      'evaluating-small-area-differential-privacy-life-expectancy'
+    ]
   },
   {
-    title: 'Environment',
-    description:
-      'Monitor, model, and predict environmental changes and natural hazards, and assess their impacts on ecosystems and communities.',
-    icon: Earth
+    key: 'environment',
+    icon: Earth,
+    publications: [
+      'air-quality-china-cities-mgwr-2019',
+      'desert-tortoise-local-niche-differences-2019',
+      'extreme-heat-adaptation-older-in-migrants',
+      'new-mexico-wildfires-air-quality-health-2024',
+      'voad-resource-exchange-patterns'
+    ]
   },
   {
-    title: 'Voting',
-    description:
-      'Mesaure spatial patterns of voter behavior, electoral processes, and participation disparities.',
-    icon: Vote
+    key: 'voting',
+    icon: Vote,
+    publications: [
+      'ohio-abortion-ballot-context-voting-2026',
+      'place-and-voting-behavior-prop-207',
+      'scale-context-heterogeneity-2016-election-2021',
+      'twitter-psychological-traits-voter-realignment'
+    ]
   },
   {
-    title: 'Urban',
-    description:
-      'Explore how urban systems, mobility and spatial dynamics influence equity and resilience in cities.',
-    icon: Building2
+    key: 'urban',
+    icon: Building2,
+    publications: [
+      'intrinsic-value-housing-neighborhoods-mgwr-2022',
+      'transit-investment-unbuilt-alignments-2026',
+      'england-cities-building-footprints-2025',
+      'single-family-home-spaciousness-covid-2025'
+    ]
   },
   {
-    title: 'Transportation',
-    description:
-      'Understand travel behavior, enhance mobility systems, and advance equitable and sustainable transportation solutions.',
-    icon: Bus
+    key: 'transportation',
+    icon: Bus,
+    publications: [
+      'mgtwr-ev-market-adoption-2026',
+      'bike-sharing-divvy-explainable-ml-2026',
+      'mode-choice-accessibility-model'
+    ]
   },
   {
-    title: 'Crime',
-    description:
-      'Examine crime dynamics, neighborhood contexts, and social inequities shaping public safety.',
-    icon: ShieldAlert
+    key: 'crime',
+    icon: ShieldAlert,
+    publications: [
+      'making-spatial-more-spatial-2025',
+      'greenspace-social-disconnection-crime-2025',
+      'geography-of-violence-brazil'
+    ]
   }
 ];
 
-const iconPositions = [
-  'left-[12%] top-[15%]',
-  'right-[12%] top-[12%]',
-  'left-[46%] top-[35%]',
-  'left-[16%] bottom-[16%]',
-  'right-[14%] bottom-[18%]',
-  'left-[58%] bottom-[38%]',
-  'left-[34%] top-[4%]'
-];
+const RULE = 'border-accent-600/25';
 
-const cardLayouts = [
-  'lg:col-span-6 lg:p-8',
-  'lg:col-span-3',
-  'lg:col-span-3',
-  'lg:col-span-3',
-  'lg:col-span-3',
-  'lg:col-span-3',
-  'lg:col-span-3'
-];
+export default async function Research() {
+  const t = await getTranslations('research');
 
-export default function Research() {
+  const areas: ResolvedFocusArea[] = focusAreas.map((area) => ({
+    ...area,
+    publications: getPublicationsByIds(area.publications)
+  }));
+
   return (
     <section className="page-shell">
-      <div className="mx-auto max-w-6xl px-6 pb-28 pt-28 text-ink-900 md:pt-36">
-        <header className="relative min-h-[31rem] overflow-hidden rounded-[30px] border border-white/45 shadow-[0_48px_90px_-58px_rgba(44,36,32,0.72)]">
-          <Image
-            src="/img/banners/research-banner.jpg"
-            alt=""
-            fill
-            priority
-            sizes="(min-width: 1152px) 1152px, 100vw"
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,_rgba(44,36,32,0.94)_0%,_rgba(44,36,32,0.78)_42%,_rgba(44,36,32,0.28)_100%)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(253,250,244,0)_0%,_rgba(253,250,244,0.16)_100%)]" />
-
-          <div className="relative grid min-h-[31rem] grid-cols-1 items-center gap-8 px-6 py-12 md:px-10 lg:grid-cols-[minmax(0,1fr)_28rem]">
-            <div className="min-w-0 max-w-2xl">
-              <span className="chip-gold border-white/35 bg-white/88 text-rose-700">
-                Research
-              </span>
-              <h1 className="mt-6 text-4xl font-semibold text-white text-glow md:text-5xl">
-                Advancing spatial knowledge and practice
-              </h1>
-              <p className="mt-5 max-w-3xl text-sm leading-7 text-white/82 md:text-base">
-                The Spatial Data Science Center (SDSC) is committed to
-                developing solutions to some of society&apos;s most pressing
-                problems in areas such as health, transportation, crime, poverty
-                and the environment through the power of spatial data analytics.
-              </p>
-            </div>
-
-            <div
-              className="relative hidden min-h-[24rem] lg:block"
-              aria-hidden="true"
-            >
-              <div className="absolute inset-0 rounded-[28px] border border-white/16 bg-white/[0.07] shadow-[inset_0_1px_0_rgba(255,255,255,0.25)] backdrop-blur-md [background-image:linear-gradient(rgba(255,255,255,0.13)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.13)_1px,transparent_1px)] [background-size:32px_32px]" />
-              <div className="absolute left-[22%] top-[29%] h-px w-[58%] rotate-6 bg-white/28" />
-              <div className="absolute bottom-[32%] left-[19%] h-px w-[60%] -rotate-12 bg-white/22" />
-              <div className="absolute left-[50%] top-[15%] h-[68%] w-px rotate-12 bg-white/20" />
-
-              {focusAreas.map(({ title, icon: Icon }, index) => (
-                <div
-                  key={title}
-                  className={`absolute flex h-14 w-14 items-center justify-center rounded-2xl border border-white/25 bg-white/16 text-white shadow-[0_24px_48px_-32px_rgba(0,0,0,0.65)] backdrop-blur-md ${iconPositions[index]}`}
-                >
-                  <Icon size={25} />
-                </div>
-              ))}
-            </div>
-          </div>
+      <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 md:pt-40">
+        <header className="max-w-3xl">
+          <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-accent-700 md:text-xs md:tracking-[0.42em]">
+            <span
+              aria-hidden
+              className="h-px w-10 bg-gradient-to-r from-transparent to-accent-600/55"
+            />
+            {t('chip')}
+          </p>
+          <h1 className="mt-5 text-[2.1rem] font-semibold leading-[1.12] tracking-[-0.025em] text-ink-900 md:text-[3rem] md:leading-[1.06]">
+            {t('title')}
+          </h1>
+          <p className="mt-6 text-base leading-8 text-ink-700 md:text-lg md:leading-9">
+            {t('intro')}
+          </p>
         </header>
 
-        <section className="mt-12 grid grid-cols-1 auto-rows-fr gap-5 lg:grid-cols-12 lg:auto-rows-[minmax(12rem,auto)]">
-          {focusAreas.map(({ title, description, icon: Icon }, index) => (
-            <article
-              key={title}
-              className={`group relative min-w-0 overflow-hidden rounded-[24px] border border-rose-100/75 bg-white/82 px-6 py-7 text-ink-900 shadow-[0_34px_70px_-52px_rgba(44,36,32,0.5)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-rose-200 hover:bg-white/92 ${cardLayouts[index] || 'lg:col-span-4'}`}
-            >
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-rose-500/75 via-silk-500/75 to-transparent opacity-80" />
-              {index === 0 && (
-                <Icon
-                  aria-hidden="true"
-                  size={140}
-                  strokeWidth={1.15}
-                  className="pointer-events-none absolute -bottom-8 -right-6 hidden text-rose-100/75 lg:block"
-                />
-              )}
-              <div className="relative z-10 flex h-full flex-col">
-                <div className="flex items-start gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-rose-200/70 bg-rose-50 text-rose-700 transition duration-300 group-hover:border-rose-300 group-hover:bg-rose-100">
-                    <Icon size={23} />
-                  </div>
-                  <div className="min-w-0">
-                    <h2
-                      className={
-                        index === 0
-                          ? 'text-2xl font-semibold text-ink-900 text-glow md:text-3xl'
-                          : 'text-lg font-semibold text-ink-900 text-glow'
-                      }
-                    >
-                      {title}
-                    </h2>
-                    <p
-                      className={
-                        index === 0
-                          ? 'mt-4 text-sm leading-7 text-ink-600 md:text-base'
-                          : 'mt-3 text-sm leading-6 text-ink-600'
-                      }
-                    >
-                      {description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </article>
+        <section className="mt-20">
+          <h2 className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-accent-700 md:tracking-[0.4em]">
+            <span
+              aria-hidden
+              className="h-px w-10 bg-gradient-to-r from-transparent to-accent-600/55"
+            />
+            {t('areasEyebrow')}
+          </h2>
+
+          {/* Each area now runs a full row with its papers, so the page is
+              long enough to want a way straight to one. */}
+          <nav
+            aria-label={t('areasNav')}
+            className={`mt-8 flex flex-wrap gap-x-7 gap-y-3 border-t ${RULE} py-5`}
+          >
+            {areas.map(({ key, icon: Icon }) => (
+              <Link
+                key={key}
+                href={`#${toAnchor(key)}`}
+                className="inline-flex items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-ink-500 transition-colors hover:text-primary-600"
+              >
+                <Icon aria-hidden size={14} strokeWidth={1.75} />
+                {t(`areas.${key}.title`)}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Spatial analytics is the methodological spine the other six sit
+              on, so it keeps the lead position and the larger type. */}
+          {areas.map((area, index) => (
+            <FocusAreaSection key={area.key} area={area} lead={index === 0} />
           ))}
         </section>
       </div>
     </section>
   );
+}
+
+async function FocusAreaSection({
+  area,
+  lead
+}: {
+  area: ResolvedFocusArea;
+  lead: boolean;
+}) {
+  const t = await getTranslations('research');
+  const { key, icon: Icon, publications } = area;
+
+  return (
+    <article
+      id={toAnchor(key)}
+      className={`scroll-mt-32 border-t ${RULE} py-12 md:grid md:scroll-mt-40 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-x-14 md:py-14 lg:gap-x-20`}
+    >
+      <div>
+        <Icon
+          aria-hidden
+          size={lead ? 26 : 22}
+          strokeWidth={1.5}
+          className="text-primary-600"
+        />
+        <h3
+          className={
+            lead
+              ? 'mt-5 text-2xl font-semibold tracking-[-0.02em] text-ink-900 md:text-[2rem] md:leading-[1.15]'
+              : 'mt-4 text-xl font-semibold tracking-[-0.015em] text-ink-900 md:text-2xl'
+          }
+        >
+          {t(`areas.${key}.title`)}
+        </h3>
+        <p
+          className={
+            lead
+              ? 'mt-4 text-base leading-8 text-ink-700 md:text-lg md:leading-9'
+              : 'mt-3 text-sm leading-7 text-ink-700 md:text-base md:leading-8'
+          }
+        >
+          {t(`areas.${key}.description`)}
+        </p>
+      </div>
+
+      {publications.length > 0 && (
+        <div className="mt-10 md:mt-0">
+          <p className="text-[0.66rem] font-semibold uppercase tracking-[0.24em] text-accent-700">
+            {t('publicationsEyebrow')}
+          </p>
+          <ol className="mt-4">
+            {publications.map((publication) => (
+              <li key={publication.id} className={`border-t ${RULE}`}>
+                <PublicationEntry publication={publication} />
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
+    </article>
+  );
+}
+
+function PublicationEntry({ publication }: { publication: PublicationData }) {
+  const href = publication.doi?.trim();
+  const layout = 'group flex items-start justify-between gap-6 py-5';
+
+  const body = (
+    <>
+      <div className="min-w-0">
+        {(publication.year || publication.journal) && (
+          <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[0.66rem] font-semibold uppercase tracking-[0.22em]">
+            {publication.year && (
+              <span className="tabular-nums text-primary-600">
+                {publication.year}
+              </span>
+            )}
+            {publication.journal && (
+              <span className="font-medium tracking-[0.18em] text-ink-500">
+                {publication.journal}
+              </span>
+            )}
+          </p>
+        )}
+        <h4 className="mt-2.5 text-base font-medium leading-7 tracking-[-0.01em] text-ink-900 transition-colors duration-300 group-hover:text-primary-600">
+          {publication.title.replace(/\.$/, '')}
+        </h4>
+        {publication.author && (
+          <p className="mt-1.5 line-clamp-2 text-sm leading-6 text-ink-700">
+            {/* The year already leads the entry. */}
+            {publication.author.replace(/\s*\(\d{4}\)\.?$/, '')}
+          </p>
+        )}
+      </div>
+
+      {href && (
+        <ArrowUpRight
+          aria-hidden
+          size={16}
+          className="mt-0.5 shrink-0 text-ink-500 transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary-600"
+        />
+      )}
+    </>
+  );
+
+  return href ? (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className={`${layout} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-300/70`}
+    >
+      {body}
+    </a>
+  ) : (
+    <div className={layout}>{body}</div>
+  );
+}
+
+/* `healthWellbeing` → `health-wellbeing`, for the in-page anchors. */
+function toAnchor(key: string) {
+  return key.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
 }

@@ -1,21 +1,19 @@
-﻿import Footer from '@/components/Layout/Footer';
+import Footer from '@/components/Layout/Footer';
 import NavBar from '@/components/Layout/NavBar';
-import type { Metadata } from 'next';
+import SkipLink, { MAIN_CONTENT_ID } from '@/components/Layout/SkipLink';
 
-export const metadata: Metadata = {
-  title: 'Spatial Data Science Center',
-  description: 'Welcome to the SDSC!'
-};
-
-export default function RootGroupLayout({
+export default async function RootGroupLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <>
+      <SkipLink />
       <NavBar />
-      <main>{children}</main>
+      <main id={MAIN_CONTENT_ID} tabIndex={-1} className="outline-none">
+        {children}
+      </main>
       <Footer />
     </>
   );

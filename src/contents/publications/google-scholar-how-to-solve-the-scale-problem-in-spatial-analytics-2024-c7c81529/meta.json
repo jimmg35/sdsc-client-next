@@ -4,13 +4,13 @@
   "title": "How to solve the scale “problem” in spatial analytics",
   "journal": "A research agenda for spatial analysis, 55-66",
   "catalog": "2024",
-  "doi": "",
+  "doi": "https://doi.org/10.4337/9781802203233.00010",
   "memberIds": [
     "stewart-fotheringham"
   ],
   "source": "google-scholar",
-  "generatedAt": "2026-04-18T23:46:13.125Z",
-  "lookbackYears": 2,
-  "windowStartDate": "2024-04-18",
-  "windowEndDate": "2026-04-18"
+  "generatedAt": "2026-10-22T17:35:09.960Z",
+  "lookbackYears": 3,
+  "windowStartDate": "2023-10-22",
+  "windowEndDate": "2026-10-22"
 }

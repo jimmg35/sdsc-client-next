@@ -4,13 +4,13 @@
   "title": "Impact of the 2022 New Mexico, US wildfires on air quality and health",
   "journal": "Science of The Total Environment 946, 174197",
   "catalog": "2024",
-  "doi": "",
+  "doi": "https://doi.org/10.1016/j.scitotenv.2024.174197",
   "memberIds": [
     "christopher-uejio"
   ],
   "source": "google-scholar",
-  "generatedAt": "2026-04-18T23:46:13.125Z",
-  "lookbackYears": 2,
-  "windowStartDate": "2024-04-18",
-  "windowEndDate": "2026-04-18"
+  "generatedAt": "2026-10-22T17:35:09.960Z",
+  "lookbackYears": 3,
+  "windowStartDate": "2023-10-22",
+  "windowEndDate": "2026-10-22"
 }

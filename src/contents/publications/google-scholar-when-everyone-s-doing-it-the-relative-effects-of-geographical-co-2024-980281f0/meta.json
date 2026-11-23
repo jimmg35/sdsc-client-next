@@ -2,15 +2,15 @@
   "id": "google-scholar-when-everyone-s-doing-it-the-relative-effects-of-geographical-co-2024-980281f0",
   "author": "S Bardin, AS Fotheringham",
   "title": "When everyone’s doing it: The relative effects of geographical context and social determinants of health on teen birth rates",
-  "journal": "Health & Place 87, 103249",
+  "journal": "Health & place 87, 103249",
   "catalog": "2024",
-  "doi": "",
+  "doi": "https://doi.org/10.1016/j.healthplace.2024.103249",
   "memberIds": [
     "stewart-fotheringham"
   ],
   "source": "google-scholar",
-  "generatedAt": "2026-04-18T23:46:13.125Z",
-  "lookbackYears": 2,
-  "windowStartDate": "2024-04-18",
-  "windowEndDate": "2026-04-18"
+  "generatedAt": "2026-10-22T17:35:09.960Z",
+  "lookbackYears": 3,
+  "windowStartDate": "2023-10-22",
+  "windowEndDate": "2026-10-22"
 }

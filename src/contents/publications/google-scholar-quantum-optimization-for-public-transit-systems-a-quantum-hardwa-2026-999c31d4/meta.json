@@ -4,13 +4,13 @@
   "title": "Quantum Optimization for Public Transit Systems: A Quantum Hardware-Aware Analysis of Higher-Order Formulations",
   "journal": "Available at SSRN 6431107",
   "catalog": "2026",
-  "doi": "",
+  "doi": "https://doi.org/10.2139/ssrn.6431107",
   "memberIds": [
     "qianwen-guo"
   ],
   "source": "google-scholar",
-  "generatedAt": "2026-04-18T23:46:13.125Z",
-  "lookbackYears": 2,
-  "windowStartDate": "2024-04-18",
-  "windowEndDate": "2026-04-18"
+  "generatedAt": "2026-10-22T17:35:09.960Z",
+  "lookbackYears": 3,
+  "windowStartDate": "2023-10-22",
+  "windowEndDate": "2026-10-22"
 }

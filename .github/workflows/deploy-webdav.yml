@@ -1,0 +1,62 @@
+name: Deploy to WebDAV
+
+# Publishes the site whenever a release tag (b0.YYYYMMDD.NNN) is pushed, the
+# CI counterpart of `node deploy.mjs` minus its commit-and-push step: the tag
+# already names the commit to ship. Can also be started by hand from the
+# Actions tab for any tag or branch.
+#
+# Needs two repository secrets, the same login the local deploy uses:
+#   WEBDAV_USER, WEBDAV_PASSWORD
+on:
+  push:
+    tags:
+      - 'b*'
+  workflow_dispatch:
+
+# One deploy at a time: the upload wipes the share first, so two runs
+# overlapping would leave it half-filled. A queued run waits instead.
+concurrency:
+  group: webdav-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Build and upload to webdav.fsu.edu
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out the release
+        uses: actions/checkout@v4
+
+      - name: Check the WebDAV secrets are set
+        env:
+          WEBDAV_USER: ${{ secrets.WEBDAV_USER }}
+          WEBDAV_PASSWORD: ${{ secrets.WEBDAV_PASSWORD }}
+        run: |
+          if [ -z "$WEBDAV_USER" ] || [ -z "$WEBDAV_PASSWORD" ]; then
+            echo "::error::Set the WEBDAV_USER and WEBDAV_PASSWORD repository secrets."
+            exit 1
+          fi
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build
+        run: yarn build
+
+      # Signs in before deleting anything, so a rejected login leaves the
+      # live site untouched.
+      - name: Wipe WebDAV and upload out/
+        env:
+          WEBDAV_USER: ${{ secrets.WEBDAV_USER }}
+          WEBDAV_PASSWORD: ${{ secrets.WEBDAV_PASSWORD }}
+        run: node scripts/deploy-webdav.mjs --yes

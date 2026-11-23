@@ -2,15 +2,15 @@
   "id": "google-scholar-developing-a-machine-learning-based-framework-for-roadway-vulner-2026-37c20513",
   "author": "S Takyi, EE Ozguven, M Horner, R Moses",
   "title": "Developing a Machine Learning-Based Framework for Roadway Vulnerability and Impact Assessment Using Aerial Imagery",
-  "journal": "International Journal of Disaster Risk Science, 1-19",
+  "journal": "International Journal of Disaster Risk Science 17 (2), 389-407",
   "catalog": "2026",
-  "doi": "",
+  "doi": "https://doi.org/10.1007/s13753-026-00711-3",
   "memberIds": [
     "mark-horner"
   ],
   "source": "google-scholar",
-  "generatedAt": "2026-04-18T23:46:13.125Z",
-  "lookbackYears": 2,
-  "windowStartDate": "2024-04-18",
-  "windowEndDate": "2026-04-18"
+  "generatedAt": "2026-10-22T17:35:09.960Z",
+  "lookbackYears": 3,
+  "windowStartDate": "2023-10-22",
+  "windowEndDate": "2026-10-22"
 }

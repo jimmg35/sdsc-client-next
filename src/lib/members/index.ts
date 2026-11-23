@@ -22,6 +22,17 @@ export interface MemberHonor {
   year: number;
 }
 
+/** An award ribbon hung on the member's portrait, such as Clarivate's
+    Highly Cited Researcher ribbon. `image` is the official artwork as issued;
+    `href` is where clicking it leads. */
+export interface MemberBadge {
+  image: string;
+  label: string;
+  width: number;
+  height: number;
+  href?: string;
+}
+
 export interface MemberPublication {
   id: string;
   author: string;
@@ -43,6 +54,7 @@ export interface MemberData {
   googleScholar: string;
   advisor?: string;
   advisorId?: string;
+  badge?: MemberBadge;
   education: MemberEducation[];
   honor: MemberHonor[];
   selectedPublications: MemberPublication[];
@@ -73,6 +85,7 @@ export function getAllMembers(): MemberData[] {
       advisorId,
       facultySupervisor,
       facultySupervisorId,
+      badge,
       education,
       honor,
       selectedPublications,
@@ -98,6 +111,7 @@ export function getAllMembers(): MemberData[] {
         googleScholar,
         advisor: advisor || facultySupervisor || undefined,
         advisorId: advisorId || facultySupervisorId || undefined,
+        badge: badge?.image && badge?.label ? badge : undefined,
         education: education || [],
         honor: honor || [],
         selectedPublications: selectedPublications || [],

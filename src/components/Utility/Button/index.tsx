@@ -17,7 +17,7 @@ const Button = ({
       className={`
         ${
           variant === 'outlined' &&
-          `hover:bg-white hover:text-teal-400  border-2 border-white  `
+          `hover:bg-surface hover:text-teal-400  border-2 border-white  `
         }
         ${variant === 'primary' && `bg-teal-400 text-white hover:bg-teal-500`}
         transition py-2 flex items-center gap-1 pr-2 rounded-md

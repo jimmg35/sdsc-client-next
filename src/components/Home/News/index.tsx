@@ -1,50 +1,73 @@
-import NewsCard from '@/components/Utility/NewsCard';
+import NewsIndexRow from '@/components/News/NewsIndexRow';
 import { NewsData, getAllNews } from '@/lib/news';
-import { RadioTower, Rss } from 'lucide-react';
+import { ArrowUpRight, RadioTower } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
-import Heading from '../Heading';
 
-const News = () => {
+const News = async () => {
+  const t = await getTranslations('home.news');
   const news: NewsData[] = getAllNews().slice(0, 3);
 
   return (
-    <section className="surface-fade relative overflow-hidden rounded-none px-6 py-16 md:px-16">
-      {/* <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_80%_-10%,_rgba(124,74,158,0.32),_transparent_65%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(110%_110%_at_20%_-20%,_rgba(189,156,99,0.32),_transparent_60%)]" /> */}
+    <section className="surface-fade relative overflow-hidden rounded-none px-6 py-20 md:px-16 md:py-28">
+      <div className="relative mx-auto w-full max-w-5xl">
+        <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-2xl">
+            <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-accent-700 md:text-xs md:tracking-[0.42em]">
+              <span
+                aria-hidden
+                className="h-px w-10 bg-gradient-to-r from-transparent to-accent-600/55"
+              />
+              {t('eyebrow')}
+            </p>
+            <h2 className="mt-5 text-3xl font-semibold tracking-[-0.02em] text-ink-900 md:text-[2.6rem] md:leading-[1.08]">
+              {t('heading')}
+            </h2>
+            <p className="mt-5 text-sm leading-7 text-ink-700 md:text-base md:leading-8">
+              {t('description')}
+            </p>
+          </div>
 
-      <div className="relative flex flex-col items-center gap-8 text-center text-gold-100">
-        <span className="chip-gold inline-flex items-center gap-2">
-          <Rss size={18} className="text-gold-200" />
-          Latest Dispatches
-        </span>
-        <Heading title="News & Events" />
-        <p className="max-w-2xl text-sm text-gold-200/75 md:text-base">
-          Catch up on the latest research, projects, awards, events, and stories
-          from the SDSC community.
-        </p>
-
-        <div className="mt-4 grid gap-6 md:grid-cols-3">
-          {news.map((post) => (
-            <NewsCard key={post.slug} data={post} />
-          ))}
-        </div>
-
-        <div className="flex flex-wrap items-center justify-center gap-3">
           <Link
             href="/news"
-            className="inline-flex items-center gap-2 rounded-full border border-gold-400/40 bg-[#130722]/20 px-6 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-gold-300 transition hover:border-gold-400 hover:text-gold-50"
+            className="group inline-flex shrink-0 items-center gap-2 self-start text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-primary-600 transition-colors hover:text-primary-700 md:self-end"
           >
-            View all stories
-            <Rss size={18} />
-          </Link>
-          <Link
-            href="/news/briefing"
-            className="inline-flex items-center gap-2 rounded-full border border-gold-400/40 bg-gold-500/85 px-6 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-[#140a23] transition hover:bg-gold-400"
-          >
-            Read the briefing
-            <RadioTower size={18} />
+            {t('viewAll')}
+            <ArrowUpRight
+              size={16}
+              className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            />
           </Link>
         </div>
+
+        {/* An index rather than a card grid: hairline rules, no card chrome,
+            and the thumbnail sits in its own column so the headline still
+            leads the row. */}
+        <ol className="mt-14 border-t border-accent-600/25">
+          {news.map((post) => (
+            <NewsIndexRow key={post.slug} data={post} />
+          ))}
+        </ol>
+
+        {/* The briefing carries on the list's rhythm instead of adding a
+            button cluster under it. */}
+        <Link
+          href="/news/briefing"
+          className="group flex items-center justify-between gap-6 border-b border-accent-600/25 py-7"
+        >
+          <span className="flex items-center gap-4">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-primary-200/70 bg-primary-50/60 text-primary-600 transition duration-300 group-hover:border-primary-300 group-hover:bg-primary-100/70">
+              <RadioTower size={18} />
+            </span>
+            <span className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-primary-600 transition-colors group-hover:text-primary-700">
+              {t('readBriefing')}
+            </span>
+          </span>
+          <ArrowUpRight
+            size={18}
+            className="shrink-0 text-ink-500 transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary-600"
+          />
+        </Link>
       </div>
     </section>
   );

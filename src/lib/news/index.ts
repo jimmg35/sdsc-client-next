@@ -12,7 +12,9 @@ export interface NewsData {
   author: string;
   memberIds: string[];
   description: string;
-  thumbnail: string;
+  thumbnail?: string;
+  /** A clip shown in place of the thumbnail on the post, which is its poster. */
+  video?: string;
   sourceUrl?: string;
   content: string;
 }
@@ -24,7 +26,13 @@ export interface RecentNewsWindow {
   posts: NewsData[];
 }
 
-const parseContentDate = (value: string | Date) => {
+/* No placeholder image: a post without artwork simply has no thumbnail, and
+   every surface that shows one checks for it first. A clip is optional the
+   same way. */
+const parseMediaPath = (value: unknown) =>
+  typeof value === 'string' && value.trim() ? value.trim() : undefined;
+
+export const parseContentDate = (value: string | Date) => {
   if (value instanceof Date) {
     return value;
   }
@@ -50,12 +58,14 @@ export function getAllNews(): NewsData[] {
       date: parseContentDate(data.date),
       author: data.author,
       memberIds: Array.isArray(data.memberIds)
-        ? data.memberIds.filter((memberId: unknown): memberId is string =>
-            typeof memberId === 'string'
+        ? data.memberIds.filter(
+            (memberId: unknown): memberId is string =>
+              typeof memberId === 'string'
           )
         : [],
       description: data.description,
-      thumbnail: data.thumbnail || '/img/news-demo/news-22-370x240.jpg',
+      thumbnail: parseMediaPath(data.thumbnail),
+      video: parseMediaPath(data.video),
       sourceUrl: data.sourceUrl || undefined,
       content
     };
@@ -76,19 +86,21 @@ export function getNewsBySlug(slug: string): NewsData {
     date: parseContentDate(data.date),
     author: data.author,
     memberIds: Array.isArray(data.memberIds)
-      ? data.memberIds.filter((memberId: unknown): memberId is string =>
-          typeof memberId === 'string'
+      ? data.memberIds.filter(
+          (memberId: unknown): memberId is string =>
+            typeof memberId === 'string'
         )
       : [],
     description: data.description,
-    thumbnail: data.thumbnail || '/img/news-demo/news-22-370x240.jpg',
+    thumbnail: parseMediaPath(data.thumbnail),
+    video: parseMediaPath(data.video),
     sourceUrl: data.sourceUrl || undefined,
     content
   };
 }
 
 export function getRecentNewsWindow(
-  months = 3,
+  months = 12,
   referenceDate = new Date()
 ): RecentNewsWindow {
   const windowEnd = new Date(referenceDate);

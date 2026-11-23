@@ -9,6 +9,8 @@ const briefingsDirectory = path.join(
   'briefings'
 );
 
+const SOURCE_FILE = 'recent-briefing.mdx';
+
 export interface BriefingData {
   title: string;
   eyebrow: string;
@@ -36,18 +38,34 @@ const parseBriefingDate = (value: string | Date) => {
   return new Date(value);
 };
 
+const readBriefingFile = (fileName: string) => {
+  const fullPath = path.join(briefingsDirectory, fileName);
+
+  if (!fs.existsSync(fullPath)) {
+    return null;
+  }
+
+  return matter(fs.readFileSync(fullPath, 'utf8'));
+};
+
+/**
+ * The English file is the source of truth: the broadcaster rewrites it whenever
+ * the news window moves.
+ */
 export function getCurrentBriefing(): BriefingData {
-  const fullPath = path.join(briefingsDirectory, 'recent-briefing.mdx');
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
-  const { data, content } = matter(fileContents);
+  const source = readBriefingFile(SOURCE_FILE);
+
+  if (!source) {
+    throw new Error(`Missing briefing source: ${SOURCE_FILE}`);
+  }
 
   return {
-    title: data.title,
-    eyebrow: data.eyebrow || 'SDSC Briefing',
-    updatedAt: parseBriefingDate(data.updatedAt),
-    description: data.description,
-    readTime: data.readTime || '3 min read',
-    content
+    title: source.data.title,
+    eyebrow: source.data.eyebrow || 'SDSC Briefing',
+    updatedAt: parseBriefingDate(source.data.updatedAt),
+    description: source.data.description,
+    readTime: source.data.readTime || '3 min read',
+    content: source.content
   };
 }
 

@@ -1,15 +1,34 @@
 import { type MemberData, getAllMembers } from '@/lib/members';
-import { getAllNews } from '@/lib/news';
+import { getAllNews, parseContentDate } from '@/lib/news';
 import type {
   RecentStoryCollection,
   StoryEvent,
   StoryMember
 } from '@/lib/stories/types';
+import fs from 'fs';
+import path from 'path';
 
 export const DEFAULT_STORY_WINDOW_MONTHS = 6;
 
+const labStoriesDirectory = path.join(
+  process.cwd(),
+  'src',
+  'contents',
+  'lab-stories'
+);
+
+type LabStoryFile = Pick<
+  StoryEvent,
+  'title' | 'summary' | 'thumbnail' | 'cover' | 'coverVideo' | 'video' | 'url'
+> & {
+  date: string;
+  members: { id: string; highlight: string }[];
+};
+
 const SUMMARY_LIMIT = 190;
-const HIGHLIGHT_LIMIT = 150;
+/* The viewer gives the spotlight its own column, so a highlight can run to a
+   full sentence before it needs trimming. */
+const HIGHLIGHT_LIMIT = 220;
 
 const normalizeText = (value: string) =>
   value
@@ -26,7 +45,22 @@ const trimText = (value: string, limit: number) => {
     return normalized;
   }
 
-  return `${normalized.slice(0, limit - 3).trimEnd()}...`;
+  // Back off to the last whole word, so a name is never cut off mid-way.
+  const cut = normalized.slice(0, limit - 1);
+  const lastSpace = cut.lastIndexOf(' ');
+  const wholeWords = lastSpace > limit * 0.6 ? cut.slice(0, lastSpace) : cut;
+
+  return `${wholeWords.replace(/[\s,;:]+$/, '')}…`;
+};
+
+/* Share of `candidate`'s words already in `reference`. The summary uses it to
+   skip a sentence that only restates the description in other words. */
+const wordOverlap = (reference: string, candidate: string) => {
+  const referenceWords = new Set(normalizeText(reference).split(' '));
+  const candidateWords = normalizeText(candidate).split(' ').filter(Boolean);
+  const shared = candidateWords.filter((word) => referenceWords.has(word));
+
+  return shared.length / Math.max(candidateWords.length, 1);
 };
 
 const stripMarkdown = (value: string) =>
@@ -42,6 +76,13 @@ const stripMarkdown = (value: string) =>
     .replace(/\r/g, '')
     .trim();
 
+/* A sentence ends at . ! or ? before a capital, but not after an initial
+   ("A. Stewart", "Mark W. Horner", "Ph.D.", "U.S.") or a title such as
+   "Dr." — splitting there cut names in half, so highlights came out as
+   "alongside co-PIs A." and members could not be matched to a sentence. */
+const SENTENCE_BREAK =
+  /(?<=[.!?])(?<!\b[A-Z]\.)(?<!\b(?:Dr|Prof|Mr|Mrs|Ms|St|Jr|Sr|vs|No)\.)\s+(?=["“‘(]?[A-Z0-9])/;
+
 const getContentSegments = (value: string) => {
   const lines = stripMarkdown(value)
     .split('\n')
@@ -50,7 +91,7 @@ const getContentSegments = (value: string) => {
 
   return lines.flatMap((line) =>
     line
-      .split(/(?<=[.!?])\s+/)
+      .split(SENTENCE_BREAK)
       .map((segment) => segment.trim())
       .filter(Boolean)
   );
@@ -77,7 +118,8 @@ const buildStorySummary = (
     return (
       normalizedSegment &&
       normalizedSegment !== normalizeText(descriptionText) &&
-      !normalizeText(descriptionText).includes(normalizedSegment)
+      !normalizeText(descriptionText).includes(normalizedSegment) &&
+      wordOverlap(descriptionText, segment) < 0.6
     );
   });
 
@@ -120,11 +162,18 @@ const memberMatchesSegment = (member: MemberData, segment: string) => {
 const buildMemberHighlight = (
   member: MemberData,
   content: string,
+  title: string,
   summary: string,
   participantCount: number
 ) => {
-  const matchingSegment = getContentSegments(content).find((segment) =>
-    memberMatchesSegment(member, segment)
+  /* Posts open with their headline as a `#` heading, which usually names the
+     member too; without skipping it the highlight just repeated the title
+     the viewer shows directly above it. */
+  const normalizedTitle = normalizeText(title);
+  const matchingSegment = getContentSegments(content).find(
+    (segment) =>
+      normalizeText(segment) !== normalizedTitle &&
+      memberMatchesSegment(member, segment)
   );
 
   if (matchingSegment) {
@@ -140,6 +189,54 @@ const buildMemberHighlight = (
     peerCount === 1 ? '1 other SDSC member' : `${peerCount} other SDSC members`;
   return `${member.name} is featured in this SDSC update alongside ${peerLabel}.`;
 };
+
+/* Stories that are not news: something in the lab worth a look. Each one is
+   written out in full in its JSON file, so nothing is derived the way a news
+   story's summary and highlights are; the members it names are looked up only
+   for their portrait and title. */
+const getLabStories = (membersById: Record<string, MemberData>): StoryEvent[] =>
+  fs
+    .readdirSync(labStoriesDirectory)
+    .filter((fileName) => fileName.endsWith('.json'))
+    .map((fileName) => {
+      const data: LabStoryFile = JSON.parse(
+        fs.readFileSync(path.join(labStoriesDirectory, fileName), 'utf8')
+      );
+
+      const members = data.members.flatMap<StoryMember>(({ id, highlight }) => {
+        const member = membersById[id];
+
+        return member
+          ? [
+              {
+                id,
+                name: member.name,
+                title: member.title,
+                thumbnail: member.thumbnail,
+                highlight
+              }
+            ]
+          : [];
+      });
+
+      return {
+        slug: fileName.replace(/\.json$/, ''),
+        title: data.title,
+        date: parseContentDate(data.date).toISOString(),
+        description: data.summary,
+        summary: data.summary,
+        // The clip's poster doubles as the artwork, so the viewer's blurred
+        // ground and its look-ahead preload work as they do for news.
+        thumbnail: data.thumbnail ?? data.video?.poster,
+        url: data.url,
+        kind: 'lab',
+        cover: data.cover,
+        coverVideo: data.coverVideo,
+        video: data.video,
+        memberIds: members.map((member) => member.id),
+        members
+      };
+    });
 
 export function getRecentStoryCollection(
   months = DEFAULT_STORY_WINDOW_MONTHS,
@@ -160,15 +257,15 @@ export function getRecentStoryCollection(
     1
   );
 
-  const stories = getAllNews()
+  const isInWindow = (publishedAt: Date) =>
+    publishedAt.getTime() >= windowStart.getTime() &&
+    publishedAt.getTime() <= referenceDate.getTime();
+
+  const newsStories = getAllNews()
     .filter((article) => {
       const publishedAt =
         article.date instanceof Date ? article.date : new Date(article.date);
-      return (
-        article.memberIds.length > 0 &&
-        publishedAt.getTime() >= windowStart.getTime() &&
-        publishedAt.getTime() <= referenceDate.getTime()
-      );
+      return article.memberIds.length > 0 && isInWindow(publishedAt);
     })
     .map<StoryEvent | null>((article) => {
       const memberIds = Array.from(new Set(article.memberIds)).filter(
@@ -201,6 +298,7 @@ export function getRecentStoryCollection(
             highlight: buildMemberHighlight(
               member,
               article.content,
+              article.title,
               summary,
               memberIds.length
             )
@@ -222,6 +320,19 @@ export function getRecentStoryCollection(
       };
     })
     .filter((story): story is StoryEvent => Boolean(story));
+
+  // Lab stories age out on the same window and take their place by date.
+  const labStories = getLabStories(membersById).filter((story) =>
+    isInWindow(new Date(story.date))
+  );
+  // A lab story that links to a news post stands in for that post in the
+  // rail, rather than the post turning up a second time as a story of faces.
+  const claimedUrls = new Set(labStories.map((story) => story.url));
+
+  const stories = [
+    ...newsStories.filter((story) => !claimedUrls.has(story.url)),
+    ...labStories
+  ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   const storiesByMemberId = stories.reduce<Record<string, StoryEvent[]>>(
     (acc, story) => {

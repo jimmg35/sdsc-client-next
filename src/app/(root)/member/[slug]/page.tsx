@@ -1,3 +1,4 @@
+import PortraitRibbon from '@/components/Members/PortraitRibbon';
 import SelectedPublicationCard from '@/components/Members/SelectedPublicationCard';
 import Avatar from '@/components/Utility/Avatar';
 import { markdownToHTML } from '@/lib/md';
@@ -9,26 +10,19 @@ import {
   getMemberBiograpgyById,
   getMemberById
 } from '@/lib/members';
-import {
-  ArrowLeft,
-  Award,
-  BookOpen,
-  BriefcaseBusiness,
-  FileDown,
-  GraduationCap,
-  Mail,
-  MapPin,
-  Sparkles,
-  UserRound
-} from 'lucide-react';
+import { ArrowLeft, FileDown, GraduationCap, Mail } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import type { ReactNode } from 'react';
+import { getTranslations } from 'next-intl/server';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 type Props = Promise<{
   slug: string;
 }>;
+
+const RULE = 'border-accent-600/25';
 
 export async function generateStaticParams() {
   const members = getAllMembers();
@@ -37,6 +31,8 @@ export async function generateStaticParams() {
 
 export default async function ProfilePage(props: { params: Props }) {
   const { slug } = await props.params;
+  const t = await getTranslations('members.profile');
+
   const member = getMemberById(slug);
   const biography = getMemberBiograpgyById(slug);
 
@@ -56,141 +52,171 @@ export default async function ProfilePage(props: { params: Props }) {
   const hasEducation = member.education.length > 0;
   const hasExperience = member.professionalExperience.length > 0;
   const hasFocus = member.aoi.length > 0 || member.courseTaught.length > 0;
+  const hasAside =
+    hasEducation || hasExperience || member.honor.length > 0 || hasFocus;
 
   return (
-    <section className="member-profile-page page-shell overflow-visible">
-      <div className="mx-auto w-full max-w-6xl px-5 pb-24 pt-32 text-ink-900 md:px-6 md:pt-36">
+    <section className="page-shell overflow-visible">
+      <div className="mx-auto w-full max-w-6xl px-6 pb-28 pt-36 md:pt-40">
         <Link
-          className="inline-flex items-center gap-2 rounded-full border border-rose-200/80 bg-white/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-rose-600 shadow-[0_18px_42px_-30px_rgba(168,110,161,0.28)] transition hover:border-rose-300 hover:bg-white hover:text-rose-700"
           href="/member"
+          className="group inline-flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-primary-600 transition-colors hover:text-primary-700"
         >
-          <ArrowLeft size={15} />
-          Members
+          <ArrowLeft
+            size={16}
+            className="transition-transform duration-300 group-hover:-translate-x-0.5"
+          />
+          {t('back')}
         </Link>
 
-        <header className="surface-fade mt-6 overflow-hidden px-6 py-8 md:px-8 lg:px-10">
-          <div className="grid gap-8 lg:grid-cols-[13rem_1fr] lg:items-center">
-            <div className="flex flex-col items-center justify-self-center text-center">
-              <div className="halo">
-                <Avatar
+        <header className="mt-12 flex flex-col gap-10 md:flex-row md:items-start md:gap-14">
+          {/* Squared and framed, matching the director on the directory page.
+              The old circle sat in a `halo` and used Avatar's default variant,
+              whose ring colours no longer exist in the theme. */}
+          <div className="w-full max-w-[15rem] shrink-0">
+            <div className="relative w-full rounded-[2.25rem] border border-accent-600/40 bg-gradient-to-b from-accent-500/25 via-transparent to-primary-400/15 p-[0.6rem] shadow-portrait">
+              <div className="relative aspect-square w-full overflow-hidden rounded-[1.7rem] border border-accent-600/30 bg-accent-200">
+                <Image
                   src={member.thumbnail}
-                  size={172}
                   alt={`${member.name} portrait`}
+                  fill
+                  sizes="(max-width: 768px) 15rem, 15rem"
+                  className="object-cover"
+                  priority
                 />
               </div>
-              <span className="mt-5 inline-flex whitespace-nowrap rounded-full border border-rose-200/80 bg-rose-50/80 px-3 py-1 text-center text-[0.58rem] font-semibold uppercase tracking-[0.16em] text-rose-600">
-                {member.centerRole || 'SDSC Member'}
-              </span>
+              {member.badge && <PortraitRibbon badge={member.badge} />}
             </div>
+          </div>
 
-            <div className="min-w-0">
-              <h1 className="text-4xl font-semibold leading-tight text-ink-900 md:text-5xl">
-                {member.name}
-              </h1>
-              {member.title && (
-                <p className="mt-4 max-w-3xl text-base leading-7 text-ink-700/84 md:text-lg">
-                  {member.title}
-                </p>
+          <div className="min-w-0 flex-1">
+            <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-accent-700 md:tracking-[0.36em]">
+              <span
+                aria-hidden
+                className="h-px w-8 bg-gradient-to-r from-transparent to-accent-600/55"
+              />
+              {member.centerRole || t('roleFallback')}
+            </p>
+
+            <h1 className="mt-5 text-[2.1rem] font-semibold leading-[1.12] tracking-[-0.025em] text-ink-900 md:text-[3rem] md:leading-[1.06]">
+              {member.name}
+            </h1>
+
+            {member.title && (
+              <p className="mt-5 max-w-2xl text-base leading-8 text-ink-700 md:text-lg md:leading-9">
+                {member.title}
+              </p>
+            )}
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              {member.email && (
+                <ProfileActionLink
+                  href={`mailto:${member.email}`}
+                  icon={Mail}
+                  label={t('email')}
+                />
               )}
-
-              <div className="mt-6 grid gap-3 text-sm text-ink-700/82 md:grid-cols-2">
-                {member.department && (
-                  <ProfileMeta icon={MapPin} label="Department">
-                    {member.department}
-                  </ProfileMeta>
-                )}
-
-                {advisorName && (
-                  <ProfileMeta icon={UserRound} label="Advisor">
-                    <div className="flex items-center gap-3">
-                      {advisorMember?.thumbnail && (
-                        <Link
-                          href={`/member/${advisorMember.id}`}
-                          className="shrink-0"
-                          aria-label={`View ${advisorName}'s profile`}
-                        >
-                          <Avatar
-                            src={advisorMember.thumbnail}
-                            size={44}
-                            alt={`${advisorName} portrait`}
-                            variant="soft"
-                            className="hover:scale-[1.04]"
-                          />
-                        </Link>
-                      )}
-                      <div className="min-w-0">
-                        {advisorMember ? (
-                          <Link
-                            href={`/member/${advisorMember.id}`}
-                            className="font-semibold text-ink-900 transition hover:text-rose-600"
-                          >
-                            {advisorName}
-                          </Link>
-                        ) : (
-                          <span className="font-semibold text-ink-900">
-                            {advisorName}
-                          </span>
-                        )}
-                        {advisorTitle && (
-                          <span className="block text-xs leading-5 text-ink-500">
-                            {advisorTitle}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </ProfileMeta>
-                )}
-              </div>
-
-              <div className="mt-7 flex flex-wrap gap-3">
-                {member.email && (
-                  <ProfileActionLink
-                    href={`mailto:${member.email}`}
-                    icon={Mail}
-                    label="Email"
-                  />
-                )}
-                {member.googleScholar && (
-                  <ProfileActionLink
-                    href={member.googleScholar}
-                    icon={GraduationCap}
-                    label="Google Scholar"
-                    external
-                  />
-                )}
-                {member.cvPath && (
-                  <ProfileActionLink
-                    href={member.cvPath}
-                    icon={FileDown}
-                    label="CV"
-                    external
-                  />
-                )}
-              </div>
+              {member.googleScholar && (
+                <ProfileActionLink
+                  href={member.googleScholar}
+                  icon={GraduationCap}
+                  label={t('googleScholar')}
+                  external
+                />
+              )}
+              {member.cvPath && (
+                <ProfileActionLink
+                  href={member.cvPath}
+                  icon={FileDown}
+                  label={t('cv')}
+                  external
+                />
+              )}
             </div>
           </div>
         </header>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1.55fr)_minmax(18rem,0.85fr)]">
-          <main className="space-y-8">
+        {(member.department || advisorName) && (
+          <dl
+            className={`mt-16 grid gap-x-12 gap-y-8 border-y ${RULE} py-8 sm:grid-cols-2`}
+          >
+            {member.department && (
+              <div>
+                <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-accent-700">
+                  {t('department')}
+                </dt>
+                <dd className="mt-3 text-sm leading-6 text-ink-900">
+                  {member.department}
+                </dd>
+              </div>
+            )}
+
+            {advisorName && (
+              <div>
+                <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-accent-700">
+                  {t('advisor')}
+                </dt>
+                <dd className="mt-3">
+                  {advisorMember ? (
+                    <Link
+                      href={`/member/${advisorMember.id}`}
+                      aria-label={t('viewProfileAria', { name: advisorName })}
+                      className="group -mx-3 inline-flex items-center gap-4 rounded-2xl px-3 py-2 transition-colors duration-300 hover:bg-primary-50/55"
+                    >
+                      <Avatar
+                        src={advisorMember.thumbnail}
+                        size={44}
+                        alt={`${advisorName} portrait`}
+                        variant="soft"
+                        className="shrink-0 group-hover:scale-[1.04]"
+                      />
+                      <span className="min-w-0">
+                        <span className="block text-sm font-medium text-ink-900 transition-colors duration-300 group-hover:text-primary-600">
+                          {advisorName}
+                        </span>
+                        {advisorTitle && (
+                          <span className="mt-0.5 block text-xs leading-5 text-ink-500">
+                            {advisorTitle}
+                          </span>
+                        )}
+                      </span>
+                    </Link>
+                  ) : (
+                    <span className="text-sm font-medium text-ink-900">
+                      {advisorName}
+                    </span>
+                  )}
+                </dd>
+              </div>
+            )}
+          </dl>
+        )}
+
+        <div
+          className={`mt-16 grid gap-16 ${
+            hasAside
+              ? 'lg:grid-cols-[minmax(0,1.6fr)_minmax(17rem,0.85fr)] lg:gap-14'
+              : ''
+          }`}
+        >
+          <main className="min-w-0 space-y-16">
             {mdHtmlContent && (
-              <section className="glass-card px-6 py-7 md:px-8">
-                <SectionHeading icon={UserRound} title="Biography" />
-                <article
-                  className="prose mt-5 max-w-none text-sm leading-7 text-ink-700/88 prose-headings:text-ink-900 prose-p:my-4 prose-a:text-rose-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-ink-900 md:text-base"
+              <section>
+                <SectionHeading title={t('biography')} />
+                <div
+                  className="article-prose prose prose-sm mt-6 max-w-none md:prose-base"
                   dangerouslySetInnerHTML={{ __html: mdHtmlContent }}
                 />
               </section>
             )}
 
             {member.selectedPublications.length > 0 && (
-              <section className="glass-card px-6 py-7 md:px-8">
+              <section>
                 <SectionHeading
-                  icon={BookOpen}
-                  title="Selected Publications"
+                  title={t('selectedPublications')}
                   count={member.selectedPublications.length}
                 />
-                <ul className="mt-5 divide-y divide-silk-200/80">
+                <ul className="mt-6">
                   {member.selectedPublications.map((pub: MemberPublication) => (
                     <SelectedPublicationCard {...pub} key={pub.id} />
                   ))}
@@ -199,135 +225,112 @@ export default async function ProfilePage(props: { params: Props }) {
             )}
           </main>
 
-          <aside className="space-y-6">
-            {(hasEducation || hasExperience) && (
-              <section className="glass-card px-6 py-6">
-                <SectionHeading icon={GraduationCap} title="Credentials" />
-                <div className="mt-5 space-y-6">
-                  {hasEducation && (
-                    <DetailGroup title="Education">
-                      <CompactEducationList education={member.education} />
-                    </DetailGroup>
-                  )}
-                  {hasExperience && (
-                    <DetailGroup title="Professional Experience">
-                      <CompactExperienceList
-                        experience={member.professionalExperience}
-                      />
-                    </DetailGroup>
-                  )}
-                </div>
-              </section>
-            )}
+          {hasAside && (
+            /* Divided from the main column by a single rule instead of each
+               block sitting in its own card. */
+            <aside
+              className={`min-w-0 space-y-14 lg:border-l ${RULE} lg:pl-14`}
+            >
+              {(hasEducation || hasExperience) && (
+                <section>
+                  <SectionHeading title={t('credentials')} />
+                  <div className="mt-6 space-y-8">
+                    {hasEducation && (
+                      <DetailGroup title={t('education')}>
+                        <EducationList education={member.education} />
+                      </DetailGroup>
+                    )}
+                    {hasExperience && (
+                      <DetailGroup title={t('professionalExperience')}>
+                        <ExperienceList
+                          experience={member.professionalExperience}
+                        />
+                      </DetailGroup>
+                    )}
+                  </div>
+                </section>
+              )}
 
-            {member.honor.length > 0 && (
-              <section className="glass-card px-6 py-6">
-                <SectionHeading
-                  icon={Award}
-                  title="Honors & Awards"
-                  count={member.honor.length}
-                />
-                <ul className="mt-5 space-y-4">
-                  {member.honor.map((honor, idx) => (
-                    <li key={idx} className="grid grid-cols-[3.5rem_1fr] gap-3">
-                      <span className="rounded-full border border-rose-200/80 bg-rose-50/80 px-2 py-1.5 text-center text-xs font-semibold text-rose-600">
-                        {honor.year}
-                      </span>
-                      <p className="text-sm leading-6 text-ink-700/88">
-                        {honor.title}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
+              {member.honor.length > 0 && (
+                <section>
+                  <SectionHeading
+                    title={t('honorsAwards')}
+                    count={member.honor.length}
+                  />
+                  <ul className="mt-6">
+                    {member.honor.map((honor, idx) => (
+                      <li key={idx} className={`border-t ${RULE} py-5`}>
+                        <p className="text-[0.68rem] font-semibold uppercase tabular-nums tracking-[0.24em] text-primary-600">
+                          {honor.year}
+                        </p>
+                        <p className="mt-2 text-sm leading-6 text-ink-900">
+                          {honor.title}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
 
-            {hasFocus && (
-              <section className="glass-card px-6 py-6">
-                <SectionHeading icon={Sparkles} title="Focus" />
-                {member.aoi.length > 0 && (
-                  <DetailGroup title="Areas of Interest" className="mt-5">
-                    <ul className="flex flex-wrap gap-2">
-                      {member.aoi.map((area, idx) => (
-                        <li
-                          key={idx}
-                          className="rounded-full border border-silk-300/80 bg-white/80 px-3 py-1.5 text-xs font-medium text-ink-700"
-                        >
-                          {area}
-                        </li>
-                      ))}
-                    </ul>
-                  </DetailGroup>
-                )}
+              {hasFocus && (
+                <section>
+                  <SectionHeading title={t('focus')} />
+                  <div className="mt-6 space-y-8">
+                    {member.aoi.length > 0 && (
+                      <DetailGroup title={t('areasOfInterest')}>
+                        <ul className="flex flex-wrap gap-2">
+                          {member.aoi.map((area, idx) => (
+                            <li
+                              key={idx}
+                              className="rounded-full border border-accent-600/30 bg-surface/70 px-3.5 py-1.5 text-xs font-medium text-ink-700"
+                            >
+                              {area}
+                            </li>
+                          ))}
+                        </ul>
+                      </DetailGroup>
+                    )}
 
-                {member.courseTaught.length > 0 && (
-                  <DetailGroup
-                    title="Courses Taught"
-                    className={member.aoi.length > 0 ? 'mt-6' : 'mt-5'}
-                  >
-                    <ul className="space-y-3">
-                      {member.courseTaught.map((course, idx) => (
-                        <li
-                          key={idx}
-                          className="border-l border-rose-200/80 pl-3 text-sm leading-6 text-ink-700/88"
-                        >
-                          {course}
-                        </li>
-                      ))}
-                    </ul>
-                  </DetailGroup>
-                )}
-              </section>
-            )}
-          </aside>
+                    {member.courseTaught.length > 0 && (
+                      <DetailGroup title={t('coursesTaught')}>
+                        <ul>
+                          {member.courseTaught.map((course, idx) => (
+                            <li
+                              key={idx}
+                              className={`border-t ${RULE} py-4 text-sm leading-6 text-ink-700`}
+                            >
+                              {course}
+                            </li>
+                          ))}
+                        </ul>
+                      </DetailGroup>
+                    )}
+                  </div>
+                </section>
+              )}
+            </aside>
+          )}
         </div>
       </div>
     </section>
   );
 }
 
-function SectionHeading({
-  icon: Icon,
-  title,
-  count
-}: {
-  icon: LucideIcon;
-  title: string;
-  count?: number;
-}) {
+function SectionHeading({ title, count }: { title: string; count?: number }) {
   return (
-    <header className="flex items-center justify-between gap-4 border-b border-silk-200/80 pb-3">
-      <h2 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.28em] text-rose-600">
-        <Icon size={15} />
+    <div className="flex items-baseline justify-between gap-4">
+      <h2 className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.32em] text-accent-700">
+        <span
+          aria-hidden
+          className="h-px w-8 bg-gradient-to-r from-transparent to-accent-600/55"
+        />
         {title}
       </h2>
       {typeof count === 'number' && (
-        <span className="rounded-full border border-silk-300/80 bg-white/80 px-3 py-1 text-xs font-semibold text-ink-500">
+        <span className="text-[0.7rem] font-semibold tabular-nums text-ink-500">
           {count}
         </span>
       )}
-    </header>
-  );
-}
-
-function ProfileMeta({
-  icon: Icon,
-  label,
-  children
-}: {
-  icon: LucideIcon;
-  label: string;
-  children: ReactNode;
-}) {
-  return (
-    <div className="grid grid-cols-[1.35rem_1fr] gap-3">
-      <Icon size={17} className="mt-1 text-rose-500" />
-      <div>
-        <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-ink-500">
-          {label}
-        </p>
-        <div className="mt-1 leading-6">{children}</div>
-      </div>
     </div>
   );
 }
@@ -343,13 +346,27 @@ function ProfileActionLink({
   label: string;
   external?: boolean;
 }) {
+  const className =
+    'inline-flex items-center justify-center gap-2 rounded-full border border-primary-200/70 bg-surface/85 px-5 py-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-primary-600 transition hover:border-primary-300 hover:text-primary-700';
+
+  // External targets (Scholar) and static assets (CV files under /cv) are not
+  // app routes, so they use a plain anchor rather than next/link.
+  if (external) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+      >
+        <Icon size={15} />
+        {label}
+      </a>
+    );
+  }
+
   return (
-    <Link
-      href={href}
-      target={external ? '_blank' : undefined}
-      rel={external ? 'noopener noreferrer' : undefined}
-      className="inline-flex items-center justify-center gap-2 rounded-full border border-rose-200/80 bg-white/88 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-rose-600 transition hover:border-rose-300 hover:bg-rose-50"
-    >
+    <Link href={href} className={className}>
       <Icon size={15} />
       {label}
     </Link>
@@ -358,32 +375,32 @@ function ProfileActionLink({
 
 function DetailGroup({
   title,
-  className,
   children
 }: {
   title: string;
-  className?: string;
   children: ReactNode;
 }) {
   return (
-    <div className={className}>
-      <h3 className="text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-rose-500">
+    <div>
+      <h3 className="text-[0.66rem] font-semibold uppercase tracking-[0.24em] text-primary-600">
         {title}
       </h3>
-      <div className="mt-3">{children}</div>
+      <div className="mt-4">{children}</div>
     </div>
   );
 }
 
-function CompactEducationList({ education }: { education: MemberEducation[] }) {
+async function EducationList({ education }: { education: MemberEducation[] }) {
+  const t = await getTranslations('members.profile');
+
   return (
-    <ul className="space-y-4">
+    <ul>
       {education.map((edu, idx) => (
-        <li key={idx} className="border-l border-rose-200/80 pl-4">
-          <p className="text-sm font-semibold leading-6 text-ink-900">
-            {edu.degree} in {edu.field}
+        <li key={idx} className={`border-t ${RULE} py-4`}>
+          <p className="text-sm font-medium leading-6 text-ink-900">
+            {t('degreeInField', { degree: edu.degree, field: edu.field })}
           </p>
-          <p className="text-sm leading-6 text-ink-600">
+          <p className="mt-1 text-sm leading-6 text-ink-700">
             {edu.institution}
             {edu.year ? `, ${edu.year}` : ''}
           </p>
@@ -393,21 +410,19 @@ function CompactEducationList({ education }: { education: MemberEducation[] }) {
   );
 }
 
-function CompactExperienceList({
-  experience
-}: {
-  experience: MemberProfExp[];
-}) {
+async function ExperienceList({ experience }: { experience: MemberProfExp[] }) {
+  const t = await getTranslations('members.profile');
+
   return (
-    <ul className="space-y-4">
+    <ul>
       {experience.map((item, idx) => (
-        <li key={idx} className="border-l border-silk-300/80 pl-4">
-          <p className="flex items-start gap-2 text-sm font-semibold leading-6 text-ink-900">
-            <BriefcaseBusiness size={15} className="mt-1 text-rose-500" />
-            <span>{item.title}</span>
+        <li key={idx} className={`border-t ${RULE} py-4`}>
+          <p className="text-sm font-medium leading-6 text-ink-900">
+            {item.title}
           </p>
-          <p className="mt-1 text-sm leading-6 text-ink-600">
-            {item.institution}, {item.start_year}-{item.end_year || 'Present'}
+          <p className="mt-1 text-sm leading-6 text-ink-700">
+            {item.institution}, {item.start_year}-
+            {item.end_year || t('present')}
           </p>
         </li>
       ))}

@@ -6,4 +6,10 @@ const markdownToHTML = async (markdownString: string) => {
   return result.toString();
 };
 
-export { markdownToHTML };
+/* Every article body opens by repeating its own frontmatter title as an H1.
+   Pages that set the headline themselves drop the duplicate rather than
+   render it twice. Only a level-one heading in the first position is taken. */
+const stripLeadingHeading = (markdownString: string) =>
+  markdownString.replace(/^\s*#[^#\S\r\n][^\r\n]*(?:\r?\n)+/, '');
+
+export { markdownToHTML, stripLeadingHeading };

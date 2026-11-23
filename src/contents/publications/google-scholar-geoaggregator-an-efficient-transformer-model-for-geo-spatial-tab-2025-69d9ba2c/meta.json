@@ -4,13 +4,13 @@
   "title": "GeoAggregator: An Efficient Transformer Model for Geo-Spatial Tabular Data",
   "journal": "39th Annual AAAI Conference on Artificial Intelligence (AAAI)",
   "catalog": "2025",
-  "doi": "",
+  "doi": "https://doi.org/10.1609/aaai.v39i11.33259",
   "memberIds": [
     "ziqi-li"
   ],
   "source": "google-scholar",
-  "generatedAt": "2026-04-18T23:46:13.125Z",
-  "lookbackYears": 2,
-  "windowStartDate": "2024-04-18",
-  "windowEndDate": "2026-04-18"
+  "generatedAt": "2026-10-22T17:35:09.960Z",
+  "lookbackYears": 3,
+  "windowStartDate": "2023-10-22",
+  "windowEndDate": "2026-10-22"
 }

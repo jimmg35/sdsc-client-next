@@ -1,0 +1,23 @@
+{
+  "id": "crystal-goodwin",
+  "name": "Crystal Goodwin",
+  "title": "Executive Assistant",
+  "department": "",
+  "email": "clgoodwin@fsu.edu",
+  "thumbnail": "/img/avatar/crystal.jfif",
+  "centerRole": "SDSC Staff",
+  "googleScholar": "",
+  "education": [
+    {
+      "degree": "B.S.",
+      "field": "Social Sciences",
+      "institution": "Florida State University",
+      "year": 2015
+    }
+  ],
+  "honor": [],
+  "selectedPublications": [],
+  "courseTaught": [],
+  "aoi": [],
+  "professionalExperience": []
+}

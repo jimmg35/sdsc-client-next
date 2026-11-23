@@ -1,0 +1,606 @@
+/* ==========================================================================
+   Theme — the one place colour lives.
+
+   Every colour on the site resolves to a variable defined in this file.
+   Components use the Tailwind utilities these generate (`text-primary-600`,
+   `border-accent-600/25`, `bg-night`, `shadow-glow` …) and globals.css
+   builds its effects from the same variables, so nothing else needs to change
+   to re-colour the site.
+
+   Roles
+     primary   the institution's signature colour: links, active states, marks
+     accent    the warm companion colour: page ground, hairlines, eyebrows
+     ink       text, from body copy (700) to headings (900) and captions (500)
+     surface   cards and bars raised off the page ground
+     night     a ground that stays dark in both themes (story viewer, image
+               placeholders, code blocks); `night-ink` is text set on it
+     brand-*   the two brand colours at their exact values, not flipped in
+               dark mode, for artwork overlays that sit on a photograph
+     scrim     the tint laid over hero photography to hold white type
+     wash-*    the two coloured light-leaks in the page background
+
+   Dark mode inverts each ramp end for end rather than replacing it. Call sites
+   use the low end for grounds (bg-primary-50, bg-accent-200) and the high end
+   for text (text-ink-900), so flipping keeps every utility meaningful.
+
+   Palettes
+     The active palette is `SITE_PALETTE` in src/lib/theme. It is written to
+     <html data-palette>, and `?palette=<name>` overrides it for one visit so a
+     palette can be previewed without a deploy. The values inside @theme are
+     the default (FSU), used whenever no other palette matches.
+
+     To add a palette, design it in the dev theme panel (bottom-right corner
+     of `npm run dev`), paste its "Copy CSS" output at the bottom of this file
+     and register the name in PALETTES in src/lib/theme. A hand-written block
+     must fill in every variable — one it leaves out silently inherits FSU's.
+   ========================================================================== */
+
+/* --- Default palette: Florida State University ---------------------------
+   Built on brand.fsu.edu. Garnet #782F40 (PMS 195) and Gold #CEB888
+   (PMS 7502) sit at the exact ramp steps the site uses most (primary-600,
+   accent-400). Gold +1/+2/+3 Canvas are accent-300/200/100, Plaza Brick is
+   primary-800, Stadium Night is `night`, and ink is FSU's Slate neutral
+   scale. Steps the guide does not define are interpolated toward white or
+   Slate; the darker gold steps exist only so eyebrows and captions reach
+   4.5:1 on white, which Gold itself (1.9:1) cannot.
+
+   `static` so every variable is emitted even when no utility names it: the
+   palette blocks below and globals.css reach most of them through var(). */
+@theme static {
+  --color-primary-50: #fbf6f6;
+  --color-primary-100: #f4e8ea;
+  --color-primary-200: #e8d0d5;
+  --color-primary-300: #d3a9b2;
+  --color-primary-400: #a86373;
+  --color-primary-500: #8f4254;
+  --color-primary-600: #782f40;
+  --color-primary-700: #652737;
+  --color-primary-800: #572932;
+  --color-primary-900: #3b1a21;
+
+  --color-accent-50: #fcfaf5;
+  --color-accent-100: #f3ede1;
+  --color-accent-200: #e7dcc4;
+  --color-accent-300: #dacaa6;
+  --color-accent-400: #ceb888;
+  --color-accent-500: #b39c6b;
+  --color-accent-600: #957f52;
+  --color-accent-700: #6e5d3b;
+  --color-accent-800: #4d4129;
+  --color-accent-900: #2e2719;
+
+  --color-ink-100: #f7f6f5;
+  --color-ink-200: #ecebe9;
+  --color-ink-300: #d5d4d4;
+  --color-ink-500: #77756f;
+  --color-ink-700: #565554;
+  --color-ink-900: #2c2a29;
+
+  /* Card/panel background. Distinct from `white`, which several places use
+     deliberately over a photo and must stay white in both themes. */
+  --color-surface: #ffffff;
+
+  --color-night: #101820;
+  --color-night-ink: #f3ede1;
+
+  --color-brand-primary: #782f40;
+  --color-brand-accent: #ceb888;
+
+  --color-scrim: #101820;
+
+  /* Casts every shadow. Dark enough to read on the light ground; swapped for
+     black in dark mode, where a warm shadow would glow instead of recede. */
+  --color-shade: #2c2a29;
+
+  /* The hero's "live" pip. A status signal, not a brand colour, so it is the
+     same green in every palette. */
+  --color-live: #4ade80;
+
+  /* --- Derived: shared by every palette, never edited per palette ------ */
+
+  --shadow-surface:
+    0 50px 90px -50px color-mix(in oklab, var(--color-shade) 45%, transparent),
+    inset 0 1px 0 color-mix(in oklab, var(--color-surface) 70%, transparent);
+  --shadow-soft: 0 36px 70px -46px
+    color-mix(in oklab, var(--color-shade) 35%, transparent);
+  --shadow-hover: 0 45px 80px -48px
+    color-mix(in oklab, var(--color-primary-500) 35%, transparent);
+  --shadow-lift-sm: 0 12px 24px -16px
+    color-mix(in oklab, var(--color-shade) 40%, transparent);
+  --shadow-lift: 0 14px 36px -22px
+    color-mix(in oklab, var(--color-shade) 40%, transparent);
+  --shadow-glow-sm: 0 16px 36px -28px
+    color-mix(in oklab, var(--color-primary-500) 30%, transparent);
+  --shadow-glow: 0 20px 40px -30px
+    color-mix(in oklab, var(--color-primary-500) 45%, transparent);
+  --shadow-glow-lg: 0 30px 60px -34px
+    color-mix(in oklab, var(--color-primary-500) 55%, transparent);
+  --shadow-portrait: 0 55px 95px -58px
+    color-mix(in oklab, var(--color-shade) 90%, transparent);
+  --shadow-night: 0 45px 120px -42px
+    color-mix(in oklab, var(--color-night) 95%, transparent);
+
+  --radius-card: 26px;
+  --radius-pill: 999px;
+  --backdrop-glass: blur(22px);
+}
+
+:root {
+  color-scheme: light;
+
+  /* The page background's two light-leaks and the ground they sit on. */
+  --wash-accent: rgba(206, 184, 136, 0.34);
+  --wash-primary: rgba(120, 47, 64, 0.12);
+  --ground-from: #fdfcf8;
+  --ground-via: #f6f0e4;
+  --ground-to: #efe5d1;
+
+  --background-gradient:
+    radial-gradient(
+      120% 120% at 15% -20%,
+      var(--wash-accent) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      110% 110% at 85% -10%,
+      var(--wash-primary) 0%,
+      transparent 60%
+    ),
+    linear-gradient(
+      165deg,
+      var(--ground-from) 0%,
+      var(--ground-via) 40%,
+      var(--ground-to) 100%
+    );
+
+  --background-image: url('/img/welcome.jpg');
+}
+
+/* FSU, dark. Stadium Night and FSU Black carry the ground; Gold becomes the
+   high end of its ramp (accent-700), where it reads at 8:1. Garnet itself is
+   too dark to read on black, so primary's text steps are lifted garnet. */
+.dark {
+  color-scheme: dark;
+
+  --color-primary-50: #221418;
+  --color-primary-100: #2f1a20;
+  --color-primary-200: #43232c;
+  --color-primary-300: #5e2f3b;
+  --color-primary-400: #7e3d4e;
+  --color-primary-500: #a4566a;
+  --color-primary-600: #d08a9a;
+  --color-primary-700: #e2afbb;
+  --color-primary-800: #eed0d7;
+  --color-primary-900: #f8ecef;
+
+  --color-accent-50: #141311;
+  --color-accent-100: #1b1916;
+  --color-accent-200: #25221d;
+  --color-accent-300: #383226;
+  --color-accent-400: #544a35;
+  --color-accent-500: #7f6f4e;
+  --color-accent-600: #a99466;
+  --color-accent-700: #ceb888;
+  --color-accent-800: #dfd1a7;
+  --color-accent-900: #f3ede1;
+
+  --color-ink-100: #1d1b1a;
+  --color-ink-200: #282625;
+  --color-ink-300: #57544f;
+  --color-ink-500: #9c9a97;
+  --color-ink-700: #cfcdca;
+  --color-ink-900: #f4f3f1;
+
+  --color-surface: #24211f;
+  --color-shade: #000000;
+
+  --wash-accent: rgba(206, 184, 136, 0.1);
+  --wash-primary: rgba(120, 47, 64, 0.38);
+  --ground-from: #141311;
+  --ground-via: #181614;
+  --ground-to: #1d1a17;
+}
+
+/* --- Heritage: the site's original silk and mauve ----------------------- */
+[data-palette='heritage'] {
+  --color-primary-50: #fcf6fa;
+  --color-primary-100: #f3e5f1;
+  --color-primary-200: #e5c7e2;
+  --color-primary-300: #d6a7d0;
+  --color-primary-400: #c189b9;
+  --color-primary-500: #a86ea1;
+  --color-primary-600: #875380;
+  --color-primary-700: #663d60;
+  --color-primary-800: #462a42;
+  --color-primary-900: #2f1b2c;
+
+  --color-accent-50: #fdfaf4;
+  --color-accent-100: #f7f0e2;
+  --color-accent-200: #efe0c7;
+  --color-accent-300: #e2caa7;
+  --color-accent-400: #d3b287;
+  --color-accent-500: #c29c6a;
+  --color-accent-600: #a07c4f;
+  --color-accent-700: #7b5d3a;
+  --color-accent-800: #56422a;
+  --color-accent-900: #382b1c;
+
+  --color-ink-100: #f9f6f0;
+  --color-ink-200: #eee6d7;
+  --color-ink-300: #d6cdbf;
+  --color-ink-500: #ab9c8f;
+  --color-ink-700: #5d4f47;
+  --color-ink-900: #2c2420;
+
+  --color-surface: #ffffff;
+  --color-night: #150e18;
+  --color-night-ink: #f2e8dc;
+  --color-brand-primary: #a86ea1;
+  --color-brand-accent: #d3b287;
+  --color-scrim: #060a22;
+  --color-shade: #2c2420;
+
+  --wash-accent: rgba(210, 169, 120, 0.32);
+  --wash-primary: rgba(198, 164, 215, 0.32);
+  --ground-from: #fdfbf7;
+  --ground-via: #f7efe3;
+  --ground-to: #f1e4d7;
+}
+
+[data-palette='heritage'].dark {
+  --color-primary-50: #2b1b28;
+  --color-primary-100: #3a2436;
+  --color-primary-200: #4d3247;
+  --color-primary-300: #66445e;
+  --color-primary-400: #855a7c;
+  --color-primary-500: #a86ea1;
+  --color-primary-600: #c08fb8;
+  --color-primary-700: #d6afd0;
+  --color-primary-800: #e8cfe4;
+  --color-primary-900: #f7edf4;
+
+  --color-accent-50: #171310;
+  --color-accent-100: #1f1a15;
+  --color-accent-200: #2b241c;
+  --color-accent-300: #3f3427;
+  --color-accent-400: #5c4b35;
+  --color-accent-500: #86694a;
+  --color-accent-600: #a5815c;
+  --color-accent-700: #c29c6a;
+  --color-accent-800: #dcbd8f;
+  --color-accent-900: #f2e2c8;
+
+  --color-ink-100: #201b17;
+  --color-ink-200: #2b2521;
+  --color-ink-300: #5f544c;
+  --color-ink-500: #9b8f84;
+  --color-ink-700: #cdc3b7;
+  --color-ink-900: #f5f0e8;
+
+  --color-surface: #2b241c;
+  --color-shade: #000000;
+
+  --wash-accent: rgba(134, 105, 74, 0.22);
+  --wash-primary: rgba(168, 110, 161, 0.22);
+  --ground-from: #17130f;
+  --ground-via: #1b1611;
+  --ground-to: #201a14;
+}
+
+/* --- Generated palettes ------------------------------------------------
+   Produced by src/lib/theme/palette.ts from two seed colours each (the
+   brand colours themselves appear unaltered in the light ramps) and checked
+   to clear WCAG AA for every text step. Design new ones in the dev theme
+   panel and paste its "Copy CSS" output here. */
+
+/* Harbor: deep navy with a copper accent. Chart-room blue and brass. */
+[data-palette='harbor'] {
+  --color-primary-50: #f3f7fd;
+  --color-primary-100: #e4ecf8;
+  --color-primary-200: #cad9ee;
+  --color-primary-300: #a6bcdc;
+  --color-primary-400: #718eb6;
+  --color-primary-500: #506d96;
+  --color-primary-600: #3a567d;
+  --color-primary-700: #1f3a5f;
+  --color-primary-800: #1d314c;
+  --color-primary-900: #101d30;
+  --color-accent-50: #fffcfa;
+  --color-accent-100: #feece1;
+  --color-accent-200: #fadac6;
+  --color-accent-300: #f6c6a6;
+  --color-accent-400: #ebaa7f;
+  --color-accent-500: #c8875a;
+  --color-accent-600: #ae6f42;
+  --color-accent-700: #7e4921;
+  --color-accent-800: #582e0d;
+  --color-accent-900: #331702;
+  --color-ink-100: #f3f7fc;
+  --color-ink-200: #e4eaf1;
+  --color-ink-300: #cbd2d9;
+  --color-ink-500: #6f757b;
+  --color-ink-700: #4e5359;
+  --color-ink-900: #212427;
+  --color-surface: #ffffff;
+  --color-shade: #212427;
+  --color-night: #0e1622;
+  --color-night-ink: #fdebdf;
+  --color-brand-primary: #1f3a5f;
+  --color-brand-accent: #c8875a;
+  --color-scrim: #0e1622;
+  --wash-accent: rgba(200, 135, 90, 0.32);
+  --wash-primary: rgba(31, 58, 95, 0.1);
+  --ground-from: #fffcfa;
+  --ground-via: #fff0e7;
+  --ground-to: #fae5d7;
+}
+
+[data-palette='harbor'].dark {
+  --color-primary-50: #141619;
+  --color-primary-100: #1d1f23;
+  --color-primary-200: #272c32;
+  --color-primary-300: #343b45;
+  --color-primary-400: #475365;
+  --color-primary-500: #607695;
+  --color-primary-600: #8daad1;
+  --color-primary-700: #abc6ed;
+  --color-primary-800: #cae0ff;
+  --color-primary-900: #eaf3ff;
+  --color-accent-50: #16120f;
+  --color-accent-100: #1d1713;
+  --color-accent-200: #291f19;
+  --color-accent-300: #3c2d23;
+  --color-accent-400: #5b4130;
+  --color-accent-500: #8e6040;
+  --color-accent-600: #bd835b;
+  --color-accent-700: #e6ac86;
+  --color-accent-800: #fac9a9;
+  --color-accent-900: #ffeadc;
+  --color-ink-100: #16191c;
+  --color-ink-200: #1d2227;
+  --color-ink-300: #4b5056;
+  --color-ink-500: #999fa6;
+  --color-ink-700: #cbd2d9;
+  --color-ink-900: #f0f4f8;
+  --color-surface: #1d2125;
+  --color-shade: #000000;
+  --wash-accent: rgba(189, 131, 91, 0.12);
+  --wash-primary: rgba(31, 58, 95, 0.34);
+  --ground-from: #16120f;
+  --ground-via: #1a1512;
+  --ground-to: #1e1814;
+}
+
+/* Tide: deep teal over coastal sand. */
+[data-palette='tide'] {
+  --color-primary-50: #f0f8fa;
+  --color-primary-100: #deeff2;
+  --color-primary-200: #c0dee3;
+  --color-primary-300: #95c4cc;
+  --color-primary-400: #5698a3;
+  --color-primary-500: #307783;
+  --color-primary-600: #11606b;
+  --color-primary-700: #014c55;
+  --color-primary-800: #00373f;
+  --color-primary-900: #002227;
+  --color-accent-50: #fefcf9;
+  --color-accent-100: #f5f0e5;
+  --color-accent-200: #eae0cd;
+  --color-accent-300: #d9c49a;
+  --color-accent-400: #ccb891;
+  --color-accent-500: #b09c73;
+  --color-accent-600: #917e56;
+  --color-accent-700: #665634;
+  --color-accent-800: #46391e;
+  --color-accent-900: #271e0c;
+  --color-ink-100: #f2f8f8;
+  --color-ink-200: #e2ecec;
+  --color-ink-300: #cad3d3;
+  --color-ink-500: #6e7677;
+  --color-ink-700: #4c5455;
+  --color-ink-900: #212525;
+  --color-surface: #ffffff;
+  --color-shade: #212525;
+  --color-night: #07191c;
+  --color-night-ink: #f3eee3;
+  --color-brand-primary: #11606b;
+  --color-brand-accent: #d9c49a;
+  --color-scrim: #07191c;
+  --wash-accent: rgba(217, 196, 154, 0.32);
+  --wash-primary: rgba(17, 96, 107, 0.13);
+  --ground-from: #fefcf9;
+  --ground-via: #f7f3ea;
+  --ground-to: #efe9dc;
+}
+
+[data-palette='tide'].dark {
+  --color-primary-50: #131717;
+  --color-primary-100: #1b2021;
+  --color-primary-200: #242d2f;
+  --color-primary-300: #2e3e40;
+  --color-primary-400: #3d585c;
+  --color-primary-500: #4d7e86;
+  --color-primary-600: #76b3be;
+  --color-primary-700: #95d0da;
+  --color-primary-800: #b8e8f0;
+  --color-primary-900: #d7f9ff;
+  --color-accent-50: #141310;
+  --color-accent-100: #1a1815;
+  --color-accent-200: #24211c;
+  --color-accent-300: #343027;
+  --color-accent-400: #4f4737;
+  --color-accent-500: #786a4e;
+  --color-accent-600: #a2906c;
+  --color-accent-700: #cab895;
+  --color-accent-800: #e1d3b5;
+  --color-accent-900: #f8edd8;
+  --color-ink-100: #151919;
+  --color-ink-200: #1c2323;
+  --color-ink-300: #4a5252;
+  --color-ink-500: #98a0a1;
+  --color-ink-700: #cad3d3;
+  --color-ink-900: #eff5f5;
+  --color-surface: #1c2222;
+  --color-shade: #000000;
+  --wash-accent: rgba(162, 144, 108, 0.12);
+  --wash-primary: rgba(17, 96, 107, 0.34);
+  --ground-from: #141310;
+  --ground-via: #171613;
+  --ground-to: #1b1916;
+}
+
+/* Moss: evergreen with a brass accent. */
+[data-palette='moss'] {
+  --color-primary-50: #f3f8f5;
+  --color-primary-100: #e3efe8;
+  --color-primary-200: #c8ded1;
+  --color-primary-300: #a2c4b1;
+  --color-primary-400: #6b9880;
+  --color-primary-500: #49775f;
+  --color-primary-600: #2f5d46;
+  --color-primary-700: #234c38;
+  --color-primary-800: #183828;
+  --color-primary-900: #0c2217;
+  --color-accent-50: #fffcf6;
+  --color-accent-100: #f8f0dc;
+  --color-accent-200: #efe0bd;
+  --color-accent-300: #e6cf97;
+  --color-accent-400: #d6b769;
+  --color-accent-500: #c2a24f;
+  --color-accent-600: #9b7c24;
+  --color-accent-700: #6e5400;
+  --color-accent-800: #4a3800;
+  --color-accent-900: #291d00;
+  --color-ink-100: #f6f8f2;
+  --color-ink-200: #e8ebe2;
+  --color-ink-300: #d0d2ca;
+  --color-ink-500: #73756e;
+  --color-ink-700: #51544c;
+  --color-ink-900: #232521;
+  --color-surface: #ffffff;
+  --color-shade: #232521;
+  --color-night: #0d1913;
+  --color-night-ink: #f6eeda;
+  --color-brand-primary: #2f5d46;
+  --color-brand-accent: #c2a24f;
+  --color-scrim: #0d1913;
+  --wash-accent: rgba(194, 162, 79, 0.32);
+  --wash-primary: rgba(47, 93, 70, 0.13);
+  --ground-from: #fffcf6;
+  --ground-via: #f9f3e3;
+  --ground-to: #f2e9d1;
+}
+
+[data-palette='moss'].dark {
+  --color-primary-50: #141715;
+  --color-primary-100: #1c201e;
+  --color-primary-200: #272d29;
+  --color-primary-300: #333e37;
+  --color-primary-400: #45584d;
+  --color-primary-500: #5c7e6b;
+  --color-primary-600: #88b39c;
+  --color-primary-700: #a6d0b8;
+  --color-primary-800: #c5e8d4;
+  --color-primary-900: #e0f9eb;
+  --color-accent-50: #14130e;
+  --color-accent-100: #1b1811;
+  --color-accent-200: #252117;
+  --color-accent-300: #37301e;
+  --color-accent-400: #534628;
+  --color-accent-500: #7f692f;
+  --color-accent-600: #ab8f46;
+  --color-accent-700: #d3b874;
+  --color-accent-800: #e9d29b;
+  --color-accent-900: #feedc6;
+  --color-ink-100: #181915;
+  --color-ink-200: #21231c;
+  --color-ink-300: #4f514a;
+  --color-ink-500: #9da097;
+  --color-ink-700: #d0d2ca;
+  --color-ink-900: #f3f4ef;
+  --color-surface: #20211c;
+  --color-shade: #000000;
+  --wash-accent: rgba(171, 143, 70, 0.12);
+  --wash-primary: rgba(47, 93, 70, 0.34);
+  --ground-from: #14130e;
+  --ground-via: #181610;
+  --ground-to: #1c1913;
+}
+
+/* Dusk: indigo with an apricot accent. */
+[data-palette='dusk'] {
+  --color-primary-50: #f5f6ff;
+  --color-primary-100: #e7eaff;
+  --color-primary-200: #cfd4ff;
+  --color-primary-300: #aeb4f6;
+  --color-primary-400: #7d82d7;
+  --color-primary-500: #5e60b7;
+  --color-primary-600: #49499d;
+  --color-primary-700: #3d3b8e;
+  --color-primary-800: #282761;
+  --color-primary-900: #17173e;
+  --color-accent-50: #fffcf9;
+  --color-accent-100: #feece1;
+  --color-accent-200: #f9dbc7;
+  --color-accent-300: #f4c6a7;
+  --color-accent-400: #e8a87c;
+  --color-accent-500: #cd8e63;
+  --color-accent-600: #ac7045;
+  --color-accent-700: #7c4a24;
+  --color-accent-800: #562f10;
+  --color-accent-900: #321704;
+  --color-ink-100: #f6f6fc;
+  --color-ink-200: #e8e9f1;
+  --color-ink-300: #d0d0d9;
+  --color-ink-500: #73737b;
+  --color-ink-700: #525259;
+  --color-ink-900: #232427;
+  --color-surface: #ffffff;
+  --color-shade: #232427;
+  --color-night: #131426;
+  --color-night-ink: #fcebe0;
+  --color-brand-primary: #3d3b8e;
+  --color-brand-accent: #e8a87c;
+  --color-scrim: #131426;
+  --wash-accent: rgba(232, 168, 124, 0.32);
+  --wash-primary: rgba(61, 59, 142, 0.12);
+  --ground-from: #fffcf9;
+  --ground-via: #fef0e8;
+  --ground-to: #fae5d8;
+}
+
+[data-palette='dusk'].dark {
+  --color-primary-50: #15161b;
+  --color-primary-100: #1e1f27;
+  --color-primary-200: #292a37;
+  --color-primary-300: #36394e;
+  --color-primary-400: #4c4f73;
+  --color-primary-500: #696dae;
+  --color-primary-600: #999ff2;
+  --color-primary-700: #b8beff;
+  --color-primary-800: #d7dbff;
+  --color-primary-900: #eff1ff;
+  --color-accent-50: #15120f;
+  --color-accent-100: #1d1713;
+  --color-accent-200: #28201a;
+  --color-accent-300: #3b2d23;
+  --color-accent-400: #5a4231;
+  --color-accent-500: #8c6142;
+  --color-accent-600: #bb845e;
+  --color-accent-700: #e4ad88;
+  --color-accent-800: #f8c9ab;
+  --color-accent-900: #ffeadc;
+  --color-ink-100: #18181c;
+  --color-ink-200: #212127;
+  --color-ink-300: #4f4f56;
+  --color-ink-500: #9d9da6;
+  --color-ink-700: #d0d0d9;
+  --color-ink-900: #f3f3f8;
+  --color-surface: #202025;
+  --color-shade: #000000;
+  --wash-accent: rgba(187, 132, 94, 0.12);
+  --wash-primary: rgba(61, 59, 142, 0.34);
+  --ground-from: #15120f;
+  --ground-via: #1a1512;
+  --ground-to: #1e1814;
+}

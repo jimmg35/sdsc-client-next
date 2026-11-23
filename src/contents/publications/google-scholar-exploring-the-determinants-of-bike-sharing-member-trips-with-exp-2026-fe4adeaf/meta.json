@@ -4,14 +4,14 @@
   "title": "Exploring the determinants of bike-sharing member trips with explainable machine learning: insights from Chicago’s Divvy system",
   "journal": "Computational Urban Science 6 (1), 22",
   "catalog": "2026",
-  "doi": "",
+  "doi": "https://doi.org/10.1007/s43762-026-00254-9",
   "memberIds": [
     "qianwen-guo",
     "ziqi-li"
   ],
   "source": "google-scholar",
-  "generatedAt": "2026-04-18T23:46:13.125Z",
-  "lookbackYears": 2,
-  "windowStartDate": "2024-04-18",
-  "windowEndDate": "2026-04-18"
+  "generatedAt": "2026-10-22T17:35:09.960Z",
+  "lookbackYears": 3,
+  "windowStartDate": "2023-10-22",
+  "windowEndDate": "2026-10-22"
 }

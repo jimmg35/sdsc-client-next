@@ -4,13 +4,13 @@
   "title": "A Replication of DiMaggio et al.(2020) in Phoenix, AZ",
   "journal": "",
   "catalog": "",
-  "doi": "",
+  "doi": "https://doi.org/10.1016/j.annepidem.2022.05.005",
   "memberIds": [
     "mehak-sachdeva"
   ],
   "source": "google-scholar",
-  "generatedAt": "2026-04-18T23:46:13.125Z",
-  "lookbackYears": 2,
-  "windowStartDate": "2024-04-18",
-  "windowEndDate": "2026-04-18"
+  "generatedAt": "2026-10-22T17:35:09.960Z",
+  "lookbackYears": 3,
+  "windowStartDate": "2023-10-22",
+  "windowEndDate": "2026-10-22"
 }

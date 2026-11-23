@@ -2,6 +2,7 @@ import MembersDirectory, {
   type MemberDirectorySection
 } from '@/components/Members/Directory';
 import { MemberData, getMemberById } from '@/lib/members';
+import { getTranslations } from 'next-intl/server';
 
 const collectMembers = (entries: Array<MemberData | null>): MemberData[] =>
   entries.filter((entry): entry is MemberData => Boolean(entry));
@@ -11,7 +12,9 @@ const sortMembersByName = (members: MemberData[]): MemberData[] =>
     left.name.localeCompare(right.name, 'en', { sensitivity: 'base' })
   );
 
-export default function Member() {
+export default async function Member() {
+  const t = await getTranslations('members');
+
   const stewart = getMemberById('stewart-fotheringham');
 
   const coreMembers = collectMembers([
@@ -20,7 +23,8 @@ export default function Member() {
     getMemberById('mark-horner'),
     getMemberById('mason-mathews'),
     getMemberById('mehak-sachdeva'),
-    getMemberById('christopher-uejio')
+    getMemberById('christopher-uejio'),
+    getMemberById('huanping-huang')
   ]);
 
   const graduateStudents = collectMembers([
@@ -33,7 +37,9 @@ export default function Member() {
     getMemberById('md-fattah'),
     getMemberById('jacob-tagnan'),
     getMemberById('stephen-liwur'),
-    getMemberById('shangrui-zhu')
+    getMemberById('shangrui-zhu'),
+    getMemberById('kazi-jihadur-rashid'),
+    getMemberById('segun-adewale-ojo')
   ]);
 
   const affiliatedMembers = collectMembers([
@@ -42,69 +48,78 @@ export default function Member() {
     getMemberById('cynthia-fan-yang')
   ]);
 
+  const staffMembers = collectMembers([getMemberById('crystal-goodwin')]);
+
   const sections: MemberDirectorySection[] = [
     {
       id: 'core',
-      eyebrow: 'Core Members',
-      title: 'Core Faculty',
-      description:
-        "Faculty members leading SDSC's central research agenda across spatial analytics, health, mobility, and computational social science.",
+      eyebrow: t('sections.core.eyebrow'),
+      title: t('sections.core.title'),
+      description: t('sections.core.description'),
       members: sortMembersByName(coreMembers)
     },
     {
       id: 'affiliated',
-      eyebrow: 'Affiliated Members',
-      title: 'Affiliated Members',
-      description:
-        'Researchers connected to SDSC through collaborative projects, interdisciplinary scholarship, and adjacent domain expertise.',
+      eyebrow: t('sections.affiliated.eyebrow'),
+      title: t('sections.affiliated.title'),
+      description: t('sections.affiliated.description'),
       members: sortMembersByName(affiliatedMembers)
     },
     {
       id: 'graduate',
-      eyebrow: 'Graduate Students',
-      title: 'Graduate Students',
-      description:
-        'Graduate researchers building methods, applications, and empirical work that extend the center across emerging questions and new datasets.',
+      eyebrow: t('sections.graduate.eyebrow'),
+      title: t('sections.graduate.title'),
+      description: t('sections.graduate.description'),
       members: sortMembersByName(graduateStudents)
+    },
+    {
+      id: 'staff',
+      eyebrow: t('sections.staff.eyebrow'),
+      title: t('sections.staff.title'),
+      description: t('sections.staff.description'),
+      members: sortMembersByName(staffMembers)
     }
   ].filter((section) => section.members.length > 0);
 
   const overview = [
     {
-      value: `${1 + coreMembers.length + affiliatedMembers.length + graduateStudents.length}`,
-      label: 'Directory',
-      detail:
-        'Researchers listed across leadership, faculty, affiliates, and graduate scholarship.'
+      value: `${1 + coreMembers.length + affiliatedMembers.length + graduateStudents.length + staffMembers.length}`,
+      label: t('overview.directory.label')
     },
     {
-      value: `${coreMembers.length}`,
-      label: 'Core Faculty',
-      detail: "Faculty shaping the center's flagship research program."
+      value: `${1 + coreMembers.length}`,
+      label: t('overview.coreFaculty.label')
     },
     {
       value: `${affiliatedMembers.length}`,
-      label: 'Affiliates',
-      detail: 'Interdisciplinary collaborators extending SDSC across domains.'
+      label: t('overview.affiliates.label')
     },
     {
       value: `${graduateStudents.length}`,
-      label: 'Graduate',
-      detail: 'Emerging scholars advancing the next generation of SDSC work.'
+      label: t('overview.graduate.label')
+    },
+    {
+      value: `${staffMembers.length}`,
+      label: t('overview.staff.label')
     }
   ];
 
   return (
     <section className="page-shell">
-      <div className="mx-auto max-w-6xl px-6 pb-24 pt-36 text-gold-100 md:pt-40">
-        <header className="mb-16 text-center">
-          <span className="chip-gold">People Of SDSC</span>
-          <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
-            Meet the minds advancing spatial data science
+      <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 md:pt-40">
+        <header className="max-w-3xl">
+          <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-accent-700 md:text-xs md:tracking-[0.42em]">
+            <span
+              aria-hidden
+              className="h-px w-10 bg-gradient-to-r from-transparent to-accent-600/55"
+            />
+            {t('page.chip')}
+          </p>
+          <h1 className="mt-5 text-[2.1rem] font-semibold leading-[1.12] tracking-[-0.025em] text-ink-900 md:text-[3rem] md:leading-[1.06]">
+            {t('page.title')}
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-sm text-gold-200/75 md:text-base">
-            Our collective brings together geospatial analysts, data scientists,
-            and domain experts to advance spatial sciences and build
-            forward-looking solutions for the communities we serve.
+          <p className="mt-6 text-base leading-8 text-ink-700 md:text-lg md:leading-9">
+            {t('page.intro')}
           </p>
         </header>
 

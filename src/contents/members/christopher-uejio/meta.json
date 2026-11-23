@@ -7,10 +7,49 @@
   "thumbnail": "/img/avatar/christopher-uejio.jpeg",
   "centerRole": "SDSC Faculty",
   "googleScholar": "https://scholar.google.com/citations?user=pwKHg7oAAAAJ&hl=en",
-  "education": [],
+  "education": [
+    {
+      "degree": "Ph.D.",
+      "field": "Environmental Studies (Nelson Institute)",
+      "institution": "University of Wisconsin-Madison",
+      "year": 2011
+    }
+  ],
   "honor": [],
-  "selectedPublications": [],
+  "selectedPublications": [
+    {
+      "id": "large-scale-modeling-housing-condition-prediction",
+      "author": "Kim, K., Holmes, T., Powell, E., & Uejio, C. K. (2026)",
+      "title": "Large-scale modeling for housing condition prediction using machine learning algorithms.",
+      "journal": "Scientific Data",
+      "catalog": "13(1), 647.",
+      "doi": ""
+    },
+    {
+      "id": "understanding-heat-driven-health-risks-new-mexico",
+      "author": "Choi, M., Langer, C. E., Hawkinson, C., VanSickle, M., Moraga-McHaley, S., Hu, L., ... & Uejio, C. K. (2026)",
+      "title": "Understanding heat-driven health risks: Spatiotemporal dynamics and regional vulnerability in New Mexico.",
+      "journal": "Health & Place",
+      "catalog": "97, 103600.",
+      "doi": ""
+    },
+    {
+      "id": "residential-air-conditioning-prevalence-dataset",
+      "author": "Ahn, Y., & Uejio, C. K. (2025)",
+      "title": "A comprehensive dataset of residential air conditioning prevalence in the continental United States.",
+      "journal": "Scientific Data",
+      "catalog": "12(1), 1717.",
+      "doi": ""
+    }
+  ],
   "courseTaught": [],
-  "aoi": [],
-  "professionalExperience": []
+  "aoi": ["Spatial Statistics", "GeoAI"],
+  "professionalExperience": [
+    {
+      "title": "Professor",
+      "institution": "Department of Geography and Program in Public Health, Florida State University",
+      "start_year": 2024,
+      "end_year": null
+    }
+  ]
 }

@@ -1,0 +1,97 @@
+{
+  "id": "huanping-huang",
+  "name": "Huanping Huang",
+  "title": "Assistant Professor of Geography",
+  "department": "Department of Geography",
+  "email": "hhuang5@fsu.edu",
+  "thumbnail": "/img/avatar/huanping-huang.jpg",
+  "centerRole": "SDSC Faculty",
+  "cvPath": "https://cosspp.fsu.edu/geography/wp-content/uploads/sites/41/2026/07/CV_Huang-1.pdf",
+  "googleScholar": "https://scholar.google.com/citations?user=MvEEFuQAAAAJ&hl=en",
+  "education": [
+    {
+      "degree": "Ph.D.",
+      "field": "Earth Sciences",
+      "institution": "Dartmouth College",
+      "year": 2019
+    }
+  ],
+  "honor": [],
+  "selectedPublications": [
+    {
+      "id": "intensity-decay-us-landfalling-tropical-cyclones",
+      "author": "Huang, H., & Uppu, H. (2025)",
+      "title": "Assessing the intensity decay of US landfalling tropical cyclones: Long term trends and predictive model evaluations.",
+      "journal": "Journal of Applied Meteorology and Climatology",
+      "catalog": "64(10), 1489–1504.",
+      "doi": ""
+    },
+    {
+      "id": "atlantic-pacific-tropical-cyclone-amv-responses",
+      "author": "Huang, H., Collins, W. D., Patricola, C. M., Ruprich-Robert, Y., Ullrich, P. A., & Baker, A. J. (2023)",
+      "title": "Contrasting responses of Atlantic and Pacific tropical cyclone activity to Atlantic Multidecadal Variability.",
+      "journal": "Geophysical Research Letters",
+      "catalog": "50, e2023GL102959.",
+      "doi": ""
+    },
+    {
+      "id": "ocean-coupling-tropical-cyclone-precipitation-highresmip",
+      "author": "Huang, H., Patricola, C. M., & Collins, W. D. (2021)",
+      "title": "The influence of ocean coupling on simulated and projected tropical cyclone precipitation in the HighResMIP-PRIMAVERA simulations.",
+      "journal": "Geophysical Research Letters",
+      "catalog": "48, e2021GL094801.",
+      "doi": ""
+    },
+    {
+      "id": "northeast-us-extreme-precipitation-atlantic-variability",
+      "author": "Huang, H., Patricola, C. M., Winter, J. M., Osterberg, E. C., & Mankin, J. S. (2021)",
+      "title": "Rise in northeast US extreme precipitation caused by Atlantic variability and climate change.",
+      "journal": "Weather and Climate Extremes",
+      "catalog": "33, 100351.",
+      "doi": ""
+    },
+    {
+      "id": "s2s-predictability-atmospheric-rivers-western-us",
+      "author": "Huang, H., Patricola, C. M., Bercos-Hickey, E., Zhou, Y., Rhoades, A., Risser, M., & Collins, W. D. (2021)",
+      "title": "Sources of subseasonal-to-seasonal predictability of atmospheric rivers and precipitation in the western United States.",
+      "journal": "Journal of Geophysical Research: Atmospheres",
+      "catalog": "126, e2020JD034053.",
+      "doi": ""
+    },
+    {
+      "id": "lake-champlain-regional-climate-model",
+      "author": "Huang, H., Winter, J. M., Hanrahan, J., Bruyère, C. L., Clemins, P., & Beckage, B. D. (2020)",
+      "title": "Simulating temperature and precipitation in the Lake Champlain basin using a regional climate model: limitations and uncertainties.",
+      "journal": "Climate Dynamics",
+      "catalog": "54, 69–84.",
+      "doi": ""
+    }
+  ],
+  "courseTaught": [],
+  "aoi": [
+    "Extreme Weather",
+    "Climate Change and Variability",
+    "Climate Modeling",
+    "Climate Change Impacts and Adaptation"
+  ],
+  "professionalExperience": [
+    {
+      "title": "Assistant Professor",
+      "institution": "Department of Geography, Florida State University",
+      "start_year": 2026,
+      "end_year": null
+    },
+    {
+      "title": "Assistant Professor of Geography",
+      "institution": "Louisiana State University",
+      "start_year": 2022,
+      "end_year": 2026
+    },
+    {
+      "title": "Postdoctoral Researcher",
+      "institution": "Lawrence Berkeley National Laboratory (DOE)",
+      "start_year": 2019,
+      "end_year": 2022
+    }
+  ]
+}

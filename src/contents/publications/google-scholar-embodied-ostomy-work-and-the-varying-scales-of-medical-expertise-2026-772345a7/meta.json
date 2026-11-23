@@ -1,16 +1,16 @@
 {
   "id": "google-scholar-embodied-ostomy-work-and-the-varying-scales-of-medical-expertise-2026-772345a7",
   "author": "AD DeJohn, B Lazenby, M Levey, SJ Ivatury",
-  "title": "Embodied Ostomy Work and the Varying Scales of Medical Expertise",
+  "title": "Embodied ostomy work and the varying scales of medical expertise",
   "journal": "Social Science & Medicine, 119200",
   "catalog": "2026",
-  "doi": "",
+  "doi": "https://doi.org/10.1016/j.socscimed.2026.119200",
   "memberIds": [
     "amber-dejohn"
   ],
   "source": "google-scholar",
-  "generatedAt": "2026-04-18T23:46:13.125Z",
-  "lookbackYears": 2,
-  "windowStartDate": "2024-04-18",
-  "windowEndDate": "2026-04-18"
+  "generatedAt": "2026-10-22T17:35:09.960Z",
+  "lookbackYears": 3,
+  "windowStartDate": "2023-10-22",
+  "windowEndDate": "2026-10-22"
 }

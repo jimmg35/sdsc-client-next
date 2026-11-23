@@ -6,9 +6,13 @@ import PublicationExplorer from '@/components/Publications/Explorer';
 import { MemberData, getAllMembers } from '@/lib/members';
 import { PublicationData, getAllPublications } from '@/lib/publications';
 import { Suspense } from 'react';
+import { getTranslations } from 'next-intl/server';
 
-export default function Publications() {
-  const publications: PublicationData[] = getAllPublications();
+export default async function Publications() {
+  const t = await getTranslations('publications');
+
+  const publications: PublicationData[] =
+    getAllPublications().filter(isWithinArchiveWindow);
   const members: Pick<MemberData, 'id' | 'name' | 'title' | 'thumbnail'>[] =
     getAllMembers()
       .filter((member) => member.id && member.name && member.thumbnail)
@@ -24,13 +28,6 @@ export default function Publications() {
   const latestYear = publicationYears.length
     ? Math.max(...publicationYears)
     : null;
-  const recentPublicationCount = latestYear
-    ? publications.filter(
-        (publication) =>
-          typeof publication.year === 'number' &&
-          publication.year >= latestYear - 1
-      ).length
-    : publications.length;
   const linkedMemberIds = new Set(
     publications.flatMap((publication) => publication.memberIds)
   );
@@ -39,9 +36,9 @@ export default function Publications() {
   ).length;
   const overview: PublicationOverviewMetric[] = [
     {
-      value: formatCount(recentPublicationCount),
-      label: 'Publications',
-      detail: 'Output from all SDSC members over the past two years.'
+      value: formatCount(publications.length),
+      label: t('overview.label'),
+      detail: t('overview.detail')
     }
   ];
   const latestPublications = buildLatestPublicationNotices(
@@ -51,15 +48,20 @@ export default function Publications() {
 
   return (
     <section className="page-shell">
-      <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 text-gold-100 md:pt-40">
-        <header className="text-center">
-          <span className="chip-gold">Publications</span>
-          <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
-            Research and scholarship from SDSC
+      <div className="mx-auto max-w-6xl px-6 pb-28 pt-36 md:pt-40">
+        <header className="max-w-3xl">
+          <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-accent-700 md:text-xs md:tracking-[0.42em]">
+            <span
+              aria-hidden
+              className="h-px w-10 bg-gradient-to-r from-transparent to-accent-600/55"
+            />
+            {t('page.chip')}
+          </p>
+          <h1 className="mt-5 text-[2.1rem] font-semibold leading-[1.12] tracking-[-0.025em] text-ink-900 md:text-[3rem] md:leading-[1.06]">
+            {t('page.title')}
           </h1>
-          <p className="mx-auto mt-5 max-w-3xl text-sm text-gold-200/80 md:text-base">
-            Recent peer-reviewed publications by our faculty and students across
-            the spatial data science spectrum.
+          <p className="mt-6 text-base leading-8 text-ink-700 md:text-lg md:leading-9">
+            {t('page.intro')}
           </p>
         </header>
 
@@ -72,8 +74,8 @@ export default function Publications() {
 
         <Suspense
           fallback={
-            <div className="mt-16 rounded-3xl border border-black/5 bg-white/70 p-8 text-center text-sm text-ink-500">
-              Loading publications...
+            <div className="mt-16 border-t border-accent-600/25 py-10 text-sm text-ink-500">
+              {t('page.loading')}
             </div>
           }
         >
@@ -84,8 +86,24 @@ export default function Publications() {
   );
 }
 
+/* The archive runs from January 1, 2024 to the present. Most records carry
+   only a year, so the exact date decides when there is one. */
+const ARCHIVE_START_DATE = '2024-01-01';
+const ARCHIVE_START_YEAR = 2024;
+
+function isWithinArchiveWindow(publication: PublicationData) {
+  if (publication.publishedAt) {
+    return publication.publishedAt >= ARCHIVE_START_DATE;
+  }
+
+  return (
+    typeof publication.year === 'number' &&
+    publication.year >= ARCHIVE_START_YEAR
+  );
+}
+
 function formatCount(value: number) {
-  return new Intl.NumberFormat('en-US').format(value);
+  return new Intl.NumberFormat('en').format(value);
 }
 
 function buildLatestPublicationNotices(
@@ -116,7 +134,7 @@ function buildLatestPublicationNotices(
             title: publication.title,
             author: publication.author,
             doi: publication.doi,
-            publishedAgoLabel: formatDaysAgo(publishedDate, referenceDate),
+            publishedDaysAgo: countDaysAgo(publishedDate, referenceDate),
             members: publication.memberIds
               .map((memberId) => membersById.get(memberId))
               .filter((member): member is NonNullable<typeof member> =>
@@ -149,7 +167,7 @@ function parsePublicationDate(value: string | null): Date | null {
   return date;
 }
 
-function formatDaysAgo(publishedDate: Date, referenceDate: Date) {
+function countDaysAgo(publishedDate: Date, referenceDate: Date) {
   const millisecondsPerDay = 1000 * 60 * 60 * 24;
   const publishedDay = new Date(
     publishedDate.getFullYear(),
@@ -161,16 +179,11 @@ function formatDaysAgo(publishedDate: Date, referenceDate: Date) {
     referenceDate.getMonth(),
     referenceDate.getDate()
   );
-  const daysAgo = Math.max(
+
+  return Math.max(
     0,
     Math.floor(
       (referenceDay.getTime() - publishedDay.getTime()) / millisecondsPerDay
     )
   );
-
-  if (daysAgo === 0) {
-    return 'today';
-  }
-
-  return daysAgo === 1 ? '1 day ago' : `${daysAgo} days ago`;
 }

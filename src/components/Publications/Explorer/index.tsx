@@ -1,9 +1,8 @@
 'use client';
 
+import SelectedPublicationCard from '@/components/Members/SelectedPublicationCard';
 import Avatar from '@/components/Utility/Avatar';
-import PublicationPost, {
-  PublicationCardMember
-} from '@/components/Utility/PublicationPost';
+import { PublicationCardMember } from '@/components/Utility/PublicationPost';
 import { PublicationData } from '@/lib/publications';
 import {
   ArrowLeft,
@@ -23,6 +22,7 @@ import {
   useRef,
   useState
 } from 'react';
+import { useTranslations } from 'next-intl';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 type MemberOption = {
@@ -49,17 +49,19 @@ type PublicationRecord = {
 const DEFAULT_FILTER_VALUE = 'all';
 const DEFAULT_SORT_VALUE: SortValue = 'year-desc';
 const PUBLICATIONS_PER_PAGE = 5;
-const SORT_OPTIONS: Array<{ label: string; value: SortValue }> = [
-  { label: 'Newest year first', value: 'year-desc' },
-  { label: 'Oldest year first', value: 'year-asc' },
-  { label: 'Author name A-Z', value: 'author-asc' },
-  { label: 'Author name Z-A', value: 'author-desc' }
+const SORT_OPTIONS: Array<{ key: string; value: SortValue }> = [
+  { key: 'yearDesc', value: 'year-desc' },
+  { key: 'yearAsc', value: 'year-asc' },
+  { key: 'authorAsc', value: 'author-asc' },
+  { key: 'authorDesc', value: 'author-desc' }
 ];
 
 const PublicationExplorer = ({
   publications,
   members
 }: PublicationExplorerProps) => {
+  const t = useTranslations('publications');
+  const tCommon = useTranslations('common');
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -344,36 +346,33 @@ const PublicationExplorer = ({
     <div className="mt-16 space-y-8">
       <section
         id="publication-finder"
-        className="calcite-box relative overflow-hidden scroll-mt-36 px-5 py-5 md:scroll-mt-44 md:px-6 md:py-5"
+        className="relative scroll-mt-36 border-y border-accent-600/25 py-7 md:scroll-mt-44"
       >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_82%_-12%,_rgba(214,167,208,0.26),_transparent_55%)]" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(110%_110%_at_12%_0%,_rgba(194,156,106,0.18),_transparent_50%)]" />
-
         <div className="relative flex flex-col gap-4">
           <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
             <div className="flex flex-wrap items-center gap-3">
-              <span className="chip-gold py-1">
-                <Sparkles size={14} />
-                Publication Finder
+              <span className="flex items-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.3em] text-accent-700">
+                <Sparkles size={14} aria-hidden />
+                {t('finder.chip')}
               </span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-silk-200/80 bg-white/82 px-3 py-1 text-[0.72rem] font-medium uppercase tracking-[0.24em] text-ink-500">
+              <span className="inline-flex items-center gap-2 rounded-full border border-accent-200/80 bg-surface/82 px-3 py-1 text-[0.72rem] font-medium uppercase tracking-[0.24em] text-ink-500">
                 <Filter size={14} />
                 {activeFiltersCount
-                  ? `${activeFiltersCount} filters active`
-                  : 'Browse the archive'}
+                  ? t('finder.filtersActive', { count: activeFiltersCount })
+                  : t('finder.browseArchive')}
               </span>
-              <span className="inline-flex items-center rounded-full border border-black/6 bg-white/80 px-3 py-1 text-[0.72rem] font-medium uppercase tracking-[0.22em] text-ink-500">
-                {sortedRecords.length} results
+              <span className="inline-flex items-center rounded-full border border-accent-600/25 bg-surface/80 px-3 py-1 text-[0.72rem] font-medium uppercase tracking-[0.22em] text-ink-500">
+                {t('finder.results', { count: sortedRecords.length })}
               </span>
             </div>
 
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
               <label
                 htmlFor="publication-sort-select"
-                className="inline-flex items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-ink-400"
+                className="inline-flex items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-ink-500"
               >
                 <SlidersHorizontal size={14} />
-                Sort
+                {t('finder.sort')}
               </label>
               <select
                 id="publication-sort-select"
@@ -381,11 +380,11 @@ const PublicationExplorer = ({
                 onChange={(event) =>
                   handleSortChange(event.target.value as SortValue)
                 }
-                className="calcite-focus rounded-[20px] border border-black/8 bg-white/88 px-4 py-3 text-sm font-medium text-ink-800"
+                className="calcite-focus rounded-full border border-accent-600/30 bg-surface/80 px-4 py-2.5 text-sm font-medium text-ink-900"
               >
                 {SORT_OPTIONS.map((option) => (
                   <option key={option.value} value={option.value}>
-                    {option.label}
+                    {t(`sortOptions.${option.key}`)}
                   </option>
                 ))}
               </select>
@@ -393,39 +392,27 @@ const PublicationExplorer = ({
               <button
                 type="button"
                 onClick={resetFilters}
-                className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/86 px-4 py-3 text-sm font-semibold text-ink-700 transition duration-200 hover:border-black/20 hover:bg-white"
+                className="inline-flex items-center gap-2 rounded-full border border-accent-600/30 bg-surface/80 px-4 py-2.5 text-sm font-semibold text-ink-700 transition duration-200 hover:border-primary-300/60 hover:text-primary-600"
               >
                 <RotateCcw size={15} />
-                Reset
+                {t('finder.reset')}
               </button>
             </div>
           </div>
 
-          <div className="grid gap-3 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-center">
+          <div className="grid gap-3">
             <div className="relative">
               <Search
                 size={18}
-                className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-ink-400"
+                className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-ink-500"
               />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder="Search by title, journal, DOI, or SDSC member"
-                className="calcite-focus w-full rounded-[24px] border border-black/8 bg-white/88 py-3.5 pl-13 pr-5 text-[0.97rem] text-ink-900 shadow-[0_22px_48px_-36px_rgba(44,36,32,0.24)] placeholder:text-ink-400"
+                placeholder={t('search.placeholder')}
+                className="calcite-focus w-full rounded-full border border-accent-600/30 bg-surface/80 py-3.5 pl-13 pr-5 text-[0.97rem] text-ink-900 transition-colors duration-300 hover:border-accent-600/45 placeholder:text-ink-500"
               />
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3 rounded-[24px] border border-black/6 bg-[linear-gradient(175deg,rgba(255,255,255,0.9),rgba(250,244,237,0.82))] px-4 py-3 text-sm text-ink-600 shadow-[0_20px_44px_-36px_rgba(44,36,32,0.22)]">
-              <span className="font-semibold text-ink-800">
-                {sortedRecords.length
-                  ? `Showing ${pageStart}-${pageEnd} of ${sortedRecords.length}`
-                  : '0 results'}
-              </span>
-              <span className="text-ink-400">/</span>
-              <span>
-                Page {currentPage} of {totalPages}
-              </span>
             </div>
           </div>
 
@@ -435,19 +422,28 @@ const PublicationExplorer = ({
             <div className="flex flex-wrap items-center gap-3">
               {searchQuery && (
                 <FilterChip
-                  label={`Keyword: ${searchQuery}`}
+                  label={t('chips.keyword', { value: searchQuery })}
+                  removeLabel={t('chips.remove', {
+                    label: t('chips.keyword', { value: searchQuery })
+                  })}
                   onClear={() => setSearchQuery('')}
                 />
               )}
               {selectedYear !== DEFAULT_FILTER_VALUE && (
                 <FilterChip
-                  label={`Year: ${selectedYear}`}
+                  label={t('chips.year', { value: selectedYear })}
+                  removeLabel={t('chips.remove', {
+                    label: t('chips.year', { value: selectedYear })
+                  })}
                   onClear={() => setSelectedYear(DEFAULT_FILTER_VALUE)}
                 />
               )}
               {selectedAuthor && (
                 <FilterChip
-                  label={`SDSC Author: ${selectedAuthor.name}`}
+                  label={t('chips.author', { value: selectedAuthor.name })}
+                  removeLabel={t('chips.remove', {
+                    label: t('chips.author', { value: selectedAuthor.name })
+                  })}
                   onClear={() => setSelectedAuthorId(DEFAULT_FILTER_VALUE)}
                 />
               )}
@@ -460,22 +456,21 @@ const PublicationExplorer = ({
         <aside className="space-y-6 xl:sticky xl:top-28 xl:self-start">
           <div
             id="publication-years"
-            className="calcite-box scroll-mt-36 px-5 py-5 md:scroll-mt-44"
+            className="scroll-mt-36 border-t border-accent-600/25 pt-6 md:scroll-mt-44"
           >
             <div className="space-y-4">
               <div>
-                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-rose-500">
-                  Filter by Year
+                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-primary-500">
+                  {t('filters.byYear')}
                 </p>
                 <p className="mt-2 text-sm text-ink-500">
-                  Keep the timeline tight when you want the latest or earliest
-                  work first.
+                  {t('filters.byYearHint')}
                 </p>
               </div>
 
               <div className="flex flex-wrap gap-2">
                 <YearFilterButton
-                  label="All years"
+                  label={t('filters.allYears')}
                   active={selectedYear === DEFAULT_FILTER_VALUE}
                   onClick={() => setSelectedYear(DEFAULT_FILTER_VALUE)}
                 />
@@ -493,22 +488,23 @@ const PublicationExplorer = ({
 
           <div
             id="publication-members"
-            className="calcite-box scroll-mt-36 px-5 py-5 md:scroll-mt-44"
+            className="scroll-mt-36 border-t border-accent-600/25 pt-6 md:scroll-mt-44"
           >
             <div className="space-y-4">
               <div>
-                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-rose-500">
-                  Filter by SDSC Member
+                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-primary-500">
+                  {t('filters.byMember')}
                 </p>
                 <p className="mt-2 text-sm text-ink-500">
-                  Select a center member to narrow the archive to publications
-                  they contributed to.
+                  {t('filters.byMemberHint')}
                 </p>
               </div>
 
-              <div className="grid max-h-[28rem] gap-2 overflow-y-auto pr-1">
+              {/* One minmax(0, 1fr) column, so a long title truncates instead
+                  of widening the list into a horizontal scroll. */}
+              <div className="scroll-quiet grid max-h-[28rem] grid-cols-1 gap-2 pr-1">
                 <AuthorFilterButton
-                  label="All SDSC members"
+                  label={t('filters.allMembers')}
                   active={selectedAuthorId === DEFAULT_FILTER_VALUE}
                   onClick={() => setSelectedAuthorId(DEFAULT_FILTER_VALUE)}
                 />
@@ -520,11 +516,11 @@ const PublicationExplorer = ({
                     disabled={!member.hasPublication}
                     className={`flex items-center gap-3 rounded-[22px] border px-3 py-3 text-left transition duration-200 ${
                       selectedAuthorId === member.id
-                        ? 'border-rose-300/70 bg-rose-50/75 text-ink-900 shadow-[0_20px_40px_-34px_rgba(168,110,161,0.45)]'
-                        : 'border-black/7 bg-white/80 text-ink-700 hover:border-black/12 hover:bg-white'
+                        ? 'border-primary-300/70 bg-primary-50/75 text-ink-900 shadow-glow'
+                        : 'border-accent-600/25 bg-surface/80 text-ink-700 hover:border-accent-600/45 hover:bg-surface'
                     } ${
                       !member.hasPublication
-                        ? 'cursor-not-allowed opacity-45 hover:border-black/7 hover:bg-white/80'
+                        ? 'cursor-not-allowed opacity-45 hover:border-accent-600/25 hover:bg-surface/80'
                         : ''
                     }`}
                   >
@@ -555,59 +551,65 @@ const PublicationExplorer = ({
           id="publication-results"
           className="space-y-6 scroll-mt-36 md:scroll-mt-44"
         >
-          <div className="flex flex-col gap-3 rounded-[30px] border border-black/6 bg-white/72 px-5 py-4 shadow-[0_24px_54px_-38px_rgba(44,36,32,0.18)] md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div className="space-y-1">
-              <p className="text-sm font-semibold text-ink-800">
+              <p className="text-sm font-semibold text-ink-900">
                 {sortedRecords.length
-                  ? `Showing ${pageStart}-${pageEnd} of ${sortedRecords.length} publications`
-                  : 'No publications match the current query'}
+                  ? t('results.showing', {
+                      start: pageStart,
+                      end: pageEnd,
+                      total: sortedRecords.length
+                    })
+                  : t('results.noMatch')}
               </p>
-              <p className="text-xs uppercase tracking-[0.28em] text-ink-400">
-                Each card highlights only SDSC contributors
+              <p className="text-xs uppercase tracking-[0.28em] text-ink-500">
+                {t('results.eachCard')}
               </p>
             </div>
 
             <div className="text-sm text-ink-500">
-              Query params: <span className="font-semibold">page</span>,{' '}
-              <span className="font-semibold">sort</span>
+              {t.rich('results.queryParams', {
+                b: (chunks) => <span className="font-semibold">{chunks}</span>
+              })}
             </div>
           </div>
 
-          <div className="grid gap-6">
-            {paginatedRecords.length > 0 ? (
-              paginatedRecords.map(({ publication, centerMembers }) => (
-                <PublicationPost
+          {paginatedRecords.length > 0 ? (
+            <ul>
+              {paginatedRecords.map(({ publication }) => (
+                <SelectedPublicationCard
                   key={publication.id}
                   {...publication}
-                  centerMembers={centerMembers}
                 />
-              ))
-            ) : (
-              <div className="calcite-box px-8 py-10 text-center text-sm text-ink-500">
-                No publications match your current search and filter
-                combination. Try clearing a filter or broadening the keyword.
-              </div>
-            )}
-          </div>
+              ))}
+            </ul>
+          ) : (
+            <div className="border-t border-accent-600/25 py-12 text-sm text-ink-500">
+              {t('results.empty')}
+            </div>
+          )}
 
           {totalPages > 1 && (
             <nav
-              aria-label="Publication pagination"
-              className="calcite-box flex flex-col gap-4 px-5 py-5"
+              aria-label={t('pagination.aria')}
+              className="flex flex-col gap-4 border-t border-accent-600/25 pt-7"
             >
               <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                 <div>
-                  <p className="text-sm font-semibold text-ink-800">
-                    Page {currentPage} of {totalPages}
+                  <p className="text-sm font-semibold text-ink-900">
+                    {t('pagination.pageOf', {
+                      current: currentPage,
+                      total: totalPages
+                    })}
                   </p>
-                  <p className="text-xs uppercase tracking-[0.28em] text-ink-400">
-                    Navigate the publication archive
+                  <p className="text-xs uppercase tracking-[0.28em] text-ink-500">
+                    {t('pagination.navigate')}
                   </p>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2">
                   <PaginationButton
-                    label="Previous"
+                    label={tCommon('previous')}
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
                     icon={<ArrowLeft size={16} />}
@@ -617,7 +619,7 @@ const PublicationExplorer = ({
                     item === 'ellipsis' ? (
                       <span
                         key={`ellipsis-${index}`}
-                        className="px-2 text-sm text-ink-400"
+                        className="px-2 text-sm text-ink-500"
                       >
                         ...
                       </span>
@@ -629,8 +631,8 @@ const PublicationExplorer = ({
                         aria-current={item === currentPage ? 'page' : undefined}
                         className={`min-w-11 cursor-pointer rounded-[20px] border px-4 py-3 text-sm font-semibold transition duration-200 ${
                           item === currentPage
-                            ? 'border-rose-400/70 bg-rose-500 text-white shadow-[0_24px_40px_-30px_rgba(168,110,161,0.6)]'
-                            : 'border-black/8 bg-white/85 text-ink-700 hover:border-black/16 hover:bg-white'
+                            ? 'border-primary-400/70 bg-primary-500 text-white shadow-glow-lg'
+                            : 'border-accent-600/25 bg-surface/85 text-ink-700 hover:border-accent-600/45 hover:bg-surface'
                         }`}
                       >
                         {item}
@@ -639,7 +641,7 @@ const PublicationExplorer = ({
                   )}
 
                   <PaginationButton
-                    label="Next"
+                    label={tCommon('next')}
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
                     icon={<ArrowRight size={16} />}
@@ -657,17 +659,18 @@ const PublicationExplorer = ({
 
 type FilterChipProps = {
   label: string;
+  removeLabel: string;
   onClear: () => void;
 };
 
-const FilterChip = ({ label, onClear }: FilterChipProps) => (
-  <span className="inline-flex items-center gap-2 rounded-full border border-rose-200/60 bg-rose-50/80 px-3 py-2 text-xs font-medium text-ink-700">
+const FilterChip = ({ label, removeLabel, onClear }: FilterChipProps) => (
+  <span className="inline-flex items-center gap-2 rounded-full border border-primary-200/60 bg-primary-50/80 px-3 py-2 text-xs font-medium text-ink-700">
     {label}
     <button
       type="button"
       onClick={onClear}
-      className="rounded-full border border-rose-200/70 p-1 text-rose-500 transition duration-200 hover:border-rose-300 hover:text-rose-600"
-      aria-label={`Remove ${label}`}
+      className="rounded-full border border-primary-200/70 p-1 text-primary-500 transition duration-200 hover:border-primary-300 hover:text-primary-600"
+      aria-label={removeLabel}
     >
       <X size={12} />
     </button>
@@ -690,8 +693,8 @@ const YearFilterButton = ({
     onClick={onClick}
     className={`rounded-full border px-3.5 py-2 text-sm font-medium transition duration-200 ${
       active
-        ? 'border-rose-300/70 bg-rose-50 text-rose-700 shadow-[0_16px_30px_-24px_rgba(168,110,161,0.4)]'
-        : 'border-black/8 bg-white/82 text-ink-700 hover:border-black/14 hover:bg-white'
+        ? 'border-primary-300/70 bg-primary-50 text-primary-700 shadow-glow'
+        : 'border-accent-600/25 bg-surface/82 text-ink-700 hover:border-primary-300/60 hover:bg-surface'
     }`}
   >
     {label}
@@ -714,8 +717,8 @@ const AuthorFilterButton = ({
     onClick={onClick}
     className={`rounded-[22px] border px-4 py-3 text-left text-sm font-semibold transition duration-200 ${
       active
-        ? 'border-rose-300/70 bg-rose-50/78 text-ink-900 shadow-[0_20px_36px_-30px_rgba(168,110,161,0.45)]'
-        : 'border-black/8 bg-white/84 text-ink-700 hover:border-black/14 hover:bg-white'
+        ? 'border-primary-300/70 bg-primary-50/78 text-ink-900 shadow-glow'
+        : 'border-accent-600/25 bg-surface/84 text-ink-700 hover:border-primary-300/60 hover:bg-surface'
     }`}
   >
     {label}
@@ -743,8 +746,8 @@ const PaginationButton = ({
     disabled={disabled}
     className={`inline-flex items-center gap-2 rounded-[20px] border px-4 py-3 text-sm font-semibold transition duration-200 ${
       disabled
-        ? 'cursor-not-allowed border-black/6 bg-white/70 text-ink-300'
-        : 'cursor-pointer border-black/8 bg-white/85 text-ink-700 hover:border-black/16 hover:bg-white'
+        ? 'cursor-not-allowed border-accent-600/25 bg-surface/70 text-ink-300'
+        : 'cursor-pointer border-accent-600/25 bg-surface/85 text-ink-700 hover:border-accent-600/45 hover:bg-surface'
     }`}
   >
     {iconPosition === 'left' && icon}

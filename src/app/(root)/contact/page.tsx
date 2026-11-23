@@ -1,89 +1,121 @@
-import { Mail, MapPin, Users } from 'lucide-react';
+import { CONTACT_ADDRESS_LINES, CONTACT_EMAIL } from '@/lib/contact';
+import { ArrowUpRight } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 
-const contactDetails = [
-  {
-    label: 'Email',
-    value: 'admin@sdsc.edu',
-    icon: Mail
-  },
-  {
-    label: 'Visit',
-    value:
-      'Spatial Data Science Center, College of Social Sciences and Public Policy, Florida State University, Tallahassee, FL 32306',
-    icon: MapPin
-  }
-];
+const RULE = 'border-accent-600/25';
 
-export default function Contact() {
+export default async function Contact() {
+  const t = await getTranslations('contact');
+
+  const engagements = [t('engageItem1'), t('engageItem2'), t('engageItem3')];
+
   return (
     <section className="page-shell">
-      <div className="mx-auto max-w-5xl px-6 pb-28 pt-36 text-gold-100 md:pt-40">
-        <header className="text-center">
-          <span className="chip-gold">Connect With Us</span>
-          <h1 className="mt-6 text-4xl font-semibold text-gold-50 text-glow md:text-5xl">
-            Let&apos;s build spatial solutions together
+      <div className="mx-auto max-w-5xl px-6 pb-28 pt-36 md:pt-40">
+        <header className="max-w-3xl">
+          <p className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-accent-700 md:text-xs md:tracking-[0.42em]">
+            <span
+              aria-hidden
+              className="h-px w-10 bg-gradient-to-r from-transparent to-accent-600/55"
+            />
+            {t('chip')}
+          </p>
+          <h1 className="mt-5 text-[2.1rem] font-semibold leading-[1.12] tracking-[-0.025em] text-ink-900 md:text-[3rem] md:leading-[1.06]">
+            {t('title')}
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-sm text-gold-200/80 md:text-base">
-            Whether you are a researcher, student, or community partner, SDSC
-            collaborates on projects that transform spatial data into tangible
-            outcomes. Reach out - we&apos;re ready to help.
+          <p className="mt-6 text-base leading-8 text-ink-700 md:text-lg md:leading-9">
+            {t('intro')}
           </p>
         </header>
 
-        <section className="mt-16 grid gap-6 md:grid-cols-2">
-          {contactDetails.map(({ label, value, icon: Icon }) => (
-            <article
-              key={label}
-              className="glass-card flex items-start gap-4 px-6 py-6 text-gold-100"
-            >
-              <div className="flex h-12 w-12 flex-none items-center justify-center rounded-full border border-garnet-500/40 bg-[#160b29]/20 text-gold-200">
-                <Icon size={22} />
-              </div>
-              <div>
-                <h2 className="text-sm font-semibold uppercase tracking-[0.26em] text-gold-300">
-                  {label}
-                </h2>
-                <p className="mt-2 text-sm leading-6 text-gold-200/80">
-                  {value}
+        {/* The address used to be one run-on comma string and the inbox was
+            plain text. Here the email is the page's primary action. */}
+        <dl
+          className={`mt-16 grid gap-x-14 gap-y-10 border-y ${RULE} py-9 md:grid-cols-2`}
+        >
+          <div>
+            <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-accent-700">
+              {t('emailLabel')}
+            </dt>
+            <dd className="mt-4">
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="group inline-flex items-center gap-3 text-xl font-medium tracking-[-0.01em] text-ink-900 transition-colors duration-300 hover:text-primary-600 md:text-2xl"
+              >
+                {CONTACT_EMAIL}
+                <ArrowUpRight
+                  size={20}
+                  aria-hidden
+                  className="shrink-0 text-primary-600 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                />
+              </a>
+            </dd>
+          </div>
+
+          <div>
+            <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-accent-700">
+              {t('visitLabel')}
+            </dt>
+            <dd className="mt-4">
+              <address className="text-sm not-italic leading-7 text-ink-700">
+                {CONTACT_ADDRESS_LINES.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
+              </address>
+            </dd>
+          </div>
+        </dl>
+
+        <section className="mt-20">
+          <h2 className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.34em] text-accent-700 md:tracking-[0.4em]">
+            <span
+              aria-hidden
+              className="h-px w-10 bg-gradient-to-r from-transparent to-accent-600/55"
+            />
+            {t('engageTitle')}
+          </h2>
+
+          <ol className="mt-8">
+            {engagements.map((item, index) => (
+              <li
+                key={item}
+                className={`grid gap-x-8 border-t ${RULE} py-6 sm:grid-cols-[3rem_1fr]`}
+              >
+                <span
+                  aria-hidden
+                  className="hidden text-[0.7rem] font-semibold tabular-nums tracking-[0.18em] text-primary-600 sm:block"
+                >
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <p className="max-w-2xl text-base leading-8 text-ink-900">
+                  {item}
                 </p>
-              </div>
-            </article>
-          ))}
+              </li>
+            ))}
+          </ol>
         </section>
 
-        <section className="mt-16 grid gap-6 md:grid-cols-[1.2fr_1fr] text-gold-100">
-          <article className="surface-fade px-8 py-10">
-            <h2 className="panel-title text-gold-300">Engage with SDSC</h2>
-            <ul className="mt-6 space-y-4 text-sm text-gold-200/80">
-              <li className="custom-li">
-                Schedule a consultation for research collaborations or sponsored
-                projects.
-              </li>
-              <li className="custom-li">
-                Host a workshop or guest lecture focused on spatial analytics
-                and MGWR.
-              </li>
-              <li className="custom-li">
-                Partner with our graduate studios for immersive design sprints.
-              </li>
-            </ul>
-          </article>
-
-          <article className="glass-card flex flex-col gap-4 px-6 py-8 text-gold-100">
-            <div className="flex items-center gap-3 text-gold-200">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-garnet-500/40 bg-[#160b29]/10">
-                <Users size={22} />
-              </div>
-              <h3 className="text-lg font-semibold text-gold-50">
-                Graduate Student Opportunities
-              </h3>
-            </div>
-            <p className="text-sm leading-6 text-gold-200/80">
-              SDSC offers assistantships, studio projects, and mentoring for
-              students passionate about spatial data science. Email us to learn
-              about current openings and how to get involved.
-            </p>
-          </article>
+        <section className={`mt-20 border-t ${RULE} pt-10`}>
+          <h2 className="max-w-2xl text-2xl font-semibold tracking-[-0.02em] text-ink-900 md:text-[2rem] md:leading-[1.15]">
+            {t('gradTitle')}
+          </h2>
+          <p className="mt-5 max-w-2xl text-base leading-8 text-ink-700">
+            {t('gradDescription')}
+          </p>
+          {/* The copy tells students to email; give them the link to do it. */}
+          <a
+            href={`mailto:${CONTACT_EMAIL}`}
+            className="group mt-8 inline-flex items-center gap-2 rounded-full border border-primary-400/70 bg-primary-500/90 px-6 py-3 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-white transition duration-300 hover:bg-primary-600"
+          >
+            {t('emailLabel')}
+            <ArrowUpRight
+              size={16}
+              aria-hidden
+              className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            />
+          </a>
         </section>
       </div>
     </section>

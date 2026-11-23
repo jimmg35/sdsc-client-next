@@ -24,8 +24,8 @@ const Avatar = ({
           'border',
           'border-white/85',
           'ring-2',
-          'ring-rose-200/45',
-          'shadow-[0_16px_28px_-20px_rgba(44,36,32,0.28)]',
+          'ring-primary-200/45',
+          'shadow-lift-sm',
           'transition-transform',
           'duration-300'
         ]
@@ -34,10 +34,10 @@ const Avatar = ({
           'aspect-square',
           'object-cover',
           'border-2',
-          'border-garnet-500/60',
+          'border-primary-500/60',
           'ring-4',
-          'ring-gold-400/30',
-          'shadow-[0_32px_60px_-34px_rgba(124,74,158,0.55)]',
+          'ring-accent-400/30',
+          'shadow-glow-lg',
           'transition-transform',
           'duration-300'
         ];
