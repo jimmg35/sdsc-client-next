@@ -1,13 +1,10 @@
+import { CONTACTS } from '@/lib/contact';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 
-const CONTACTS = [
-  { key: 'academic', email: 'stewart.fotheringham@fsu.edu' },
-  { key: 'administrative', email: 'clgoodwin@fsu.edu' }
-] as const;
-
 const DirectorMessage = async () => {
   const t = await getTranslations('home.director');
+  const tContact = await getTranslations('contactEmails');
 
   return (
     <section className="surface-fade relative overflow-hidden rounded-none px-6 py-20 md:px-16 md:py-28">
@@ -81,7 +78,7 @@ const DirectorMessage = async () => {
             <ul className="mt-4 text-left text-base leading-8 text-ink-700 md:text-lg md:leading-9">
               {CONTACTS.map(({ key, email }) => (
                 <li key={key}>
-                  {t(`contacts.${key}`)}{' '}
+                  {tContact(key)}{' '}
                   <a
                     href={`mailto:${email}`}
                     className="font-medium text-ink-900 transition-colors duration-300 hover:text-primary-600"
