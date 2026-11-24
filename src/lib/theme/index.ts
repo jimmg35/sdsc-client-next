@@ -28,6 +28,21 @@ export const SITE_PALETTE: Palette = 'dusk';
 const DARK_QUERY = '(prefers-color-scheme: dark)';
 
 /**
+ * Dark mode is switched off for now: the site always paints light and the
+ * navbar has no theme toggle. The dark palettes in theme.css, the `dark:`
+ * utilities and ThemeToggle are all still in place, so turning it back on is
+ * setting this to true and putting <ThemeToggle /> back in the NavBar.
+ */
+const DARK_MODE_ENABLED = false;
+
+/** Follows the system setting until the reader picks a theme. */
+const darkModeScript = `try{var t=${JSON.stringify(
+  THEME_STORAGE_KEY
+)},m=window.matchMedia(${JSON.stringify(
+  DARK_QUERY
+)}),a=function(){var s=null;try{s=localStorage.getItem(t)}catch(e){}d.classList.toggle("dark",s==="dark"||(s!=="light"&&m.matches))};a();m.addEventListener?m.addEventListener("change",a):m.addListener(a)}catch(e){}`;
+
+/**
  * Runs blocking in <head>, before first paint. The site is a static export, so
  * the server cannot know the reader's theme — without this the page would
  * always paint light and then flip, flashing on every navigation. Deliberately
@@ -42,11 +57,9 @@ const DARK_QUERY = '(prefers-color-scheme: dark)';
  * tab's session so it survives navigation, and `?palette=` with no value (or
  * an unknown name) drops back to SITE_PALETTE.
  */
-export const themeInitScript = `(function(){var d=document.documentElement;try{var t=${JSON.stringify(
-  THEME_STORAGE_KEY
-)},m=window.matchMedia(${JSON.stringify(
-  DARK_QUERY
-)}),a=function(){var s=null;try{s=localStorage.getItem(t)}catch(e){}d.classList.toggle("dark",s==="dark"||(s!=="light"&&m.matches))};a();m.addEventListener?m.addEventListener("change",a):m.addListener(a)}catch(e){}try{var k=${JSON.stringify(
+export const themeInitScript = `(function(){var d=document.documentElement;${
+  DARK_MODE_ENABLED ? darkModeScript : ''
+}try{var k=${JSON.stringify(
   PALETTE_STORAGE_KEY
 )},l=${JSON.stringify(PALETTES)},q=new URLSearchParams(location.search);if(q.has("palette")){var p=q.get("palette");if(l.indexOf(p)>-1){sessionStorage.setItem(k,p)}else{sessionStorage.removeItem(k)}}var s=sessionStorage.getItem(k);if(s&&l.indexOf(s)>-1){d.setAttribute("data-palette",s)}}catch(e){}})();`;
 

@@ -3,7 +3,6 @@
 // import NotificationBanner from '@/components/Layout/NotificationBanner';
 import NavNotice from '@/components/Layout/NavNotice';
 import OfficialSiteBar from '@/components/Layout/OfficialSiteBar';
-import ThemeToggle from '@/components/Layout/ThemeToggle';
 import easternEgg from '@/lib/easterneggs';
 import {
   AppWindowMac,
@@ -243,8 +242,6 @@ const Navbar = () => {
                 );
               })}
             </ul>
-            <span aria-hidden className="h-5 w-px bg-accent-600/25" />
-            <ThemeToggle />
           </div>
 
           <button
@@ -336,7 +333,6 @@ const Navbar = () => {
               </ul>
 
               <div className="mt-4 flex items-center gap-3 border-t border-accent-600/15 pt-4">
-                <ThemeToggle variant="mobile" />
                 <Link
                   href="/contact"
                   className="inline-flex h-11 flex-1 items-center justify-center rounded-full border border-accent-300 bg-accent-200/90 px-4 text-xs font-semibold uppercase tracking-[0.24em] text-accent-800 transition hover:bg-accent-200"

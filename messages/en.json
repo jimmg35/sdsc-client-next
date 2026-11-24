@@ -59,10 +59,6 @@
       "eyebrow": "Message from the Director",
       "p1": "Welcome to the Spatial Data Science Center (SDSC) where solutions to many of the World's most pressing problems are being forged through the development of sophisticated statistical methods and the application of new approaches such as GeoAI and machine learning. Our expertise extends to all types of domain areas including health, transportation, voting, crime, housing, retailing, and the environment. <strong>Our work is built on the fundamental principle that understanding where these challenges occur is the key to understanding why they occur and how to solve them.</strong>",
       "p2": "The SDSC aims to be a focal point for all the great work that is taking place in spatial data science across many departments at FSU. Whether you're a faculty member wanting to pursue joint research or a funding application, or are interested in becoming an affiliate, or a representative of a government department or private firm needing consulting assistance, or a student interested in being involved in SDSC activities, contact us at the following:",
-      "contacts": {
-        "academic": "For academic issues:",
-        "administrative": "For administrative issues:"
-      },
       "role": "Founding Director"
     },
     "news": {
@@ -406,6 +402,10 @@
     "engageItem3": "Partner with our graduate studios for immersive design sprints.",
     "gradTitle": "Graduate Student Opportunities",
     "gradDescription": "SDSC offers assistantships, studio projects, and mentoring for students passionate about spatial data science. Email us to learn about current openings and how to get involved."
+  },
+  "contactEmails": {
+    "academic": "For academic issues:",
+    "administrative": "For administrative issues:"
   },
   "events": {
     "chip": "Events",
