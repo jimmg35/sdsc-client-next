@@ -1,4 +1,8 @@
-import { CONTACT_ADDRESS_LINES, CONTACT_EMAIL } from '@/lib/contact';
+import {
+  ACADEMIC_EMAIL,
+  CONTACT_ADDRESS_LINES,
+  CONTACTS
+} from '@/lib/contact';
 import { ArrowUpRight } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 
@@ -6,6 +10,7 @@ const RULE = 'border-accent-600/25';
 
 export default async function Contact() {
   const t = await getTranslations('contact');
+  const tContact = await getTranslations('contactEmails');
 
   const engagements = [t('engageItem1'), t('engageItem2'), t('engageItem3')];
 
@@ -37,19 +42,24 @@ export default async function Contact() {
             <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-accent-700">
               {t('emailLabel')}
             </dt>
-            <dd className="mt-4">
-              <a
-                href={`mailto:${CONTACT_EMAIL}`}
-                className="group inline-flex items-center gap-3 text-xl font-medium tracking-[-0.01em] text-ink-900 transition-colors duration-300 hover:text-primary-600 md:text-2xl"
-              >
-                {CONTACT_EMAIL}
-                <ArrowUpRight
-                  size={20}
-                  aria-hidden
-                  className="shrink-0 text-primary-600 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                />
-              </a>
-            </dd>
+            {CONTACTS.map(({ key, email }) => (
+              <dd key={key} className="mt-4">
+                <span className="block text-sm text-ink-700">
+                  {tContact(key)}
+                </span>
+                <a
+                  href={`mailto:${email}`}
+                  className="group mt-1 inline-flex max-w-full items-center gap-3 text-lg font-medium tracking-[-0.01em] text-ink-900 transition-colors duration-300 hover:text-primary-600 md:text-xl"
+                >
+                  <span className="min-w-0 break-words">{email}</span>
+                  <ArrowUpRight
+                    size={20}
+                    aria-hidden
+                    className="shrink-0 text-primary-600 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  />
+                </a>
+              </dd>
+            ))}
           </div>
 
           <div>
@@ -104,9 +114,10 @@ export default async function Contact() {
           <p className="mt-5 max-w-2xl text-base leading-8 text-ink-700">
             {t('gradDescription')}
           </p>
-          {/* The copy tells students to email; give them the link to do it. */}
+          {/* The copy tells students to email; give them the link to do it.
+              Graduate opportunities are an academic matter. */}
           <a
-            href={`mailto:${CONTACT_EMAIL}`}
+            href={`mailto:${ACADEMIC_EMAIL}`}
             className="group mt-8 inline-flex items-center gap-2 rounded-full border border-primary-400/70 bg-primary-500/90 px-6 py-3 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-white transition duration-300 hover:bg-primary-600"
           >
             {t('emailLabel')}

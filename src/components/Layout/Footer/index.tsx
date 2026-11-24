@@ -1,4 +1,4 @@
-import { CONTACT_ADDRESS_LINES, CONTACT_EMAIL } from '@/lib/contact';
+import { CONTACT_ADDRESS_LINES, CONTACTS } from '@/lib/contact';
 import { ArrowUpRight, Mail, MapPin } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
@@ -14,13 +14,14 @@ const quickLinks = [
 ];
 
 /** Build marker shown in the footer bar, bumped with each release. */
-const BUILD_VERSION = 'b0.20261123.291';
+const BUILD_VERSION = 'b0.20261123.292';
 
 const RULE = 'border-accent-600/25';
 
 const Footer = async () => {
   const t = await getTranslations('footer');
   const tNav = await getTranslations('nav');
+  const tContact = await getTranslations('contactEmails');
 
   return (
     <footer
@@ -86,19 +87,26 @@ const Footer = async () => {
                   ))}
                 </span>
               </p>
-              <p className="flex items-center gap-3">
-                <Mail
-                  size={17}
-                  aria-hidden
-                  className="shrink-0 text-primary-600"
-                />
-                <a
-                  href={`mailto:${CONTACT_EMAIL}`}
-                  className="transition-colors duration-300 hover:text-primary-600"
-                >
-                  {CONTACT_EMAIL}
-                </a>
-              </p>
+              {CONTACTS.map(({ key, email }) => (
+                <p key={key} className="flex items-start gap-3">
+                  <Mail
+                    size={17}
+                    aria-hidden
+                    className="mt-1 shrink-0 text-primary-600"
+                  />
+                  <span className="min-w-0">
+                    <span className="block text-ink-500">
+                      {tContact(key)}
+                    </span>
+                    <a
+                      href={`mailto:${email}`}
+                      className="break-words transition-colors duration-300 hover:text-primary-600"
+                    >
+                      {email}
+                    </a>
+                  </span>
+                </p>
+              ))}
             </address>
           </div>
         </div>
