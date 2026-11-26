@@ -369,7 +369,7 @@ export default function StoryModal({
         >
           {/* The ground: the artwork itself blurred out to fill the frame, or,
               when a story has none, the lead member's portrait treated the
-              same way under the hero's contour rings. Either way the panel
+              same way under the hero's contour lines. Either way the panel
               carries the story's own colour instead of going black. */}
           <div
             key={`${currentStory.slug}-ground`}
