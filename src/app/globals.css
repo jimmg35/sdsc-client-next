@@ -345,15 +345,15 @@
       );
   }
 
-  /* The ground for a story with no artwork of its own: the contour rings the
-     hero lays over its heatmap, centred on the portraits that stand in for
+  /* The ground for a story with no artwork of its own: the contour map the
+     hero lays over its heatmap, its summit on the portraits that stand in for
      the missing picture, instead of a flat black panel. */
   .story-contours {
-    background-image: repeating-radial-gradient(
-      circle at 50% 42%,
-      rgba(255, 255, 255, 0.07) 0 1px,
-      transparent 1px 44px
-    );
+    background-image: url('/img/contours/hero-contours.svg');
+    background-size: cover;
+    /* On a portrait panel this puts the summit (68% across the SVG) near
+       the middle, where the portraits sit. */
+    background-position: 76% 50%;
     -webkit-mask-image: radial-gradient(
       70% 64% at 50% 42%,
       #000 18%,
@@ -515,14 +515,15 @@
     filter: saturate(0.8);
   }
 
-  /* Faint contour rings over the photograph — cartographic texture that gives
-     the flat areas of the crop something to hold. */
+  /* Faint topographic contour lines over the photograph — cartographic
+     texture that gives the flat areas of the crop something to hold. The
+     summit sits at 68% 50%, over the heatmap; every fifth line is a heavier
+     index contour, as on a survey map. The SVG is generated (1600x900,
+     non-scaling 1px strokes) and slices to cover like a photo. */
   .hero-weave {
-    background-image: repeating-radial-gradient(
-      circle at 68% 50%,
-      rgba(255, 255, 255, 0.055) 0 1px,
-      transparent 1px 58px
-    );
+    background-image: url('/img/contours/hero-contours.svg');
+    background-size: cover;
+    background-position: center;
     -webkit-mask-image: radial-gradient(
       82% 78% at 60% 50%,
       #000 10%,
