@@ -14,7 +14,7 @@ const quickLinks = [
 ];
 
 /** Build marker shown in the footer bar, bumped with each release. */
-const BUILD_VERSION = 'b0.20261123.292';
+const BUILD_VERSION = 'b0.20261125.293';
 
 const RULE = 'border-accent-600/25';
 
